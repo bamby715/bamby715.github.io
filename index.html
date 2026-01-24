@@ -151,22 +151,22 @@
 
         
         /* ====== 顶部导航 ====== */
-        .main-header {
-            background: var(--color-white);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin-bottom: 32px;
-        }
-        
-        /* 修复主标题完全居中 */
+       /* ====== 顶部导航 ====== */
+.main-header {
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-bottom: 32px;
+}
+
+/* PC端：主标题居中，主题按钮在右侧 */
 .header-content {
     display: flex;
-    justify-content: center; /* 核心修改：从 space-between 改为 center */
+    justify-content: center; /* 主标题居中 */
     align-items: center;
     padding: 20px 0;
-    flex-wrap: wrap;
     position: relative; /* 为绝对定位子元素提供参考 */
 }
 
@@ -175,69 +175,54 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    /* 不再需要 justify-content: center; */
+    flex: 1; /* 占用可用空间 */
 }
 
 .theme-toggle {
-    position: absolute; /* 绝对定位 */
-    right: 0; /* 固定在右侧 */
-    top: 50%; /* 垂直居中 */
-    transform: translateY(-50%); /* 微调垂直位置 */
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-/* 移动端适配 */
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-primary-dark);
+    letter-spacing: 1px;
+    font-weight: normal;
+}
+
+.logo-sub {
+    font-size: 0.85rem;
+    color: var(--color-gray-900);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+/* 移动端：垂直堆叠 */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 16px;
-    }
-    
     .header-content {
         flex-direction: column;
         gap: 16px;
         text-align: center;
-        justify-content: center;
     }
     
-    /* 确保logo在上面 */
     .logo {
         order: 1;
         width: 100%;
         margin-bottom: 0;
     }
     
-    /* 确保主题按钮在下面 */
     .theme-toggle {
-        order: 2;
         position: static !important;
         transform: none !important;
-        top: auto !important;
-        right: auto !important;
+        order: 2;
         width: 100%;
         justify-content: center;
         margin-top: 0;
     }
-    
-    .main-nav {
-        justify-content: center;
-    }
-    
-    .works-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .profile-card {
-        padding: 24px;
-    }
-    
-    .channels-grid {
-        grid-template-columns: 1fr;
-    }
 }
-        
         .logo-text {
             font-family: var(--font-heading);
             font-size: 2rem;
@@ -665,42 +650,60 @@
             opacity: 0.9;
         }
         
-        /* ====== 页脚 ====== */
-        .main-footer {
-            margin-top: 60px;
-            background: var(--color-white);
-            border-top: 1px solid var(--color-gray-200);
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-            margin-bottom: 32px;
-        }
-        
-        .footer-section h4 {
-            color: var(--color-gray-900);
-            margin-bottom: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        
-        .footer-section p {
-            color: var(--color-gray-600);
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--color-gray-200);
-            color: var(--color-gray-500);
-            font-size: 0.9rem;
-        }
-        
+       /* ====== 页脚 ====== */
+.main-footer {
+    margin-top: 60px;
+    background: var(--color-white);
+    border-top: 1px solid var(--color-gray-200);
+    padding: 40px 0 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+    margin-bottom: 32px;
+    text-align: center; /* 添加这行使所有内容居中 */
+}
+
+.footer-section {
+    text-align: center; /* 确保每个部分都居中 */
+}
+
+.footer-section h4 {
+    color: var(--color-gray-900);
+    margin-bottom: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center; /* 标题居中 */
+}
+
+.footer-section p {
+    color: var(--color-gray-600);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    text-align: center; /* 段落居中 */
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-gray-200);
+    color: var(--color-gray-500);
+    font-size: 0.9rem;
+}
+
+/* 移动端页脚修复 */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .footer-section {
+        padding: 0 16px;
+    }
+}
         /* ====== 模态框 ====== */
         .modal-overlay {
             position: fixed;
@@ -902,6 +905,8 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--color-primary);
         }
+
+        
       </style>
     </head>
     <body>
