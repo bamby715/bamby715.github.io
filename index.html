@@ -160,44 +160,57 @@
             margin-bottom: 32px;
         }
         
-        .header-content {
+        /* 修复主标题完全居中 */
+.header-content {
     display: flex;
-    justify-content: center; /* ✅ 改为 center 居中 */
+    justify-content: center; /* 核心修改：从 space-between 改为 center */
     align-items: center;
     padding: 20px 0;
     flex-wrap: wrap;
-    position: relative; /* 添加相对定位 */
+    position: relative; /* 为绝对定位子元素提供参考 */
 }
-        
-/* 修复主标题居中 - 不影响JavaScript */
+
 .logo {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 水平居中 */
-    text-align: center;  /* 文本居中 */
-    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* 不再需要 justify-content: center; */
 }
 
-/* 确保在移动端也居中 */
+.theme-toggle {
+    position: absolute; /* 绝对定位 */
+    right: 0; /* 固定在右侧 */
+    top: 50%; /* 垂直居中 */
+    transform: translateY(-50%); /* 微调垂直位置 */
+}
+
+/* 移动端适配 */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        gap: 16px;
+        position: relative; /* 确保相对定位 */
     }
     
     .logo {
         margin-bottom: 16px;
         width: 100%;
+        order: 1; /* 确保logo在最前面 */
     }
     
     .theme-toggle {
-    display: flex;
-    gap: 8px;
-    position: absolute; /* 使用绝对定位 */
-    right: 0; /* 固定在右侧 */
-    top: 50%; /* 垂直居中 */
-    transform: translateY(-50%); /* 精确居中 */
-}
+        justify-content: center;
+        width: 100%;
+        position: static !important; /* 强制恢复静态定位 */
+        transform: none !important; /* 移除transform */
+        top: auto !important;
+        right: auto !important;
+        margin-top: 0;
+        order: 2; /* 主题按钮在logo下面 */
+    }
 }
         
         .logo-text {
