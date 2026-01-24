@@ -187,29 +187,54 @@
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    
     .header-content {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
         gap: 16px;
-        position: relative; /* 确保相对定位 */
-    }
-    
-    .logo {
-        margin-bottom: 16px;
-        width: 100%;
-        order: 1; /* 确保logo在最前面 */
-    }
-    
-    .theme-toggle {
+        text-align: center;
         justify-content: center;
+    }
+    
+    /* 确保logo在上面 */
+    .logo {
+        order: 1;
         width: 100%;
-        position: static !important; /* 强制恢复静态定位 */
-        transform: none !important; /* 移除transform */
+        margin-bottom: 0;
+    }
+    
+    /* 确保主题按钮在下面 */
+    .theme-toggle {
+        order: 2;
+        position: static !important;
+        transform: none !important;
         top: auto !important;
         right: auto !important;
+        width: 100%;
+        justify-content: center;
         margin-top: 0;
-        order: 2; /* 主题按钮在logo下面 */
+    }
+    
+    .main-nav {
+        justify-content: center;
+    }
+    
+    .works-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-card {
+        padding: 24px;
+    }
+    
+    .channels-grid {
+        grid-template-columns: 1fr;
     }
 }
         
