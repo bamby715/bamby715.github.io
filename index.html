@@ -567,6 +567,67 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+          /* ====== 页脚和按钮修复 ====== */
+
+/* 确保footer完全居中 */
+.footer-content {
+    text-align: center;
+    justify-items: center; /* 确保网格项居中 */
+}
+
+.footer-section {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px 0;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.footer-bottom p {
+    text-align: center;
+    margin: 0 auto 5px;
+    display: block;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .main-footer {
+        padding: 40px 16px 100px; /* 增加底部内边距，防止被遮挡 */
+        margin-bottom: 0;
+    }
+    
+    .footer-content {
+        padding: 0 10px;
+    }
+    
+    .footer-section {
+        padding: 0;
+    }
+    
+    .footer-bottom {
+        padding: 20px 10px 40px; /* 增加底部空间 */
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* 回到顶部按钮调整 */
+    .back-to-top {
+        bottom: 80px; /* 调高位置 */
+        right: 20px;
+        z-index: 101;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 确保内容不被手机底部栏遮挡 */
+    body {
+        padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+}
         }
     </style>
 </head>
@@ -850,6 +911,32 @@
                 <!-- 翻跳作品区域 -->
                 <div class="sub-section" data-subtab="dance">
                     <h3 class="section-title mb-4">💃 翻跳作品</h3>
+                  <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg" alt="翻跳作品" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Ditto》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2023-03-03</span>
+                                </div>
+                                <p class="work-desc">《Ditto》 - NewJeans</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6ONqqvk" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1XM4y1R7EL/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="works-grid">
                         <div class="work-card">
                             <div class="work-image-container">
@@ -858,7 +945,7 @@
                             <div class="work-content">
                                 <h3 class="work-title">《姐姐真漂亮》（横版）</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">翻跳</span>
+                                    <span class="work-type">2023-07-10</span>
                                 </div>
                                 <p class="work-desc">《누난너무예뻐(Replay) 》 - SHINee</p>
                                 <div class="channels-section">
@@ -925,19 +1012,20 @@
                     <div class="works-grid">
                         <div class="work-card">
                             <div class="work-image-container" onclick="openImageGallery('concept-set-1')">
-                                <img src="https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg" 
+                                <img src="https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg" 
                                      alt="概念照合集1" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">官方概念照合集 - 系列1</h3>
+                                <h3 class="work-title">首张单曲专辑 《ASTERUM》
+</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">官方发布</span>
+                                    <span class="work-type">2023-03-07</span>
                                 </div>
-                                <p class="work-desc">Bamby官方发布的高清概念照片系列1</p>
+                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
                                 <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('concept-set-1')">
                                     <i class="fas fa-eye"></i>
-                                    查看图片集 (8张)
+                                    查看图片集 (3张)
                                 </button>
                             </div>
                         </div>
@@ -1095,7 +1183,7 @@
             </div>
             <div class="footer-bottom">
                 <p>Made with <i class="fas fa-heart" style="color: var(--color-primary-dark);"></i> by Bamby Fans</p>
-                <p style="margin-top: 8px; font-size: 0.8rem;">最后更新：2024年10月</p>
+                <p style="margin-top: 8px; font-size: 0.8rem;">最后更新：2026年01月</p>
             </div>
         </footer>
     </div>
@@ -1132,10 +1220,9 @@
         // 图片画廊数据（你需要在这里添加真实的图片链接）
         const imageGalleries = {
             'concept-set-1': [
-                'https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg',
-                'https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg',
-                'https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg',
-                'https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg'
+                'https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg',
+                'https://s2.loli.net/2026/01/25/6kDpuFfl7ySW1C2.jpg',
+                'https://s2.loli.net/2026/01/25/CUPGtI2aFrqvcse.jpg'
                 // 添加更多图片链接...
             ],
             'concept-set-2': [
