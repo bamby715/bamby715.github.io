@@ -101,7 +101,7 @@
             min-height: 100vh;
             transition: background-color var(--transition-normal);
         }
-}
+
         
         .container {
             max-width: 1280px;
@@ -168,11 +168,32 @@
             flex-wrap: wrap;
         }
         
-        .logo {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+/* 修复主标题居中 - 不影响JavaScript */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    text-align: center;  /* 文本居中 */
+    justify-content: center;
+}
+
+/* 确保在移动端也居中 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .logo {
+        margin-bottom: 16px;
+        width: 100%;
+    }
+    
+    .theme-toggle {
+        justify-content: center;
+        width: 100%;
+    }
+}
         
         .logo-text {
             font-family: var(--font-heading);
@@ -180,6 +201,7 @@
             color: var(--color-primary-dark);
             letter-spacing: 1px;
             font-weight: normal;
+          
         }
         
         .logo-sub {
@@ -2028,7 +2050,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 控制台欢迎信息
         console.log('%c✨ 蔡丰玖·BAMBY安利手册 ✨', 'color: #FF9EBD; font-size: 16px; font-weight: bold;');
-        console.log('%c版本：高级简约版 | 设计：高级浅粉色系', 'color: #9E9E9E;');
+        console.log('%c蔡斑比 | BAMBY', 'color: #9E9E9E;');
     </script>
                                                                                 </body>
                                                                               </html>
