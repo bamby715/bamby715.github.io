@@ -1,40 +1,1246 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>bamby的安利站</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>蔡丰玖·BAMBY安利手册</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
+        /* ====== 可爱粉色主题 ====== */
+        :root {
+            --pink-soft: #FFF0F5;
+            --pink-light: #FFD6E7;
+            --pink-main: #FF85B3;
+            --pink-dark: #E65C8B;
+            --pink-deep: #CC3D73;
+            --gray-light: #F8F9FA;
+            --gray-medium: #E9ECEF;
+            --gray-dark: #6C757D;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --shadow-soft: 0 4px 15px rgba(255, 133, 179, 0.1);
+            --shadow-medium: 0 8px 25px rgba(255, 133, 179, 0.15);
+            --radius-small: 10px;
+            --radius-medium: 16px;
+            --radius-large: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #FFF5F9 0%, #FFF0F5 50%, #F8F0FF 100%);
+            color: var(--text-primary);
             line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .item {
-            border: 1px solid #eee;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        img {
-            max-width: 100%;
+        
+        /* ====== 头部样式 ====== */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FB 100%);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            border: 1px solid rgba(255, 214, 231, 0.5);
+        }
+        
+        .logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--pink-dark);
+            font-weight: 400;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        
+        .subtitle::before,
+        .subtitle::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pink-main);
+            font-size: 0.9rem;
+        }
+        
+        .subtitle::before {
+            left: 0;
+        }
+        
+        .subtitle::after {
+            right: 0;
+        }
+        
+        /* ====== 导航栏 ====== */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding: 0 10px;
+        }
+        
+        .nav-tab {
+            padding: 12px 28px;
+            background: var(--white);
+            border: 2px solid var(--pink-light);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--pink-dark);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-main));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-tab:hover {
+            color: white;
+            border-color: var(--pink-main);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .nav-tab:hover::before {
+            width: 100%;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            color: white;
+            border-color: var(--pink-main);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        /* ====== 内容区域 ====== */
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ====== 卡片样式 ====== */
+        .card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FB 100%);
+            border-radius: var(--radius-medium);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 214, 231, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--pink-main), var(--pink-light));
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--pink-light);
+        }
+        
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-main));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 133, 179, 0.2);
+        }
+        
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--pink-dark);
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .card-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: var(--pink-main);
+            border-radius: 2px;
+        }
+        
+        /* ====== 基本信息网格 ====== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #FFF9FB 0%, #FFF0F5 100%);
+            border-radius: var(--radius-small);
+            border: 1px solid rgba(255, 214, 231, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateX(5px);
+            border-color: var(--pink-main);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--pink-dark);
+            min-width: 100px;
+            font-size: 0.95rem;
+        }
+        
+        .info-value {
+            color: var(--text-secondary);
+            flex: 1;
+        }
+        
+        /* ====== 作品卡片 ====== */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .work-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FB 100%);
+            border-radius: var(--radius-medium);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 214, 231, 0.3);
+            position: relative;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--pink-main);
+        }
+        
+        .work-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .work-card:hover .work-image {
+            transform: scale(1.05);
+        }
+        
+        .work-content {
+            padding: 22px;
+        }
+        
+        .work-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--pink-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .work-type {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-main));
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(255, 133, 179, 0.2);
+        }
+        
+        .work-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+        
+        .work-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-small);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .work-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 133, 179, 0.3);
+        }
+        
+        /* ====== 链接列表 ====== */
+        .link-list {
+            list-style: none;
+        }
+        
+        .link-item {
+            margin-bottom: 16px;
+            padding: 18px;
+            background: linear-gradient(135deg, #FFF9FB 0%, #FFF0F5 100%);
+            border-radius: var(--radius-small);
+            border: 1px solid rgba(255, 214, 231, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--pink-main), var(--pink-light));
+        }
+        
+        .link-item:hover {
+            transform: translateX(8px);
+            border-color: var(--pink-main);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .link-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--pink-dark);
+            font-size: 1.05rem;
+        }
+        
+        .link-url {
+            color: var(--pink-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            word-break: break-all;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .link-url::before {
+            content: '🔗';
+            font-size: 0.8rem;
+        }
+        
+        .link-url:hover {
+            color: var(--pink-dark);
+            text-decoration: underline;
+        }
+        
+        .link-date {
+            font-size: 0.85rem;
+            color: var(--gray-dark);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* ====== 图片网格 ====== */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .photo-item {
+            position: relative;
+            border-radius: var(--radius-small);
+            overflow: hidden;
+            height: 200px;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE6EF 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--pink-main);
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .photo-item:hover img {
+            transform: scale(1.08);
+        }
+        
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(230, 92, 139, 0.9));
+            color: white;
+            padding: 12px;
+            font-size: 0.9rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover .photo-label {
+            transform: translateY(0);
+        }
+        
+        /* ====== 标签样式 ====== */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--pink-light), var(--pink-main));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 133, 179, 0.3);
+            border-color: white;
+        }
+        
+        .tag.blue { 
+            background: linear-gradient(135deg, #B3E5FC, #4FC3F7); 
+            color: #0277BD; 
+            border-color: #B3E5FC;
+        }
+        
+        .tag.purple { 
+            background: linear-gradient(135deg, #E1BEE7, #BA68C8); 
+            color: #7B1FA2; 
+            border-color: #E1BEE7;
+        }
+        
+        .tag.yellow { 
+            background: linear-gradient(135deg, #FFF9C4, #FFEE58); 
+            color: #F57F17; 
+            border-color: #FFF9C4;
+        }
+        
+        /* ====== 按钮组 ====== */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-small);
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--pink-dark), var(--pink-deep));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 133, 179, 0.3);
+        }
+        
+        .button:hover::before {
+            width: 100%;
+        }
+        
+        .button.secondary {
+            background: linear-gradient(135deg, var(--pink-light), #FFB6C1);
+            color: var(--pink-dark);
+        }
+        
+        .button.secondary::before {
+            background: linear-gradient(135deg, #FFB6C1, var(--pink-light));
+        }
+        
+        /* ====== 回到顶部按钮 ====== */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-medium);
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .back-to-top:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 133, 179, 0.4);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* ====== 页脚 ====== */
+        .footer {
+            text-align: center;
+            padding: 35px;
+            margin-top: 60px;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 214, 231, 0.5);
+            position: relative;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9FB 100%);
+            border-radius: var(--radius-medium);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .footer::before {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pink-main);
+            font-size: 1.2rem;
+            background: #FFF0F5;
+            padding: 0 20px;
+        }
+        
+        /* ====== 响应式设计 ====== */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.2rem; }
+            .nav-tab { padding: 10px 20px; font-size: 0.9rem; }
+            .card { padding: 25px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .work-grid { grid-template-columns: 1fr; }
+            .photo-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .button-group { flex-direction: column; }
+            .button-group .button { width: 100%; justify-content: center; }
+        }
+        
+        /* ====== 加载动画 ====== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--pink-light);
+            border-radius: 50%;
+            border-top-color: var(--pink-main);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ====== 滚动条美化 ====== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--pink-soft);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--pink-light), var(--pink-main));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--pink-main), var(--pink-dark));
         }
     </style>
 </head>
 <body>
-    <h1>🎉 欢迎来到bamby的安利站！</h1>
-    <p>这里是收集的各种安利内容～</p>
-    
-    <div class="item">
-        <h2>《作品名称》</h2>
-        <img src="https://picsum.photos/600/300" alt="作品图片">
-        <p><strong>安利理由：</strong>这里是你的推荐理由，可以写得很详细。</p>
-        <p><strong>观看链接：</strong> <a href="#">点击这里</a></p>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1 class="logo">蔡丰玖·BAMBY</h1>
+            <p class="subtitle">安利手册 | 最全资源整理汇总</p>
+            
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="basic">基本信息</button>
+                <button class="nav-tab" data-tab="predebut">出道前作品</button>
+                <button class="nav-tab" data-tab="postdebut">出道后作品</button>
+                <button class="nav-tab" data-tab="photos">概念照/个人照</button>
+                <button class="nav-tab" data-tab="behind">幕后/花絮</button>
+                <button class="nav-tab" data-tab="live">直播/电台</button>
+                <button class="nav-tab" data-tab="fansign">签售/活动</button>
+                <button class="nav-tab" data-tab="links">所有链接</button>
+            </div>
+        </header>
+        
+        <!-- 基本信息 -->
+        <div id="basic" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-user"></i></div>
+                    <h2 class="card-title">个人信息</h2>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">姓名：</span>
+                        <span class="info-value">蔡丰玖 / Bamby / 밤비 / バンビ</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">生日：</span>
+                        <span class="info-value">2002年7月15日</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">星座：</span>
+                        <span class="info-value">巨蟹座</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">身高：</span>
+                        <span class="info-value">174cm</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">血型：</span>
+                        <span class="info-value">B型</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">MBTI：</span>
+                        <span class="info-value">INFP-T → INTP</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">定位：</span>
+                        <span class="info-value">Dance, Vocal</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">标志：</span>
+                        <span class="info-value">鹿，粉红色爱心</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">昵称：</span>
+                        <span class="info-value">小可爱</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">幸运数：</span>
+                        <span class="info-value">3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">爱好：</span>
+                        <span class="info-value">舞蹈、运动、表演、看Netflix</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">喜欢：</span>
+                        <span class="info-value">平壤冷面、小狗、兜风</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #FFF9FB 0%, #FFF0F5 100%); border-radius: var(--radius-small); border: 1px solid rgba(255, 214, 231, 0.5);">
+                    <h3 style="color: var(--pink-dark); margin-bottom: 15px; font-size: 1.3rem;">官方链接</h3>
+                    <p style="margin-bottom: 10px;"><strong>个人超话：</strong><a href="http://t.cn/AXyOGz13" target="_blank" class="link-url">http://t.cn/AXyOGz13</a></p>
+                    <p><strong>鹿站主页：</strong><a href="https://weibo.com/u/5143372154" target="_blank" class="link-url">https://weibo.com/u/5143372154</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 出道前作品 -->
+        <div id="predebut" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-music"></i></div>
+                    <h2 class="card-title">出道前作品</h2>
+                </div>
+                
+                <!-- ====== 作品卡片区域 ====== -->
+                <div class="work-grid">
+                    <!-- 《Ditto》翻跳 -->
+                    <div class="work-card">
+                        <img src="https://via.placeholder.com/400x300/FFD6E7/FF85B3?text=Ditto+Cover" 
+                             alt="Ditto翻跳封面" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>(NewJeans) 'Ditto' 翻跳</span>
+                                <span class="work-type">翻跳</span>
+                            </div>
+                            <p class="work-description">出道前的翻跳作品，展现了Bamby的舞蹈实力和表现力。</p>
+                            <a href="http://t.cn/A6ONqqvk" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看视频
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 十五问十五答 -->
+                    <div class="work-card">
+                        <img src="https://via.placeholder.com/400x300/E1BEE7/BA68C8?text=Q&A" 
+                             alt="十五问十五答" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>十五问十五答</span>
+                                <span class="work-type purple">采访</span>
+                            </div>
+                            <p class="work-description">出道前的问答采访，了解Bamby的个人想法和性格。</p>
+                            <a href="http://t.cn/AXyOGz1s" target="_blank" class="work-link">
+                                <i class="fas fa-file-alt"></i> 查看采访
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- ====== 按此格式添加更多作品 ====== 
+                    <div class="work-card">
+                        <img src="图片链接" 
+                             alt="作品名称" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>作品名称</span>
+                                <span class="work-type">类型</span>
+                            </div>
+                            <p class="work-description">作品描述...</p>
+                            <a href="链接地址" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看/查看
+                            </a>
+                        </div>
+                    </div>
+                    -->
+                </div>
+                
+                <!-- ====== 链接列表区域（如果需要） ====== -->
+                <!--
+                <h3 style="color: var(--pink-dark); margin: 30px 0 15px;">详细链接列表</h3>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <div class="link-title">作品名称</div>
+                        <a href="链接地址" target="_blank" class="link-url">http://...</a>
+                        <div class="link-date">日期 | 类型</div>
+                    </li>
+                    
+                    按此格式添加更多链接：
+                    <li class="link-item">
+                        <div class="link-title">标题</div>
+                        <a href="链接" target="_blank" class="link-url">链接地址</a>
+                        <div class="link-date">信息</div>
+                    </li>
+                </ul>
+                -->
+            </div>
+        </div>
+        
+        <!-- 出道后作品 -->
+        <div id="postdebut" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h2 class="card-title">出道后作品</h2>
+                </div>
+                
+                <!-- ====== 翻唱作品区域 ====== -->
+                <h3 style="color: var(--pink-dark); margin: 20px 0 15px; font-size: 1.4rem;">翻唱作品</h3>
+                <div class="work-grid">
+                    <!-- 《事件的地平线》翻唱（使用你提供的图床） -->
+                    <div class="work-card">
+                        <!-- ====== 如何添加其他封面 ======
+                            1. 将图片上传到图床（如sm.ms）
+                            2. 复制图片的HTML格式：<img src="https://...">
+                            3. 提取src中的链接：https://s2.loli.net/2026/01/24/F91oba3QvuKhD4n.jpg
+                            4. 替换下面的src属性
+                        -->
+                        <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" 
+                             alt="事件的地平线封面" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>《事件的地平线》翻唱</span>
+                                <span class="work-type">翻唱</span>
+                            </div>
+                            <p class="work-description">深情演绎的翻唱作品，展现了Bamby的独特音色和情感表达能力。</p>
+                            <a href="http://t.cn/AXyOGzBh" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看视频
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 《Versace On The Floor》翻唱 -->
+                    <div class="work-card">
+                        <img src="https://via.placeholder.com/400x300/B3E5FC/4FC3F7?text=Versace" 
+                             alt="Versace On The Floor封面" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>《Versace On The Floor》翻唱</span>
+                                <span class="work-type blue">翻唱</span>
+                            </div>
+                            <p class="work-description">英文歌曲翻唱，展现了Bamby的英语发音和情感表达。</p>
+                            <a href="http://t.cn/A6HzbinL" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看视频
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 《十二月的奇迹》翻唱 -->
+                    <div class="work-card">
+                        <img src="https://via.placeholder.com/400x300/FFD6E7/FF85B3?text=十二月奇迹" 
+                             alt="十二月的奇迹封面" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>《十二月的奇迹》翻唱</span>
+                                <span class="work-type">翻唱</span>
+                            </div>
+                            <p class="work-description">温暖冬日翻唱，用温柔的声线重新诠释这首经典歌曲。</p>
+                            <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看视频
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- ====== 按此格式添加更多翻唱作品 ====== 
+                    <div class="work-card">
+                        <img src="图床链接" 
+                             alt="作品名称" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>作品名称</span>
+                                <span class="work-type">翻唱</span>
+                            </div>
+                            <p class="work-description">作品描述...</p>
+                            <a href="链接地址" target="_blank" class="work-link">
+                                <i class="fas fa-play"></i> 观看视频
+                            </a>
+                        </div>
+                    </div>
+                    -->
+                </div>
+                
+                <!-- ====== 翻跳作品区域 ====== -->
+                <h3 style="color: var(--pink-dark); margin: 40px 0 15px; font-size: 1.4rem;">翻跳作品</h3>
+                <div class="work-grid">
+                    <!-- 《姐姐真漂亮》翻跳 -->
+                    <div class="work-card">
+                        <img src="https://via.placeholder.com/400x300/E1BEE7/BA68C8?text=姐姐真漂亮" 
+                             alt="姐姐真漂亮封面" 
+                             class="work-image">
+                        <div class="work-content">
+                            <div class="work-title">
+                                <span>《姐姐真漂亮》翻跳</span>
+                                <span class="work-type purple">翻跳</span>
+                            </div>
+                            <p class="work-description">横版和竖版两个版本，展现了完整的舞蹈编排。</p>
+                            <div class="button-group">
+                                <a href="http://t.cn/A6041BZL" target="_blank" class="button secondary">
+                                    <i class="fas fa-expand"></i> 横版
+                                </a>
+                                <a href="http://t.cn/AXyOGz11" target="_blank" class="button secondary">
+                                    <i class="fas fa-mobile-alt"></i> 竖版
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ====== 按此格式添加更多翻跳作品 ====== -->
+                </div>
+                
+                <!-- ====== 链接列表区域（完整列表） ====== -->
+                <h3 style="color: var(--pink-dark); margin: 40px 0 15px; font-size: 1.4rem;">完整链接列表</h3>
+                <ul class="link-list">
+                    <!-- 《I hope It's breeze》翻唱 -->
+                    <li class="link-item">
+                        <div class="link-title">《I hope It's breeze》翻唱</div>
+                        <a href="http://t.cn/A6HcnvQa" target="_blank" class="link-url">http://t.cn/A6HcnvQa</a>
+                        <div class="link-date"><i class="far fa-clock"></i> 翻唱作品</div>
+                    </li>
+                    
+                    <!-- 《Square》翻唱 -->
+                    <li class="link-item">
+                        <div class="link-title">《Square》翻唱</div>
+                        <a href="http://t.cn/AXyOGz1e" target="_blank" class="link-url">http://t.cn/AXyOGz1e</a>
+                        <div class="link-date"><i class="far fa-clock"></i> 翻唱作品</div>
+                    </li>
+                    
+                    <!-- 《Dangerously》翻唱 -->
+                    <li class="link-item">
+                        <div class="link-title">《Dangerously》翻唱</div>
+                        <a href="http://t.cn/A6HrT3Q5" target="_blank" class="link-url">http://t.cn/A6HrT3Q5</a>
+                        <div class="link-date"><i class="far fa-clock"></i> 翻唱作品</div>
+                    </li>
+                    
+                    <!-- 《Pretender》翻唱 -->
+                    <li class="link-item">
+                        <div class="link-title">《Pretender》翻唱</div>
+                        <a href="https://weibo.com/7825391749/Oo038pXcq" target="_blank" class="link-url">https://weibo.com/7825391749/Oo038pXcq</a>
+                        <div class="link-date"><i class="far fa-clock"></i> 翻唱作品</div>
+                    </li>
+                    
+                    <!-- 240315舞台直拍 -->
+                    <li class="link-item">
+                        <div class="link-title">240315 官方舞台直拍</div>
+                        <a href="http://t.cn/AXyOGz1D" target="_blank" class="link-url">http://t.cn/AXyOGz1D</a>
+                        <div class="link-date"><i class="far fa-calendar"></i> 240315 | <i class="fas fa-video"></i> 舞台直拍</div>
+                    </li>
+                    
+                    <!-- ====== 按此格式添加更多链接 ====== 
+                    <li class="link-item">
+                        <div class="link-title">标题</div>
+                        <a href="链接地址" target="_blank" class="link-url">http://...</a>
+                        <div class="link-date"><i class="图标类名"></i> 额外信息</div>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 概念照/个人照 -->
+        <div id="photos" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-camera"></i></div>
+                    <h2 class="card-title">概念照/个人照</h2>
+                </div>
+                
+                <!-- ====== 图片网格区域 ====== -->
+                <div class="photo-grid">
+                    <!-- 出道专个人照 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/FFD6E7/FF85B3?text=出道专个人" 
+                             alt="出道专个人概念照">
+                        <div class="photo-label">出道专个人概念照</div>
+                    </div>
+                    
+                    <!-- 出道专团体照 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/B3E5FC/4FC3F7?text=出道专团体" 
+                             alt="出道专团体概念照">
+                        <div class="photo-label">出道专团体概念照</div>
+                    </div>
+                    
+                    <!-- 520开屏个人 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/E1BEE7/BA68C8?text=520开屏" 
+                             alt="520开屏个人概念照">
+                        <div class="photo-label">520开屏个人概念照</div>
+                    </div>
+                    
+                    <!-- 六夏个人照 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/FFD6E7/FF85B3?text=六夏个人" 
+                             alt="六夏个人概念照">
+                        <div class="photo-label">六夏个人概念照</div>
+                    </div>
+                    
+                    <!-- W4L个人照 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/B3E5FC/4FC3F7?text=W4L个人" 
+                             alt="W4L个人概念照">
+                        <div class="photo-label">W4L个人概念照</div>
+                    </div>
+                    
+                    <!-- PUTV个人照 -->
+                    <div class="photo-item">
+                        <img src="https://via.placeholder.com/300x400/E1BEE7/BA68C8?text=PUTV个人" 
+                             alt="PUTV个人概念照">
+                        <div class="photo-label">PUTV个人概念照</div>
+                    </div>
+                    
+                    <!-- ====== 按此格式添加更多图片 ====== 
+                    <div class="photo-item">
+                        <img src="图片链接" 
+                             alt="图片描述">
+                        <div class="photo-label">图片标题</div>
+                    </div>
+                    -->
+                </div>
+                
+                <!-- ====== 链接列表区域 ====== -->
+                <h3 style="color: var(--pink-dark); margin: 40px 0 15px; font-size: 1.4rem;">具体链接</h3>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <div class="link-title">出道专个人概念照</div>
+                        <a href="http://t.cn/AXyOGz1B" target="_blank" class="link-url">http://t.cn/AXyOGz1B</a>
+                        <div class="link-date"><i class="fas fa-image"></i> 概念照</div>
+                    </li>
+                    
+                    <!-- ====== 按此格式添加更多链接 ====== 
+                    <li class="link-item">
+                        <div class="link-title">标题</div>
+                        <a href="链接地址" target="_blank" class="link-url">http://...</a>
+                        <div class="link-date"><i class="图标类名"></i> 类型</div>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 其他部分（幕后、直播、签售、所有链接）的结构类似 -->
+        <!-- 由于篇幅限制，这里只展示结构框架 -->
+        <div id="behind" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-video"></i></div>
+                    <h2 class="card-title">幕后/花絮</h2>
+                </div>
+                <!-- 按上述格式添加内容 -->
+            </div>
+        </div>
+        
+        <div id="live" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h2 class="card-title">直播/电台</h2>
+                </div>
+                <!-- 按上述格式添加内容 -->
+            </div>
+        </div>
+        
+        <div id="fansign" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-handshake"></i></div>
+                    <h2 class="card-title">签售/活动</h2>
+                </div>
+                <!-- 按上述格式添加内容 -->
+            </div>
+        </div>
+        
+        <div id="links" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-link"></i></div>
+                    <h2 class="card-title">所有链接</h2>
+                </div>
+                <!-- 按上述格式添加内容 -->
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p style="margin-bottom: 10px; font-size: 1rem; color: var(--pink-dark);">蔡丰玖·BAMBY 安利手册</p>
+            <p style="margin-top: 10px; font-size: 0.85rem; color: var(--gray-dark);">
+                最后更新: 2026年1月 | 本站为粉丝整理，所有资源链接均来源于网络公开信息
+            </p>
+        </footer>
     </div>
     
-    <div class="item">
-        <h2>另一个作品</h2>
-        <p>这是另一个推荐作品...</p>
-    </div>
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
+        // ====== 导航标签切换功能 ======
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有标签的active类
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // 为当前点击的标签添加active类
+                tab.classList.add('active');
+                
+                // 隐藏所有内容区域
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 显示对应的内容区域
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+        
+        // ====== 回到顶部按钮 ======
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // ====== 图片懒加载（性能优化） ======
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+        
+        // ====== 平滑滚动 ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                if(targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // ====== 页面加载动画 ======
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease';
+        });
+        
+        document.body.style.opacity = '0';
+        
+        // ====== 控制台欢迎信息 ======
+        console.log('%c🎀 欢迎来到蔡丰玖·BAMBY安利手册 🎀', 
+            'color: #FF85B3; font-size: 16px; font-weight: bold;');
+        console.log('%c本页面专为粉丝制作，收集整理所有相关资源', 
+            'color: #666; font-size: 12px;');
+    </script>
 </body>
 </html>
