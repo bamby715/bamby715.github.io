@@ -91,8 +91,6 @@
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
         }
         
         body {
@@ -103,10 +101,7 @@
             min-height: 100vh;
             transition: background-color var(--transition-normal);
         }
-
-        .sub-section {
-         scroll-margin-top: 100px; /* 针对这些元素的额外偏移 */
-         }
+}
         
         .container {
             max-width: 1280px;
@@ -287,6 +282,14 @@
         }
         
         /* 子分类导航 */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        .sub-section {
+         scroll-margin-top: 100px; /* 针对这些元素的额外偏移 */
+         }
         .sub-nav {
             display: flex;
             flex-wrap: wrap;
@@ -1130,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     showSubSection('covers');
 });
 </script>
-</body> <!-- 确保放在</body>标签之前 -->
+                                          <!-- 确保放在</body>标签之前 -->
                                           <!-- 
                     添加更多子分类示例：
                     <button class="sub-nav-btn" data-subtab="stage">
