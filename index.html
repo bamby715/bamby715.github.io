@@ -1,67 +1,38 @@
 <!DOCTYPE html>
-  <html lang="zh-CN">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>
-        蔡丰玖·BAMBY 安利手册
-      </title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-      <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-      <style>
-        /* ====== 高级简约配色方案 ====== */
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>蔡丰玖·BAMBY 安利手册</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
         :root {
-            /* 主色调 - 高级浅粉色系 */
-            --color-primary-light: #FFE8F0;      /* 浅粉背景 */
-            --color-primary: #FFC2D6;           /* 主粉色 */
-            --color-primary-dark: #FF9EBD;       /* 深粉色（按钮、高亮） */
-            
-            /* 中性色调 - 高级灰 */
-            --color-gray-50: #FAFAFA;           /* 最浅灰 */
-            --color-gray-100: #F5F5F5;          /* 浅灰 */
-            --color-gray-200: #EEEEEE;          /* 中浅灰 */
-            --color-gray-300: #E0E0E0;          /* 中灰 */
-            --color-gray-400: #BDBDBD;          /* 中深灰 */
-            --color-gray-500: #9E9E9E;          /* 深灰 */
-            --color-gray-600: #757575;          /* 文本灰 */
-            --color-gray-700: #616161;          /* 深文本灰 */
-            --color-gray-800: #424242;          /* 最深灰 */
-            --color-gray-900: #212121;          /* 近黑色 */
-            
-            /* 功能色 */
+            --color-primary-light: #FFE8F0;
+            --color-primary: #FFC2D6;
+            --color-primary-dark: #FF9EBD;
+            --color-gray-50: #FAFAFA;
+            --color-gray-100: #F5F5F5;
+            --color-gray-200: #EEEEEE;
+            --color-gray-300: #E0E0E0;
+            --color-gray-400: #BDBDBD;
+            --color-gray-500: #9E9E9E;
+            --color-gray-600: #757575;
+            --color-gray-700: #616161;
+            --color-gray-800: #424242;
+            --color-gray-900: #212121;
             --color-white: #FFFFFF;
             --color-black: #000000;
-            
-            /* 渐变 */
-            --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-            --gradient-light: linear-gradient(135deg, var(--color-primary-light), var(--color-white));
-            
-            /* 阴影 - 更细腻 */
-            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
-            
-            /* 圆角 - 圆角长方形 */
-            --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 14px;
-            --radius-xl: 18px;
-            --radius-2xl: 22px;
-            --radius-full: 9999px;
-            
-            /* 过渡 */
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* 字体 */
+            --transition-normal: 0.25s ease;
             --font-heading: 'Ma Shan Zheng', cursive;
             --font-body: 'Noto Sans SC', sans-serif;
         }
         
-        /* 深色模式 */
         [data-theme="dark"] {
             --color-primary-light: #2A1A24;
             --color-primary: #4A2D3A;
@@ -80,7 +51,6 @@
             --color-black: #FFFFFF;
         }
         
-        /* ====== 基础重置 ====== */
         * {
             margin: 0;
             padding: 0;
@@ -89,8 +59,7 @@
         
         html {
             scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            scroll-padding-top: 100px;
         }
         
         body {
@@ -99,9 +68,7 @@
             color: var(--color-gray-800);
             line-height: 1.6;
             min-height: 100vh;
-            transition: background-color var(--transition-normal);
         }
-
         
         .container {
             max-width: 1280px;
@@ -109,7 +76,6 @@
             padding: 0 24px;
         }
         
-        /* ====== 加载动画 ====== */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -121,8 +87,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            opacity: 1;
-            transition: opacity var(--transition-slow);
+            transition: opacity var(--transition-normal);
         }
         
         .loading-overlay.hidden {
@@ -130,118 +95,50 @@
             pointer-events: none;
         }
         
-        .loading-spinner {
+        .main-header {
+            background: var(--color-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 32px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+            flex: 1;
         }
         
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 3px solid var(--color-primary);
-            border-top-color: var(--color-primary-dark);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-
-        
-        /* ====== 顶部导航 ====== */
-       /* ====== 顶部导航 ====== */
-.main-header {
-    background: var(--color-white);
-    box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    margin-bottom: 32px;
-}
-
-/* PC端：主标题居中，主题按钮在右侧 */
-.header-content {
-    display: flex;
-    justify-content: center; /* 主标题居中 */
-    align-items: center;
-    padding: 20px 0;
-    position: relative; /* 为绝对定位子元素提供参考 */
-}
-
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    flex: 1; /* 占用可用空间 */
-}
-
-.theme-toggle {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.logo-text {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--color-primary-dark);
-    letter-spacing: 1px;
-    font-weight: normal;
-}
-
-.logo-sub {
-    font-size: 0.85rem;
-    color: var(--color-gray-900);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-}
-
-/* 移动端：垂直堆叠 */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-    
-    .logo {
-        order: 1;
-        width: 100%;
-        margin-bottom: 0;
-    }
-    
-    .theme-toggle {
-        position: static !important;
-        transform: none !important;
-        order: 2;
-        width: 100%;
-        justify-content: center;
-        margin-top: 0;
-    }
-}
         .logo-text {
             font-family: var(--font-heading);
             font-size: 2rem;
             color: var(--color-primary-dark);
             letter-spacing: 1px;
             font-weight: normal;
-          
         }
         
         .logo-sub {
             font-size: 0.85rem;
             color: var(--color-gray-900);
             font-weight: 400;
-            letter-spacing: 0.5px;
         }
         
         .theme-toggle {
-            display: flex;
-            gap: 8px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         .theme-btn {
@@ -255,25 +152,15 @@
             color: var(--color-gray-700);
             cursor: pointer;
             font-size: 0.9rem;
-            transition: all var(--transition-fast);
+            transition: all var(--transition-normal);
         }
         
-        .theme-btn:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary-dark);
-        }
-        
-        /* 主分类导航 */
         .main-nav {
             display: flex;
             overflow-x: auto;
             padding: 16px 0;
             gap: 8px;
             scrollbar-width: none;
-        }
-        
-        .main-nav::-webkit-scrollbar {
-            display: none;
         }
         
         .nav-item {
@@ -288,34 +175,22 @@
             transition: all var(--transition-normal);
         }
         
-        .nav-item:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary-dark);
-            transform: translateY(-1px);
-        }
-        
-        .nav-item.active {
+        .nav-item:hover, .nav-item.active {
             background: var(--color-primary);
             border-color: var(--color-primary);
             color: var(--color-white);
         }
         
-        /* ====== 内容区域 ====== */
         .content-section {
             display: none;
-            animation: fadeInUp var(--transition-normal);
         }
         
         .content-section.active {
             display: block;
         }
         
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         .section-header {
+            text-align: center;
             margin-bottom: 32px;
         }
         
@@ -331,73 +206,22 @@
             font-size: 0.95rem;
         }
         
-        /* 子分类导航 */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
-        }
-
-        .sub-section {
-         scroll-margin-top: 100px; /* 针对这些元素的额外偏移 */
-         }
-        .sub-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 32px;
-            padding: 20px;
-            background: var(--color-white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .sub-nav-btn {
-            padding: 10px 20px;
-            background: var(--color-gray-100);
-            border: 1px solid var(--color-gray-200);
-            border-radius: var(--radius-md);
-            color: var(--color-gray-600);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            font-size: 0.9rem;
-        }
-        
-        .sub-nav-btn:hover {
-            background: var(--color-primary-light);
-            border-color: var(--color-primary);
-            color: var(--color-primary-dark);
-        }
-        
-        .sub-nav-btn.active {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
-            color: var(--color-white);
-        }
-        
-        /* ====== 个人信息卡片 ====== */
         .profile-card {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 32px;
             background: var(--color-white);
             border-radius: var(--radius-lg);
             padding: 32px;
             box-shadow: var(--shadow-md);
             margin-bottom: 40px;
-        }
-        
-        @media (max-width: 768px) {
-            .profile-card {
-                grid-template-columns: 1fr;
-            }
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
         }
         
         .profile-image-container {
-            position: relative;
+            flex: 0 0 280px;
         }
         
         .profile-image-frame {
-            position: relative;
             overflow: hidden;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
@@ -407,40 +231,13 @@
             width: 100%;
             height: 280px;
             object-fit: cover;
-            transition: transform var(--transition-slow);
         }
         
-        .profile-image:hover {
-            transform: scale(1.03);
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
         }
         
-        .profile-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .profile-link {
-            padding: 12px;
-            text-align: center;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all var(--transition-normal);
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            border: 1px solid transparent;
-        }
-        
-        .profile-link:hover {
-            background: var(--color-primary-light);
-            color: var(--color-primary-dark);
-            border-color: var(--color-primary);
-            transform: translateY(-1px);
-        }
-        
-        /* 信息网格 */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -453,71 +250,45 @@
             padding: 16px;
             border-radius: var(--radius-md);
             border-left: 3px solid var(--color-primary);
-            transition: transform var(--transition-normal);
         }
         
-        .info-item:hover {
-            transform: translateY(-2px);
-        }
-        
-        .info-label {
-            font-weight: 500;
-            color: var(--color-gray-600);
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-        
-        .info-value {
-            color: var(--color-gray-900);
-            font-size: 1rem;
-            font-weight: 400;
-        }
-        
-        /* 爱好标签 */
-        .hobbies-section {
-            background: var(--color-gray-50);
-            padding: 20px;
-            border-radius: var(--radius-lg);
-        }
-        
-        .hobbies-section h3 {
-            color: var(--color-gray-800);
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        .tags-container {
+        .sub-nav {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            justify-content: center;
         }
         
-        .tag {
-            padding: 6px 14px;
-            border-radius: var(--radius-md);
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all var(--transition-fast);
-        }
-        
-        .tag.hobby {
-            background: var(--color-primary-light);
-            color: var(--color-primary-dark);
-            border: 1px solid var(--color-primary);
-        }
-        
-        .tag.favorite {
+        .sub-nav-btn {
+            padding: 10px 20px;
             background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            border: 1px solid var(--color-gray-300);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-md);
+            color: var(--color-gray-600);
+            cursor: pointer;
+            transition: all var(--transition-normal);
         }
         
-        .tag:hover {
-            transform: translateY(-1px);
+        .sub-nav-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
         }
         
-        /* ====== 作品卡片 ====== */
+        .sub-section {
+            display: none;
+            scroll-margin-top: 100px;
+        }
+        
+        .sub-section.active {
+            display: block;
+        }
+        
         .works-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -537,7 +308,6 @@
         .work-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-lg);
-            border-color: var(--color-primary);
         }
         
         .work-image-container {
@@ -551,11 +321,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-        
-        .work-card:hover .work-image {
-            transform: scale(1.05);
         }
         
         .work-content {
@@ -573,44 +338,22 @@
             display: flex;
             gap: 12px;
             margin-bottom: 16px;
-            flex-wrap: wrap;
         }
         
         .work-type {
             background: var(--color-primary-light);
             color: var(--color-primary-dark);
             padding: 4px 10px;
-            border-radius: var(--radius-sm);
+            border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 500;
-            border: 1px solid var(--color-primary);
         }
         
-        .work-desc {
-            color: var(--color-gray-600);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        /* 
-        配置 */
         .channels-section {
             background: var(--color-gray-50);
             border-radius: var(--radius-md);
             padding: 16px;
             margin-bottom: 16px;
-        }
-        
-        .channels-section h4 {
-            color: var(--color-gray-800);
-            margin-bottom: 12px;
-            font-size: 1rem;
-            font-weight: 600;
         }
         
         .channels-grid {
@@ -632,8 +375,6 @@
             justify-content: center;
             gap: 6px;
             transition: all var(--transition-normal);
-            text-align: center;
-            font-size: 0.9rem;
         }
         
         .channel-btn.weibo {
@@ -644,204 +385,151 @@
             background: var(--color-gray-700);
         }
         
-        
-        .channel-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-        
-       /* ====== 页脚 ====== */
-.main-footer {
-    margin-top: 60px;
-    background: var(--color-white);
-    border-top: 1px solid var(--color-gray-200);
-    padding: 40px 0 20px;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 32px;
-    margin-bottom: 32px;
-    text-align: center; /* 添加这行使所有内容居中 */
-}
-
-.footer-section {
-    text-align: center; /* 确保每个部分都居中 */
-}
-
-.footer-section h4 {
-    color: var(--color-gray-900);
-    margin-bottom: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center; /* 标题居中 */
-}
-
-.footer-section p {
-    color: var(--color-gray-600);
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    text-align: center; /* 段落居中 */
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-gray-200);
-    color: var(--color-gray-500);
-    font-size: 0.9rem;
-}
-
-/* 移动端页脚修复 */
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    
-    .footer-section {
-        padding: 0 16px;
-    }
-}
-        /* ====== 模态框 ====== */
-        .modal-overlay {
+        /* 图片查看器样式 */
+        .image-viewer-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity var(--transition-normal);
+            z-index: 2000;
         }
         
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .modal-content {
-            background: var(--color-white);
-            border-radius: var(--radius-lg);
-            width: 90%;
-            max-width: 480px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-xl);
-            animation: modalSlideIn 0.3s ease;
-        }
-        
-        @keyframes modalSlideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--color-gray-200);
+        .image-viewer-overlay.active {
             display: flex;
-            justify-content: space-between;
+        }
+        
+        .image-viewer {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        
+        .image-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
             align-items: center;
+            justify-content: center;
         }
         
-        .modal-header h3 {
-            color: var(--color-gray-900);
-            font-weight: 600;
+        .image-prev {
+            left: 20px;
         }
         
-        .modal-close {
-            background: none;
+        .image-next {
+            right: 20px;
+        }
+        
+        .image-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
             border: none;
-            font-size: 1.5rem;
-            color: var(--color-gray-500);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
-            transition: color var(--transition-fast);
+            font-size: 1.2rem;
         }
         
-        .modal-close:hover {
-            color: var(--color-gray-800);
+        .image-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
         }
         
-        .modal-body {
-            padding: 20px;
-        }
-        
-        .modal-footer {
-            padding: 20px;
+        .main-footer {
+            margin-top: 60px;
+            background: var(--color-white);
             border-top: 1px solid var(--color-gray-200);
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+            padding: 40px 0 20px;
         }
         
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-weight: 500;
-            transition: all var(--transition-normal);
-            font-size: 0.9rem;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+            text-align: center;
         }
         
-        .btn-primary {
-            background: var(--color-gray-800);
+        .footer-section {
+            text-align: center;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            background: var(--color-primary-light);
             color: var(--color-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            display: none;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .btn-primary:hover {
-            background: var(--color-gray-900);
-        }
-        
-        .btn-secondary {
-            background: var(--color-gray-100);
-            color: var(--color-gray-700);
-            border: 1px solid var(--color-gray-300);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--color-gray-200);
-        }
-        
-/* ====== 回到顶部按钮 ====== */
-.back-to-top {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 44px; /* 如果需要更大的按钮，可以增加这个值 */
-    height: 44px; /* 确保与width相同，形成正方形 */
-    background: var(--color-primary-light);
-    color: var(--color-white);
-    border: none;
-    border-radius: 50%; /* 改为50%即可形成正圆 */
-    cursor: pointer;
-    box-shadow: var(--shadow-md);
-    display: none;
-    z-index: 100;
+
+      /* 修复鹿站主页链接样式 */
+.profile-link {
+    padding: 12px;
+    text-align: center;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 500;
     transition: all var(--transition-normal);
-    /* 使用flexbox居中内容 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--color-gray-100);
+    color: var(--color-gray-700);
+    border: 1px solid transparent;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    font-family: var(--font-body);
 }
 
-.back-to-top:hover {
-    background: var(--color-primary);
+.profile-link:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary);
     transform: translateY(-2px);
 }
 
-/* 只控制显示/隐藏 */
-.back-to-top.visible {
-    display: flex; /* 保持flex布局 */
+.profile-link i {
+    margin-right: 8px;
 }
         
-        /* ====== 响应式设计 ====== */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -853,1002 +541,575 @@
                 text-align: center;
             }
             
-            .main-nav {
-                justify-content: center;
+            .theme-toggle {
+                position: static;
+                transform: none;
+                margin-top: 10px;
             }
             
-            .works-grid {
-                grid-template-columns: 1fr;
+            .profile-card {
+                flex-direction: column;
+                padding: 20px;
             }
             
             .info-grid {
                 grid-template-columns: 1fr;
             }
             
-            .profile-card {
-                padding: 24px;
+            .works-grid {
+                grid-template-columns: 1fr;
             }
             
-            .channels-grid {
+            .sub-nav {
+                padding: 15px;
+            }
+            
+            .footer-content {
                 grid-template-columns: 1fr;
             }
         }
-        
-        /* ====== 工具类 ====== */
-        .text-center {
-            text-align: center;
-        }
-        
-        .mt-4 { margin-top: 16px; }
-        .mt-8 { margin-top: 32px; }
-        .mb-4 { margin-bottom: 16px; }
-        .mb-8 { margin-bottom: 32px; }
-        .p-4 { padding: 16px; }
-        .p-8 { padding: 32px; }
-        
-        /* ====== 滚动条美化 ====== */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--color-gray-100);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--color-primary-light);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--color-primary);
-        }
-
-        
-      </style>
-    </head>
-    <body>
-      <!-- 加载动画 -->
-        <div class="loading-overlay" id="loading">
-          <div class="loading-spinner">
-            <div class="spinner">
-            </div>
-            <p>
-              加载中...
-            </p>
-          </div>
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loading">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>加载中...</p>
         </div>
-        <!-- 主容器 -->
-          <div class="container">
-            <!-- 顶部导航 -->
-              <header class="main-header">
-                <div class="header-content">
-                  <div class="logo">
-                    <h1 class="logo-text">
-                      蔡丰玖·BAMBY
-                    </h1>
-                    <p class="logo-sub">
-                      安利手册 | 资源汇总
-                    </p>
-                  </div>
-                  <!-- 主题切换 -->
-                    <div class="theme-toggle">
-                      <button class="theme-btn" id="themeToggle">
-                        <i class="fas fa-moon">
-                        </i>
-                        <span>
-                          主题
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                  <!-- 主分类导航 -->
-                    <nav class="main-nav">
-                      <a href="#personal" class="nav-item active" data-tab="personal">
-                        <i class="fas fa-user">
-                        </i>
-                        <span>
-                          个人信息
-                        </span>
-                      </a>
-                      <a href="#anli" class="nav-item" data-tab="anli">
-                        <i class="fas fa-star">
-                        </i>
-                        <span>
-                          安利向
-                        </span>
-                      </a>
-                      <a href="#resources" class="nav-item" data-tab="resources">
-                        <i class="fas fa-folder-open">
-                        </i>
-                        <span>
-                          资源汇总
-                        </span>
-                      </a>
-                      <a href="#others" class="nav-item" data-tab="others">
-                        <i class="fas fa-ellipsis-h">
-                        </i>
-                        <span>
-                          其他
-                        </span>
-                      </a>
-                    </nav>
-                  </header>
-                  <!-- 内容区域 -->
-                    <main class="content-wrapper">
-                      <!-- ========== 个人信息页 ========== -->
-                        <section id="personal" class="content-section active">
-                          <div class="section-header">
-                            <h2 class="section-title">
-                              个人信息
-                            </h2>
-                            <p class="section-subtitle">
-                              蔡丰玖 / Bamby / 밤비 / バンビ 的个人档案
-                            </p>
-                          </div>
-                          <!-- 个人信息卡片 -->
-                            <div class="profile-card">
-                              <div class="profile-image-container">
-                                <div class="profile-image-frame">
-                                  <!-- 
-                            替换为Bamby主照片链接
-                            示例：https://example.com/bamby-main.jpg
-                            -->
-                                    <img src="https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg" 
+    </div>
+    
+    <!-- 图片查看器 -->
+    <div class="image-viewer-overlay" id="imageViewer">
+        <button class="image-close" onclick="closeImageViewer()">×</button>
+        <button class="image-nav image-prev" onclick="prevImage()">‹</button>
+        <div class="image-viewer">
+            <img id="viewerImage" src="" alt="">
+        </div>
+        <button class="image-nav image-next" onclick="nextImage()">›</button>
+        <div class="image-counter" id="imageCounter">1 / 5</div>
+    </div>
+    
+    <div class="container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1 class="logo-text">蔡丰玖·BAMBY</h1>
+                    <p class="logo-sub">安利手册 | 资源汇总</p>
+                </div>
+                <div class="theme-toggle">
+                    <button class="theme-btn" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span>主题</span>
+                    </button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#personal" class="nav-item active" data-tab="personal">
+                    <i class="fas fa-user"></i>
+                    <span>个人信息</span>
+                </a>
+                <a href="#anli" class="nav-item" data-tab="anli">
+                    <i class="fas fa-star"></i>
+                    <span>安利向</span>
+                </a>
+                <a href="#materials" class="nav-item" data-tab="materials">
+                    <i class="fas fa-images"></i>
+                    <span>物料汇总</span>
+                </a>
+                <a href="#others" class="nav-item" data-tab="others">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <span>其他</span>
+                </a>
+            </nav>
+        </header>
+        
+        <main class="content-wrapper">
+            <section id="personal" class="content-section active">
+                <div class="section-header">
+                    <h2 class="section-title">个人信息</h2>
+                    <p class="section-subtitle">蔡丰玖 / Bamby / 밤비 / バンビ 的个人档案</p>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-image-container">
+                        <div class="profile-image-frame">
+                            <img src="https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg" 
                                  alt="蔡丰玖 Bamby" 
                                  class="profile-image">
-                                  </div>
-                                  <div class="profile-links">
-                                    <!-- 鹿站主页链接 -->
-                                      <a href="https://weibo.com/u/5143372154" target="_blank" class="profile-link">
-                                        <i class="fab fa-weibo">
-                                        </i>
-                                        鹿站主页
-                                      </a>
-                                    </div>
-                                  </div>
-                                  <div class="profile-info">
-                                    <div class="info-grid">
-                                      <!-- 基本信息 -->
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            姓名
-                                          </div>
-                                          <div class="info-value">
-                                            蔡丰玖 / Bamby / 밤비 / バンビ
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            生日
-                                          </div>
-                                          <div class="info-value">
-                                            2002年7月15日
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            星座
-                                          </div>
-                                          <div class="info-value">
-                                            巨蟹座
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            身高
-                                          </div>
-                                          <div class="info-value">
-                                            174cm
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            血型
-                                          </div>
-                                          <div class="info-value">
-                                            B型
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            MBTI
-                                          </div>
-                                          <div class="info-value">
-                                            INFP-T → INTP
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            定位
-                                          </div>
-                                          <div class="info-value">
-                                            Dance, Vocal
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            标志
-                                          </div>
-                                          <div class="info-value">
-                                            鹿，粉红色爱心
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            昵称
-                                          </div>
-                                          <div class="info-value">
-                                            小可爱
-                                          </div>
-                                        </div>
-                                        <div class="info-item">
-                                          <div class="info-label">
-                                            幸运数
-                                          </div>
-                                          <div class="info-value">
-                                            3
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <!-- 爱好和喜欢 -->
-                                        <div class="hobbies-section">
-                                          <h3>
-                                            爱好 & 喜欢
-                                          </h3>
-                                          <div class="tags-container">
-                                            <span class="tag hobby">
-                                              舞蹈
-                                            </span>
-                                            <span class="tag hobby">
-                                              运动
-                                            </span>
-                                            <span class="tag hobby">
-                                              表演
-                                            </span>
-                                            <span class="tag hobby">
-                                              看Netflix
-                                            </span>
-                                            <span class="tag favorite">
-                                              平壤冷面
-                                            </span>
-                                            <span class="tag favorite">
-                                              小狗
-                                            </span>
-                                            <span class="tag favorite">
-                                              兜风
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </section>
-                                  <!-- ========== 安利向页面 ========== -->
-                                    <section id="anli" class="content-section">
-                                      <div class="section-header">
-                                        <h2 class="section-title">
-                                          安利向
-                                        </h2>
-                                        <p class="section-subtitle">
-                                          翻唱、翻跳、舞台、精彩瞬间
-                                        </p>
-                                      </div>
-                                      <!-- 子分类导航 -->
-                                        <div class="sub-nav">
-                                          <button class="sub-nav-btn active" data-subtab="covers">
-                                            <i class="fas fa-microphone">
-                                            </i>
-                                            翻唱作品
-                                          </button>
-                                          <button class="sub-nav-btn" data-subtab="dance">
-                                            <i class="fas fa-running">
-                                            </i>
-                                            翻跳作品
-                                          </button>
-                                          <button class="sub-nav-btn" data-subtab="stage">
-                                            <i class="fas fa-video">
-                                            </i>
-                                            舞台直拍
-                                          </button>
-                                          <!-- 放在</body>之前 -->
-<script>
-// 子分类导航功能
-document.addEventListener('DOMContentLoaded', function() {
-    const subNavButtons = document.querySelectorAll('.sub-nav-btn');
-    const subSections = document.querySelectorAll('.sub-section');
-    
-    // 初始显示第一个子分类
-    function showSubSection(tabName) {
-        // 隐藏所有子区域
-        subSections.forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        // 显示目标子区域
-        const targetSection = document.querySelector(`.sub-section[data-subtab="${tabName}"]`);
-        if (targetSection) {
-            targetSection.classList.add('active');
-            
-            // 平滑滚动到该区域
-            setTimeout(() => {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }, 100);
-        }
-        
-        // 更新按钮状态
-        subNavButtons.forEach(btn => {
-            if (btn.dataset.subtab === tabName) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-    }
-    
-    // 为每个按钮添加点击事件
-    subNavButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabName = this.dataset.subtab;
-            showSubSection(tabName);
-        });
-    });
-    
-    // 初始显示第一个（翻唱作品）
-    showSubSection('covers');
-});
-</script>
-                                          <!-- 确保放在</body>标签之前 -->
-                                          <!-- 
-                    添加更多子分类示例：
-                    <button class="sub-nav-btn" data-subtab="stage">
-                                            <i class="fas fa-video">
-                                            </i>
-                                            舞台直拍
-                                          </button>
-                                          <button class="sub-nav-btn" data-subtab="moments">
-                                            <i class="fas fa-camera">
-                                            </i>
-                                            精彩瞬间
-                                          </button>
-                                          -->
-                                        </div>
-                                        <!-- 翻唱作品区域 -->
-                                          <div class="sub-section active" data-subtab="covers">
-                                            <h3 class="section-title mb-4">
-                                              🎤 翻唱作品
-                                            </h3>
-                                            <!-- 翻唱作品网格 -->
-                                              <div class="works-grid">
-                                                <!-- 事件的地平线 -->
-                                                  <div class="work-card" data-id="event-horizon">
-                                                    <div class="work-image-container">
-                                                      <!-- 
-                                替换为《事件的地平线》封面链接
-                                示例：https://example.com/event-horizon-cover.jpg
-                                -->
-                                                        <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" 
-                                     alt="事件的地平线" 
-                                     class="work-image">
-                                                      </div>
-                                                      <div class="work-content">
-                                                        <h3 class="work-title">
-                                                          《事件的地平线》（Event Horizon）
-                                                        </h3>
-                                                        <div class="work-meta">
-                                                          <span class="work-type">
-                                                            2023-12-05
-                                                          </span>
-                                                          
-                                                        </div>
-                                                        <p class="work-desc">
-                                                          原唱：高润荷（YOUNHA）
-                                                        </p>
-                                                      
-                                                        <!-- 观看渠道 -->
-                                                          <div class="channels-section">
-                                                            <h4>
-                                                              观看渠道
-                                                            </h4>
-                                                            <div class="channels-grid">
-                                                              <!-- 
-                                        修改观看链接：
-                                        替换href中的链接地址
-                                        -->
-                                                                <a href="http://t.cn/AXyOGzBh" target="_blank" class="channel-btn weibo">
-                                                                  <i class="fab fa-weibo">
-                                                                  </i>
-                                                                  微博
-                                                                </a>
-                                                                <a href="https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click" target="_blank" class="channel-btn bilibili">
-                                                                  <span style="font-weight: bold;">
-                                                                    B
-                                                                  </span>
-                                                                  站
-                                                                </a>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                        <!-- I hope It's breeze -->
-                                                          <div class="work-card" data-id="i-hope-breeze">
-                                                            <div class="work-image-container">
-                                                              <!-- 
-                                替换为《I hope It's breeze》封面链接
-                                示例：https://example.com/i-hope-breeze-cover.jpg
-                                -->
-                                                                <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" 
-                                     alt="I hope It's breeze" 
-                                     class="work-image">
-                                                              </div>
-                                                              <div class="work-content">
-                                                                <h3 class="work-title">
-                                                                  《I hope It's breeze》
-                                                                </h3>
-                                                                <div class="work-meta">
-                                                                  <span class="work-type">
-                                                                    2024-05-15
-                                                                  </span>
-                                                                  
-                                                                </div>
-                                                                <p class="work-desc">
-                                                                  原唱：봉구（GilguBonggu）
-                                                                </p>
-                                                                <div class="channels-section">
-                                                                  <h4>
-                                                                    观看渠道
-                                                                  </h4>
-                                                                  <div class="channels-grid">
-                                                                    <!-- 
-                                        修改观看链接：
-                                        替换href中的链接地址
-                                        -->
-                                                                      <a href="http://t.cn/A6HcnvQa" target="_blank" class="channel-btn weibo">
-                                                                        <i class="fab fa-weibo">
-                                                                        </i>
-                                                                        微博
-                                                                      </a>
-                                                                      <a href="https://www.bilibili.com/video/BV1vz42117D6/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
-                                                                        <span style="font-weight: bold;">
-                                                                          B
-                                                                        </span>
-                                                                        站
-                                                                      </a>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                <!-- Square -->
-                                                  <div class="work-card" data-id="event-horizon">
-                                                    <div class="work-image-container">
-                            
-                                                        <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
-                                     alt="Square" 
-                                     class="work-image">
-                                                      </div>
-                                                      <div class="work-content">
-                                                        <h3 class="work-title">
-                                                          《Square》
-                                                        </h3>
-                                                        <div class="work-meta">
-                                                          <span class="work-type">
-                                                            2024-05-29
-                                                          </span>
-                                                          
-                                                        </div>
-                                                        <p class="work-desc">
-                                                          原唱: 白艺潾 (Yerin Baek)
-                                                        </p>
-                                                      
-                                                        <!-- 观看渠道 -->
-                                                          <div class="channels-section">
-                                                            <h4>
-                                                              观看渠道
-                                                            </h4>
-                                                            <div class="channels-grid">
-                                                              <!-- 
-                                        修改观看链接：
-                                        替换href中的链接地址
-                                        -->
-                                                                <a href="http://t.cn/AXyOGz1e" target="_blank" class="channel-btn weibo">
-                                                                  <i class="fab fa-weibo">
-                                                                  </i>
-                                                                  微博
-                                                                </a>
-                                                                <a href="https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="channel-btn bilibili">
-                                                                  <span style="font-weight: bold;">
-                                                                    B
-                                                                  </span>
-                                                                  站
-                                                                </a>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-
-                                                 <!-- Dangerously -->
-                                                  <div class="work-card" data-id="event-horizon">
-                                                    <div class="work-image-container">
-                            
-                                                        <img src="https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg" 
-                                     alt="Dangerously" 
-                                     class="work-image">
-                                                      </div>
-                                                      <div class="work-content">
-                                                        <h3 class="work-title">
-                                                          《Dangerously》
-                                                        </h3>
-                                                        <div class="work-meta">
-                                                          <span class="work-type">
-                                                            2024-06-07
-                                                          </span>
-                                                          
-                                                        </div>
-                                                        <p class="work-desc">
-                                                          原唱: Charlie Puth
-                                                        </p>
-                                                      
-                                                        <!-- 观看渠道 -->
-                                                          <div class="channels-section">
-                                                            <h4>
-                                                              观看渠道
-                                                            </h4>
-                                                            <div class="channels-grid">
-                                                              <!-- 
-                                        修改观看链接：
-                                        替换href中的链接地址
-                                        -->
-                                                                <a href="http://t.cn/A6HrT3Q5" target="_blank" class="channel-btn weibo">
-                                                                  <i class="fab fa-weibo">
-                                                                  </i>
-                                                                  微博
-                                                                </a>
-                                                                <a href="https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
-                                                                  <span style="font-weight: bold;">
-                                                                    B
-                                                                  </span>
-                                                                  站
-                                                                </a>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-
-                                                 <!-- 十二月的奇迹 -->
-                                                  <div class="work-card" data-id="event-horizon">
-                                                    <div class="work-image-container">
-                            
-                                                        <img src="https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg" 
-                                     alt="十二月的奇迹" 
-                                     class="work-image">
-                                                      </div>
-                                                      <div class="work-content">
-                                                        <h3 class="work-title">
-                                                          《十二月的奇迹》
-                                                        </h3>
-                                                        <div class="work-meta">
-                                                          <span class="work-type">
-                                                            2024-07-03
-                                                          </span>
-                                                          
-                                                        </div>
-                                                        <p class="work-desc">
-                                                          原唱: EXO
-                                                        </p>
-                                                      
-                                                        <!-- 观看渠道 -->
-                                                          <div class="channels-section">
-                                                            <h4>
-                                                              观看渠道
-                                                            </h4>
-                                                            <div class="channels-grid">
-                                                              <!-- 
-                                        修改观看链接：
-                                        替换href中的链接地址
-                                        -->
-                                                                <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo">
-                                                                  <i class="fab fa-weibo">
-                                                                  </i>
-                                                                  微博
-                                                                </a>
-                                                                <a href="https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
-                                                                  <span style="font-weight: bold;">
-                                                                    B
-                                                                  </span>
-                                                                  站
-                                                                </a>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                              <!-- 
-                        添加更多作品示例：
-                        <div class="work-card" data-id="work-id">
-                                                                <div class="work-image-container">
-                                                                  <img src="封面链接" alt="作品名" class="work-image">
-                                                                </div>
-                                                                <div class="work-content">
-                                                                  <h3 class="work-title">
-                                                                    作品名称
-                                                                  </h3>
-                                                                  <div class="work-meta">
-                                                                    <span class="work-type">
-                                                                      类型
-                                                                    </span>
-                                                                  </div>
-                                                                  <p class="work-desc">
-                                                                    作品描述...
-                                                                  </p>
-                                                                  <div class="channels-section">
-                                                                    <h4>
-                                                                      观看渠道
-                                                                    </h4>
-                                                                    <div class="channels-grid">
-                                                                      <a href="微博链接" class="channel-btn weibo">
-                                                                        微博
-                                                                      </a>
-                                                                      <a href="B站链接" class="channel-btn bilibili">
-                                                                        B站
-                                                                      </a>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                              -->
-                                                            </div>
-                                                          </div>
-                                                          <!-- 翻跳作品区域 -->
-                                                            <div class="sub-section" data-subtab="dance">
-                                                              <h3 class="section-title mb-4">
-                                                                 翻跳作品
-                                                              </h3>
-                                                              <div class="works-grid">
-                                                                                        <div class="work-card">
-                                                                  <div class="work-image-container">
-                                                                    <img src="https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg" alt="翻跳作品" class="work-image">
-                                                                  </div>
-                                                                  <div class="work-content">
-                                                                    <h3 class="work-title">
-                                                                      《姐姐真漂亮》（横版）
-                                                                    </h3>
-                                                                    <div class="work-meta">
-                                                                      <span class="work-type">
-                                                                        翻跳
-                                                                      </span>
-                                                                    </div>
-                                                                    <p class="work-desc">
-                                                                      《누난너무예뻐(Replay) 》 - SHINee
-                                                                    </p>
-                                                                    <div class="channels-section">
-                                                                      <h4>
-                                                                        观看渠道
-                                                                      </h4>
-                                                                      <div class="channels-grid">
-                                                                        <a href="http://t.cn/A6041BZL" class="channel-btn weibo">
-                                                                          微博
-                                                                        </a>
-                                                                        <a href="https://www.bilibili.com/video/BV1JW4y1o7Ri/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" class="channel-btn bilibili">
-                                                                          B站
-                                                                        </a>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                                <!-- 
-                        翻跳作品示例：
-                        <div class="work-card">
-                                                                  <div class="work-image-container">
-                                                                    <img src="https://example.com/dance-cover.jpg" alt="翻跳作品" class="work-image">
-                                                                  </div>
-                                                                  <div class="work-content">
-                                                                    <h3 class="work-title">
-                                                                      《姐姐真漂亮》
-                                                                    </h3>
-                                                                    <div class="work-meta">
-                                                                      <span class="work-type">
-                                                                        翻跳
-                                                                      </span>
-                                                                    </div>
-                                                                    <p class="work-desc">
-                                                                      精彩的舞蹈翻跳作品...
-                                                                    </p>
-                                                                    <div class="channels-section">
-                                                                      <h4>
-                                                                        观看渠道
-                                                                      </h4>
-                                                                      <div class="channels-grid">
-                                                                        <a href="微博链接" class="channel-btn weibo">
-                                                                          微博
-                                                                        </a>
-                                                                        <a href="B站链接" class="channel-btn bilibili">
-                                                                          B站
-                                                                        </a>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                                -->
-                                                                <!-- 提示信息 -->
-                                                                  <div class="work-card">
-                                                                    <div class="work-content text-center p-8">
-                                                                      <i class="fas fa-plus-circle" style="font-size: 2rem; color: var(--color-gray-400); margin-bottom: 16px;">
-                                                                      </i>
-                                                                      <h3 class="work-title">
-                                                                        添加更多翻跳作品
-                                                                      </h3>
-                                                                      <p class="work-desc">
-                                                                        在此处添加更多翻跳作品卡片
-                                                                      </p>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </section>
-                                                            <!-- ========== 资源汇总页面 ========== -->
-                                                              <section id="resources" class="content-section">
-                                                                <div class="section-header">
-                                                                  <h2 class="section-title">
-                                                                    资源汇总
-                                                                  </h2>
-                                                                  <p class="section-subtitle">
-                                                                    概念照、个人照、官方视频、直播切片、幕后花絮
-                                                                  </p>
-                                                                </div>
-                                                                <!-- 资源分类卡片 -->
-                                                                  <div class="works-grid">
-                                                                    <div class="work-card">
-                                                                      <div class="work-content">
-                                                                        <h3 class="work-title">
-                                                                          概念照/个人照
-                                                                        </h3>
-                                                                        <p class="work-desc">
-                                                                          官方发布及粉丝收藏的高清图片
-                                                                        </p>
-                                                                        <div class="channels-section mt-4">
-                                                                          <!-- 
-                                添加概念照链接示例：
-                                -->
-                                                                            <a href="http://t.cn/AXyOGz1B" target="_blank" class="channel-btn weibo" style="display: block; text-align: center;">
-                                                                              查看概念照
-                                                                            </a>
-                                                                          </div>
-                                                                        </div>
-                                                                      </div>
-                                                                      <div class="work-card">
-                                                                        <div class="work-content">
-                                                                          <h3 class="work-title">
-                                                                            官方视频
-                                                                          </h3>
-                                                                          <p class="work-desc">
-                                                                            MV、舞台、花絮等视频资源
-                                                                          </p>
-                                                                          <div class="channels-section mt-4">
-                                                                            <!-- 
-                                添加视频链接示例：
-                                -->
-                                                                              <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo" style="display: block; text-align: center;">
-                                                                                查看视频
-                                                                              </a>
-                                                                            </div>
-                                                                          </div>
-                                                                        </div>
-                                                                        <div class="work-card">
-                                                                          <div class="work-content">
-                                                                            <h3 class="work-title">
-                                                                              直播切片
-                                                                            </h3>
-                                                                            <p class="work-desc">
-                                                                              直播精华片段和精彩时刻
-                                                                            </p>
-                                                                            <div class="channels-section mt-4">
-                                                                              <button class="channel-btn bilibili" style="width: 100%;" onclick="showToast('功能开发中')">
-                                                                                查看切片
-                                                                              </button>
-                                                                            </div>
-                                                                          </div>
-                                                                        </div>
-                                                                        <div class="work-card">
-                                                                          <div class="work-content">
-                                                                            <h3 class="work-title">
-                                                                              幕后花絮
-                                                                            </h3>
-                                                                            <p class="work-desc">
-                                                                              录制现场、排练、采访等
-                                                                            </p>
-                                                                            <div class="channels-section mt-4">
-                                                                              <button class="channel-btn weibo" style="width: 100%;" onclick="showToast('功能开发中')">
-                                                                                查看花絮
-                                                                              </button>
-                                                                            </div>
-                                                                          </div>
-                                                                        </div>
-                                                                      </div>
-                                                                      <!-- 
-                时间轴功能示例（未来可添加）：
-                <div class="timeline-container mt-8">
-                                                                        <h3 class="section-title mb-4">
-                                                                          时间轴
-                                                                        </h3>
-                                                                        <div class="timeline">
-                                                                          <div class="timeline-item">
-                                                                            <div class="timeline-date">
-                                                                              2024年
-                                                                            </div>
-                                                                            <div class="timeline-content">
-                                                                              内容...
-                                                                            </div>
-                                                                          </div>
-                                                                        </div>
-                                                                      </div>
-                                                                      -->
-                                                                    </section>
-                                                                    <!-- ========== 其他页面 ========== -->
-                                                                      <section id="others" class="content-section">
-                                                                        <div class="section-header">
-                                                                          <h2 class="section-title">
-                                                                            其他
-                                                                          </h2>
-                                                                          <p class="section-subtitle">
-                                                                            链接整理、社区相关、更多信息
-                                                                          </p>
-                                                                        </div>
-                                                                        <!-- 完整链接列表 -->
-                                                                          <div class="work-card">
-                                                                            <div class="work-content">
-                                                                              <h3 class="work-title">
-                                                                                重要链接
-                                                                              </h3>
-                                                                              <div class="info-grid mt-4">
-                                                                                <!-- 
-                            添加重要链接示例：
-                            -->
-                                                                                  <div class="info-item">
-                                                                                    <div class="info-label">
-                                                                                      微博超话
-                                                                                    </div>
-                                                                                    <div class="info-value">
-                                                                                      <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                                                                        http://t.cn/AXyOGz13
-                                                                                      </a>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="info-item">
-                                                                                    <div class="info-label">
-                                                                                      翻唱作品
-                                                                                    </div>
-                                                                                    <div class="info-value">
-                                                                                      <a href="http://t.cn/AXyOGzBh" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                                                                        《事件的地平线》
-                                                                                      </a>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <div class="info-item">
-                                                                                    <div class="info-label">
-                                                                                      官方物料
-                                                                                    </div>
-                                                                                    <div class="info-value">
-                                                                                      <a href="http://t.cn/AXyOGz1B" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                                                                        概念照合集
-                                                                                      </a>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  <!-- 
-                            添加更多链接示例：
+                        </div>
+                        <div class="profile-links">
+                            <a href="https://weibo.com/u/5143372154" target="_blank" class="profile-link">
+                                <i class="fab fa-weibo"></i>
+                                鹿站主页
+                            </a>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-grid">
                             <div class="info-item">
-                                                                                    <div class="info-label">
-                                                                                      链接标题
-                                                                                    </div>
-                                                                                    <div class="info-value">
-                                                                                      <a href="链接地址" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                                                                        链接描述
-                                                                                      </a>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                  -->
-                                                                                </div>
-                                                                              </div>
-                                                                            </div>
-                                                                            <!-- 社区信息 -->
-                                                                              <div class="work-card mt-8">
-                                                                                <div class="work-content">
-                                                                                  <h3 class="work-title">
-                                                                                    粉丝社区
-                                                                                  </h3>
-                                                                                  <p class="work-desc mb-4">
-                                                                                    关注Bamby的最新动态和粉丝交流
-                                                                                  </p>
-                                                                                  <div class="channels-grid">
-                                                                                    <!-- 
-                            添加社区链接示例：
-                            -->
-                                                                                      <a href="https://weibo.com/u/5143372154" target="_blank" class="channel-btn weibo">
-                                                                                        <i class="fab fa-weibo">
-                                                                                        </i>
-                                                                                        鹿站主页
-                                                                                      </a>
-                                                                                      <button class="channel-btn bilibili" onclick="showToast('社区功能开发中')">
-                                                                                        <span style="font-weight: bold;">
-                                                                                          B
-                                                                                        </span>
-                                                                                        站社区
-                                                                                      </button>
-                                                                                    </div>
-                                                                                  </div>
-                                                                                </div>
-                                                                              </section>
-                                                                            </main>
-                                                                            <!-- 页脚 -->
-                                                                              <footer class="main-footer">
-                                                                                <div class="footer-content">
-                                                                                  <div class="footer-section">
-                                                                                    <h4>
-                                                                                      蔡丰玖·BAMBY 安利手册
-                                                                                    </h4>
-                                                                                    <p>
-                                                                                      粉丝自制非官方站点
-                                                                                    </p>
-                                                                                    
-                                                                                  </div>
-                                                                                  <div class="footer-section">
-                                                                                    <h4>
-                                                                                      声明
-                                                                                    </h4>
-                                                                                    <p>
-                                                                                      所有资源均来源于网络
-                                                                                    </p>
-                                                                                    <p>
-                                                                                      仅供粉丝交流使用
-                                                                                    </p>
-                                                                                  </div>
-                                                                                  <div class="footer-section">
-                                                                                    <h4>
-                                                                                      欢迎捉虫
-                                                                                    </h4>
-                                                                                    <p>
-                                                                                      
-有问题请联系微博鹿站                                                                                    </p>
-                                                                                    
-                                                                                  </div>
-                                                                                </div>
-                                                                                <div class="footer-bottom">
-                                                                                  <p>
-                                                                                    Made with
-                                                                                    <i class="fas fa-heart" style="color: var(--color-primary-dark);">
-                                                                                    </i>
-                                                                                    by Bamby Fans
-                                                                                  </p>
-                                                                                  <p style="margin-top: 8px; font-size: 0.8rem;">
-                                                                                    最后更新：2024年10月
-                                                                                  </p>
-                                                                                </div>
-                                                                              </footer>
-                                                                            </div>
-                                                                            <!-- 回到顶部按钮 -->
-                                                                              <button class="back-to-top" id="backToTop">
-                                                                                <i class="fas fa-arrow-up">
-                                                                                </i>
-                                                                              </button>
-                                                                              <script>
-                                                                                /**
-         * 蔡丰玖·BAMBY安利手册 - 交互功能
-         * 高级简约版本
-         */
+                                <div class="info-label">姓名</div>
+                                <div class="info-value">蔡丰玖 / Bamby / 밤비 / バンビ</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">生日</div>
+                                <div class="info-value">2002年7月15日</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">星座</div>
+                                <div class="info-value">巨蟹座</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">身高</div>
+                                <div class="info-value">174cm</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">血型</div>
+                                <div class="info-value">B型</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">MBTI</div>
+                                <div class="info-value">INFP-T → INTP</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">定位</div>
+                                <div class="info-value">Dance, Vocal</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">标志</div>
+                                <div class="info-value">鹿，粉红色爱心</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">昵称</div>
+                                <div class="info-value">小可爱</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">幸运数</div>
+                                <div class="info-value">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ========== 安利向页面 ========== -->
+            <section id="anli" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">安利向</h2>
+                    <p class="section-subtitle">翻唱、翻跳、舞台、精彩瞬间</p>
+                </div>
+                
+                <div class="sub-nav">
+                    <button class="sub-nav-btn active" data-subtab="covers">
+                        <i class="fas fa-microphone"></i>
+                        翻唱作品
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="dance">
+                        <i class="fas fa-running"></i>
+                        翻跳作品
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="stage">
+                        <i class="fas fa-video"></i>
+                        舞台直拍
+                    </button>
+                </div>
+                
+                <!-- 翻唱作品区域 -->
+                <div class="sub-section active" data-subtab="covers">
+                    <h3 class="section-title mb-4">🎤 翻唱作品</h3>
+                    <div class="works-grid">
+                        <!-- 所有翻唱作品卡片 -->
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" alt="事件的地平线" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《事件的地平线》（Event Horizon）</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2023-12-05</span>
+                                </div>
+                                <p class="work-desc">原唱：高润荷（YOUNHA）</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/AXyOGzBh" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" alt="I hope It's breeze" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《I hope It's breeze》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-05-15</span>
+                                </div>
+                                <p class="work-desc">原唱：봉구（GilguBonggu）</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6HcnvQa" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1vz42117D6/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Square -->
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" alt="Square" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Square》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-05-29</span>
+                                </div>
+                                <p class="work-desc">原唱: 白艺潾 (Yerin Baek)</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/AXyOGz1e" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Dangerously -->
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg" alt="Dangerously" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Dangerously》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-06-07</span>
+                                </div>
+                                <p class="work-desc">原唱: Charlie Puth</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6HrT3Q5" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 十二月的奇迹 -->
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg" alt="十二月的奇迹" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《十二月的奇迹》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-07-03</span>
+                                </div>
+                                <p class="work-desc">原唱: EXO</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 翻跳作品区域 -->
+                <div class="sub-section" data-subtab="dance">
+                    <h3 class="section-title mb-4">💃 翻跳作品</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg" alt="翻跳作品" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《姐姐真漂亮》（横版）</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">翻跳</span>
+                                </div>
+                                <p class="work-desc">《누난너무예뻐(Replay) 》 - SHINee</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6041BZL" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1JW4y1o7Ri/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 舞台直拍区域 -->
+                <div class="sub-section" data-subtab="stage">
+                    <h3 class="section-title mb-4">🎬 舞台直拍</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-content text-center p-8">
+                                <i class="fas fa-plus-circle" style="font-size: 2rem; color: var(--color-gray-400); margin-bottom: 16px;"></i>
+                                <h3 class="work-title">添加更多舞台直拍</h3>
+                                <p class="work-desc">在此处添加更多舞台直拍卡片</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ========== 物料汇总页面 ========== -->
+            <section id="materials" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">物料汇总</h2>
+                    <p class="section-subtitle">概念照、个人照、官方视频、直播切片、幕后花絮</p>
+                </div>
+                
+                <div class="sub-nav">
+                    <button class="sub-nav-btn active" data-subtab="concept">
+                        <i class="fas fa-camera"></i>
+                        概念照
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="personal-photos">
+                        <i class="fas fa-user-circle"></i>
+                        个人照
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="videos">
+                        <i class="fas fa-film"></i>
+                        官方视频
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="behind">
+                        <i class="fas fa-video"></i>
+                        幕后花絮
+                    </button>
+                </div>
+                
+                <!-- 概念照区域 - 多个作品卡片 -->
+                <div class="sub-section active" data-subtab="concept">
+                    <h3 class="section-title mb-4">📸 概念照</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-image-container" onclick="openImageGallery('concept-set-1')">
+                                <img src="https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg" 
+                                     alt="概念照合集1" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">官方概念照合集 - 系列1</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">官方发布</span>
+                                </div>
+                                <p class="work-desc">Bamby官方发布的高清概念照片系列1</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('concept-set-1')">
+                                    <i class="fas fa-eye"></i>
+                                    查看图片集 (8张)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card">
+                            <div class="work-image-container" onclick="openImageGallery('concept-set-2')">
+                                <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" 
+                                     alt="概念照合集2" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">官方概念照合集 - 系列2</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">官方发布</span>
+                                </div>
+                                <p class="work-desc">Bamby官方发布的高清概念照片系列2</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-2')">
+                                    <i class="fas fa-images"></i>
+                                    查看图片集 (6张)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 个人照区域 - 多个作品卡片 -->
+                <div class="sub-section" data-subtab="personal-photos">
+                    <h3 class="section-title mb-4">📷 个人照</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
+                                <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" 
+                                     alt="个人生活照1" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">个人生活照 - 日常分享</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">日常分享</span>
+                                </div>
+                                <p class="work-desc">Bamby日常分享的个人生活照片合集</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-1')">
+                                    <i class="fas fa-camera"></i>
+                                    查看生活照 (10张)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card">
+                            <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
+                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
+                                     alt="个人写真" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">个人写真集</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">专业拍摄</span>
+                                </div>
+                                <p class="work-desc">专业摄影师拍摄的个人写真照片</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
+                                    <i class="fas fa-portrait"></i>
+                                    查看写真 (12张)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 官方视频区域 -->
+                <div class="sub-section" data-subtab="videos">
+                    <h3 class="section-title mb-4">🎥 官方视频</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-content">
+                                <h3 class="work-title">官方视频合集</h3>
+                                <p class="work-desc">MV、舞台、花絮等官方视频资源</p>
+                                <div class="channels-section mt-4">
+                                    <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo" style="display: block; text-align: center;">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        查看官方视频
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 幕后花絮区域 -->
+                <div class="sub-section" data-subtab="behind">
+                    <h3 class="section-title mb-4">🎬 幕后花絮</h3>
+                    <div class="works-grid">
+                        <div class="work-card">
+                            <div class="work-content">
+                                <h3 class="work-title">幕后花絮合集</h3>
+                                <p class="work-desc">录制现场、排练、采访等幕后内容</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="showToast('功能开发中')">
+                                    <i class="fas fa-spinner"></i>
+                                    查看花絮（开发中）
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="others" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">其他</h2>
+                    <p class="section-subtitle">链接整理、社区相关、更多信息</p>
+                </div>
+                <div class="works-grid">
+                    <div class="work-card">
+                        <div class="work-content">
+                            <h3 class="work-title">重要链接</h3>
+                            <div class="info-grid mt-4">
+                                <div class="info-item">
+                                    <div class="info-label">微博超话</div>
+                                    <div class="info-value">
+                                        <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                                            http://t.cn/AXyOGz13
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">翻唱作品</div>
+                                    <div class="info-value">
+                                        <a href="http://t.cn/AXyOGzBh" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                                            《事件的地平线》
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
         
-        // DOM加载完成后初始化
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>蔡丰玖·BAMBY 安利手册</h4>
+                    <p>粉丝自制非官方站点</p>
+                </div>
+                <div class="footer-section">
+                    <h4>声明</h4>
+                    <p>所有资源均来源于网络</p>
+                    <p>仅供粉丝交流使用</p>
+                </div>
+                <div class="footer-section">
+                    <h4>欢迎捉虫</h4>
+                    <p>有问题请联系微博鹿站</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Made with <i class="fas fa-heart" style="color: var(--color-primary-dark);"></i> by Bamby Fans</p>
+                <p style="margin-top: 8px; font-size: 0.8rem;">最后更新：2024年10月</p>
+            </div>
+        </footer>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             initApp();
         });
         
-        /**
-         * 应用初始化
-         */
         function initApp() {
-            // 隐藏加载动画
             setTimeout(function() {
                 var loading = document.getElementById('loading');
                 loading.classList.add('hidden');
@@ -1857,80 +1118,169 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 500);
             }, 800);
             
-            // 初始化功能
             initNavigation();
+            initSubNavigation();
+            initMaterialNavigation();
             initTheme();
             initBackToTop();
-            initSubNavigation();
             
-            // 显示欢迎消息
             setTimeout(function() {
                 showWelcomeMessage();
             }, 1200);
         }
         
-        /**
-         * 初始化导航功能
-         */
+        // 图片画廊数据（你需要在这里添加真实的图片链接）
+        const imageGalleries = {
+            'concept-set-1': [
+                'https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg',
+                'https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg',
+                'https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg',
+                'https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg'
+                // 添加更多图片链接...
+            ],
+            'concept-set-2': [
+                'https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg',
+                'https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg'
+                // 添加更多图片链接...
+            ],
+            'personal-set-1': [
+                'https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg'
+                // 添加更多图片链接...
+            ],
+            'personal-set-2': [
+                'https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg'
+                // 添加更多图片链接...
+            ]
+        };
+        
+        let currentGallery = null;
+        let currentImageIndex = 0;
+        
+        function openImageGallery(galleryId) {
+            currentGallery = imageGalleries[galleryId];
+            if (!currentGallery || currentGallery.length === 0) return;
+            
+            currentImageIndex = 0;
+            updateImageViewer();
+            document.getElementById('imageViewer').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function updateImageViewer() {
+            if (!currentGallery || currentGallery.length === 0) return;
+            
+            const viewerImage = document.getElementById('viewerImage');
+            const imageCounter = document.getElementById('imageCounter');
+            
+            viewerImage.src = currentGallery[currentImageIndex];
+            imageCounter.textContent = `${currentImageIndex + 1} / ${currentGallery.length}`;
+        }
+        
+        function nextImage() {
+            if (!currentGallery) return;
+            currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
+            updateImageViewer();
+        }
+        
+        function prevImage() {
+            if (!currentGallery) return;
+            currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
+            updateImageViewer();
+        }
+        
+        function closeImageViewer() {
+            document.getElementById('imageViewer').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // 键盘控制
+        document.addEventListener('keydown', function(e) {
+            const viewer = document.getElementById('imageViewer');
+            if (!viewer.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeImageViewer();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+        
+        // 导航功能
         function initNavigation() {
-            // 主分类导航
             var navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(function(item) {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // 更新活动状态
                     navItems.forEach(function(nav) {
                         nav.classList.remove('active');
                     });
                     this.classList.add('active');
-                    
-                    // 切换内容区域
                     var tabId = this.getAttribute('href').substring(1);
                     switchTab(tabId);
-                    
-                    // 更新URL
                     history.pushState(null, null, this.getAttribute('href'));
                 });
             });
             
-            // 处理URL hash
             window.addEventListener('hashchange', handleHashChange);
             handleHashChange();
         }
         
-        /**
-         * 初始化子导航
-         */
         function initSubNavigation() {
-            var subNavBtns = document.querySelectorAll('.sub-nav-btn');
-            var subSections = document.querySelectorAll('.sub-section');
+            var subNavBtns = document.querySelectorAll('#anli .sub-nav-btn');
+            var subSections = document.querySelectorAll('#anli .sub-section');
             
             subNavBtns.forEach(function(btn) {
                 btn.addEventListener('click', function() {
-                    // 获取目标子分类
                     var subtab = this.getAttribute('data-subtab');
-                    
-                    // 更新按钮状态
                     subNavBtns.forEach(function(b) {
                         b.classList.remove('active');
                     });
                     this.classList.add('active');
-                    
-                    // 显示对应内容
                     subSections.forEach(function(section) {
                         section.classList.remove('active');
                         if (section.getAttribute('data-subtab') === subtab) {
                             section.classList.add('active');
                         }
                     });
+                    setTimeout(function() {
+                        document.getElementById('anli').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
                 });
             });
         }
         
-        /**
-         * 处理URL hash变化
-         */
+        function initMaterialNavigation() {
+            var subNavBtns = document.querySelectorAll('#materials .sub-nav-btn');
+            var subSections = document.querySelectorAll('#materials .sub-section');
+            
+            subNavBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var subtab = this.getAttribute('data-subtab');
+                    subNavBtns.forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    subSections.forEach(function(section) {
+                        section.classList.remove('active');
+                        if (section.getAttribute('data-subtab') === subtab) {
+                            section.classList.add('active');
+                        }
+                    });
+                    setTimeout(function() {
+                        document.getElementById('materials').scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                });
+            });
+        }
+        
         function handleHashChange() {
             var hash = window.location.hash.substring(1);
             if (hash) {
@@ -1941,36 +1291,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        /**
-         * 切换标签页
-         */
         function switchTab(tabId) {
-            // 隐藏所有内容区域
             document.querySelectorAll('.content-section').forEach(function(section) {
                 section.classList.remove('active');
             });
-            
-            // 显示目标内容区域
             var targetSection = document.getElementById(tabId);
             if (targetSection) {
                 targetSection.classList.add('active');
-                
-                // 滚动到顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
         
-        /**
-         * 初始化主题切换
-         */
         function initTheme() {
             var themeToggle = document.getElementById('themeToggle');
             var savedTheme = localStorage.getItem('bamby-theme') || 'light';
-            
-            // 应用保存的主题
             setTheme(savedTheme);
-            
-            // 主题切换按钮事件
             themeToggle.addEventListener('click', function() {
                 var newTheme = currentTheme === 'light' ? 'dark' : 'light';
                 setTheme(newTheme);
@@ -1978,18 +1313,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        /**
-         * 设置主题
-         */
+        var currentTheme = 'light';
         function setTheme(theme) {
             currentTheme = theme;
             document.documentElement.setAttribute('data-theme', theme);
-            
-            // 更新按钮图标
             var themeBtn = document.getElementById('themeToggle');
             var icon = themeBtn.querySelector('i');
             var text = themeBtn.querySelector('span');
-            
             if (theme === 'dark') {
                 icon.className = 'fas fa-sun';
                 text.textContent = '浅色';
@@ -1999,12 +1329,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        /**
-         * 初始化回到顶部按钮
-         */
         function initBackToTop() {
             var backToTopBtn = document.getElementById('backToTop');
-            
             window.addEventListener('scroll', function() {
                 if (window.pageYOffset > 300) {
                     backToTopBtn.style.display = 'flex';
@@ -2012,52 +1338,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     backToTopBtn.style.display = 'none';
                 }
             });
-            
             backToTopBtn.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
         
-        /**
-         * 显示欢迎消息
-         */
         function showWelcomeMessage() {
             var hour = new Date().getHours();
             var greeting = '';
-            
-            if (hour
-                                                                                < 6) greeting = '深夜好';
+            if (hour < 6) greeting = '深夜好';
             else if (hour < 12) greeting = '早上好';
             else if (hour < 18) greeting = '下午好';
             else greeting = '晚上好';
-            
             showToast(greeting + '，欢迎来到蔡丰玖·BAMBY安利手册', 3000);
         }
         
-        /**
-         * 显示提示消息
-         */
         function showToast(message, duration) {
             duration = duration || 2000;
-            
-            // 移除现有的toast
             var existingToast = document.querySelector('.toast-message');
-            if (existingToast) {
-                existingToast.remove();
-            }
-            
-            // 创建新的toast
+            if (existingToast) existingToast.remove();
             var toast = document.createElement('div');
             toast.className = 'toast-message';
             toast.textContent = message;
             document.body.appendChild(toast);
-            
-            // 显示动画
             setTimeout(function() {
                 toast.classList.add('show');
             }, 10);
-            
-            // 自动隐藏
             setTimeout(function() {
                 toast.classList.remove('show');
                 setTimeout(function() {
@@ -2066,7 +1372,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, duration);
         }
         
-        // 添加动态样式
         var dynamicStyles = document.createElement('style');
         dynamicStyles.textContent = '.toast-message {' +
             'position: fixed;' +
@@ -2080,8 +1385,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'box-shadow: var(--shadow-lg);' +
             'z-index: 9999;' +
             'opacity: 0;' +
-            'transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);' +
-            'font-weight: 500;' +
+            'transition: all 0.3s;' +
             'max-width: 80%;' +
             'text-align: center;' +
             'pointer-events: none;' +
@@ -2091,10 +1395,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'transform: translateX(-50%) translateY(0);' +
             '}';
         document.head.appendChild(dynamicStyles);
-        
-        // 控制台欢迎信息
-        console.log('%c✨ 蔡丰玖·BAMBY安利手册 ✨', 'color: #FF9EBD; font-size: 16px; font-weight: bold;');
-        console.log('%c蔡斑比 | BAMBY', 'color: #9E9E9E;');
     </script>
-                                                                                </body>
-                                                                              </html>
+</body>
+</html>
