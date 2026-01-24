@@ -161,12 +161,13 @@
         }
         
         .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    justify-content: center; /* ✅ 改为 center 居中 */
+    align-items: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    position: relative; /* 添加相对定位 */
+}
         
 /* 修复主标题居中 - 不影响JavaScript */
 .logo {
@@ -190,9 +191,13 @@
     }
     
     .theme-toggle {
-        justify-content: center;
-        width: 100%;
-    }
+    display: flex;
+    gap: 8px;
+    position: absolute; /* 使用绝对定位 */
+    right: 0; /* 固定在右侧 */
+    top: 50%; /* 垂直居中 */
+    transform: translateY(-50%); /* 精确居中 */
+}
 }
         
         .logo-text {
@@ -1744,9 +1749,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                                                     <p>
                                                                                       粉丝自制非官方站点
                                                                                     </p>
-                                                                                    <p>
-                                                                                      设计：高级简约风格
-                                                                                    </p>
+                                                                                    
                                                                                   </div>
                                                                                   <div class="footer-section">
                                                                                     <h4>
@@ -1761,14 +1764,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                                                                   </div>
                                                                                   <div class="footer-section">
                                                                                     <h4>
-                                                                                      技术支持
+                                                                                      欢迎捉虫
                                                                                     </h4>
                                                                                     <p>
-                                                                                      HTML5 + CSS3 + JavaScript
-                                                                                    </p>
-                                                                                    <p>
-                                                                                      完全响应式设计
-                                                                                    </p>
+                                                                                      
+有问题请联系微博鹿站                                                                                    </p>
+                                                                                    
                                                                                   </div>
                                                                                 </div>
                                                                                 <div class="footer-bottom">
