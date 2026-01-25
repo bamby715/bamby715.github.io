@@ -385,7 +385,7 @@
             background: var(--color-gray-700);
         }
         
-        /* 图片查看器样式 */
+        /* 图片查看器样式修复 */
         .image-viewer-overlay {
             position: fixed;
             top: 0;
@@ -413,6 +413,7 @@
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
+            display: block;
         }
         
         .image-nav {
@@ -430,6 +431,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2001;
         }
         
         .image-prev {
@@ -452,6 +454,7 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
+            z-index: 2001;
         }
         
         .image-counter {
@@ -463,6 +466,7 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 5px 15px;
             border-radius: 20px;
+            z-index: 2001;
         }
         
         .main-footer {
@@ -470,6 +474,7 @@
             background: var(--color-white);
             border-top: 1px solid var(--color-gray-200);
             padding: 40px 0 20px;
+            text-align: center;
         }
         
         .footer-content {
@@ -477,11 +482,12 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 32px;
             margin-bottom: 32px;
-            text-align: center;
+            justify-items: center;
         }
         
         .footer-section {
             text-align: center;
+            max-width: 300px;
         }
         
         .back-to-top {
@@ -490,7 +496,7 @@
             right: 24px;
             width: 44px;
             height: 44px;
-            background: var(--color-primary-light);
+            background: var(--color-primary);
             color: var(--color-white);
             border: none;
             border-radius: 50%;
@@ -502,33 +508,80 @@
             justify-content: center;
         }
 
-      /* 修复鹿站主页链接样式 */
-.profile-link {
-    padding: 12px;
-    text-align: center;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all var(--transition-normal);
-    background: var(--color-gray-100);
-    color: var(--color-gray-700);
-    border: 1px solid transparent;
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    font-family: var(--font-body);
-}
+        /* 修复鹿站主页链接样式 */
+        .profile-link {
+            padding: 12px;
+            text-align: center;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-normal);
+            background: var(--color-gray-100);
+            color: var(--color-gray-700);
+            border: 1px solid transparent;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-family: var(--font-body);
+        }
 
-.profile-link:hover {
-    background: var(--color-primary-light);
-    color: var(--color-primary-dark);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-}
+        .profile-link:hover {
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
 
-.profile-link i {
-    margin-right: 8px;
-}
+        .profile-link i {
+            margin-right: 8px;
+        }
+        
+        /* 时间排序功能样式 */
+        .sort-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .sort-btn {
+            padding: 8px 16px;
+            background: var(--color-gray-100);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-md);
+            color: var(--color-gray-600);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: 0.9rem;
+        }
+        
+        .sort-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        /* 通用辅助类 */
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .d-none {
+            display: none !important;
+        }
         
         @media (max-width: 768px) {
             .container {
@@ -567,74 +620,34 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
-
-          /* ====== 页脚和按钮修复 ====== */
-
-/* 确保footer完全居中 */
-.footer-content {
-    text-align: center;
-    justify-items: center; /* 确保网格项居中 */
-}
-
-.footer-section {
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding: 20px 0;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.footer-bottom p {
-    text-align: center;
-    margin: 0 auto 5px;
-    display: block;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .main-footer {
-        padding: 40px 16px 100px; /* 增加底部内边距，防止被遮挡 */
-        margin-bottom: 0;
-    }
-    
-    .footer-content {
-        padding: 0 10px;
-    }
-    
-    .footer-section {
-        padding: 0;
-    }
-    
-    .footer-bottom {
-        padding: 20px 10px 40px; /* 增加底部空间 */
-        position: relative;
-        z-index: 1;
-    }
-    
-    /* 回到顶部按钮调整 */
-    .back-to-top {
-        bottom: 80px; /* 调高位置 */
-        right: 20px;
-        z-index: 101;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* 确保内容不被手机底部栏遮挡 */
-    body {
-        padding-bottom: env(safe-area-inset-bottom, 20px);
-    }
-}
+            
+            /* 移动端图片查看器按钮修复 */
+            .image-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .image-prev {
+                left: 10px;
+            }
+            
+            .image-next {
+                right: 10px;
+            }
+            
+            .back-to-top {
+                bottom: 80px;
+                right: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="loading-overlay" id="loading">
         <div class="loading-spinner">
-            <div class="spinner"></div>
+            <div style="font-size: 2rem; color: var(--color-primary-dark); margin-bottom: 10px;">
+                <i class="fas fa-heart"></i>
+            </div>
             <p>加载中...</p>
         </div>
     </div>
@@ -776,9 +789,14 @@
                 <!-- 翻唱作品区域 -->
                 <div class="sub-section active" data-subtab="covers">
                     <h3 class="section-title mb-4">🎤 翻唱作品</h3>
-                    <div class="works-grid">
+                    <div class="sort-controls" id="covers-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="covers-works-grid">
                         <!-- 所有翻唱作品卡片 -->
-                        <div class="work-card">
+                        <div class="work-card" data-date="2023-12-05" data-title="事件的地平线">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" alt="事件的地平线" class="work-image">
                             </div>
@@ -803,7 +821,7 @@
                             </div>
                         </div>
                         
-                        <div class="work-card">
+                        <div class="work-card" data-date="2024-05-15" data-title="I hope It's breeze">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" alt="I hope It's breeze" class="work-image">
                             </div>
@@ -829,7 +847,7 @@
                         </div>
                         
                         <!-- Square -->
-                        <div class="work-card">
+                        <div class="work-card" data-date="2024-05-29" data-title="Square">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" alt="Square" class="work-image">
                             </div>
@@ -855,7 +873,7 @@
                         </div>
                         
                         <!-- Dangerously -->
-                        <div class="work-card">
+                        <div class="work-card" data-date="2024-06-07" data-title="Dangerously">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg" alt="Dangerously" class="work-image">
                             </div>
@@ -881,7 +899,7 @@
                         </div>
                         
                         <!-- 十二月的奇迹 -->
-                        <div class="work-card">
+                        <div class="work-card" data-date="2024-07-03" data-title="十二月的奇迹">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg" alt="十二月的奇迹" class="work-image">
                             </div>
@@ -911,8 +929,13 @@
                 <!-- 翻跳作品区域 -->
                 <div class="sub-section" data-subtab="dance">
                     <h3 class="section-title mb-4">💃 翻跳作品</h3>
-                  <div class="works-grid">
-                        <div class="work-card">
+                    <div class="sort-controls" id="dance-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="dance-works-grid">
+                        <div class="work-card" data-date="2023-03-03" data-title="Ditto">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg" alt="翻跳作品" class="work-image">
                             </div>
@@ -936,9 +959,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="works-grid">
-                        <div class="work-card">
+                        
+                        <div class="work-card" data-date="2023-07-10" data-title="姐姐真漂亮">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg" alt="翻跳作品" class="work-image">
                             </div>
@@ -1006,56 +1028,84 @@
                     </button>
                 </div>
                 
-                <!-- 概念照区域 - 多个作品卡片 -->
+                <!-- 概念照区域 -->
                 <div class="sub-section active" data-subtab="concept">
                     <h3 class="section-title mb-4">📸 概念照</h3>
-                    <div class="works-grid">
-                        <div class="work-card">
+                    <div class="sort-controls" id="concept-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="concept-works-grid">
+                        <div class="work-card" data-date="2025-10-30" data-title="PLBBUU">
+                            <div class="work-image-container" onclick="openImageGallery('concept-set-8')">
+                                <img src="https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg" 
+                                     alt="概念照合集8" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《PLBBUU》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-10-30</span>
+                                </div>
+                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-8')">
+                                    <i class="fas fa-images"></i>
+                                    查看图片集 (7张)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2025-10-30" data-title="Hide and Seek">
+                            <div class="work-image-container" onclick="openImageGallery('concept-set-7')">
+                                <img src="https://s2.loli.net/2026/01/25/CMv1Z9AoOJHbhLW.jpg" 
+                                     alt="概念照合集7" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Hide and Seek》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-10-30</span>
+                                </div>
+                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-7')">
+                                    <i class="fas fa-images"></i>
+                                    查看图片集 (3张)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2023-03-07" data-title="ASTERUM">
                             <div class="work-image-container" onclick="openImageGallery('concept-set-1')">
                                 <img src="https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg" 
                                      alt="概念照合集1" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">首张单曲专辑 《ASTERUM》
-</h3>
+                                <h3 class="work-title">《ASTERUM》</h3>
                                 <div class="work-meta">
                                     <span class="work-type">2023-03-07</span>
                                 </div>
-                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
+                                <p class="work-desc">个人/团体概念照+ MV拍摄现场照 - BAMBY</p>
                                 <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('concept-set-1')">
                                     <i class="fas fa-eye"></i>
-                                    查看图片集 (3张)
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="work-card">
-                            <div class="work-image-container" onclick="openImageGallery('concept-set-2')">
-                                <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" 
-                                     alt="概念照合集2" 
-                                     class="work-image">
-                            </div>
-                            <div class="work-content">
-                                <h3 class="work-title">官方概念照合集 - 系列2</h3>
-                                <div class="work-meta">
-                                    <span class="work-type">官方发布</span>
-                                </div>
-                                <p class="work-desc">Bamby官方发布的高清概念照片系列2</p>
-                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-2')">
-                                    <i class="fas fa-images"></i>
-                                    查看图片集 (6张)
+                                    查看图片集 (5张)
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 个人照区域 - 多个作品卡片 -->
+                <!-- 个人照区域 -->
                 <div class="sub-section" data-subtab="personal-photos">
                     <h3 class="section-title mb-4">📷 个人照</h3>
-                    <div class="works-grid">
-                        <div class="work-card">
+                    <div class="sort-controls" id="personal-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="personal-works-grid">
+                        <div class="work-card" data-date="2024-05-15" data-title="个人生活照">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
                                 <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" 
                                      alt="个人生活照1" 
@@ -1064,7 +1114,7 @@
                             <div class="work-content">
                                 <h3 class="work-title">个人生活照 - 日常分享</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">日常分享</span>
+                                    <span class="work-type">2024-05-15</span>
                                 </div>
                                 <p class="work-desc">Bamby日常分享的个人生活照片合集</p>
                                 <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-1')">
@@ -1074,7 +1124,7 @@
                             </div>
                         </div>
                         
-                        <div class="work-card">
+                        <div class="work-card" data-date="2024-05-29" data-title="个人写真">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
                                 <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
                                      alt="个人写真" 
@@ -1083,7 +1133,7 @@
                             <div class="work-content">
                                 <h3 class="work-title">个人写真集</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">专业拍摄</span>
+                                    <span class="work-type">2024-05-29</span>
                                 </div>
                                 <p class="work-desc">专业摄影师拍摄的个人写真照片</p>
                                 <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
@@ -1211,32 +1261,45 @@
             initMaterialNavigation();
             initTheme();
             initBackToTop();
+            initSortControls();
             
             setTimeout(function() {
                 showWelcomeMessage();
             }, 1200);
         }
         
-        // 图片画廊数据（你需要在这里添加真实的图片链接）
+        // 图片画廊数据
         const imageGalleries = {
+            'concept-set-8': [
+                'https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg',
+                'https://s2.loli.net/2026/01/25/NtBSZe8TlLmPRFW.jpg',
+                'https://s2.loli.net/2026/01/25/3LcUXRiten9gbGV.jpg',
+                'https://s2.loli.net/2026/01/25/iG7NMtmCnyrfp8S.jpg',
+                'https://s2.loli.net/2026/01/25/fb8KqsMSACw2NTa.jpg',
+                'https://s2.loli.net/2026/01/25/Q9R6ugTX1m7jGnh.jpg',
+                'https://s2.loli.net/2026/01/25/L9OIpg18oJeDFES.jpg'
+            ],
+            'concept-set-7': [
+                'https://s2.loli.net/2026/01/25/CMv1Z9AoOJHbhLW.jpg',
+                'https://s2.loli.net/2026/01/25/FTxwZkqOCK1j7rc.jpg',
+                'https://s2.loli.net/2026/01/25/PyCvQT1JUF3lAhr.jpg'
+            ],
             'concept-set-1': [
                 'https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg',
-                'https://s2.loli.net/2026/01/25/6kDpuFfl7ySW1C2.jpg',
-                'https://s2.loli.net/2026/01/25/CUPGtI2aFrqvcse.jpg'
-                // 添加更多图片链接...
-            ],
-            'concept-set-2': [
-                'https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg',
-                'https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg'
-                // 添加更多图片链接...
+                'https://s2.loli.net/2026/01/25/vEIe9qHDTkCa6gh.jpg',
+                'https://s2.loli.net/2026/01/25/A5XuNMat8d6Kw7W.jpg',
+                'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
+                'https://s2.loli.net/2026/01/25/3byhlV7gS1WukrY.jpg'
             ],
             'personal-set-1': [
-                'https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg'
-                // 添加更多图片链接...
+                'https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg',
+                'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
+                'https://s2.loli.net/2026/01/25/3byhlV7gS1WukrY.jpg'
             ],
             'personal-set-2': [
-                'https://s2.loli.net/2026/01/25/JHE9LaQOt1bdIku.jpg'
-                // 添加更多图片链接...
+                'https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg',
+                'https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg',
+                'https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg'
             ]
         };
         
@@ -1293,6 +1356,60 @@
                 prevImage();
             }
         });
+        
+        // 时间排序功能
+        function initSortControls() {
+            // 为每个有排序功能的区域初始化
+            const sortContainers = document.querySelectorAll('.sort-controls');
+            
+            sortContainers.forEach(container => {
+                const sortButtons = container.querySelectorAll('.sort-btn');
+                const gridId = container.id.replace('-sort-controls', '-works-grid');
+                const worksGrid = document.getElementById(gridId);
+                
+                if (!worksGrid) return;
+                
+                sortButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // 更新按钮状态
+                        sortButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // 获取排序方式
+                        const sortMethod = this.getAttribute('data-sort');
+                        
+                        // 对卡片进行排序
+                        sortWorkCards(worksGrid, sortMethod);
+                    });
+                });
+            });
+        }
+        
+        function sortWorkCards(grid, sortMethod) {
+            const cards = Array.from(grid.querySelectorAll('.work-card'));
+            
+            cards.sort((a, b) => {
+                const dateA = a.getAttribute('data-date');
+                const dateB = b.getAttribute('data-date');
+                const titleA = a.getAttribute('data-title').toLowerCase();
+                const titleB = b.getAttribute('data-title').toLowerCase();
+                
+                switch(sortMethod) {
+                    case 'date-desc':
+                        return new Date(dateB) - new Date(dateA);
+                    case 'date-asc':
+                        return new Date(dateA) - new Date(dateB);
+                    case 'title-asc':
+                        return titleA.localeCompare(titleB);
+                    default:
+                        return 0;
+                }
+            });
+            
+            // 清空网格并重新添加排序后的卡片
+            grid.innerHTML = '';
+            cards.forEach(card => grid.appendChild(card));
+        }
         
         // 导航功能
         function initNavigation() {
