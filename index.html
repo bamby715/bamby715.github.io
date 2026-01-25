@@ -580,474 +580,557 @@
         }
 
         /* ========== 日程表页面样式 ========== */
-.schedule-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.schedule-card {
-    background: var(--color-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    margin-bottom: 20px;
-    padding: 20px;
-    display: flex;
-    align-items: flex-start;
-    border-left: 4px solid var(--color-primary);
-    transition: all var(--transition-normal);
-}
-
-.schedule-card:hover {
-    transform: translateX(5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.schedule-date {
-    background: var(--color-primary-light);
-    border-radius: var(--radius-md);
-    padding: 15px;
-    text-align: center;
-    min-width: 100px;
-    margin-right: 20px;
-    flex-shrink: 0;
-}
-
-.schedule-day {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    line-height: 1;
-}
-
-.schedule-month {
-    font-size: 0.9rem;
-    color: var(--color-gray-600);
-    margin: 5px 0;
-    font-weight: 500;
-}
-
-.schedule-year {
-    font-size: 0.8rem;
-    color: var(--color-gray-500);
-}
-
-.schedule-content {
-    flex: 1;
-}
-
-.schedule-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: 8px;
-}
-
-.schedule-meta {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-.schedule-time, .schedule-platform {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    color: var(--color-gray-600);
-}
-
-.schedule-time i, .schedule-platform i {
-    color: var(--color-primary);
-}
-
-.schedule-desc {
-    color: var(--color-gray-700);
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.schedule-card.past {
-    opacity: 0.7;
-    border-left-color: var(--color-gray-300);
-}
-
-.schedule-card.past .schedule-date {
-    background: var(--color-gray-100);
-}
-
-.schedule-card.past .schedule-day {
-    color: var(--color-gray-500);
-}
-
-.schedule-card.important {
-    border-left-color: #FF6B6B;
-    background: linear-gradient(to right, rgba(255, 107, 107, 0.05), var(--color-white));
-}
-
-.schedule-card.important .schedule-date {
-    background: rgba(255, 107, 107, 0.1);
-}
-
-.schedule-card.important .schedule-day {
-    color: #FF6B6B;
-}
-
-.schedule-type {
-    display: inline-block;
-    padding: 3px 8px;
-    background: var(--color-gray-100);
-    color: var(--color-gray-700);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-right: 8px;
-}
-
-.schedule-type.live {
-    background: #E3F2FD;
-    color: #1976D2;
-}
-
-.schedule-type.performance {
-    background: #F3E5F5;
-    color: #7B1FA2;
-}
-
-.schedule-type.meeting {
-    background: #E8F5E9;
-    color: #388E3C;
-}
-
-.schedule-type.release {
-    background: #FFF3E0;
-    color: #F57C00;
-}
-
-.schedule-empty {
-    text-align: center;
-    padding: 60px 20px;
-    background: var(--color-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-}
-
-.schedule-empty i {
-    font-size: 3rem;
-    color: var(--color-gray-300);
-    margin-bottom: 20px;
-}
-
-.schedule-empty h3 {
-    color: var(--color-gray-700);
-    margin-bottom: 10px;
-}
-
-.schedule-empty p {
-    color: var(--color-gray-500);
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.schedule-filters {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-md);
-    color: var(--color-gray-600);
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all var(--transition-normal);
-}
-
-.filter-btn.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
-}
-
-.month-view {
-    background: var(--color-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 25px;
-    margin-bottom: 30px;
-}
-
-.month-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.month-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--color-gray-900);
-}
-
-.month-nav {
-    display: flex;
-    gap: 10px;
-}
-
-.month-nav-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--color-gray-100);
-    border: none;
-    color: var(--color-gray-600);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition-normal);
-}
-
-.month-nav-btn:hover {
-    background: var(--color-primary-light);
-    color: var(--color-primary-dark);
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-}
-
-.calendar-day-header {
-    text-align: center;
-    font-weight: 600;
-    color: var(--color-gray-600);
-    font-size: 0.9rem;
-    padding: 10px 0;
-}
-
-.calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    position: relative;
-    font-size: 0.9rem;
-}
-
-.calendar-day.empty {
-    background: transparent;
-    cursor: default;
-}
-
-.calendar-day.today {
-    background: var(--color-primary-light);
-    color: var(--color-primary-dark);
-    font-weight: 600;
-}
-
-.calendar-day.has-event {
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-weight: 600;
-}
-
-.calendar-day:hover:not(.empty) {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-sm);
-}
-
-.event-dot {
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background: #FF6B6B;
-    border-radius: 50%;
-}
-
-.event-dot.important {
-    background: #FF6B6B;
-}
-
-.event-dot.live {
-    background: #4CAF50;
-}
-
-.event-dot.performance {
-    background: #9C27B0;
-}
-/* 视频播放器样式 */
-.video-player-container {
-    position: relative;
-    width: 100%;
-    background: #000;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 比例 */
-    height: 0;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.video-info-overlay {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    gap: 8px;
-    z-index: 10;
-}
-
-.video-quality, .video-duration {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.75rem;
-}
-
-
-
-/* 原链接区域 */
-.original-links {
-    background: var(--color-gray-50);
-    border-radius: var(--radius-md);
-    padding: 15px;
-    margin: 15px 0;
-    border-left: 3px solid var(--color-primary);
-}
-
-.original-links h4 {
-    color: var(--color-gray-700);
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.link-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.youtube-link {
-    background: #FF0000 !important;
-    color: white !important;
-}
-
-.weibo-link {
-    background: var(--color-gray-800) !important;
-}
-
-.link-note {
-    color: var(--color-gray-500);
-    font-size: 0.8rem;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* 视频描述 */
-.video-description {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--color-gray-200);
-}
-
-.video-stats {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-    font-size: 0.85rem;
-    color: var(--color-gray-600);
-}
-
-.video-stats span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* 信息卡片 */
-.info-card {
-    border: 2px dashed var(--color-gray-300);
-    background: var(--color-gray-50);
-}
-
-.info-card:hover {
-    transform: none;
-    box-shadow: var(--shadow-md);
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .schedule-card {
-        flex-direction: column;
-    }
-    
-    .schedule-date {
-        margin-right: 0;
-        margin-bottom: 15px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .schedule-day {
-        font-size: 1.5rem;
-    }
-    
-    .calendar-grid {
-        gap: 4px;
-    }
-    
-    .calendar-day {
-        font-size: 0.8rem;
-    }
-  
-    .video-controls {
-        padding: 8px;
-    }
-    
-    .link-buttons {
-        flex-direction: column;
-    }
-    
-    .link-buttons .channel-btn {
-        width: 100%;
-    }
-}
+        .schedule-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .schedule-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            border-left: 4px solid var(--color-primary);
+            transition: all var(--transition-normal);
+        }
+
+        .schedule-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .schedule-date {
+            background: var(--color-primary-light);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            text-align: center;
+            min-width: 100px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .schedule-day {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            line-height: 1;
+        }
+
+        .schedule-month {
+            font-size: 0.9rem;
+            color: var(--color-gray-600);
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .schedule-year {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+        }
+
+        .schedule-content {
+            flex: 1;
+        }
+
+        .schedule-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-gray-900);
+            margin-bottom: 8px;
+        }
+
+        .schedule-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-time, .schedule-platform {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: var(--color-gray-600);
+        }
+
+        .schedule-time i, .schedule-platform i {
+            color: var(--color-primary);
+        }
+
+        .schedule-desc {
+            color: var(--color-gray-700);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .schedule-card.past {
+            opacity: 0.7;
+            border-left-color: var(--color-gray-300);
+        }
+
+        .schedule-card.past .schedule-date {
+            background: var(--color-gray-100);
+        }
+
+        .schedule-card.past .schedule-day {
+            color: var(--color-gray-500);
+        }
+
+        .schedule-card.important {
+            border-left-color: #FF6B6B;
+            background: linear-gradient(to right, rgba(255, 107, 107, 0.05), var(--color-white));
+        }
+
+        .schedule-card.important .schedule-date {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .schedule-card.important .schedule-day {
+            color: #FF6B6B;
+        }
+
+        .schedule-type {
+            display: inline-block;
+            padding: 3px 8px;
+            background: var(--color-gray-100);
+            color: var(--color-gray-700);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .schedule-type.live {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+
+        .schedule-type.performance {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .schedule-type.meeting {
+            background: #E8F5E9;
+            color: #388E3C;
+        }
+
+        .schedule-type.release {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .schedule-empty {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .schedule-empty i {
+            font-size: 3rem;
+            color: var(--color-gray-300);
+            margin-bottom: 20px;
+        }
+
+        .schedule-empty h3 {
+            color: var(--color-gray-700);
+            margin-bottom: 10px;
+        }
+
+        .schedule-empty p {
+            color: var(--color-gray-500);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .schedule-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-md);
+            color: var(--color-gray-600);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all var(--transition-normal);
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .month-view {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .month-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-gray-900);
+        }
+
+        .month-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .month-nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-gray-100);
+            border: none;
+            color: var(--color-gray-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+        }
+
+        .month-nav-btn:hover {
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            color: var(--color-gray-600);
+            font-size: 0.9rem;
+            padding: 10px 0;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day.empty {
+            background: transparent;
+            cursor: default;
+        }
+
+        .calendar-day.today {
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            font-weight: 600;
+        }
+
+        .calendar-day.has-event {
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-weight: 600;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .event-dot {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #FF6B6B;
+            border-radius: 50%;
+        }
+
+        .event-dot.important {
+            background: #FF6B6B;
+        }
+
+        .event-dot.live {
+            background: #4CAF50;
+        }
+
+        .event-dot.performance {
+            background: #9C27B0;
+        }
         
+        /* ========== 视频播放器样式 ========== */
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .video-quality, .video-duration {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        /* ========== 原链接区域 ========== */
+        .original-links {
+            background: var(--color-gray-50);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .original-links h4 {
+            color: var(--color-gray-700);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .link-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .youtube-link {
+            background: #FF0000 !important;
+            color: white !important;
+        }
+
+        .weibo-link {
+            background: var(--color-gray-800) !important;
+        }
+
+        .link-note {
+            color: var(--color-gray-500);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ========== 视频描述 ========== */
+        .video-description {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--color-gray-200);
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--color-gray-600);
+        }
+
+        .video-stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ========== 信息卡片 ========== */
+        .info-card {
+            border: 2px dashed var(--color-gray-300);
+            background: var(--color-gray-50);
+        }
+
+        .info-card:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========== 直拍视频页面新增样式 ========== */
+        .embedded-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .image-play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .work-image-container:hover .image-play-overlay {
+            opacity: 1;
+        }
+
+        .video-badge {
+            background: #9C27B0 !important;
+            color: white !important;
+        }
+
+        /* ========== 视频封面点击播放样式 ========== */
+        .video-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .poster-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--color-primary-dark);
+            cursor: pointer;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .play-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .video-poster.hidden {
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+        }
+
+        .video-wrapper.playing iframe {
+            z-index: 3;
+        }
+
+        /* ========== 移动端适配 ========== */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -1103,233 +1186,44 @@
                 bottom: 80px;
                 right: 20px;
             }
-
-         
-
-/* 原链接区域 */
-.original-links {
-    background: var(--color-gray-50);
-    border-radius: var(--radius-md);
-    padding: 15px;
-    margin: 15px 0;
-    border-left: 3px solid var(--color-primary);
-}
-
-.original-links h4 {
-    color: var(--color-gray-700);
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.link-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.youtube-link {
-    background: #FF0000 !important;
-    color: white !important;
-}
-
-.weibo-link {
-    background: var(--color-gray-800) !important;
-}
-
-.link-note {
-    color: var(--color-gray-500);
-    font-size: 0.8rem;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* 视频描述 */
-.video-description {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--color-gray-200);
-}
-
-.video-stats {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-    font-size: 0.85rem;
-    color: var(--color-gray-600);
-}
-
-.video-stats span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* 信息卡片 */
-.info-card {
-    border: 2px dashed var(--color-gray-300);
-    background: var(--color-gray-50);
-}
-
-.info-card:hover {
-    transform: none;
-    box-shadow: var(--shadow-md);
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .video-controls {
-        padding: 8px;
-    }
-    
-    .link-buttons {
-        flex-direction: column;
-    }
-    
-    .link-buttons .channel-btn {
-        width: 100%;
-    }
-}
-
-                /* ========== 直拍视频页面新增样式 ========== */
-
-/* 内嵌视频的标识徽章 */
-.embedded-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.75);
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-/* 封面图上的播放按钮覆盖层 */
-.image-play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3rem;
-    opacity: 0;
-    transition: opacity var(--transition-normal);
-    cursor: pointer;
-}
-
-.work-image-container:hover .image-play-overlay {
-    opacity: 1;
-}
-
-/* 视频类型徽章 */
-.video-badge {
-    background: #9C27B0 !important; /* 紫色，与其他类型区分 */
-    color: white !important;
-}
-
-          /* ========== 视频封面点击播放样式 ========== */
-
-/* 视频封面容器 */
-.video-poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    z-index: 2; /* 在iframe上层 */
-    transition: opacity 0.3s ease;
-}
-
-/* 封面覆盖层（渐变和播放按钮） */
-.poster-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-/* 播放按钮 */
-.play-button {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--color-primary-dark);
-    cursor: pointer;
-    font-size: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.play-button:hover {
-    transform: scale(1.1);
-    background: white;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* 播放提示文字 */
-.play-text {
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.6);
-    padding: 5px 15px;
-    border-radius: 20px;
-}
-
-/* 隐藏封面（播放时） */
-.video-poster.hidden {
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* iframe初始隐藏，点击后显示 */
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    z-index: 1;
-}
-
-/* 显示iframe时（播放时） */
-.video-wrapper.playing iframe {
-    z-index: 3;
-}
+            
+            .schedule-card {
+                flex-direction: column;
+            }
+            
+            .schedule-date {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .schedule-day {
+                font-size: 1.5rem;
+            }
+            
+            .calendar-grid {
+                gap: 4px;
+            }
+            
+            .calendar-day {
+                font-size: 0.8rem;
+            }
+            
+            .video-controls {
+                padding: 8px;
+            }
+            
+            .link-buttons {
+                flex-direction: column;
+            }
+            
+            .link-buttons .channel-btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1391,6 +1285,7 @@
         </header>
         
         <main class="content-wrapper">
+            <!-- 个人信息部分 -->
             <section id="personal" class="content-section active">
                 <div class="section-header">
                     <h2 class="section-title">个人信息</h2>
@@ -1457,6 +1352,7 @@
                 </div>
             </section>
             
+            <!-- 安利向部分 -->
             <section id="anli" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">安利向</h2>
@@ -1478,6 +1374,7 @@
                     </button>
                 </div>
                 
+                <!-- 翻唱作品 -->
                 <div class="sub-section active" data-subtab="covers">
                     <h3 class="section-title mb-4">🎤 翻唱作品</h3>
                     <div class="sort-controls" id="covers-sort-controls">
@@ -1486,6 +1383,7 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="covers-works-grid">
+                        <!-- 翻唱作品卡片 -->
                         <div class="work-card" data-date="2024-07-17" data-title="Pretender">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/gPZi4UANfMchabo.jpg" alt="Pretender" class="work-image">
@@ -1638,6 +1536,7 @@
                     </div>
                 </div>
                 
+                <!-- 翻跳作品 -->
                 <div class="sub-section" data-subtab="dance">
                     <h3 class="section-title mb-4">💃 翻跳作品</h3>
                     <div class="sort-controls" id="dance-sort-controls">
@@ -1646,6 +1545,7 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="dance-works-grid">
+                        <!-- 翻跳作品卡片 -->
                         <div class="work-card" data-date="2023-07-10" data-title="姐姐真漂亮">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg" alt="翻跳作品" class="work-image">
@@ -1670,7 +1570,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="work-card" data-date="2023-03-03" data-title="Ditto">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg" alt="翻跳作品" class="work-image">
@@ -1699,70 +1598,68 @@
                 </div>
                 
                 <!-- 直拍视频区域 -->
-<div class="sub-section" data-subtab="stage">
-    <h3 class="section-title mb-4">🎬 舞台直拍</h3>
-    
-    <!-- 新增：时间排序控件 -->
-    <div class="sort-controls" id="stage-sort-controls">
-        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
-        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
-        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
-    </div>
+                <div class="sub-section" data-subtab="stage">
+                    <h3 class="section-title mb-4">🎬 舞台直拍</h3>
+                    
+                    <div class="sort-controls" id="stage-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
 
-    <!-- 视频网格 -->
-    <div class="works-grid" id="stage-works-grid">
-        
-        <!-- 왜요 왜요 왜 直拍（横版） -->
-<div class="work-card video-card embedded-video" data-date="2023-06-03" data-title="왜요 왜요 왜">
-    <div class="video-player-container">
-        <div class="video-wrapper">
-            <!-- 1. 视频封面层（初始显示） -->
-            <div class="video-poster" 
-                 style="background-image: url('https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg');">
-                <div class="poster-overlay">
-                    <button class="play-button">
-                        <i class="fas fa-play-circle"></i>
-                    </button>
-                    <div class="play-text">点击播放视频</div>
-                </div>
-            </div>
-            
-            <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
-            <iframe 
-                data-src="https://streamable.com/e/eazv9t?autoplay=1&controls=1&muted=0"
-                frameborder="0" 
-                allowfullscreen
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-            </iframe>
-        </div>
-    </div>
-    
-    <div class="work-content">
-        <h3 class="work-title">《왜요 왜요 왜》直拍 - BAMBY Focus（横版）</h3>
-        <div class="work-meta">
-            <span class="work-type">2023-06-03</span>
-        </div>
-        
-        <!-- 原链接区域 -->
-        <div class="original-links">
-            <h4><i class="fas fa-link"></i> 视频来源</h4>
-            <div class="link-buttons">
-                <a href="https://www.youtube.com/watch?v=Yo_eIeYYUp4" target="_blank" class="channel-btn youtube-link">
-                    <i class="fab fa-youtube"></i> YouTube
-                </a>
-            </div>
-            <p class="link-note">
-                <i class="fas fa-info-circle"></i> 内嵌视频需要手动控制播放/暂停，如果无法打开请点击原链接地址。
-            </p>
-        </div>
-        
-        <div class="video-description">
-            <p>PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore</p>
-        </div>
-    </div>
-</div>
+                    <div class="works-grid" id="stage-works-grid">
+                      
+                        <!-- 왜요 왜요 왜 直拍（横版） -->
+                        <div class="work-card video-card embedded-video" data-date="2023-06-03" data-title="왜요 왜요 왜">
+                            <div class="video-player-container">
+                                <div class="video-wrapper">
+                                    <!-- 1. 视频封面层（初始显示） -->
+                                    <div class="video-poster" 
+                                         style="background-image: url('https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg');">
+                                        <div class="poster-overlay">
+                                            <button class="play-button">
+                                                <i class="fas fa-play-circle"></i>
+                                            </button>
+                                            <div class="play-text">点击播放视频</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
+                                    <iframe 
+                                        data-src="https://streamable.com/e/eazv9t?autoplay=1&controls=1&muted=0"
+                                        frameborder="0" 
+                                        allowfullscreen
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                                    </iframe>
+                                </div>
+                            </div>
+                            
+                            <div class="work-content">
+                                <h3 class="work-title">《왜요 왜요 왜》直拍 - BAMBY Focus（横版）</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2023-06-03</span>
+                                </div>
+                                
+                                <!-- 原链接区域 -->
+                                <div class="original-links">
+                                    <h4><i class="fas fa-link"></i> 视频来源</h4>
+                                    <div class="link-buttons">
+                                        <a href="https://www.youtube.com/watch?v=Yo_eIeYYUp4" target="_blank" class="channel-btn youtube-link">
+                                            <i class="fab fa-youtube"></i> YouTube
+                                        </a>
+                                    </div>
+                                    <p class="link-note">
+                                        <i class="fas fa-info-circle"></i> 内嵌视频需要手动控制播放/暂停，如果无法打开请点击原链接地址。
+                                    </p>
+                                </div>
+                                
+                                <div class="video-description">
+                                    <p>PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore</p>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- WAY 4 LUV 直拍（横版） -->
+                        <!-- WAY 4 LUV 直拍（横版） -->
 <div class="work-card video-card embedded-video" data-date="2024-03-15" data-title="WAY 4 LUV">
     <div class="video-player-container">
         <div class="video-wrapper">
@@ -1779,7 +1676,7 @@
             
             <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
             <iframe 
-                data-src="https://streamable.com/e/adl7he?autoplay=0&controls=1&muted=0"
+                data-src="https://streamable.com/e/adl7he?autoplay=1&controls=1&muted=0"
                 frameborder="0" 
                 allowfullscreen
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -1829,7 +1726,7 @@
             
             <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
             <iframe 
-                data-src="https://streamable.com/e/bdkzs4?autoplay=0&controls=1&muted=0"
+                data-src="https://streamable.com/e/bdkzs4?autoplay=1&controls=1&muted=0"
                 frameborder="0" 
                 allowfullscreen
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -1887,9 +1784,11 @@
             </div>
         </div>
         <!-- 你可以继续在这里添加更多封面链接卡片，替换图片和链接即可 -->
-    </div>
-</div>
+                    </div>
+                </div>
+            </section>
             
+            <!-- 物料汇总部分 -->
             <section id="materials" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">物料汇总</h2>
@@ -1919,6 +1818,7 @@
                     </button>
                 </div>
                 
+                <!-- 回归照 -->
                 <div class="sub-section active" data-subtab="concept">
                     <h3 class="section-title mb-4">📸 回归照</h3>
                     <div class="sort-controls" id="concept-sort-controls">
@@ -1945,7 +1845,6 @@
                                 </button>
                             </div>
                         </div>
-                        
                         <div class="work-card" data-date="2025-06-13" data-title="Hide and Seek">
                             <div class="work-image-container" onclick="openImageGallery('concept-set-7')">
                                 <img src="https://s2.loli.net/2026/01/25/CMv1Z9AoOJHbhLW.jpg" 
@@ -1986,6 +1885,7 @@
                     </div>
                 </div>
 
+                <!-- 官方照片 -->
                 <div class="sub-section" data-subtab="photos">
                     <h3 class="section-title mb-4">📸 官方照</h3>
                     <div class="sort-controls" id="photos-sort-controls">
@@ -2012,7 +1912,6 @@
                                 </button>
                             </div>
                         </div>
-                        
                         <div class="work-card" data-date="2025-12-28" data-title="Day of Asterum">
                             <div class="work-image-container" onclick="openImageGallery('photos-set-2')">
                                 <img src="https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg" 
@@ -2034,6 +1933,7 @@
                     </div>
                 </div>
               
+                <!-- 个人照 -->
                 <div class="sub-section" data-subtab="personal-photos">
                     <h3 class="section-title mb-4">📷 个人照</h3>
                     <div class="sort-controls" id="personal-photos-sort-controls">
@@ -2060,7 +1960,6 @@
                                 </button>
                             </div>
                         </div>
-                        
                         <div class="work-card" data-date="2026-01-01" data-title="1月汇总">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
                                 <img src="https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg" 
@@ -2101,7 +2000,8 @@
                     </div>
                 </div>
 
-              <div class="sub-section" data-subtab="personal-mimu">
+                <!-- 咪姆照片 -->
+                <div class="sub-section" data-subtab="personal-mimu">
                     <h3 class="section-title mb-4">⭐ 咪姆照片</h3>
                     <div class="sort-controls" id="mimu-sort-controls">
                         <button class="sort-btn active" data-sort="date-desc">最新在前</button>
@@ -2127,7 +2027,6 @@
                                 </button>
                             </div>
                         </div>
-                      
                         <div class="work-card" data-date="2025-12-25" data-title="圣诞">
                             <div class="work-image-container" onclick="openImageGallery('mimu-set-2')">
                                 <img src="https://s2.loli.net/2026/01/25/c7q1LkihZWAe4Hp.jpg" 
@@ -2148,6 +2047,7 @@
                     </div>
                 </div>
                 
+                <!-- 幕后花絮 -->
                 <div class="sub-section" data-subtab="behind">
                     <h3 class="section-title mb-4">🎬 幕后花絮</h3>
                     <div class="works-grid">
@@ -2165,147 +2065,146 @@
                 </div>
             </section>
 
-          <section id="schedule" class="content-section">
-    <div class="section-header">
-        <h2 class="section-title">BAMBY日程</h2>
-        <p class="section-subtitle">个人相关活动时间表</p>
-    </div>
-    
-    <div class="sub-nav">
-        <button class="sub-nav-btn active" data-subtab="upcoming">
-            <i class="fas fa-clock"></i>
-            近期行程
-        </button>
-        <button class="sub-nav-btn" data-subtab="monthly">
-            <i class="fas fa-calendar"></i>
-            月度视图
-        </button>
-        <button class="sub-nav-btn" data-subtab="past">
-            <i class="fas fa-history"></i>
-            过往记录
-        </button>
-    </div>
-    
-<!-- 近期行程 -->
-<div class="sub-section active" data-subtab="upcoming">
-    <div class="schedule-filters">
-        <button class="filter-btn active" data-filter="all">全部</button>
-        <button class="filter-btn" data-filter="live">直播</button>
-        <button class="filter-btn" data-filter="performance">演出</button>
-    </div>
-    
-    <div class="schedule-container">
-        <!-- 2026年1月29日 三人直播 -->
-        <div class="schedule-card important" data-type="live">
-            <div class="schedule-date">
-                <div class="schedule-day">29</div>
-                <div class="schedule-month">1月</div>
-                <div class="schedule-year">2026</div>
-            </div>
-            <div class="schedule-content">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
-                    <span class="schedule-type live">直播</span>
-                </div>
-                <div class="schedule-meta">
-                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
-                    <span class="schedule-platform">
-                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
-                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
-                        YouTube & B站同步
-                    </span>
+            <!-- 行程日程部分 -->
+            <section id="schedule" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">BAMBY日程</h2>
+                    <p class="section-subtitle">个人相关活动时间表</p>
                 </div>
                 
-            </div>
-        </div>
-        
-        <div class="schedule-empty" style="display: none;" id="no-upcoming">
-            <i class="fas fa-calendar-plus"></i>
-            <h3>暂无其他近期行程</h3>
-            <p>BAMBY近期没有其他公开活动安排</p>
-        </div>
-    </div>
-    
-    <div class="official-link mt-4" style="text-align: center;">
-        <p style="color: var(--color-gray-500); margin-bottom: 10px; font-size: 0.9rem;">
-            <i class="fas fa-info-circle"></i> 日程可能临时调整，请以官方通知为准
-        </p>
-        <a href="https://plavecalendar.com/" target="_blank" class="channel-btn weibo" style="display: inline-block; max-width: 300px;">
-            <i class="fas fa-external-link-alt"></i>
-            查看官方完整日程
-        </a>
-    </div>
-</div>
+                <div class="sub-nav">
+                    <button class="sub-nav-btn active" data-subtab="upcoming">
+                        <i class="fas fa-clock"></i>
+                        近期行程
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="monthly">
+                        <i class="fas fa-calendar"></i>
+                        月度视图
+                    </button>
+                    <button class="sub-nav-btn" data-subtab="past">
+                        <i class="fas fa-history"></i>
+                        过往记录
+                    </button>
+                </div>
+                
+                <!-- 近期行程 -->
+                <div class="sub-section active" data-subtab="upcoming">
+                    <div class="schedule-filters">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="live">直播</button>
+                        <button class="filter-btn" data-filter="performance">演出</button>
+                    </div>
+                    
+                    <div class="schedule-container">
+                        <!-- 2026年1月29日 三人直播 -->
+                        <div class="schedule-card important" data-type="live">
+                            <div class="schedule-date">
+                                <div class="schedule-day">29</div>
+                                <div class="schedule-month">1月</div>
+                                <div class="schedule-year">2026</div>
+                            </div>
+                            <div class="schedule-content">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
+                                    <span class="schedule-type live">直播</span>
+                                </div>
+                                <div class="schedule-meta">
+                                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                                    <span class="schedule-platform">
+                                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
+                                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
+                                        YouTube & B站同步
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-empty" style="display: none;" id="no-upcoming">
+                            <i class="fas fa-calendar-plus"></i>
+                            <h3>暂无其他近期行程</h3>
+                            <p>BAMBY近期没有其他公开活动安排</p>
+                        </div>
+                    </div>
+                    
+                    <div class="official-link mt-4" style="text-align: center;">
+                        <p style="color: var(--color-gray-500); margin-bottom: 10px; font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> 日程可能临时调整，请以官方通知为准
+                        </p>
+                        <a href="https://plavecalendar.com/" target="_blank" class="channel-btn weibo" style="display: inline-block; max-width: 300px;">
+                            <i class="fas fa-external-link-alt"></i>
+                            查看官方完整日程
+                        </a>
+                    </div>
+                </div>
 
-<!-- 月度视图 -->
-<div class="sub-section" data-subtab="monthly">
-    <div class="month-view">
-        <div class="month-header">
-            <h3 class="month-title" id="monthTitle">2026年 1月</h3>
-            <div class="month-nav">
-                <button class="month-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-                <button class="month-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-        
-        <div class="calendar-grid" id="calendarGrid">
-            <!-- 日历将通过JavaScript动态生成 -->
-        </div>
-    </div>
-    
-    <div class="schedule-container">
-        <h3 class="section-title mb-4" style="text-align: center;">1月重点日程</h3>
-        <!-- 这里可以放置当前月重点日程卡片 -->
-        <div class="schedule-card important" data-type="live">
-            <div class="schedule-date">
-                <div class="schedule-day">29</div>
-                <div class="schedule-month">1月</div>
-                <div class="schedule-year">2026</div>
-            </div>
-            <div class="schedule-content">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
-                    <span class="schedule-type live">直播</span>
+                <!-- 月度视图 -->
+                <div class="sub-section" data-subtab="monthly">
+                    <div class="month-view">
+                        <div class="month-header">
+                            <h3 class="month-title" id="monthTitle">2026年 1月</h3>
+                            <div class="month-nav">
+                                <button class="month-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                                <button class="month-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- 日历将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-container">
+                        <h3 class="section-title mb-4" style="text-align: center;">1月重点日程</h3>
+                        <!-- 这里可以放置当前月重点日程卡片 -->
+                        <div class="schedule-card important" data-type="live">
+                            <div class="schedule-date">
+                                <div class="schedule-day">29</div>
+                                <div class="schedule-month">1月</div>
+                                <div class="schedule-year">2026</div>
+                            </div>
+                            <div class="schedule-content">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
+                                    <span class="schedule-type live">直播</span>
+                                </div>
+                                <div class="schedule-meta">
+                                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                                    <span class="schedule-platform">
+                                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
+                                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
+                                        YouTube & B站同步
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="schedule-meta">
-                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
-                    <span class="schedule-platform">
-                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
-                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
-                        YouTube & B站同步
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- 过往记录 -->
-<div class="sub-section" data-subtab="past">
-    <div class="schedule-container">
-        <!-- 2026年1月19日 双人WVS直播 -->
-        <div class="schedule-card past" data-type="live">
-            <div class="schedule-date">
-                <div class="schedule-day">19</div>
-                <div class="schedule-month">1月</div>
-                <div class="schedule-year">2026</div>
-            </div>
-            <div class="schedule-content">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <h3 class="schedule-title">❤️💗 双人WVS直播</h3>
-                    <span class="schedule-type live">直播</span>
-                </div>
-                <div class="schedule-meta">
-                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
-                    <span class="schedule-platform">
-                        <i class="fas fa-desktop" style="color: var(--color-primary);"></i>
-                        WVS直播
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 2026年1月12日 双人直播 -->
+                <!-- 过往记录 -->
+                <div class="sub-section" data-subtab="past">
+                    <div class="schedule-container">
+                        <!-- 2026年1月19日 双人WVS直播 -->
+                        <div class="schedule-card past" data-type="live">
+                            <div class="schedule-date">
+                                <div class="schedule-day">19</div>
+                                <div class="schedule-month">1月</div>
+                                <div class="schedule-year">2026</div>
+                            </div>
+                            <div class="schedule-content">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <h3 class="schedule-title">❤️💗 双人WVS直播</h3>
+                                    <span class="schedule-type live">直播</span>
+                                </div>
+                                <div class="schedule-meta">
+                                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                                    <span class="schedule-platform">
+                                        <i class="fas fa-desktop" style="color: var(--color-primary);"></i>
+                                        WVS直播
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 2026年1月12日 双人直播 -->
         <div class="schedule-card past" data-type="live">
             <div class="schedule-date">
                 <div class="schedule-day">12</div>
@@ -2370,19 +2269,11 @@
                         MBC电视台
                     </span>
                 </div>
-                
-            </div>
-        </div>
-        
-        <div class="schedule-empty">
-            <i class="fas fa-archive"></i>
-            <h3>更多过往记录整理中</h3>
-            <p>我们正在整理过往的重要活动记录，敬请期待！</p>
-        </div>
-    </div>
-</div>
-</section>
+                    </div>
+                </div>
+            </section>
           
+            <!-- 其他部分 -->
             <section id="others" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">其他</h2>
@@ -2447,43 +2338,46 @@
     </button>
     
     <script>
+        // 初始化应用
         document.addEventListener('DOMContentLoaded', function() {
             initApp();
         });
         
         function initApp() {
-    setTimeout(function() {
-        var loading = document.getElementById('loading');
-        loading.classList.add('hidden');
-        setTimeout(function() {
-            loading.style.display = 'none';
-        }, 500);
-    }, 800);
-    
-    initNavigation();
-    initSubNavigation();
-    initMaterialNavigation();
-    initTheme();
-    initBackToTop();
-    initSortControls();
-    initScheduleNavigation(); // 先初始化导航
-    initScheduleFilters();    // 然后初始化筛选器
-    
-    // 设置初始月份为当前月份
-    const today = new Date();
-    currentYear = today.getFullYear();
-    currentMonth = today.getMonth(); // 0-11
-    
-    initCalendar();
-    
-    // 初始化视频播放功能
-    initVideoPlayback();
-    
-    setTimeout(function() {
-        showWelcomeMessage();
-    }, 1200);
-}
+            // 隐藏加载页面
+            setTimeout(function() {
+                var loading = document.getElementById('loading');
+                loading.classList.add('hidden');
+                setTimeout(function() {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 800);
+            
+            // 初始化各个功能模块
+            initNavigation();
+            initSubNavigation();
+            initMaterialNavigation();
+            initTheme();
+            initBackToTop();
+            initSortControls();
+            initScheduleNavigation();
+            initScheduleFilters();
+            
+            // 设置初始月份为当前月份
+            const today = new Date();
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth();
+            
+            initCalendar();
+            initVideoPlayback();
+            
+            // 显示欢迎信息
+            setTimeout(function() {
+                showWelcomeMessage();
+            }, 1200);
+        }
         
+        // 图片画廊数据
         const imageGalleries = {
             'concept-set-8': [
                 'https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg',
@@ -2569,6 +2463,7 @@
         let currentGallery = null;
         let currentImageIndex = 0;
         
+        // 图片查看器功能
         function openImageGallery(galleryId) {
             currentGallery = imageGalleries[galleryId];
             if (!currentGallery || currentGallery.length === 0) return;
@@ -2606,6 +2501,7 @@
             document.body.style.overflow = '';
         }
         
+        // 键盘快捷键
         document.addEventListener('keydown', function(e) {
             const viewer = document.getElementById('imageViewer');
             if (!viewer.classList.contains('active')) return;
@@ -2619,6 +2515,7 @@
             }
         });
         
+        // 排序功能
         function initSortControls() {
             const sortContainers = document.querySelectorAll('.sort-controls');
             
@@ -2666,6 +2563,7 @@
             cards.forEach(card => grid.appendChild(card));
         }
         
+        // 导航功能
         function initNavigation() {
             var navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(function(item) {
@@ -2758,7 +2656,6 @@
                 targetSection.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // 如果切换到日程页面，重新初始化日历
                 if (tabId === 'schedule') {
                     setTimeout(() => {
                         initCalendar();
@@ -2767,6 +2664,7 @@
             }
         }
         
+        // 主题切换
         function initTheme() {
             var themeToggle = document.getElementById('themeToggle');
             var savedTheme = localStorage.getItem('bamby-theme') || 'light';
@@ -2794,6 +2692,7 @@
             }
         }
         
+        // 返回顶部功能
         function initBackToTop() {
             var backToTopBtn = document.getElementById('backToTop');
             window.addEventListener('scroll', function() {
@@ -2808,6 +2707,7 @@
             });
         }
         
+        // 欢迎信息
         function showWelcomeMessage() {
             var hour = new Date().getHours();
             var greeting = '';
@@ -2815,9 +2715,10 @@
             else if (hour < 12) greeting = '早上好';
             else if (hour < 18) greeting = '下午好';
             else greeting = '晚上好';
-            showToast(greeting + '，欢迎来到蔡丰玖·BAMBY安利手册', 3000);
+            showToast(greeting + '，亲爱的bamline成员', 3000);
         }
         
+        // Toast消息提示
         function showToast(message, duration) {
             duration = duration || 2000;
             var existingToast = document.querySelector('.toast-message');
@@ -2837,6 +2738,7 @@
             }, duration);
         }
         
+        // 动态添加Toast样式
         var dynamicStyles = document.createElement('style');
         dynamicStyles.textContent = '.toast-message {' +
             'position: fixed;' +
@@ -2860,370 +2762,268 @@
             'transform: translateX(-50%) translateY(0);' +
             '}';
         document.head.appendChild(dynamicStyles);
-
-// ========== 日历功能 ==========
-let currentMonth = 0; // 0=1月, 1=2月, 2=3月... 初始设为1月
-let currentYear = 2026;
-
-// 月份名称
-const monthFullNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-
-// 初始化日历
-function initCalendar() {
-    console.log('初始化日历: ', currentYear, '年', currentMonth + 1, '月'); // 显示时+1
-    updateCalendarTitle();
-    renderCalendar();
-    setupCalendarNavigation();
-}
-
-// 更新日历标题
-function updateCalendarTitle() {
-    const titleElement = document.getElementById('monthTitle');
-    if (titleElement) {
-        titleElement.textContent = `${currentYear}年 ${monthFullNames[currentMonth]}`;
-    }
-}
-
-// 跳转到上个月
-function goToPreviousMonth() {
-    currentMonth--;
-    if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-    }
-    console.log('跳转到上个月:', currentYear, '年', currentMonth + 1, '月');
-    updateCalendar();
-}
-
-// 跳转到下个月（修复版本）
-function goToNextMonth() {
-    currentMonth++;
-    if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-    }
-    console.log('跳转到下个月:', currentYear, '年', currentMonth + 1, '月');
-    updateCalendar();
-}
-
-// 渲染日历（简化版，确保能工作）
-function renderCalendar() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    if (!calendarGrid) return;
-    
-    // 清空日历
-    calendarGrid.innerHTML = '';
-    
-    // 添加星期标题
-    const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六'];
-    daysOfWeek.forEach(day => {
-        const dayHeader = document.createElement('div');
-        dayHeader.className = 'calendar-day-header';
-        dayHeader.textContent = day;
-        calendarGrid.appendChild(dayHeader);
-    });
-    
-    // 获取当月第一天和最后一天
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = firstDay.getDay();
-    
-    console.log(`渲染日历: ${currentYear}年${currentMonth + 1}月, 天数:${daysInMonth}, 起始日:${startingDay}`);
-    
-    // 添加上个月的空白格子
-    for (let i = 0; i < startingDay; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'calendar-day empty';
-        calendarGrid.appendChild(emptyCell);
-    }
-    
-    // 添加当月日期格子
-    const today = new Date();
-    
-    for (let day = 1; day <= daysInMonth; day++) {
-        const dayCell = document.createElement('div');
-        dayCell.className = 'calendar-day';
-        dayCell.textContent = day;
-        dayCell.style.position = 'relative';
         
-        // 检查是否是今天
-        if (currentYear === today.getFullYear() && 
-            currentMonth === today.getMonth() && 
-            day === today.getDate()) {
-            dayCell.classList.add('today');
+        // ========== 日历功能 ==========
+        let currentMonth = 0;
+        let currentYear = 2026;
+        
+        const monthFullNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+        
+        function initCalendar() {
+            updateCalendarTitle();
+            renderCalendar();
+            setupCalendarNavigation();
         }
         
-        // 检查当天是否有活动
-        const hasEvent = checkDayHasEvent(day);
-        if (hasEvent) {
-            dayCell.classList.add('has-event');
-            
-            const eventDot = document.createElement('span');
-            eventDot.className = 'event-dot';
-            eventDot.style.cssText = 'position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: #FF6B6B; border-radius: 50%;';
-            dayCell.appendChild(eventDot);
+        function updateCalendarTitle() {
+            const titleElement = document.getElementById('monthTitle');
+            if (titleElement) {
+                titleElement.textContent = `${currentYear}年 ${monthFullNames[currentMonth]}`;
+            }
         }
         
-        dayCell.addEventListener('click', function() {
-            showDayEvents(day);
-        });
+        function goToPreviousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            updateCalendar();
+        }
         
-        calendarGrid.appendChild(dayCell);
-    }
-    
-    // 补齐空白格子
-    const totalCells = startingDay + daysInMonth;
-    const rowsNeeded = Math.ceil(totalCells / 7);
-    const totalCellsNeeded = rowsNeeded * 7;
-    
-    for (let i = totalCells; i < totalCellsNeeded; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'calendar-day empty';
-        calendarGrid.appendChild(emptyCell);
-    }
-}
-
-// 检查某天是否有活动（简化版）
-function checkDayHasEvent(day) {
-    // 硬编码您的行程
-    const events = {
-        '2026-1-29': '💙💜💗 三人直播',
-        '2026-1-19': '❤️💗 双人WVS直播',
-        '2026-1-12': '💜💗 双人直播',
-        '2025-12-31': '🎤 2025 MBC歌谣大祭典'
-    };
-    
-    const key = `${currentYear}-${currentMonth + 1}-${day}`;
-    return events.hasOwnProperty(key);
-}
-
-// 显示某天的活动详情
-function showDayEvents(day) {
-    const events = {
-        '2026-1-29': '💙💜💗 三人直播 (19:00 CST, YouTube & B站同步)',
-        '2026-1-19': '❤️💗 双人WVS直播 (19:00 CST)',
-        '2026-1-12': '💜💗 双人直播 (19:00 CST, YouTube & B站同步)',
-        '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST, MBC电视台)'
-    };
-    
-    const key = `${currentYear}-${currentMonth + 1}-${day}`;
-    if (events[key]) {
-        showToast(`${currentYear}年${currentMonth + 1}月${day}日: ${events[key]}`, 5000);
-    } else {
-        showToast(`${currentYear}年${currentMonth + 1}月${day}日没有安排活动`, 3000);
-    }
-}
-
-// 设置日历导航
-function setupCalendarNavigation() {
-    const prevBtn = document.getElementById('prevMonth');
-    const nextBtn = document.getElementById('nextMonth');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', goToPreviousMonth);
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', goToNextMonth);
-    }
-}
-
-// 更新日历
-function updateCalendar() {
-    updateCalendarTitle();
-    renderCalendar();
-}
-
-// 初始化行程导航（修复版本）
-function initScheduleNavigation() {
-    const subNavBtns = document.querySelectorAll('#schedule .sub-nav-btn');
-    const subSections = document.querySelectorAll('#schedule .sub-section');
-    
-    subNavBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const subtab = this.getAttribute('data-subtab');
+        function goToNextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            updateCalendar();
+        }
+        
+        function renderCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            if (!calendarGrid) return;
             
-            subNavBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+            calendarGrid.innerHTML = '';
             
-            subSections.forEach(section => {
-                section.classList.remove('active');
-                if (section.getAttribute('data-subtab') === subtab) {
-                    section.classList.add('active');
+            const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六'];
+            daysOfWeek.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            for (let i = 0; i < startingDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            const today = new Date();
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = day;
+                dayCell.style.position = 'relative';
+                
+                if (currentYear === today.getFullYear() && 
+                    currentMonth === today.getMonth() && 
+                    day === today.getDate()) {
+                    dayCell.classList.add('today');
+                }
+                
+                const hasEvent = checkDayHasEvent(day);
+                if (hasEvent) {
+                    dayCell.classList.add('has-event');
                     
-                    // 如果是月度视图，设置当前月份为实际当前月份
-                    if (subtab === 'monthly') {
-                        setTimeout(() => {
-                            // 设置当前月份
-                            const today = new Date();
-                            currentYear = today.getFullYear();
-                            currentMonth = today.getMonth(); // 0-11
-                            updateCalendar();
-                        }, 50);
-                    }
+                    const eventDot = document.createElement('span');
+                    eventDot.className = 'event-dot';
+                    eventDot.style.cssText = 'position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: #FF6B6B; border-radius: 50%;';
+                    dayCell.appendChild(eventDot);
                 }
-            });
-        });
-    });
-}
-
-      // 初始化行程筛选（修复版）
-function initScheduleFilters() {
-    // 为每个子部分的筛选器绑定事件
-    const subSections = document.querySelectorAll('#schedule .sub-section');
-    subSections.forEach(section => {
-        bindFilterEventsForSection(section);
-    });
-}
-
-// 为特定部分绑定筛选器事件
-function bindFilterEventsForSection(section) {
-    const filterBtns = section.querySelectorAll('.filter-btn');
-    const scheduleCards = section.querySelectorAll('.schedule-card');
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
+                
+                dayCell.addEventListener('click', function() {
+                    showDayEvents(day);
+                });
+                
+                calendarGrid.appendChild(dayCell);
+            }
             
-            // 移除所有按钮的active类
-            filterBtns.forEach(b => b.classList.remove('active'));
-            // 给当前按钮添加active类
-            this.classList.add('active');
+            const totalCells = startingDay + daysInMonth;
+            const rowsNeeded = Math.ceil(totalCells / 7);
+            const totalCellsNeeded = rowsNeeded * 7;
             
-            // 筛选卡片
-            scheduleCards.forEach(card => {
-                const type = card.getAttribute('data-type');
-                if (filter === 'all' || type === filter) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+            for (let i = totalCells; i < totalCellsNeeded; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyCell);
+            }
+        }
+        
+        function checkDayHasEvent(day) {
+            const events = {
+                '2026-1-29': '💙💜💗 三人直播',
+                '2026-1-19': '❤️💗 双人WVS直播',
+                '2026-1-12': '💜💗 双人直播',
+                '2025-12-31': '🎤 2025 MBC歌谣大祭典'
+            };
+            
+            const key = `${currentYear}-${currentMonth + 1}-${day}`;
+            return events.hasOwnProperty(key);
+        }
+        
+        function showDayEvents(day) {
+            const events = {
+                '2026-1-29': '💙💜💗 三人直播 (19:00 CST, YouTube & B站同步)',
+                '2026-1-19': '❤️💗 双人WVS直播 (19:00 CST)',
+                '2026-1-12': '💜💗 双人直播 (19:00 CST, YouTube & B站同步)',
+                '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST, MBC电视台)'
+            };
+            
+            const key = `${currentYear}-${currentMonth + 1}-${day}`;
+            if (events[key]) {
+                showToast(`${currentYear}年${currentMonth + 1}月${day}日: ${events[key]}`, 5000);
+            } else {
+                showToast(`${currentYear}年${currentMonth + 1}月${day}日没有安排活动`, 3000);
+            }
+        }
+        
+        function setupCalendarNavigation() {
+            const prevBtn = document.getElementById('prevMonth');
+            const nextBtn = document.getElementById('nextMonth');
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', goToPreviousMonth);
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', goToNextMonth);
+            }
+        }
+        
+        function updateCalendar() {
+            updateCalendarTitle();
+            renderCalendar();
+        }
+        
+        // 行程导航
+        function initScheduleNavigation() {
+            const subNavBtns = document.querySelectorAll('#schedule .sub-nav-btn');
+            const subSections = document.querySelectorAll('#schedule .sub-section');
+            
+            subNavBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const subtab = this.getAttribute('data-subtab');
+                    
+                    subNavBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    subSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.getAttribute('data-subtab') === subtab) {
+                            section.classList.add('active');
+                            
+                            if (subtab === 'monthly') {
+                                setTimeout(() => {
+                                    const today = new Date();
+                                    currentYear = today.getFullYear();
+                                    currentMonth = today.getMonth();
+                                    updateCalendar();
+                                }, 50);
+                            }
+                        }
+                    });
+                });
             });
-        });
-    });
-  // ========== 视频封面点击播放功能 ==========
-
-function initVideoPosters() {
-    // 获取所有视频封面
-    const videoPosters = document.querySelectorAll('.video-poster');
-    
-    videoPosters.forEach(poster => {
-        poster.addEventListener('click', function() {
-            const videoWrapper = this.closest('.video-wrapper');
+        }
+        
+        // 行程筛选
+        function initScheduleFilters() {
+            const subSections = document.querySelectorAll('#schedule .sub-section');
+            subSections.forEach(section => {
+                bindFilterEventsForSection(section);
+            });
+        }
+        
+        function bindFilterEventsForSection(section) {
+            const filterBtns = section.querySelectorAll('.filter-btn');
+            const scheduleCards = section.querySelectorAll('.schedule-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    scheduleCards.forEach(card => {
+                        const type = card.getAttribute('data-type');
+                        if (filter === 'all' || type === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // ========== 视频播放功能 ==========
+        function initVideoPlayback() {
+            const playButtons = document.querySelectorAll('.play-button');
+            const videoPosters = document.querySelectorAll('.video-poster');
+            
+            playButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleVideoPlay(this);
+                });
+            });
+            
+            videoPosters.forEach(poster => {
+                poster.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleVideoPlay(this);
+                });
+            });
+        }
+        
+        function handleVideoPlay(element) {
+            const videoWrapper = element.closest('.video-wrapper');
+            if (!videoWrapper) return;
+            
             const iframe = videoWrapper.querySelector('iframe');
+            if (!iframe) return;
             
-            // 1. 隐藏封面
-            this.classList.add('hidden');
+            const poster = videoWrapper.querySelector('.video-poster');
+            if (poster) {
+                poster.classList.add('hidden');
+            }
+            
             videoWrapper.classList.add('playing');
             
-            // 2. 获取真实的视频URL并设置给iframe
             const videoSrc = iframe.getAttribute('data-src');
             if (videoSrc && !iframe.src) {
                 iframe.src = videoSrc;
+            } else if (iframe.src) {
+                iframe.contentWindow.postMessage('{"method":"play"}', '*');
             }
             
-            // 3. 显示提示（可选）
-            const videoCard = this.closest('.work-card');
-            const title = videoCard.querySelector('.work-title').textContent;
-            showToast(`正在播放: ${title}`, 2000);
-        });
-    });
-}
-
-// 在页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // ... 其他初始化代码 ...
-    initVideoPosters(); // 添加这行
-});
-
-// 或者在 initApp() 函数中添加
-function initApp() {
-    // ... 其他初始化代码 ...
-    initVideoPosters(); // 添加这行
-    // ... 其他初始化代码 ...
-}
-}
-// ========== 视频封面点击播放功能 ==========
-
-function initVideoPlayback() {
-    console.log('初始化视频播放功能');
-    
-    // 获取所有播放按钮和视频封面
-    const playButtons = document.querySelectorAll('.play-button');
-    const videoPosters = document.querySelectorAll('.video-poster');
-    
-    // 为每个播放按钮添加点击事件
-    playButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation(); // 防止事件冒泡
-            handleVideoPlay(this);
-        });
-    });
-    
-    // 为每个视频封面添加点击事件
-    videoPosters.forEach(poster => {
-        poster.addEventListener('click', function(e) {
-            e.stopPropagation();
-            handleVideoPlay(this);
-        });
-    });
-    
-    console.log(`找到 ${playButtons.length} 个播放按钮，${videoPosters.length} 个视频封面`);
-}
-
-function handleVideoPlay(element) {
-    // 找到最近的视频包装器
-    const videoWrapper = element.closest('.video-wrapper');
-    if (!videoWrapper) {
-        console.error('找不到 video-wrapper');
-        return;
-    }
-    
-    // 找到 iframe
-    const iframe = videoWrapper.querySelector('iframe');
-    if (!iframe) {
-        console.error('找不到 iframe');
-        return;
-    }
-    
-    console.log('处理视频播放，iframe:', iframe);
-    
-    // 1. 隐藏封面
-    const poster = videoWrapper.querySelector('.video-poster');
-    if (poster) {
-        poster.classList.add('hidden');
-        console.log('隐藏封面');
-    }
-    
-    // 2. 添加播放类
-    videoWrapper.classList.add('playing');
-    console.log('添加 playing 类');
-    
-    // 3. 获取并设置视频源
-    const videoSrc = iframe.getAttribute('data-src');
-    console.log('视频源:', videoSrc);
-    
-    if (videoSrc && !iframe.src) {
-        iframe.src = videoSrc;
-        console.log('设置 iframe src');
-    } else if (iframe.src) {
-        // 如果已经有 src，可能是重新播放
-        iframe.contentWindow.postMessage('{"method":"play"}', '*');
-        console.log('尝试播放已有视频');
-    }
-    
-    // 4. 显示播放提示
-    const videoCard = videoWrapper.closest('.work-card');
-    if (videoCard) {
-        const title = videoCard.querySelector('.work-title');
-        if (title) {
-            showToast(`正在播放: ${title.textContent}`, 2000);
+            const videoCard = videoWrapper.closest('.work-card');
+            if (videoCard) {
+                const title = videoCard.querySelector('.work-title');
+                if (title) {
+                    showToast(`正在播放: ${title.textContent}`, 2000);
+                }
+            }
         }
-    }
-}
-      
-
     </script>
 </body>
 </html>
