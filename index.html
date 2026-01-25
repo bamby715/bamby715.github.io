@@ -1195,7 +1195,141 @@
         width: 100%;
     }
 }
-        }
+
+                /* ========== 直拍视频页面新增样式 ========== */
+
+/* 内嵌视频的标识徽章 */
+.embedded-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 封面图上的播放按钮覆盖层 */
+.image-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    cursor: pointer;
+}
+
+.work-image-container:hover .image-play-overlay {
+    opacity: 1;
+}
+
+/* 视频类型徽章 */
+.video-badge {
+    background: #9C27B0 !important; /* 紫色，与其他类型区分 */
+    color: white !important;
+}
+
+          /* ========== 视频封面点击播放样式 ========== */
+
+/* 视频封面容器 */
+.video-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 2; /* 在iframe上层 */
+    transition: opacity 0.3s ease;
+}
+
+/* 封面覆盖层（渐变和播放按钮） */
+.poster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 播放按钮 */
+.play-button {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-primary-dark);
+    cursor: pointer;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 播放提示文字 */
+.play-text {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+/* 隐藏封面（播放时） */
+.video-poster.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* iframe初始隐藏，点击后显示 */
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 1;
+}
+
+/* 显示iframe时（播放时） */
+.video-wrapper.playing iframe {
+    z-index: 3;
+}
     </style>
 </head>
 <body>
@@ -1300,7 +1434,7 @@
                             </div>
                             <div class="info-item">
                                 <div class="info-label">MBTI</div>
-                                <div class="info-value">INFP-T → INTP</div>
+                                <div class="info-value">INFP-T → INTP → </div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">定位</div>
@@ -1568,16 +1702,34 @@
 <div class="sub-section" data-subtab="stage">
     <h3 class="section-title mb-4">🎬 舞台直拍</h3>
     
-    <!-- 视频卡片 -->
+    <!-- 新增：时间排序控件 -->
+    <div class="sort-controls" id="stage-sort-controls">
+        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+    </div>
+
+    <!-- 视频网格 -->
     <div class="works-grid" id="stage-works-grid">
         
-        <!-- 示例1：왜요 왜요 왜 直拍 -->
-<div class="work-card video-card">
+        <!-- 왜요 왜요 왜 直拍（横版） -->
+<div class="work-card video-card embedded-video" data-date="2023-06-03" data-title="왜요 왜요 왜">
     <div class="video-player-container">
-        <!-- Streamable 视频播放器 -->
         <div class="video-wrapper">
+            <!-- 1. 视频封面层（初始显示） -->
+            <div class="video-poster" 
+                 style="background-image: url('https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg');">
+                <div class="poster-overlay">
+                    <button class="play-button">
+                        <i class="fas fa-play-circle"></i>
+                    </button>
+                    <div class="play-text">点击播放视频</div>
+                </div>
+            </div>
+            
+            <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
             <iframe 
-                src="https://streamable.com/e/eazv9t?autoplay=0&controls=1&muted=0" 
+                data-src="https://streamable.com/e/eazv9t?autoplay=1&controls=1&muted=0"
                 frameborder="0" 
                 allowfullscreen
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -1586,7 +1738,7 @@
     </div>
     
     <div class="work-content">
-        <h3 class="work-title">《왜요 왜요 왜》直拍 - BAMBY Focus</h3>
+        <h3 class="work-title">《왜요 왜요 왜》直拍 - BAMBY Focus（横版）</h3>
         <div class="work-meta">
             <span class="work-type">2023-06-03</span>
         </div>
@@ -1595,27 +1747,148 @@
         <div class="original-links">
             <h4><i class="fas fa-link"></i> 视频来源</h4>
             <div class="link-buttons">
-                <a href="https://www.youtube.com/watch?v=Yo_eIeYYUp4" 
-                   target="_blank" 
-                   class="channel-btn youtube-link">
-                    <i class="fab fa-youtube"></i>
-                    YouTube原链接
+                <a href="https://www.youtube.com/watch?v=Yo_eIeYYUp4" target="_blank" class="channel-btn youtube-link">
+                    <i class="fab fa-youtube"></i> YouTube
                 </a>
             </div>
             <p class="link-note">
-                <i class="fas fa-info-circle"></i>
-                若内嵌视频无法播放，请点击上方链接查看原视频
+                <i class="fas fa-info-circle"></i> 内嵌视频需要手动控制播放/暂停，如果无法打开请点击原链接地址。
             </p>
         </div>
         
-        <!-- 视频描述 -->
         <div class="video-description">
-            <p>[#최애직캠] PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam   Show! MusicCore</p>
+            <p>PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore</p>
         </div>
     </div>
 </div>
-      
-            </section>
+
+        <!-- WAY 4 LUV 直拍（横版） -->
+<div class="work-card video-card embedded-video" data-date="2024-03-15" data-title="WAY 4 LUV">
+    <div class="video-player-container">
+        <div class="video-wrapper">
+            <!-- 1. 视频封面层（初始显示） -->
+            <div class="video-poster" 
+                 style="background-image: url('https://s2.loli.net/2026/01/26/7zRfE68NhAGZl1v.jpg');">
+                <div class="poster-overlay">
+                    <button class="play-button">
+                        <i class="fas fa-play-circle"></i>
+                    </button>
+                    <div class="play-text">点击播放视频</div>
+                </div>
+            </div>
+            
+            <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
+            <iframe 
+                data-src="https://streamable.com/e/adl7he?autoplay=0&controls=1&muted=0"
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
+    </div>
+    
+    <div class="work-content">
+        <h3 class="work-title">《WAY 4 LUV》直拍 - BAMBY Focus（横版）</h3>
+        <div class="work-meta">
+            <span class="work-type">2024-03-15</span>
+        </div>
+        
+        <!-- 原链接区域 -->
+        <div class="original-links">
+            <h4><i class="fas fa-link"></i> 视频来源</h4>
+            <div class="link-buttons">
+                <a href="https://www.youtube.com/watch?v=IqX2FZ-5wnI&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=2" target="_blank" class="channel-btn youtube-link">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
+            <p class="link-note">
+                <i class="fas fa-info-circle"></i> 内嵌视频需要手动控制播放/暂停，如果无法打开请点击原链接地址。
+            </p>
+        </div>
+        
+        <div class="video-description">
+            <p>PLAVE Bamby (플레이브 밤비) - WAY 4 LUV | MBC</p>
+        </div>
+    </div>
+</div>
+
+      <!-- Dash 直拍（横版） -->
+<div class="work-card video-card embedded-video" data-date="2025-02-19" data-title="Dash">
+    <div class="video-player-container">
+        <div class="video-wrapper">
+            <!-- 1. 视频封面层（初始显示） -->
+            <div class="video-poster" 
+                 style="background-image: url('https://s2.loli.net/2026/01/26/eWkQsITmjtBMDSh.jpg');">
+                <div class="poster-overlay">
+                    <button class="play-button">
+                        <i class="fas fa-play-circle"></i>
+                    </button>
+                    <div class="play-text">点击播放视频</div>
+                </div>
+            </div>
+            
+            <!-- 2. 视频iframe层（初始隐藏，点击后显示） -->
+            <iframe 
+                data-src="https://streamable.com/e/bdkzs4?autoplay=0&controls=1&muted=0"
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
+    </div>
+    
+    <div class="work-content">
+        <h3 class="work-title">《Dash》直拍 - BAMBY Focus（横版）</h3>
+        <div class="work-meta">
+            <span class="work-type">2025-02-19</span>
+        </div>
+        
+        <!-- 原链接区域 -->
+        <div class="original-links">
+            <h4><i class="fas fa-link"></i> 视频来源</h4>
+            <div class="link-buttons">
+                <a href="https://www.youtube.com/watch?v=Zh_LEsavI3s&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=9" target="_blank" class="channel-btn youtube-link">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
+            <p class="link-note">
+                <i class="fas fa-info-circle"></i> 内嵌视频需要手动控制播放/暂停，如果无法打开请点击原链接地址。
+            </p>
+        </div>
+        
+        <div class="video-description">
+            <p>PLAVE BAMBY (플레이브 밤비) – Dash | MBC</p>
+        </div>
+    </div>
+</div>
+
+     
+
+        <!-- Dash 直拍（竖版） -->
+        <div class="work-card" data-date="2025-02-06" data-title="Love Shot">
+            <div class="work-image-container">
+                <img src="https://s2.loli.net/2026/01/26/7DWHXd4jOqLBYpJ.jpg" alt="Dash直拍封面" class="work-image">
+
+            </div>
+            <div class="work-content">
+                <h3 class="work-title">《Dash》直拍 - BAMBY Focus（竖版）</h3>
+                <div class="work-meta">
+                    <span class="work-type">2023-04-15</span>
+                </div>
+                <p class="work-desc">플레이브 밤비 직캠 4K 'Dash' (PLAVE BAMBY FanCam)</p>
+                <div class="channels-section">
+                    <h4>观看渠道</h4>
+                    <div class="channels-grid">
+                        <a href="https://www.youtube.com/watch?v=kR32F9VemFg&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=3" target="_blank" class="channel-btn youtube-link">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 你可以继续在这里添加更多封面链接卡片，替换图片和链接即可 -->
+    </div>
+</div>
             
             <section id="materials" class="content-section">
                 <div class="section-header">
@@ -2202,6 +2475,9 @@
     currentMonth = today.getMonth(); // 0-11
     
     initCalendar();
+    
+    // 初始化视频播放功能
+    initVideoPlayback();
     
     setTimeout(function() {
         showWelcomeMessage();
@@ -2826,7 +3102,127 @@ function bindFilterEventsForSection(section) {
             });
         });
     });
+  // ========== 视频封面点击播放功能 ==========
+
+function initVideoPosters() {
+    // 获取所有视频封面
+    const videoPosters = document.querySelectorAll('.video-poster');
+    
+    videoPosters.forEach(poster => {
+        poster.addEventListener('click', function() {
+            const videoWrapper = this.closest('.video-wrapper');
+            const iframe = videoWrapper.querySelector('iframe');
+            
+            // 1. 隐藏封面
+            this.classList.add('hidden');
+            videoWrapper.classList.add('playing');
+            
+            // 2. 获取真实的视频URL并设置给iframe
+            const videoSrc = iframe.getAttribute('data-src');
+            if (videoSrc && !iframe.src) {
+                iframe.src = videoSrc;
+            }
+            
+            // 3. 显示提示（可选）
+            const videoCard = this.closest('.work-card');
+            const title = videoCard.querySelector('.work-title').textContent;
+            showToast(`正在播放: ${title}`, 2000);
+        });
+    });
 }
+
+// 在页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // ... 其他初始化代码 ...
+    initVideoPosters(); // 添加这行
+});
+
+// 或者在 initApp() 函数中添加
+function initApp() {
+    // ... 其他初始化代码 ...
+    initVideoPosters(); // 添加这行
+    // ... 其他初始化代码 ...
+}
+}
+// ========== 视频封面点击播放功能 ==========
+
+function initVideoPlayback() {
+    console.log('初始化视频播放功能');
+    
+    // 获取所有播放按钮和视频封面
+    const playButtons = document.querySelectorAll('.play-button');
+    const videoPosters = document.querySelectorAll('.video-poster');
+    
+    // 为每个播放按钮添加点击事件
+    playButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // 防止事件冒泡
+            handleVideoPlay(this);
+        });
+    });
+    
+    // 为每个视频封面添加点击事件
+    videoPosters.forEach(poster => {
+        poster.addEventListener('click', function(e) {
+            e.stopPropagation();
+            handleVideoPlay(this);
+        });
+    });
+    
+    console.log(`找到 ${playButtons.length} 个播放按钮，${videoPosters.length} 个视频封面`);
+}
+
+function handleVideoPlay(element) {
+    // 找到最近的视频包装器
+    const videoWrapper = element.closest('.video-wrapper');
+    if (!videoWrapper) {
+        console.error('找不到 video-wrapper');
+        return;
+    }
+    
+    // 找到 iframe
+    const iframe = videoWrapper.querySelector('iframe');
+    if (!iframe) {
+        console.error('找不到 iframe');
+        return;
+    }
+    
+    console.log('处理视频播放，iframe:', iframe);
+    
+    // 1. 隐藏封面
+    const poster = videoWrapper.querySelector('.video-poster');
+    if (poster) {
+        poster.classList.add('hidden');
+        console.log('隐藏封面');
+    }
+    
+    // 2. 添加播放类
+    videoWrapper.classList.add('playing');
+    console.log('添加 playing 类');
+    
+    // 3. 获取并设置视频源
+    const videoSrc = iframe.getAttribute('data-src');
+    console.log('视频源:', videoSrc);
+    
+    if (videoSrc && !iframe.src) {
+        iframe.src = videoSrc;
+        console.log('设置 iframe src');
+    } else if (iframe.src) {
+        // 如果已经有 src，可能是重新播放
+        iframe.contentWindow.postMessage('{"method":"play"}', '*');
+        console.log('尝试播放已有视频');
+    }
+    
+    // 4. 显示播放提示
+    const videoCard = videoWrapper.closest('.work-card');
+    if (videoCard) {
+        const title = videoCard.querySelector('.work-title');
+        if (title) {
+            showToast(`正在播放: ${title.textContent}`, 2000);
+        }
+    }
+}
+      
 
     </script>
 </body>
