@@ -701,7 +701,7 @@
             <section id="personal" class="content-section active">
                 <div class="section-header">
                     <h2 class="section-title">个人信息</h2>
-                    <p class="section-subtitle">蔡丰玖 / Bamby / 밤비 / バンビ 的个人档案</p>
+                    <p class="section-subtitle">蔡丰玖 | 蔡斑比</p>
                 </div>
                 <div class="profile-card">
                     <div class="profile-image-container">
@@ -768,7 +768,7 @@
             <section id="anli" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">安利向</h2>
-                    <p class="section-subtitle">翻唱、翻跳、舞台、精彩瞬间</p>
+                    <p class="section-subtitle">翻唱、翻跳、舞台直拍</p>
                 </div>
                 
                 <div class="sub-nav">
@@ -1006,21 +1006,25 @@
             <section id="materials" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">物料汇总</h2>
-                    <p class="section-subtitle">概念照、个人照、官方视频、直播切片、幕后花絮</p>
+                    <p class="section-subtitle">回归概念照、官方wvs、ins照片、直播幕后个人照、幕后花絮（待解锁）</p>
                 </div>
                 
                 <div class="sub-nav">
                     <button class="sub-nav-btn active" data-subtab="concept">
                         <i class="fas fa-camera"></i>
-                        概念照
+                        回归照
+                    </button>
+                  <button class="sub-nav-btn" data-subtab="photos">
+                        <i class="fas fa-photo"></i>
+                        官方照片
                     </button>
                     <button class="sub-nav-btn" data-subtab="personal-photos">
                         <i class="fas fa-user-circle"></i>
                         个人照
                     </button>
-                    <button class="sub-nav-btn" data-subtab="videos">
-                        <i class="fas fa-film"></i>
-                        官方视频
+                    <button class="sub-nav-btn" data-subtab="personal-mimu">
+                        <i class="fas fa-mimu"></i>
+                        咪姆照片
                     </button>
                     <button class="sub-nav-btn" data-subtab="behind">
                         <i class="fas fa-video"></i>
@@ -1056,7 +1060,7 @@
                             </div>
                         </div>
                         
-                        <div class="work-card" data-date="2025-10-30" data-title="Hide and Seek">
+                        <div class="work-card" data-date="2025-06-13" data-title="Hide and Seek">
                             <div class="work-image-container" onclick="openImageGallery('concept-set-7')">
                                 <img src="https://s2.loli.net/2026/01/25/CMv1Z9AoOJHbhLW.jpg" 
                                      alt="概念照合集7" 
@@ -1065,7 +1069,7 @@
                             <div class="work-content">
                                 <h3 class="work-title">《Hide and Seek》</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2025-10-30</span>
+                                    <span class="work-type">2025-06-13</span>
                                 </div>
                                 <p class="work-desc">个人/团体概念照 - BAMBY</p>
                                 <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-7')">
@@ -1095,7 +1099,38 @@
                         </div>
                     </div>
                 </div>
-                
+
+
+                <!-- 官方照片区域 -->
+                <div class="sub-section active" data-subtab="photos">
+                    <h3 class="section-title mb-4">📸 官方照</h3>
+                    <div class="sort-controls" id="concept-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="concept-works-grid">
+                        <div class="work-card" data-date="2025-10-30" data-title="PLBBUU">
+                            <div class="work-image-container" onclick="openImageGallery('concept-set-8')">
+                                <img src="https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg" 
+                                     alt="概念照合集8" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《PLBBUU》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-10-30</span>
+                                </div>
+                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-8')">
+                                    <i class="fas fa-images"></i>
+                                    查看图片集 (7张)
+                                </button>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+              
                 <!-- 个人照区域 -->
                 <div class="sub-section" data-subtab="personal-photos">
                     <h3 class="section-title mb-4">📷 个人照</h3>
@@ -1105,19 +1140,68 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="personal-works-grid">
-                        <div class="work-card" data-date="2024-05-15" data-title="个人生活照">
+                        <div class="work-card" data-date="2026-01-13" data-title="cosmokorea杂志">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
-                                <img src="https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg" 
-                                     alt="个人生活照1" 
+                                <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
+                                     alt="cosmokorea杂志" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">个人生活照 - 日常分享</h3>
+                                <h3 class="work-title">《cosmokorea》杂志</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2024-05-15</span>
+                                    <span class="work-type">2026-01-13</span>
                                 </div>
-                                <p class="work-desc">Bamby日常分享的个人生活照片合集</p>
-                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-1')">
+                                <p class="work-desc">杂志+部分采访翻译</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('photos-set-1')">
+                                    <i class="fas fa-camera"></i>
+                                    查看生活照 (10张)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2024-05-29" data-title="个人写真">
+                            <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
+                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
+                                     alt="个人写真" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">个人写真集</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-05-29</span>
+                                </div>
+                                <p class="work-desc">专业摄影师拍摄的个人写真照片</p>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
+                                    <i class="fas fa-portrait"></i>
+                                    查看写真 (12张)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              <!-- 咪姆照片区域 -->
+                <div class="sub-section" data-subtab="personal-mimu">
+                    <h3 class="section-title mb-4">📷 咪姆照片</h3>
+                    <div class="sort-controls" id="personal-sort-controls">
+                        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+                        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+                        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+                    </div>
+                    <div class="works-grid" id="personal-works-grid">
+                        <div class="work-card" data-date="2026-01-13" data-title="cosmokorea杂志">
+                            <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
+                                <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
+                                     alt="cosmokorea杂志" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《cosmokorea》杂志</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2026-01-13</span>
+                                </div>
+                                <p class="work-desc">杂志+部分采访翻译</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('photos-set-1')">
                                     <i class="fas fa-camera"></i>
                                     查看生活照 (10张)
                                 </button>
@@ -1145,24 +1229,7 @@
                     </div>
                 </div>
                 
-                <!-- 官方视频区域 -->
-                <div class="sub-section" data-subtab="videos">
-                    <h3 class="section-title mb-4">🎥 官方视频</h3>
-                    <div class="works-grid">
-                        <div class="work-card">
-                            <div class="work-content">
-                                <h3 class="work-title">官方视频合集</h3>
-                                <p class="work-desc">MV、舞台、花絮等官方视频资源</p>
-                                <div class="channels-section mt-4">
-                                    <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo" style="display: block; text-align: center;">
-                                        <i class="fas fa-external-link-alt"></i>
-                                        查看官方视频
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
                 
                 <!-- 幕后花絮区域 -->
                 <div class="sub-section" data-subtab="behind">
@@ -1196,15 +1263,18 @@
                                     <div class="info-label">微博超话</div>
                                     <div class="info-value">
                                         <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                            http://t.cn/AXyOGz13
+                                            鹿超
                                         </a>
                                     </div>
                                 </div>
                                 <div class="info-item">
-                                    <div class="info-label">翻唱作品</div>
+                                    <div class="info-label">PLAVE官方</div>
                                     <div class="info-value">
-                                        <a href="http://t.cn/AXyOGzBh" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                                            《事件的地平线》
+                                        <a href="https://weibo.com/u/7825391749" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                                            微博主页
+                                        </a>
+                                      <a href="https://space.bilibili.com/3493141629896727?spm_id_from=333.337.0.0" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                                            b站主页
                                         </a>
                                     </div>
                                 </div>
@@ -1291,6 +1361,15 @@
                 'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
                 'https://s2.loli.net/2026/01/25/3byhlV7gS1WukrY.jpg'
             ],
+
+          
+            'photos-set-1': [
+                'https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg',
+                'https://s2.loli.net/2026/01/25/8S3qQxBtNFswPHc.jpg',
+                'https://s2.loli.net/2026/01/25/b9zj4rNiB7C8Jw1.jpg'
+            ],
+
+          
             'personal-set-1': [
                 'https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg',
                 'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
