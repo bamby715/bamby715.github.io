@@ -889,6 +889,124 @@
 .event-dot.performance {
     background: #9C27B0;
 }
+/* 视频播放器样式 */
+.video-player-container {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 比例 */
+    height: 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-info-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.video-quality, .video-duration {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+}
+
+
+
+/* 原链接区域 */
+.original-links {
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid var(--color-primary);
+}
+
+.original-links h4 {
+    color: var(--color-gray-700);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.link-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.youtube-link {
+    background: #FF0000 !important;
+    color: white !important;
+}
+
+.weibo-link {
+    background: var(--color-gray-800) !important;
+}
+
+.link-note {
+    color: var(--color-gray-500);
+    font-size: 0.8rem;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 视频描述 */
+.video-description {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.video-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--color-gray-600);
+}
+
+.video-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 信息卡片 */
+.info-card {
+    border: 2px dashed var(--color-gray-300);
+    background: var(--color-gray-50);
+}
+
+.info-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
 
 /* 移动端适配 */
 @media (max-width: 768px) {
@@ -915,6 +1033,18 @@
     
     .calendar-day {
         font-size: 0.8rem;
+    }
+  
+    .video-controls {
+        padding: 8px;
+    }
+    
+    .link-buttons {
+        flex-direction: column;
+    }
+    
+    .link-buttons .channel-btn {
+        width: 100%;
     }
 }
         
@@ -973,6 +1103,98 @@
                 bottom: 80px;
                 right: 20px;
             }
+
+         
+
+/* 原链接区域 */
+.original-links {
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 3px solid var(--color-primary);
+}
+
+.original-links h4 {
+    color: var(--color-gray-700);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.link-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.youtube-link {
+    background: #FF0000 !important;
+    color: white !important;
+}
+
+.weibo-link {
+    background: var(--color-gray-800) !important;
+}
+
+.link-note {
+    color: var(--color-gray-500);
+    font-size: 0.8rem;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 视频描述 */
+.video-description {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.video-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--color-gray-600);
+}
+
+.video-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 信息卡片 */
+.info-card {
+    border: 2px dashed var(--color-gray-300);
+    background: var(--color-gray-50);
+}
+
+.info-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .video-controls {
+        padding: 8px;
+    }
+    
+    .link-buttons {
+        flex-direction: column;
+    }
+    
+    .link-buttons .channel-btn {
+        width: 100%;
+    }
+}
         }
     </style>
 </head>
@@ -1342,18 +1564,60 @@
                     </div>
                 </div>
                 
-                <div class="sub-section" data-subtab="stage">
-                    <h3 class="section-title mb-4">🎬 舞台直拍</h3>
-                    <div class="works-grid">
-                        <div class="work-card">
-                            <div class="work-content text-center p-8">
-                                <i class="fas fa-plus-circle" style="font-size: 2rem; color: var(--color-gray-400); margin-bottom: 16px;"></i>
-                                <h3 class="work-title">添加更多舞台直拍</h3>
-                                <p class="work-desc">在此处添加更多舞台直拍卡片</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- 直拍视频区域 -->
+<div class="sub-section" data-subtab="stage">
+    <h3 class="section-title mb-4">🎬 舞台直拍</h3>
+    
+    <!-- 视频卡片 -->
+    <div class="works-grid" id="stage-works-grid">
+        
+        <!-- 示例1：왜요 왜요 왜 直拍 -->
+<div class="work-card video-card">
+    <div class="video-player-container">
+        <!-- Streamable 视频播放器 -->
+        <div class="video-wrapper">
+            <iframe 
+                src="https://streamable.com/e/eazv9t?autoplay=0&controls=1&muted=0" 
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+        </div>
+    </div>
+    
+    <div class="work-content">
+        <h3 class="work-title">《왜요 왜요 왜》直拍 - BAMBY Focus</h3>
+        <div class="work-meta">
+            <span class="work-type">2023-06-03</span>
+            <span class="video-source">
+                <i class="fas fa-video"></i> 内嵌播放
+            </span>
+        </div>
+        
+        <!-- 原链接区域 -->
+        <div class="original-links">
+            <h4><i class="fas fa-link"></i> 视频来源</h4>
+            <div class="link-buttons">
+                <a href="https://www.youtube.com/watch?v=Yo_eIeYYUp4" 
+                   target="_blank" 
+                   class="channel-btn youtube-link">
+                    <i class="fab fa-youtube"></i>
+                    YouTube原链接
+                </a>
+            </div>
+            <p class="link-note">
+                <i class="fas fa-info-circle"></i>
+                若内嵌视频无法播放，请点击上方链接查看原视频
+            </p>
+        </div>
+        
+        <!-- 视频描述 -->
+        <div class="video-description">
+            <p>[#최애직캠] PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam   Show! MusicCore</p>
+        </div>
+    </div>
+</div>
+      
             </section>
             
             <section id="materials" class="content-section">
@@ -2566,6 +2830,7 @@ function bindFilterEventsForSection(section) {
         });
     });
 }
+
     </script>
 </body>
 </html>
