@@ -385,7 +385,6 @@
             background: var(--color-gray-700);
         }
         
-        /* 图片查看器样式修复 */
         .image-viewer-overlay {
             position: fixed;
             top: 0;
@@ -508,7 +507,6 @@
             justify-content: center;
         }
 
-        /* 修复鹿站主页链接样式 */
         .profile-link {
             padding: 12px;
             text-align: center;
@@ -536,7 +534,6 @@
             margin-right: 8px;
         }
         
-        /* 时间排序功能样式 */
         .sort-controls {
             display: flex;
             justify-content: center;
@@ -566,7 +563,6 @@
             color: var(--color-white);
         }
         
-        /* 通用辅助类 */
         .mb-4 {
             margin-bottom: 1rem;
         }
@@ -582,6 +578,345 @@
         .d-none {
             display: none !important;
         }
+
+        /* ========== 日程表页面样式 ========== */
+.schedule-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.schedule-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    border-left: 4px solid var(--color-primary);
+    transition: all var(--transition-normal);
+}
+
+.schedule-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.schedule-date {
+    background: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    text-align: center;
+    min-width: 100px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.schedule-day {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1;
+}
+
+.schedule-month {
+    font-size: 0.9rem;
+    color: var(--color-gray-600);
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+.schedule-year {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+
+.schedule-content {
+    flex: 1;
+}
+
+.schedule-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 8px;
+}
+
+.schedule-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.schedule-time, .schedule-platform {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: var(--color-gray-600);
+}
+
+.schedule-time i, .schedule-platform i {
+    color: var(--color-primary);
+}
+
+.schedule-desc {
+    color: var(--color-gray-700);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.schedule-card.past {
+    opacity: 0.7;
+    border-left-color: var(--color-gray-300);
+}
+
+.schedule-card.past .schedule-date {
+    background: var(--color-gray-100);
+}
+
+.schedule-card.past .schedule-day {
+    color: var(--color-gray-500);
+}
+
+.schedule-card.important {
+    border-left-color: #FF6B6B;
+    background: linear-gradient(to right, rgba(255, 107, 107, 0.05), var(--color-white));
+}
+
+.schedule-card.important .schedule-date {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.schedule-card.important .schedule-day {
+    color: #FF6B6B;
+}
+
+.schedule-type {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--color-gray-100);
+    color: var(--color-gray-700);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.schedule-type.live {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.schedule-type.performance {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.schedule-type.meeting {
+    background: #E8F5E9;
+    color: #388E3C;
+}
+
+.schedule-type.release {
+    background: #FFF3E0;
+    color: #F57C00;
+}
+
+.schedule-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.schedule-empty i {
+    font-size: 3rem;
+    color: var(--color-gray-300);
+    margin-bottom: 20px;
+}
+
+.schedule-empty h3 {
+    color: var(--color-gray-700);
+    margin-bottom: 10px;
+}
+
+.schedule-empty p {
+    color: var(--color-gray-500);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.schedule-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    color: var(--color-gray-600);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all var(--transition-normal);
+}
+
+.filter-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.month-view {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.month-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.month-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.month-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-gray-100);
+    border: none;
+    color: var(--color-gray-600);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+}
+
+.month-nav-btn:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    font-size: 0.9rem;
+    padding: 10px 0;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.calendar-day.today {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+}
+
+.calendar-day.has-event {
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 600;
+}
+
+.calendar-day:hover:not(.empty) {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-sm);
+}
+
+.event-dot {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #FF6B6B;
+    border-radius: 50%;
+}
+
+.event-dot.important {
+    background: #FF6B6B;
+}
+
+.event-dot.live {
+    background: #4CAF50;
+}
+
+.event-dot.performance {
+    background: #9C27B0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .schedule-card {
+        flex-direction: column;
+    }
+    
+    .schedule-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .schedule-day {
+        font-size: 1.5rem;
+    }
+    
+    .calendar-grid {
+        gap: 4px;
+    }
+    
+    .calendar-day {
+        font-size: 0.8rem;
+    }
+}
         
         @media (max-width: 768px) {
             .container {
@@ -621,7 +956,6 @@
                 grid-template-columns: 1fr;
             }
             
-            /* 移动端图片查看器按钮修复 */
             .image-nav {
                 width: 40px;
                 height: 40px;
@@ -652,7 +986,6 @@
         </div>
     </div>
     
-    <!-- 图片查看器 -->
     <div class="image-viewer-overlay" id="imageViewer">
         <button class="image-close" onclick="closeImageViewer()">×</button>
         <button class="image-nav image-prev" onclick="prevImage()">‹</button>
@@ -689,6 +1022,10 @@
                 <a href="#materials" class="nav-item" data-tab="materials">
                     <i class="fas fa-images"></i>
                     <span>物料汇总</span>
+                </a>
+                <a href="#schedule" class="nav-item" data-tab="schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>行程日程</span>
                 </a>
                 <a href="#others" class="nav-item" data-tab="others">
                     <i class="fas fa-ellipsis-h"></i>
@@ -764,7 +1101,6 @@
                 </div>
             </section>
             
-            <!-- ========== 安利向页面 ========== -->
             <section id="anli" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">安利向</h2>
@@ -786,7 +1122,6 @@
                     </button>
                 </div>
                 
-                <!-- 翻唱作品区域 -->
                 <div class="sub-section active" data-subtab="covers">
                     <h3 class="section-title mb-4">🎤 翻唱作品</h3>
                     <div class="sort-controls" id="covers-sort-controls">
@@ -795,25 +1130,99 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="covers-works-grid">
-                        <!-- 所有翻唱作品卡片 -->
-                        <div class="work-card" data-date="2023-12-05" data-title="事件的地平线">
+                        <div class="work-card" data-date="2024-07-17" data-title="Pretender">
                             <div class="work-image-container">
-                                <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" alt="事件的地平线" class="work-image">
+                                <img src="https://s2.loli.net/2026/01/25/gPZi4UANfMchabo.jpg" alt="Pretender" class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">《事件的地平线》（Event Horizon）</h3>
+                                <h3 class="work-title">《Pretender》</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2023-12-05</span>
+                                    <span class="work-type">2024-07-17</span>
                                 </div>
-                                <p class="work-desc">原唱：高润荷（YOUNHA）</p>
+                                <p class="work-desc">原唱: Official髭男dism</p>
                                 <div class="channels-section">
                                     <h4>观看渠道</h4>
                                     <div class="channels-grid">
-                                        <a href="http://t.cn/AXyOGzBh" target="_blank" class="channel-btn weibo">
+                                        <a href="https://weibo.com/7825391749/Oo038pXcq" target="_blank" class="channel-btn weibo">
                                             <i class="fab fa-weibo"></i>
                                             微博
                                         </a>
-                                        <a href="https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click" target="_blank" class="channel-btn bilibili">
+                                        <a href="https://www.bilibili.com/video/BV1fE421c7hq/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2024-07-03" data-title="十二月的奇迹">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg" alt="十二月的奇迹" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《十二月的奇迹》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-07-03</span>
+                                </div>
+                                <p class="work-desc">原唱: EXO</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2024-06-07" data-title="Dangerously">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg" alt="Dangerously" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Dangerously》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-06-07</span>
+                                </div>
+                                <p class="work-desc">原唱: Charlie Puth</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6HrT3Q5" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card" data-date="2024-05-29" data-title="Square">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" alt="Square" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Square》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-05-29</span>
+                                </div>
+                                <p class="work-desc">原唱: 白艺潾 (Yerin Baek)</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/AXyOGz1e" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="channel-btn bilibili">
                                             <span style="font-weight: bold;">B</span>站
                                         </a>
                                     </div>
@@ -846,77 +1255,24 @@
                             </div>
                         </div>
                         
-                        <!-- Square -->
-                        <div class="work-card" data-date="2024-05-29" data-title="Square">
+                        <div class="work-card" data-date="2023-12-05" data-title="事件的地平线">
                             <div class="work-image-container">
-                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" alt="Square" class="work-image">
+                                <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" alt="事件的地平线" class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">《Square》</h3>
+                                <h3 class="work-title">《事件的地平线》（Event Horizon）</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2024-05-29</span>
+                                    <span class="work-type">2023-12-05</span>
                                 </div>
-                                <p class="work-desc">原唱: 白艺潾 (Yerin Baek)</p>
+                                <p class="work-desc">原唱：高润荷（YOUNHA）</p>
                                 <div class="channels-section">
                                     <h4>观看渠道</h4>
                                     <div class="channels-grid">
-                                        <a href="http://t.cn/AXyOGz1e" target="_blank" class="channel-btn weibo">
+                                        <a href="http://t.cn/AXyOGzBh" target="_blank" class="channel-btn weibo">
                                             <i class="fab fa-weibo"></i>
                                             微博
                                         </a>
-                                        <a href="https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click" target="_blank" class="channel-btn bilibili">
-                                            <span style="font-weight: bold;">B</span>站
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Dangerously -->
-                        <div class="work-card" data-date="2024-06-07" data-title="Dangerously">
-                            <div class="work-image-container">
-                                <img src="https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg" alt="Dangerously" class="work-image">
-                            </div>
-                            <div class="work-content">
-                                <h3 class="work-title">《Dangerously》</h3>
-                                <div class="work-meta">
-                                    <span class="work-type">2024-06-07</span>
-                                </div>
-                                <p class="work-desc">原唱: Charlie Puth</p>
-                                <div class="channels-section">
-                                    <h4>观看渠道</h4>
-                                    <div class="channels-grid">
-                                        <a href="http://t.cn/A6HrT3Q5" target="_blank" class="channel-btn weibo">
-                                            <i class="fab fa-weibo"></i>
-                                            微博
-                                        </a>
-                                        <a href="https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
-                                            <span style="font-weight: bold;">B</span>站
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 十二月的奇迹 -->
-                        <div class="work-card" data-date="2024-07-03" data-title="十二月的奇迹">
-                            <div class="work-image-container">
-                                <img src="https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg" alt="十二月的奇迹" class="work-image">
-                            </div>
-                            <div class="work-content">
-                                <h3 class="work-title">《十二月的奇迹》</h3>
-                                <div class="work-meta">
-                                    <span class="work-type">2024-07-03</span>
-                                </div>
-                                <p class="work-desc">原唱: EXO</p>
-                                <div class="channels-section">
-                                    <h4>观看渠道</h4>
-                                    <div class="channels-grid">
-                                        <a href="https://weibo.com/7825391749/OlS3N2Vqg" target="_blank" class="channel-btn weibo">
-                                            <i class="fab fa-weibo"></i>
-                                            微博
-                                        </a>
-                                        <a href="https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                        <a href="https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click" target="_blank" class="channel-btn bilibili">
                                             <span style="font-weight: bold;">B</span>站
                                         </a>
                                     </div>
@@ -926,7 +1282,6 @@
                     </div>
                 </div>
                 
-                <!-- 翻跳作品区域 -->
                 <div class="sub-section" data-subtab="dance">
                     <h3 class="section-title mb-4">💃 翻跳作品</h3>
                     <div class="sort-controls" id="dance-sort-controls">
@@ -935,31 +1290,6 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="dance-works-grid">
-                        <div class="work-card" data-date="2023-03-03" data-title="Ditto">
-                            <div class="work-image-container">
-                                <img src="https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg" alt="翻跳作品" class="work-image">
-                            </div>
-                            <div class="work-content">
-                                <h3 class="work-title">《Ditto》</h3>
-                                <div class="work-meta">
-                                    <span class="work-type">2023-03-03</span>
-                                </div>
-                                <p class="work-desc">《Ditto》 - NewJeans</p>
-                                <div class="channels-section">
-                                    <h4>观看渠道</h4>
-                                    <div class="channels-grid">
-                                        <a href="http://t.cn/A6ONqqvk" class="channel-btn weibo">
-                                            <i class="fab fa-weibo"></i>
-                                            微博
-                                        </a>
-                                        <a href="https://www.bilibili.com/video/BV1XM4y1R7EL/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" class="channel-btn bilibili">
-                                            <span style="font-weight: bold;">B</span>站
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <div class="work-card" data-date="2023-07-10" data-title="姐姐真漂亮">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg" alt="翻跳作品" class="work-image">
@@ -984,10 +1314,34 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="work-card" data-date="2023-03-03" data-title="Ditto">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg" alt="翻跳作品" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Ditto》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2023-03-03</span>
+                                </div>
+                                <p class="work-desc">《Ditto》 - NewJeans</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="http://t.cn/A6ONqqvk" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1XM4y1R7EL/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 舞台直拍区域 -->
                 <div class="sub-section" data-subtab="stage">
                     <h3 class="section-title mb-4">🎬 舞台直拍</h3>
                     <div class="works-grid">
@@ -1002,7 +1356,6 @@
                 </div>
             </section>
             
-            <!-- ========== 物料汇总页面 ========== -->
             <section id="materials" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">物料汇总</h2>
@@ -1014,8 +1367,8 @@
                         <i class="fas fa-camera"></i>
                         回归照
                     </button>
-                  <button class="sub-nav-btn" data-subtab="photos">
-                        <i class="fas fa-photo"></i>
+                    <button class="sub-nav-btn" data-subtab="photos">
+                       <i class="fas fa-crown"></i>  
                         官方照片
                     </button>
                     <button class="sub-nav-btn" data-subtab="personal-photos">
@@ -1023,7 +1376,7 @@
                         个人照
                     </button>
                     <button class="sub-nav-btn" data-subtab="personal-mimu">
-                        <i class="fas fa-mimu"></i>
+                        <i class="fas fa-star"></i>
                         咪姆照片
                     </button>
                     <button class="sub-nav-btn" data-subtab="behind">
@@ -1032,9 +1385,8 @@
                     </button>
                 </div>
                 
-                <!-- 概念照区域 -->
                 <div class="sub-section active" data-subtab="concept">
-                    <h3 class="section-title mb-4">📸 概念照</h3>
+                    <h3 class="section-title mb-4">📸 回归照</h3>
                     <div class="sort-controls" id="concept-sort-controls">
                         <button class="sort-btn active" data-sort="date-desc">最新在前</button>
                         <button class="sort-btn" data-sort="date-asc">最旧在前</button>
@@ -1100,46 +1452,62 @@
                     </div>
                 </div>
 
-
-                <!-- 官方照片区域 -->
-                <div class="sub-section active" data-subtab="photos">
+                <div class="sub-section" data-subtab="photos">
                     <h3 class="section-title mb-4">📸 官方照</h3>
-                    <div class="sort-controls" id="concept-sort-controls">
+                    <div class="sort-controls" id="photos-sort-controls">
                         <button class="sort-btn active" data-sort="date-desc">最新在前</button>
                         <button class="sort-btn" data-sort="date-asc">最旧在前</button>
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
-                    <div class="works-grid" id="concept-works-grid">
-                        <div class="work-card" data-date="2025-10-30" data-title="PLBBUU">
-                            <div class="work-image-container" onclick="openImageGallery('concept-set-8')">
-                                <img src="https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg" 
-                                     alt="概念照合集8" 
+                    <div class="works-grid" id="photos-works-grid">
+                        <div class="work-card" data-date="2025-12-30" data-title="Day of Asterum">
+                            <div class="work-image-container" onclick="openImageGallery('photos-set-1')">
+                                <img src="https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg" 
+                                     alt="Day of Asterum" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">《PLBBUU》</h3>
+                                <h3 class="work-title">Day of Asterum</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2025-10-30</span>
+                                    <span class="work-type">2025-12-30</span>
+                                    <span class="work-type">wvs</span>
                                 </div>
-                                <p class="work-desc">个人/团体概念照 - BAMBY</p>
-                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('concept-set-8')">
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('photos-set-1')">
                                     <i class="fas fa-images"></i>
-                                    查看图片集 (7张)
+                                    查看图片集 (4张)
                                 </button>
                             </div>
                         </div>
-                      </div>
-                  </div>
+                        
+                        <div class="work-card" data-date="2025-12-28" data-title="Day of Asterum">
+                            <div class="work-image-container" onclick="openImageGallery('photos-set-2')">
+                                <img src="https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg" 
+                                     alt="Day of Asterum" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">Day of Asterum</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-12-28</span>
+                                    <span class="work-type">wvs</span>
+                                </div>
+                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('photos-set-2')">
+                                    <i class="fas fa-images"></i>
+                                    查看图片集 (4张)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               
-                <!-- 个人照区域 -->
                 <div class="sub-section" data-subtab="personal-photos">
                     <h3 class="section-title mb-4">📷 个人照</h3>
-                    <div class="sort-controls" id="personal-sort-controls">
+                    <div class="sort-controls" id="personal-photos-sort-controls">
                         <button class="sort-btn active" data-sort="date-desc">最新在前</button>
                         <button class="sort-btn" data-sort="date-asc">最旧在前</button>
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
-                    <div class="works-grid" id="personal-works-grid">
+                    <div class="works-grid" id="personal-photos-works-grid">
                         <div class="work-card" data-date="2026-01-13" data-title="cosmokorea杂志">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
                                 <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
@@ -1147,91 +1515,105 @@
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">《cosmokorea》杂志</h3>
+                                <h3 class="work-title">cosmokorea杂志</h3>
                                 <div class="work-meta">
                                     <span class="work-type">2026-01-13</span>
                                 </div>
-                                <p class="work-desc">杂志+部分采访翻译</p>
-                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('photos-set-1')">
+                                <p class="work-desc">封面/内页/相关图片</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-1')">
                                     <i class="fas fa-camera"></i>
-                                    查看生活照 (10张)
+                                    查看图片集 (5张)
                                 </button>
                             </div>
                         </div>
                         
-                        <div class="work-card" data-date="2024-05-29" data-title="个人写真">
+                        <div class="work-card" data-date="2026-01-01" data-title="1月汇总">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
-                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
-                                     alt="个人写真" 
+                                <img src="https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg" 
+                                     alt="1月汇总" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">个人写真集</h3>
+                                <h3 class="work-title">1月汇总</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2024-05-29</span>
+                                    <span class="work-type">2026-01</span>
                                 </div>
-                                <p class="work-desc">专业摄影师拍摄的个人写真照片</p>
-                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
-                                    <i class="fas fa-portrait"></i>
-                                    查看写真 (12张)
+                                <p class="work-desc">1月直播等汇总照片</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
+                                    <i class="fas fa-camera"></i>
+                                    查看图片集 (11张)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="work-card" data-date="2025-12-01" data-title="12月汇总">
+                            <div class="work-image-container" onclick="openImageGallery('personal-set-3')">
+                                <img src="https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg" 
+                                     alt="12月汇总" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">12月汇总</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-12</span>
+                                </div>
+                                <p class="work-desc">12月直播等汇总照片</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-3')">
+                                    <i class="fas fa-camera"></i>
+                                    查看图片集 (16张)
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-              <!-- 咪姆照片区域 -->
-                <div class="sub-section" data-subtab="personal-mimu">
-                    <h3 class="section-title mb-4">📷 咪姆照片</h3>
-                    <div class="sort-controls" id="personal-sort-controls">
+              <div class="sub-section" data-subtab="personal-mimu">
+                    <h3 class="section-title mb-4">⭐ 咪姆照片</h3>
+                    <div class="sort-controls" id="mimu-sort-controls">
                         <button class="sort-btn active" data-sort="date-desc">最新在前</button>
                         <button class="sort-btn" data-sort="date-asc">最旧在前</button>
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
-                    <div class="works-grid" id="personal-works-grid">
-                        <div class="work-card" data-date="2026-01-13" data-title="cosmokorea杂志">
-                            <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
-                                <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
-                                     alt="cosmokorea杂志" 
+                    <div class="works-grid" id="mimu-works-grid">
+                        <div class="work-card" data-date="2025-12-30" data-title="1月壁纸">
+                            <div class="work-image-container" onclick="openImageGallery('mimu-set-1')">
+                                <img src="https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg" 
+                                     alt="1月壁纸" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">《cosmokorea》杂志</h3>
+                                <h3 class="work-title">1月壁纸</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2026-01-13</span>
+                                    <span class="work-type">2025-12-30</span>
+                                    <span class="work-type">壁纸</span>
                                 </div>
-                                <p class="work-desc">杂志+部分采访翻译</p>
-                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('photos-set-1')">
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('mimu-set-1')">
                                     <i class="fas fa-camera"></i>
-                                    查看生活照 (10张)
+                                    查看图片集 (2张)
                                 </button>
                             </div>
                         </div>
-                        
-                        <div class="work-card" data-date="2024-05-29" data-title="个人写真">
-                            <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
-                                <img src="https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg" 
-                                     alt="个人写真" 
+                      
+                        <div class="work-card" data-date="2025-12-25" data-title="圣诞">
+                            <div class="work-image-container" onclick="openImageGallery('mimu-set-2')">
+                                <img src="https://s2.loli.net/2026/01/25/c7q1LkihZWAe4Hp.jpg" 
+                                     alt="圣诞" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
-                                <h3 class="work-title">个人写真集</h3>
+                                <h3 class="work-title">圣诞壁纸</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2024-05-29</span>
+                                    <span class="work-type">2025-12-25</span>
                                 </div>
-                                <p class="work-desc">专业摄影师拍摄的个人写真照片</p>
-                                <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('personal-set-2')">
-                                    <i class="fas fa-portrait"></i>
-                                    查看写真 (12张)
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('mimu-set-2')">
+                                    <i class="fas fa-camera"></i>
+                                    查看图片集 (2张)
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-              
-                
-                <!-- 幕后花絮区域 -->
                 <div class="sub-section" data-subtab="behind">
                     <h3 class="section-title mb-4">🎬 幕后花絮</h3>
                     <div class="works-grid">
@@ -1248,7 +1630,226 @@
                     </div>
                 </div>
             </section>
-            
+
+          <section id="schedule" class="content-section">
+    <div class="section-header">
+        <h2 class="section-title">BAMBY日程</h2>
+        <p class="section-subtitle">个人相关活动时间表</p>
+    </div>
+    
+    <div class="sub-nav">
+        <button class="sub-nav-btn active" data-subtab="upcoming">
+            <i class="fas fa-clock"></i>
+            近期行程
+        </button>
+        <button class="sub-nav-btn" data-subtab="monthly">
+            <i class="fas fa-calendar"></i>
+            月度视图
+        </button>
+        <button class="sub-nav-btn" data-subtab="past">
+            <i class="fas fa-history"></i>
+            过往记录
+        </button>
+    </div>
+    
+<!-- 近期行程 -->
+<div class="sub-section active" data-subtab="upcoming">
+    <div class="schedule-filters">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="live">直播</button>
+        <button class="filter-btn" data-filter="performance">演出</button>
+    </div>
+    
+    <div class="schedule-container">
+        <!-- 2026年1月29日 三人直播 -->
+        <div class="schedule-card important" data-type="live">
+            <div class="schedule-date">
+                <div class="schedule-day">29</div>
+                <div class="schedule-month">1月</div>
+                <div class="schedule-year">2026</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
+                    <span class="schedule-type live">直播</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
+                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
+                        YouTube & B站同步
+                    </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="schedule-empty" style="display: none;" id="no-upcoming">
+            <i class="fas fa-calendar-plus"></i>
+            <h3>暂无其他近期行程</h3>
+            <p>BAMBY近期没有其他公开活动安排</p>
+        </div>
+    </div>
+    
+    <div class="official-link mt-4" style="text-align: center;">
+        <p style="color: var(--color-gray-500); margin-bottom: 10px; font-size: 0.9rem;">
+            <i class="fas fa-info-circle"></i> 日程可能临时调整，请以官方通知为准
+        </p>
+        <a href="https://plavecalendar.com/" target="_blank" class="channel-btn weibo" style="display: inline-block; max-width: 300px;">
+            <i class="fas fa-external-link-alt"></i>
+            查看官方完整日程
+        </a>
+    </div>
+</div>
+
+<!-- 月度视图 -->
+<div class="sub-section" data-subtab="monthly">
+    <div class="month-view">
+        <div class="month-header">
+            <h3 class="month-title" id="monthTitle">2026年 1月</h3>
+            <div class="month-nav">
+                <button class="month-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <button class="month-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- 日历将通过JavaScript动态生成 -->
+        </div>
+    </div>
+    
+    <div class="schedule-container">
+        <h3 class="section-title mb-4" style="text-align: center;">1月重点日程</h3>
+        <!-- 这里可以放置当前月重点日程卡片 -->
+        <div class="schedule-card important" data-type="live">
+            <div class="schedule-date">
+                <div class="schedule-day">29</div>
+                <div class="schedule-month">1月</div>
+                <div class="schedule-year">2026</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">💙💜💗 三人直播</h3>
+                    <span class="schedule-type live">直播</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
+                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
+                        YouTube & B站同步
+                    </span>
+                </div>
+                <p class="schedule-desc">BAMBY参与的三成员特别直播，油管和B站同步进行</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 过往记录 -->
+<div class="sub-section" data-subtab="past">
+    <div class="schedule-container">
+        <!-- 2026年1月19日 双人WVS直播 -->
+        <div class="schedule-card past" data-type="live">
+            <div class="schedule-date">
+                <div class="schedule-day">19</div>
+                <div class="schedule-month">1月</div>
+                <div class="schedule-year">2026</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">❤️💗 双人WVS直播</h3>
+                    <span class="schedule-type live">直播</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fas fa-desktop" style="color: var(--color-primary);"></i>
+                        WVS直播
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2026年1月12日 双人直播 -->
+        <div class="schedule-card past" data-type="live">
+            <div class="schedule-date">
+                <div class="schedule-day">12</div>
+                <div class="schedule-month">1月</div>
+                <div class="schedule-year">2026</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">💜💗 双人直播</h3>
+                    <span class="schedule-type live">直播</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fab fa-youtube" style="color: #FF0000;"></i> 
+                        <i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>
+                        YouTube & B站同步
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+      <!-- 2026年1月10日 单人WVS直播 -->
+        <div class="schedule-card past" data-type="live">
+            <div class="schedule-date">
+                <div class="schedule-day">10</div>
+                <div class="schedule-month">1月</div>
+                <div class="schedule-year">2026</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">💗 单人WVS直播</h3>
+                    <span class="schedule-type live">直播</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:00 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fas fa-desktop" style="color: var(--color-primary);"></i>
+                        WVS直播
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2025年12月31日 MBC歌谣大祭典 -->
+        <div class="schedule-card past important" data-type="performance">
+            <div class="schedule-date">
+                <div class="schedule-day">31</div>
+                <div class="schedule-month">12月</div>
+                <div class="schedule-year">2025</div>
+            </div>
+            <div class="schedule-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 class="schedule-title">🎤 2025 MBC歌谣大祭典</h3>
+                    <span class="schedule-type performance">演出</span>
+                </div>
+                <div class="schedule-meta">
+                    <span class="schedule-time"><i class="far fa-clock"></i> 19:50 (CST)</span>
+                    <span class="schedule-platform">
+                        <i class="fas fa-tv" style="color: #8B4513;"></i>
+                        MBC电视台
+                    </span>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="schedule-empty">
+            <i class="fas fa-archive"></i>
+            <h3>更多过往记录整理中</h3>
+            <p>我们正在整理过往的重要活动记录，敬请期待！</p>
+        </div>
+    </div>
+</div>
+</section>
+          
             <section id="others" class="content-section">
                 <div class="section-header">
                     <h2 class="section-title">其他</h2>
@@ -1318,27 +1919,35 @@
         });
         
         function initApp() {
-            setTimeout(function() {
-                var loading = document.getElementById('loading');
-                loading.classList.add('hidden');
-                setTimeout(function() {
-                    loading.style.display = 'none';
-                }, 500);
-            }, 800);
-            
-            initNavigation();
-            initSubNavigation();
-            initMaterialNavigation();
-            initTheme();
-            initBackToTop();
-            initSortControls();
-            
-            setTimeout(function() {
-                showWelcomeMessage();
-            }, 1200);
-        }
+    setTimeout(function() {
+        var loading = document.getElementById('loading');
+        loading.classList.add('hidden');
+        setTimeout(function() {
+            loading.style.display = 'none';
+        }, 500);
+    }, 800);
+    
+    initNavigation();
+    initSubNavigation();
+    initMaterialNavigation();
+    initTheme();
+    initBackToTop();
+    initSortControls();
+    initScheduleNavigation(); // 先初始化导航
+    initScheduleFilters();    // 然后初始化筛选器
+    
+    // 设置初始月份为当前月份
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth(); // 0-11
+    
+    initCalendar();
+    
+    setTimeout(function() {
+        showWelcomeMessage();
+    }, 1200);
+}
         
-        // 图片画廊数据
         const imageGalleries = {
             'concept-set-8': [
                 'https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg',
@@ -1357,29 +1966,68 @@
             'concept-set-1': [
                 'https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg',
                 'https://s2.loli.net/2026/01/25/vEIe9qHDTkCa6gh.jpg',
+                'https://s2.loli.net/2026/01/25/P7yzmhsMVf4CwEF.jpg',
                 'https://s2.loli.net/2026/01/25/A5XuNMat8d6Kw7W.jpg',
-                'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
-                'https://s2.loli.net/2026/01/25/3byhlV7gS1WukrY.jpg'
+                'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg'
             ],
-
-          
             'photos-set-1': [
-                'https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg',
-                'https://s2.loli.net/2026/01/25/8S3qQxBtNFswPHc.jpg',
-                'https://s2.loli.net/2026/01/25/b9zj4rNiB7C8Jw1.jpg'
+                'https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg',
+                'https://s2.loli.net/2026/01/25/9xhGIrSFCL8Um53.jpg',
+                'https://s2.loli.net/2026/01/25/UClxQ216huqWimL.jpg',
+                'https://s2.loli.net/2026/01/25/FqIj34evdLJDpl9.jpg'
             ],
-
-          
+            'photos-set-2': [
+                'https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg',
+                'https://s2.loli.net/2026/01/25/Jg9BtyNAHuWOvi7.jpg',
+                'https://s2.loli.net/2026/01/25/m1v8NLuVyc9OUMk.jpg',
+                'https://s2.loli.net/2026/01/25/xGJbhnQFeSYv3gz.jpg'
+            ],
             'personal-set-1': [
-                'https://s2.loli.net/2026/01/25/eqTrixRBC4FIHPU.jpg',
-                'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg',
-                'https://s2.loli.net/2026/01/25/3byhlV7gS1WukrY.jpg'
+                'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
+                'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
+                'https://s2.loli.net/2026/01/25/fbhsR9ILqZP3KAH.jpg',
+                'https://s2.loli.net/2026/01/25/LiF3e9gBfhTbnjw.jpg',
+                'https://s2.loli.net/2026/01/25/ZCrqUSsdWKFyJBl.jpg'
             ],
             'personal-set-2': [
-                'https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg',
-                'https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg',
-                'https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg'
-            ]
+                'https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg',
+                'https://s2.loli.net/2026/01/25/24OmhqIxXsFPLkp.jpg',
+                'https://s2.loli.net/2026/01/25/VjaqsuCYdTv5JFL.jpg',
+                'https://s2.loli.net/2026/01/25/IPTGe9K2ZSOnhxv.jpg',
+                'https://s2.loli.net/2026/01/25/WaYRBUyHP3xwr1D.jpg',
+                'https://s2.loli.net/2026/01/25/sxFKdDichwuRa35.jpg',
+                'https://s2.loli.net/2026/01/25/Af1yLSp2Ksqvcib.jpg',
+                'https://s2.loli.net/2026/01/25/HPyDMIz1g4ZA37n.jpg',
+                'https://s2.loli.net/2026/01/25/eWuZD5KwBb2HNIy.jpg',
+                'https://s2.loli.net/2026/01/25/tSTsWyoKRbic3I5.jpg',
+                'https://s2.loli.net/2026/01/25/8NCMinDx1mSTu96.jpg'
+            ],
+            'personal-set-3': [
+                'https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg',
+                'https://s2.loli.net/2026/01/25/eHTF7zSQUtWi5uv.jpg',
+                'https://s2.loli.net/2026/01/25/u52svHCTj8V1PER.jpg',
+                'https://s2.loli.net/2026/01/25/2PoLecsj7E1OZhI.jpg',
+                'https://s2.loli.net/2026/01/25/w7LdWobmgkaDGzu.jpg',
+                'https://s2.loli.net/2026/01/25/vjN436qlZ8wJKSB.jpg',
+                'https://s2.loli.net/2026/01/25/TxesEKiqbNPlXM7.jpg',
+                'https://s2.loli.net/2026/01/25/juVg3KNcXdysYQr.jpg',
+                'https://s2.loli.net/2026/01/25/As6Wdet9rubxGTV.jpg',
+                'https://s2.loli.net/2026/01/25/Uf9qOjbW2IkSvnw.jpg',
+                'https://s2.loli.net/2026/01/25/GAH4OMQpobN9TPl.jpg',
+                'https://s2.loli.net/2026/01/25/z4RvStYFM1eq28f.jpg',
+                'https://s2.loli.net/2026/01/25/KP4eIhpXo8qvy9f.jpg',
+                'https://s2.loli.net/2026/01/25/AlmCbzPh3BMjvYg.jpg',
+                'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
+                'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
+            ],
+           'mimu-set-1': [
+                'https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg',
+                'https://s2.loli.net/2026/01/25/8x9tCavqpjSzKod.jpg'
+            ],
+           'mimu-set-2': [
+                'https://s2.loli.net/2026/01/25/c7q1LkihZWAe4Hp.jpg',
+                'https://s2.loli.net/2026/01/25/2fqNiPQb4LBO5t8.jpg'
+            ],
         };
         
         let currentGallery = null;
@@ -1422,7 +2070,6 @@
             document.body.style.overflow = '';
         }
         
-        // 键盘控制
         document.addEventListener('keydown', function(e) {
             const viewer = document.getElementById('imageViewer');
             if (!viewer.classList.contains('active')) return;
@@ -1436,9 +2083,7 @@
             }
         });
         
-        // 时间排序功能
         function initSortControls() {
-            // 为每个有排序功能的区域初始化
             const sortContainers = document.querySelectorAll('.sort-controls');
             
             sortContainers.forEach(container => {
@@ -1450,14 +2095,10 @@
                 
                 sortButtons.forEach(button => {
                     button.addEventListener('click', function() {
-                        // 更新按钮状态
                         sortButtons.forEach(btn => btn.classList.remove('active'));
                         this.classList.add('active');
                         
-                        // 获取排序方式
                         const sortMethod = this.getAttribute('data-sort');
-                        
-                        // 对卡片进行排序
                         sortWorkCards(worksGrid, sortMethod);
                     });
                 });
@@ -1485,12 +2126,10 @@
                 }
             });
             
-            // 清空网格并重新添加排序后的卡片
             grid.innerHTML = '';
             cards.forEach(card => grid.appendChild(card));
         }
         
-        // 导航功能
         function initNavigation() {
             var navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(function(item) {
@@ -1582,6 +2221,13 @@
             if (targetSection) {
                 targetSection.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 如果切换到日程页面，重新初始化日历
+                if (tabId === 'schedule') {
+                    setTimeout(() => {
+                        initCalendar();
+                    }, 100);
+                }
             }
         }
         
@@ -1678,6 +2324,249 @@
             'transform: translateX(-50%) translateY(0);' +
             '}';
         document.head.appendChild(dynamicStyles);
+
+// ========== 日历功能 ==========
+let currentMonth = 0; // 0=1月, 1=2月, 2=3月... 初始设为1月
+let currentYear = 2026;
+
+// 月份名称
+const monthFullNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+// 初始化日历
+function initCalendar() {
+    console.log('初始化日历: ', currentYear, '年', currentMonth + 1, '月'); // 显示时+1
+    updateCalendarTitle();
+    renderCalendar();
+    setupCalendarNavigation();
+}
+
+// 更新日历标题
+function updateCalendarTitle() {
+    const titleElement = document.getElementById('monthTitle');
+    if (titleElement) {
+        titleElement.textContent = `${currentYear}年 ${monthFullNames[currentMonth]}`;
+    }
+}
+
+// 跳转到上个月
+function goToPreviousMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    console.log('跳转到上个月:', currentYear, '年', currentMonth + 1, '月');
+    updateCalendar();
+}
+
+// 跳转到下个月（修复版本）
+function goToNextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    console.log('跳转到下个月:', currentYear, '年', currentMonth + 1, '月');
+    updateCalendar();
+}
+
+// 渲染日历（简化版，确保能工作）
+function renderCalendar() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) return;
+    
+    // 清空日历
+    calendarGrid.innerHTML = '';
+    
+    // 添加星期标题
+    const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六'];
+    daysOfWeek.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'calendar-day-header';
+        dayHeader.textContent = day;
+        calendarGrid.appendChild(dayHeader);
+    });
+    
+    // 获取当月第一天和最后一天
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = firstDay.getDay();
+    
+    console.log(`渲染日历: ${currentYear}年${currentMonth + 1}月, 天数:${daysInMonth}, 起始日:${startingDay}`);
+    
+    // 添加上个月的空白格子
+    for (let i = 0; i < startingDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-day empty';
+        calendarGrid.appendChild(emptyCell);
+    }
+    
+    // 添加当月日期格子
+    const today = new Date();
+    
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day';
+        dayCell.textContent = day;
+        dayCell.style.position = 'relative';
+        
+        // 检查是否是今天
+        if (currentYear === today.getFullYear() && 
+            currentMonth === today.getMonth() && 
+            day === today.getDate()) {
+            dayCell.classList.add('today');
+        }
+        
+        // 检查当天是否有活动
+        const hasEvent = checkDayHasEvent(day);
+        if (hasEvent) {
+            dayCell.classList.add('has-event');
+            
+            const eventDot = document.createElement('span');
+            eventDot.className = 'event-dot';
+            eventDot.style.cssText = 'position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: #FF6B6B; border-radius: 50%;';
+            dayCell.appendChild(eventDot);
+        }
+        
+        dayCell.addEventListener('click', function() {
+            showDayEvents(day);
+        });
+        
+        calendarGrid.appendChild(dayCell);
+    }
+    
+    // 补齐空白格子
+    const totalCells = startingDay + daysInMonth;
+    const rowsNeeded = Math.ceil(totalCells / 7);
+    const totalCellsNeeded = rowsNeeded * 7;
+    
+    for (let i = totalCells; i < totalCellsNeeded; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-day empty';
+        calendarGrid.appendChild(emptyCell);
+    }
+}
+
+// 检查某天是否有活动（简化版）
+function checkDayHasEvent(day) {
+    // 硬编码您的行程
+    const events = {
+        '2026-1-29': '💙💜💗 三人直播',
+        '2026-1-19': '❤️💗 双人WVS直播',
+        '2026-1-12': '💜💗 双人直播',
+        '2025-12-31': '🎤 2025 MBC歌谣大祭典'
+    };
+    
+    const key = `${currentYear}-${currentMonth + 1}-${day}`;
+    return events.hasOwnProperty(key);
+}
+
+// 显示某天的活动详情
+function showDayEvents(day) {
+    const events = {
+        '2026-1-29': '💙💜💗 三人直播 (19:00 CST, YouTube & B站同步)',
+        '2026-1-19': '❤️💗 双人WVS直播 (19:00 CST)',
+        '2026-1-12': '💜💗 双人直播 (19:00 CST, YouTube & B站同步)',
+        '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST, MBC电视台)'
+    };
+    
+    const key = `${currentYear}-${currentMonth + 1}-${day}`;
+    if (events[key]) {
+        showToast(`${currentYear}年${currentMonth + 1}月${day}日: ${events[key]}`, 5000);
+    } else {
+        showToast(`${currentYear}年${currentMonth + 1}月${day}日没有安排活动`, 3000);
+    }
+}
+
+// 设置日历导航
+function setupCalendarNavigation() {
+    const prevBtn = document.getElementById('prevMonth');
+    const nextBtn = document.getElementById('nextMonth');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', goToPreviousMonth);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', goToNextMonth);
+    }
+}
+
+// 更新日历
+function updateCalendar() {
+    updateCalendarTitle();
+    renderCalendar();
+}
+
+// 初始化行程导航（修复版本）
+function initScheduleNavigation() {
+    const subNavBtns = document.querySelectorAll('#schedule .sub-nav-btn');
+    const subSections = document.querySelectorAll('#schedule .sub-section');
+    
+    subNavBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subtab = this.getAttribute('data-subtab');
+            
+            subNavBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            subSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.getAttribute('data-subtab') === subtab) {
+                    section.classList.add('active');
+                    
+                    // 如果是月度视图，设置当前月份为实际当前月份
+                    if (subtab === 'monthly') {
+                        setTimeout(() => {
+                            // 设置当前月份
+                            const today = new Date();
+                            currentYear = today.getFullYear();
+                            currentMonth = today.getMonth(); // 0-11
+                            updateCalendar();
+                        }, 50);
+                    }
+                }
+            });
+        });
+    });
+}
+
+      // 初始化行程筛选（修复版）
+function initScheduleFilters() {
+    // 为每个子部分的筛选器绑定事件
+    const subSections = document.querySelectorAll('#schedule .sub-section');
+    subSections.forEach(section => {
+        bindFilterEventsForSection(section);
+    });
+}
+
+// 为特定部分绑定筛选器事件
+function bindFilterEventsForSection(section) {
+    const filterBtns = section.querySelectorAll('.filter-btn');
+    const scheduleCards = section.querySelectorAll('.schedule-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // 移除所有按钮的active类
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // 给当前按钮添加active类
+            this.classList.add('active');
+            
+            // 筛选卡片
+            scheduleCards.forEach(card => {
+                const type = card.getAttribute('data-type');
+                if (filter === 'all' || type === filter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
     </script>
 </body>
 </html>
