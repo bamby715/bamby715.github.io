@@ -245,6 +245,8 @@
             display: flex;
             flex-wrap: wrap;
             gap: 32px;
+          
+          
         }
         
         .profile-image-container {
@@ -608,6 +610,44 @@
         .d-none {
             display: none !important;
         }
+
+      .profile-card {
+    background: linear-gradient(135deg, 
+                rgba(255, 240, 245, 0.95) 0%,
+                rgba(255, 230, 240, 0.85) 50%,
+                rgba(255, 220, 235, 0.75) 100%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 194, 214, 0.4);
+}
+
+/* 添加爱心背景图案 */
+.profile-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,85 C70,70 85,50 85,30 C85,15 70,5 50,5 C30,5 15,15 15,30 C15,50 30,70 50,85 Z' fill='rgba(255, 194, 214, 0.1)'/%3E%3C/svg%3E");
+    background-size: 120px;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+/* 确保内容显示在背景之上 */
+.profile-image-container,
+.profile-info,
+.profile-links {
+    position: relative;
+    z-index: 1;
+}
+
+/* 为信息项添加透明效果 */
+.info-item {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+}
 
         /* ========== 日程表页面样式 ========== */
         .schedule-container {
