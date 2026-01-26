@@ -77,18 +77,48 @@
         }
         
         .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--color-primary-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity var(--transition-normal);
-        }
+   position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity var(--transition-normal);
+}
+ 
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.loading-spinner div {
+    margin-bottom: 15px; /* 调整爱心和文字之间的间距 */
+    font-size: 3rem; /* 调整爱心大小 */
+    color: var(--color-primary-dark);
+    animation: heartbeat 1.5s ease-in-out infinite; /* 添加心跳动画 */
+}
+
+.loading-spinner p {
+    font-size: 1.2rem;
+    color: var(--color-gray-700);
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+/* 可选：添加心跳动画效果 */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
         
         .loading-overlay.hidden {
             opacity: 0;
@@ -2133,16 +2163,34 @@
                             </div>
                         </div>
 
-                      <div class="work-card" data-date="2025-2-01" data-title="2月汇总">
+                      <div class="work-image-container" onclick="openImageGallery('personal-set-12')">
+                                <img src="https://i.ibb.co/whwbxgWj/IMG-6089.png" 
+                                     alt="3月汇总" 
+                                     class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">25年3月汇总</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2025-03</span>
+                                </div>
+                                <p class="work-desc">25年3月直播等汇总照片</p>
+                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-12')">
+                                    <i class="fas fa-camera"></i>
+                                    查看图片集 (16张)
+                                </button>
+                            </div>
+                        </div>
+
+                      <div class="work-card" data-date="2025-02-01" data-title="2月汇总">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-13')">
                                 <img src="https://i.ibb.co/QF5zY9Qn/IMG-6066.jpg" 
-                                     alt="12月汇总" 
+                                     alt="2月汇总" 
                                      class="work-image">
                             </div>
                             <div class="work-content">
                                 <h3 class="work-title">25年2月汇总</h3>
                                 <div class="work-meta">
-                                    <span class="work-type">2025-12</span>
+                                    <span class="work-type">2025-02</span>
                                 </div>
                                 <p class="work-desc">25年2月直播等汇总照片</p>
                                 <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-13')">
@@ -2151,6 +2199,8 @@
                                 </button>
                             </div>
                         </div>
+
+                      
 
                       <div class="work-card" data-date="2024-09-01" data-title="9月汇总">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-18')">
@@ -2632,7 +2682,7 @@
                 setTimeout(function() {
                     loading.style.display = 'none';
                 }, 500);
-            }, 800);
+            }, 1200);
             
             // 初始化各个功能模块
             initNavigation();
@@ -2725,6 +2775,24 @@
                 'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
                 'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
             ],
+          'personal-set-12': [
+    'https://i.ibb.co/whwbxgWj/IMG-6089.png',
+    'https://i.ibb.co/KxsdYPvw/IMG-6083.jpg',
+    'https://i.ibb.co/66WTSxn/IMG-6082.jpg',
+    'https://i.ibb.co/jjrS0KF/IMG-6081.jpg',
+    'https://i.ibb.co/jZDXLc4g/IMG-6080.jpg',
+    'https://i.ibb.co/LXqQxrNm/IMG-6079.jpg',
+    'https://i.ibb.co/9HTZGfrt/IMG-6078.jpg',
+    'https://i.ibb.co/Ldx38Lp1/IMG-6077.png',
+    'https://i.ibb.co/xqSsxVQC/IMG-6076.jpg',
+    'https://i.ibb.co/pvfhzBmx/IMG-6075.jpg',
+    'https://i.ibb.co/xt4tNfQs/IMG-6074.jpg',
+    'https://i.ibb.co/TqtxcrYW/IMG-6073.jpg',
+    'https://i.ibb.co/675zsb3x/IMG-6072.jpg',
+    'https://i.ibb.co/35kjr8Cg/IMG-6071.jpg',
+    'https://i.ibb.co/NdXybQqv/IMG-6070.jpg',
+    'https://i.ibb.co/JRj2J63V/IMG-6069.jpg'
+],
           'personal-set-13': [
     'https://i.ibb.co/QF5zY9Qn/IMG-6066.jpg',
     'https://i.ibb.co/TxQ7dxnx/IMG-6065.jpg',
@@ -2756,6 +2824,7 @@
     'https://i.ibb.co/9mWtM2kX/IMG-6037.jpg',
     'https://i.ibb.co/HLt1Nzb6/IMG-6036.jpg'
 ],
+          
           'personal-set-18': [
     'https://i.ibb.co/4nKMcht8/IMG-7951.jpg',
     'https://i.ibb.co/Z6B1VVjD/IMG-7952.jpg',
