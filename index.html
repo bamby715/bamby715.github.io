@@ -1558,6 +1558,32 @@
                                 </div>
                             </div>
                         </div>
+
+      <div class="work-card" data-date="2024-05-15" data-title="Versace On The Floor">
+                            <div class="work-image-container">
+                                <img src="https://s2.loli.net/2026/01/27/ELVGcexyrin5lKZ.jpg" alt="Versace On The Floor" class="work-image">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">《Versace On The Floor》</h3>
+                                <div class="work-meta">
+                                    <span class="work-type">2024-05-01</span>
+                                </div>
+                                <p class="work-desc">原唱：Bruno Mars</p>
+                                <div class="channels-section">
+                                    <h4>观看渠道</h4>
+                                    <div class="channels-grid">
+                                        <a href="https://weibo.com/7825391749/Oci8vlG0f" target="_blank" class="channel-btn weibo">
+                                            <i class="fab fa-weibo"></i>
+                                            微博
+                                        </a>
+                                        <a href="https://www.bilibili.com/video/BV1fs421N7HP/?spm_id_from=333.1387.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f" target="_blank" class="channel-btn bilibili">
+                                            <span style="font-weight: bold;">B</span>站
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+      
                       <div class="work-card" data-date="2023-12-05" data-title="事件的地平线">
                             <div class="work-image-container">
                                 <img src="https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg" alt="事件的地平线" class="work-image">
@@ -1931,6 +1957,10 @@
                         <i class="fas fa-user-circle"></i>
                         个人照
                     </button>
+                  <button class="sub-nav-btn" data-subtab="magazine">
+                    <i class="fas fa-newspaper"></i>
+                        杂志专区
+                  </button>
                     <button class="sub-nav-btn" data-subtab="personal-mimu">
                         <i class="fas fa-star"></i>
                         咪姆照片
@@ -2065,24 +2095,6 @@
                         <button class="sort-btn" data-sort="title-asc">按标题排序</button>
                     </div>
                     <div class="works-grid" id="personal-photos-works-grid">
-                        <div class="work-card" data-date="2026-01-13" data-title="cosmokorea杂志">
-                            <div class="work-image-container" onclick="openImageGallery('personal-set-1')">
-                                <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
-                                     alt="cosmokorea杂志" 
-                                     class="work-image">
-                            </div>
-                            <div class="work-content">
-                                <h3 class="work-title">cosmokorea杂志</h3>
-                                <div class="work-meta">
-                                    <span class="work-type">2026-01-13</span>
-                                </div>
-                                <p class="work-desc">封面/内页/相关图片</p>
-                                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('personal-set-1')">
-                                    <i class="fas fa-camera"></i>
-                                    查看图片集 (5张)
-                                </button>
-                            </div>
-                        </div>
                         <div class="work-card" data-date="2026-01-01" data-title="1月汇总">
                             <div class="work-image-container" onclick="openImageGallery('personal-set-2')">
                                 <img src="https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg" 
@@ -2236,6 +2248,39 @@
                         </div>
                     </div>
                 </div>
+
+              <!-- 杂志专区 -->
+<div class="sub-section" data-subtab="magazine">
+    <h3 class="section-title mb-4">📰 杂志专区</h3>
+    <div class="sort-controls" id="magazine-sort-controls">
+        <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+        <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+        <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+    </div>
+    <div class="works-grid" id="magazine-works-grid">
+        <!-- Cosmo Korea杂志 -->
+        <div class="work-card" data-date="2026-01-13" data-title="Cosmo Korea杂志">
+            <div class="work-image-container" onclick="openImageGallery('magazine-set-1')">
+                <img src="https://s2.loli.net/2026/01/25/eCLM2FP8mIQODub.jpg" 
+                     alt="Cosmo Korea杂志" 
+                     class="work-image">
+            </div>
+            <div class="work-content">
+                <h3 class="work-title">Cosmo Korea杂志</h3>
+                <div class="work-meta">
+                    <span class="work-type">2026-01-13</span>
+                    <span class="work-type">杂志拍摄</span>
+                </div>
+                <p class="work-desc">封面/内页/相关图片</p>
+                <button class="channel-btn weibo" style="width: 100%;" onclick="openImageGallery('magazine-set-1')">
+                    <i class="fas fa-images"></i>
+                    查看图片集 (5张)
+                </button>
+            </div>
+        </div>
+  
+    </div>
+</div>
 
                 <!-- 咪姆照片 -->
                 <div class="sub-section" data-subtab="personal-mimu">
@@ -2648,13 +2693,7 @@
                 'https://s2.loli.net/2026/01/25/m1v8NLuVyc9OUMk.jpg',
                 'https://s2.loli.net/2026/01/25/xGJbhnQFeSYv3gz.jpg'
             ],
-            'personal-set-1': [
-                'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
-                'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
-                'https://s2.loli.net/2026/01/25/fbhsR9ILqZP3KAH.jpg',
-                'https://s2.loli.net/2026/01/25/LiF3e9gBfhTbnjw.jpg',
-                'https://s2.loli.net/2026/01/25/ZCrqUSsdWKFyJBl.jpg'
-            ],
+           
             'personal-set-2': [
                 'https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg',
                 'https://s2.loli.net/2026/01/25/24OmhqIxXsFPLkp.jpg',
@@ -2782,6 +2821,14 @@
                 'https://i.ibb.co/BVLXszfy/IMG-7903.jpg',
                 'https://i.ibb.co/y3hjRcC/IMG-7904.jpg',
                 'https://i.ibb.co/y3hjRcC/IMG-7904.jpg'
+            ],
+
+          'magazine-set-1': [
+                'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
+                'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
+                'https://s2.loli.net/2026/01/25/fbhsR9ILqZP3KAH.jpg',
+                'https://s2.loli.net/2026/01/25/LiF3e9gBfhTbnjw.jpg',
+                'https://s2.loli.net/2026/01/25/ZCrqUSsdWKFyJBl.jpg'
             ],
 
           
