@@ -129,7 +129,7 @@
 
     [data-theme="dark"] .main-header::before {
       background: linear-gradient(to bottom, rgba(42, 26, 36, 0.9), rgba(30, 30, 30, 0.7)),
-                  url('https://i.ibb.co/ns8WLb7P/Image-1769449627338.png') center/cover no-repeat;
+                  center/cover no-repeat;
     }
 
     /* PC端标题居中 */
@@ -1358,7 +1358,7 @@
       animation: particle-explode 0.6s ease-out forwards;
     }
 
-    /* ========== 音乐播放器样式 ========== */
+    /* ========== 修复音乐播放器样式 ========== */
     .music-player-overlay {
       position: fixed;
       top: 0;
@@ -1371,6 +1371,7 @@
       align-items: center;
       z-index: 2002;
       backdrop-filter: blur(10px);
+      overflow: hidden; /* 防止溢出 */
     }
     
     .music-player-overlay.active {
@@ -1380,11 +1381,15 @@
     .music-player {
       background: var(--color-white);
       border-radius: var(--radius-lg);
-      padding: 30px;
+      padding: 25px;
       width: 90%;
-      max-width: 400px;
+      max-width: 450px;
+      max-height: 85vh; /* 限制最大高度 */
       box-shadow: var(--shadow-lg);
       position: relative;
+      overflow: hidden; /* 防止内容溢出 */
+      display: flex;
+      flex-direction: column;
     }
     
     .music-player-header {
@@ -1392,6 +1397,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      flex-shrink: 0; /* 防止压缩 */
     }
     
     .music-player-title {
@@ -1413,6 +1419,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      flex-shrink: 0; /* 防止压缩 */
     }
     
     .music-player-close:hover {
@@ -1420,12 +1427,18 @@
       color: var(--color-gray-900);
     }
     
-    .music-player-cover {
+    .music-player-cover-container {
       width: 200px;
       height: 200px;
+      margin: 0 auto 20px;
+      flex-shrink: 0; /* 防止压缩 */
+    }
+    
+    .music-player-cover {
+      width: 100%;
+      height: 100%;
       border-radius: var(--radius-md);
       overflow: hidden;
-      margin: 0 auto 20px;
       box-shadow: var(--shadow-md);
     }
     
@@ -1437,7 +1450,8 @@
     
     .music-player-info {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
+      flex-shrink: 0; /* 防止压缩 */
     }
     
     .music-player-song {
@@ -1445,56 +1459,22 @@
       color: var(--color-gray-900);
       font-weight: 600;
       margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .music-player-artist {
       font-size: 0.95rem;
       color: var(--color-gray-600);
-    }
-    
-    .music-player-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    
-    .music-player-btn {
-      background: none;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--color-primary-dark);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .music-player-btn:hover {
-      background: var(--color-primary-light);
-      transform: scale(1.1);
-    }
-    
-    .music-player-btn.play {
-      width: 60px;
-      height: 60px;
-      background: var(--color-primary);
-      color: var(--color-white);
-      font-size: 1.8rem;
-    }
-    
-    .music-player-btn.play:hover {
-      background: var(--color-primary-dark);
-      transform: scale(1.1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .music-player-progress {
       margin-bottom: 20px;
+      flex-shrink: 0; /* 防止压缩 */
     }
     
     .music-player-time {
@@ -1521,19 +1501,154 @@
       transition: width 0.1s linear;
     }
     
-    .music-player-playlist {
-      margin-top: 25px;
+    .music-player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-shrink: 0; /* 防止压缩 */
+    }
+    
+    .music-player-btn {
+      background: none;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--color-primary-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0; /* 防止压缩 */
+    }
+    
+    .music-player-btn:hover {
+      background: var(--color-primary-light);
+      transform: scale(1.1);
+    }
+    
+    .music-player-btn.play {
+      width: 60px;
+      height: 60px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: 1.8rem;
+    }
+    
+    .music-player-btn.play:hover {
+      background: var(--color-primary-dark);
+      transform: scale(1.1);
+    }
+    
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-shrink: 0; /* 防止压缩 */
+    }
+    
+    .volume-icon {
+      color: var(--color-gray-600);
+      font-size: 1.1rem;
+      width: 30px;
+      flex-shrink: 0;
+    }
+    
+    .volume-slider {
+      flex: 1;
+      height: 4px;
+      background: var(--color-gray-200);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 1;
+    }
+    
+    .volume-slider-bar {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: 2px;
+      width: 70%;
+    }
+    
+    .music-player-playlist-container {
+      flex: 1; /* 占用剩余空间 */
+      min-height: 0; /* 重要：允许flex item收缩 */
+      overflow: hidden; /* 防止溢出 */
+      display: flex;
+      flex-direction: column;
       border-top: 1px solid var(--color-gray-200);
-      padding-top: 20px;
+      padding-top: 15px;
+    }
+    
+    .music-player-playlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-shrink: 0;
     }
     
     .music-player-playlist-title {
       font-size: 1rem;
       color: var(--color-gray-700);
-      margin-bottom: 10px;
+    }
+    
+    .shuffle-btn {
+      background: none;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--color-gray-600);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    .shuffle-btn:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+    
+    .shuffle-btn.active {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    
+    .music-player-playlist {
+      flex: 1;
+      overflow-y: auto; /* 添加滚动条 */
+      overflow-x: hidden;
+      padding-right: 5px; /* 为滚动条留空间 */
+    }
+    
+    /* 自定义滚动条样式 */
+    .music-player-playlist::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .music-player-playlist::-webkit-scrollbar-track {
+      background: var(--color-gray-100);
+      border-radius: 3px;
+    }
+    
+    .music-player-playlist::-webkit-scrollbar-thumb {
+      background: var(--color-primary-light);
+      border-radius: 3px;
+    }
+    
+    .music-player-playlist::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary);
     }
     
     .music-player-playlist-item {
@@ -1545,6 +1660,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-shrink: 0; /* 防止压缩 */
     }
     
     .music-player-playlist-item:hover {
@@ -1566,6 +1682,7 @@
       justify-content: center;
       font-size: 0.8rem;
       font-weight: 500;
+      flex-shrink: 0;
     }
     
     .music-player-playlist-item.active .music-player-playlist-item-index {
@@ -1575,70 +1692,23 @@
     
     .music-player-playlist-item-info {
       flex: 1;
+      min-width: 0; /* 重要：允许文本截断 */
     }
     
     .music-player-playlist-item-title {
       font-size: 0.9rem;
       font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .music-player-playlist-item-artist {
       font-size: 0.8rem;
       color: var(--color-gray-500);
-    }
-    
-    .shuffle-btn {
-      background: none;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: var(--color-gray-600);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .shuffle-btn:hover {
-      background: var(--color-primary-light);
-      color: var(--color-primary-dark);
-    }
-    
-    .shuffle-btn.active {
-      background: var(--color-primary);
-      color: var(--color-white);
-    }
-    
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    
-    .volume-icon {
-      color: var(--color-gray-600);
-      font-size: 1.1rem;
-      width: 30px;
-    }
-    
-    .volume-slider {
-      flex: 1;
-      height: 4px;
-      background: var(--color-gray-200);
-      border-radius: 2px;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .volume-slider-bar {
-      height: 100%;
-      background: var(--color-primary);
-      border-radius: 2px;
-      width: 70%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     /* 深色模式适配 */
@@ -1779,9 +1849,10 @@
       .music-player {
         padding: 20px;
         width: 95%;
+        max-height: 80vh;
       }
       
-      .music-player-cover {
+      .music-player-cover-container {
         width: 150px;
         height: 150px;
       }
@@ -3685,8 +3756,8 @@
       },
       {
         title: "Dangerously",
-        artist: "https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg",
-        cover: "https://s2.loli.net/2026/01/27/yMrgH5EzLiAXdeb.jpg",
+        artist: "BAMBY",
+        cover: "https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg",
         url: "https://image2url.com/r2/default/audio/1769518739821-fe7e15fa-862f-49a7-9f8c-04ef104345c9.mp3" 
       },
       {
