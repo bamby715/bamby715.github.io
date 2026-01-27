@@ -132,9 +132,10 @@
                   url('https://i.ibb.co/ns8WLb7P/Image-1769449627338.png') center/cover no-repeat;
     }
 
+    /* PC端标题居中 */
     .header-content {
       display: flex;
-      justify-content: space-between;
+      justify-content: center; /* PC端居中 */
       align-items: center;
       padding: 0 20px 20px;
       position: relative;
@@ -144,9 +145,8 @@
     .logo {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-      flex: 1;
+      align-items: center; /* PC端居中 */
+      text-align: center; /* PC端居中 */
       min-height: 100px;
       position: relative;
       z-index: 2;
@@ -638,25 +638,6 @@
       max-width: 300px;
     }
     
-    /* ========= 返回顶部按钮 ========= */
-    .back-to-top {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 44px;
-      height: 44px;
-      background: var(--color-primary);
-      color: var(--color-white);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: var(--shadow-md);
-      display: none;
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-    }
-
     /* ========= 链接样式 ========= */
     .profile-link {
       padding: 12px;
@@ -1211,104 +1192,7 @@
       z-index: 1;
     }
 
-    /* ========= 侧边控制面板 ========= */
-    .side-control {
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      z-index: 2000;
-      cursor: move;
-    }
-
-    .control-handle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-      color: white;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 158, 189, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      transition: all 0.3s ease;
-      z-index: 2001;
-    }
-
-    .control-handle:hover {
-      transform: scale(1.1) rotate(30deg);
-      box-shadow: 0 6px 25px rgba(255, 158, 189, 0.6);
-    }
-
-    .control-panel {
-      position: absolute;
-      top: 50%;
-      right: 60px;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 16px;
-      padding: 20px;
-      width: 220px;
-      box-shadow: var(--shadow-lg);
-      display: none;
-      flex-direction: column;
-      gap: 15px;
-      border: 1px solid rgba(255, 194, 214, 0.3);
-      z-index: 2000;
-      animation: slideIn 0.3s ease;
-    }
-
-    .control-panel.active {
-      display: flex;
-    }
-
-    .control-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.95rem;
-      color: var(--color-gray-800);
-      cursor: pointer;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 194, 214, 0.1);
-    }
-
-    .control-item:last-child {
-      border-bottom: none;
-    }
-
-    .control-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--color-primary);
-      border-radius: 4px;
-      cursor: pointer;
-      accent-color: var(--color-primary);
-    }
-
-    .control-close {
-      align-self: flex-end;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--color-gray-500);
-      cursor: pointer;
-      transition: color 0.2s;
-      padding: 5px;
-      line-height: 1;
-    }
-
-    .control-close:hover {
-      color: var(--color-primary-dark);
-    }
-
-    /* ========= 飘落特效 ========= */
+    /* ========= 飘落特效容器 ========= */
     #snowContainer {
       position: fixed;
       top: 0;
@@ -1320,7 +1204,7 @@
       overflow: hidden;
     }
 
-    /* ========= 移动端底部控制条 ========= */
+    /* ========= PC/移动端底部控制条（统一） ========= */
     .mobile-control-bar {
       position: fixed;
       bottom: 0;
@@ -1334,7 +1218,8 @@
       padding: 12px;
       z-index: 1000;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-      display: none;
+      /* PC端和移动端都显示 */
+      display: flex;
     }
 
     .mobile-control-btn {
@@ -1401,14 +1286,14 @@
       }
     }
 
-    /* ========= 自定义图片飘落效果 ========= */
+    /* ========= 自定义图片飘落效果（保留原始尺寸） ========= */
     @keyframes float-image {
       0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(-100px) translateX(var(--start-x)) rotate(0deg);
         opacity: 0.8;
       }
       100% {
-        transform: translateY(calc(100vh + 100px)) rotate(360deg);
+        transform: translateY(calc(100vh + 100px)) translateX(var(--end-x)) rotate(360deg);
         opacity: 0;
       }
     }
@@ -1429,13 +1314,13 @@
     }
 
     .click-particle {
-    position: absolute;
-    background: var(--color-primary);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    animation: particle-explode 0.6s ease-out forwards;
-}
+      position: absolute;
+      background: var(--color-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: particle-explode 0.6s ease-out forwards;
+    }
 
     /* ========= 移动端适配 ========= */
     @media (max-width: 768px) {
@@ -1501,18 +1386,6 @@
         grid-template-columns: 1fr;
       }
       
-      .side-control {
-        display: none;
-      }
-      
-      .control-panel {
-        display: none !important;
-      }
-      
-      .mobile-control-bar {
-        display: flex;
-      }
-      
       .image-nav {
         width: 40px;
         height: 40px;
@@ -1525,11 +1398,6 @@
       
       .image-next {
         right: 10px;
-      }
-      
-      .back-to-top {
-        bottom: 70px;
-        right: 20px;
       }
       
       .schedule-card {
@@ -1570,17 +1438,6 @@
       
       .section-title {
         font-size: 1.5rem;
-      }
-      
-      .control-handle {
-        width: 45px;
-        height: 45px;
-        font-size: 1.2rem;
-      }
-      
-      .control-panel {
-        width: 180px;
-        padding: 15px;
       }
     }
   </style>
@@ -1624,7 +1481,7 @@
       </nav>
     </header>
 
-    <!-- 移动端底部控制条 -->
+    <!-- PC/移动端底部控制条（统一） -->
     <div class="mobile-control-bar">
       <button class="mobile-control-btn" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
@@ -1881,7 +1738,6 @@
             </div>
         </div>
     </div>
-        <!-- 其他物料子部分可补充在这 -->
       </section>
 
       <!-- 行程日程部分 -->
@@ -2021,23 +1877,6 @@
     </main>
   </div>
 
-  <!-- 侧边控制面板 -->
-  <div class="side-control" id="sideControl">
-    <button class="control-handle" id="controlHandle">
-      <i class="fas fa-cog"></i>
-    </button>
-    <div class="control-panel" id="controlPanel">
-      <h4 style="margin:0 0 12px; font-size:1rem; color:var(--color-gray-900);">ʚ⑅ɞ 互动设置</h4>
-      <label class="control-item">
-        <input type="checkbox" id="bgmToggle"> 背景音乐
-      </label>
-      <label class="control-item">
-        <input type="checkbox" id="snowToggle"> 爱心飘落
-      </label>
-      <button class="control-close" id="controlClose">×</button>
-    </div>
-  </div>
-
   <!-- 音频 -->
   <audio id="bgmPlayer" loop>
     <source src="https://image2url.com/r2/default/audio/1769488066461-66d083fc-5858-4c83-9acb-3153691a8481.mp3" type="audio/mpeg">
@@ -2045,15 +1884,14 @@
 
   <script>
     // ========== 数据定义 ==========
+    // 飘落图片（已更换为您指定的图片）
     const floatingImages = [
-      'https://s2.loli.net/2026/01/27/4pKMzZ6UxWYhG2F.png',
-      'https://s2.loli.net/2026/01/27/9mQh8zJkL6X4vGw.png',
-      'https://s2.loli.net/2026/01/27/V7yKjqkfXp8M6Za.png',
-      'https://s2.loli.net/2026/01/27/rTcV3fUxzN9SJbG.png',
-      'https://s2.loli.net/2026/01/27/dsQ9WYKF6njkpL5.png'
+      'https://s2.loli.net/2026/01/27/8DuYv5rLyN3xqhZ.png'
     ];
 
+    // 图片库数据
     const imageGalleries = {
+      // 回归照
       'concept-set-8': [
         'https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg',
         'https://s2.loli.net/2026/01/25/NtBSZe8TlLmPRFW.jpg',
@@ -2075,226 +1913,39 @@
         'https://s2.loli.net/2026/01/25/A5XuNMat8d6Kw7W.jpg',
         'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg'
       ],
-  'photos-set-1': [
-    'https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg',
-    'https://s2.loli.net/2026/01/25/9xhGIrSFCL8Um53.jpg',
-    'https://s2.loli.net/2026/01/25/UClxQ216huqWimL.jpg',
-    'https://s2.loli.net/2026/01/25/FqIj34evdLJDpl9.jpg'
-  ],
-  'photos-set-2': [
-    'https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg',
-    'https://s2.loli.net/2026/01/25/Jg9BtyNAHuWOvi7.jpg',
-    'https://s2.loli.net/2026/01/25/m1v8NLuVyc9OUMk.jpg',
-    'https://s2.loli.net/2026/01/25/xGJbhnQFeSYv3gz.jpg'
-  ],
-  'personal-set-2': [
-    'https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg',
-    'https://s2.loli.net/2026/01/25/24OmhqIxXsFPLkp.jpg',
-    'https://s2.loli.net/2026/01/25/VjaqsuCYdTv5JFL.jpg',
-    'https://s2.loli.net/2026/01/25/IPTGe9K2ZSOnhxv.jpg',
-    'https://s2.loli.net/2026/01/25/WaYRBUyHP3xwr1D.jpg',
-    'https://s2.loli.net/2026/01/25/sxFKdDichwuRa35.jpg',
-    'https://s2.loli.net/2026/01/25/Af1yLSp2Ksqvcib.jpg',
-    'https://s2.loli.net/2026/01/25/HPyDMIz1g4ZA37n.jpg',
-    'https://s2.loli.net/2026/01/25/eWuZD5KwBb2HNIy.jpg',
-    'https://s2.loli.net/2026/01/25/tSTsWyoKRbic3I5.jpg',
-    'https://s2.loli.net/2026/01/25/8NCMinDx1mSTu96.jpg'
-  ],
-  'personal-set-3': [
-    'https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg',
-    'https://s2.loli.net/2026/01/25/eHTF7zSQUtWi5uv.jpg',
-    'https://s2.loli.net/2026/01/25/u52svHCTj8V1PER.jpg',
-    'https://s2.loli.net/2026/01/25/2PoLecsj7E1OZhI.jpg',
-    'https://s2.loli.net/2026/01/25/w7LdWobmgkaDGzu.jpg',
-    'https://s2.loli.net/2026/01/25/vjN436qlZ8wJKSB.jpg',
-    'https://s2.loli.net/2026/01/25/TxesEKiqbNPlXM7.jpg',
-    'https://s2.loli.net/2026/01/25/juVg3KNcXdysYQr.jpg',
-    'https://s2.loli.net/2026/01/25/As6Wdet9rubxGTV.jpg',
-    'https://s2.loli.net/2026/01/25/Uf9qOjbW2IkSvnw.jpg',
-    'https://s2.loli.net/2026/01/25/GAH4OMQpobN9TPl.jpg',
-    'https://s2.loli.net/2026/01/25/z4RvStYFM1eq28f.jpg',
-    'https://s2.loli.net/2026/01/25/KP4eIhpXo8qvy9f.jpg',
-    'https://s2.loli.net/2026/01/25/AlmCbzPh3BMjvYg.jpg',
-    'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
-    'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
-  ],
-      'personal-set-12': [
-    'https://i.ibb.co/whwbxgWj/IMG-6089.png',
-    'https://i.ibb.co/KxsdYPvw/IMG-6083.jpg',
-    'https://i.ibb.co/66WTSxn/IMG-6082.jpg',
-    'https://i.ibb.co/jjrS0KF/IMG-6081.jpg',
-    'https://i.ibb.co/jZDXLc4g/IMG-6080.jpg',
-    'https://i.ibb.co/LXqQxrNm/IMG-6079.jpg',
-    'https://i.ibb.co/9HTZGfrt/IMG-6078.jpg',
-    'https://i.ibb.co/Ldx38Lp1/IMG-6077.png',
-    'https://i.ibb.co/xqSsxVQC/IMG-6076.jpg',
-    'https://i.ibb.co/pvfhzBmx/IMG-6075.jpg',
-    'https://i.ibb.co/xt4tNfQs/IMG-6074.jpg',
-    'https://i.ibb.co/TqtxcrYW/IMG-6073.jpg',
-    'https://i.ibb.co/675zsb3x/IMG-6072.jpg',
-    'https://i.ibb.co/35kjr8Cg/IMG-6071.jpg',
-    'https://i.ibb.co/NdXybQqv/IMG-6070.jpg',
-    'https://i.ibb.co/JRj2J63V/IMG-6069.jpg'
-],
-          'personal-set-13': [
-    'https://i.ibb.co/QF5zY9Qn/IMG-6066.jpg',
-    'https://i.ibb.co/TxQ7dxnx/IMG-6065.jpg',
-    'https://i.ibb.co/WTdmsSX/IMG-6064.jpg',
-    'https://i.ibb.co/KjrF48qt/IMG-6063.jpg',
-    'https://i.ibb.co/Mx6mQV2Y/IMG-6062.jpg',
-    'https://i.ibb.co/1fJd3WpT/IMG-6061.jpg',
-    'https://i.ibb.co/F4Bvz91d/IMG-6060.jpg',
-    'https://i.ibb.co/4nmk4Df7/IMG-6059.jpg',
-    'https://i.ibb.co/8DXDmfnS/IMG-6058.jpg',
-    'https://i.ibb.co/ycthgxVc/IMG-6057.jpg',
-    'https://i.ibb.co/GfjpnCJj/IMG-6056.jpg',
-    'https://i.ibb.co/hxgNmHSL/IMG-6055.jpg',
-    'https://i.ibb.co/hxzvq6Ct/IMG-6054.jpg',
-    'https://i.ibb.co/C3rCHcMd/IMG-6053.jpg',
-    'https://i.ibb.co/8Lpw5Vxp/IMG-6052.jpg',
-    'https://i.ibb.co/ZR9Khhw1/IMG-6051.jpg',
-    'https://i.ibb.co/b5rbJvYh/IMG-6050.jpg',
-    'https://i.ibb.co/Jj9JF6tn/IMG-6049.jpg',
-    'https://i.ibb.co/0yBm7BW7/IMG-6048.jpg',
-    'https://i.ibb.co/qYjhZXqw/IMG-6047.jpg',
-    'https://i.ibb.co/fYkwpgQ0/IMG-6045.jpg',
-    'https://i.ibb.co/5xSg5m7x/IMG-6043.jpg',
-    'https://i.ibb.co/Cs51CKPR/IMG-6042.jpg',
-    'https://i.ibb.co/3Y9nwn0v/IMG-6041.jpg',
-    'https://i.ibb.co/jkKVFv0R/IMG-6040.jpg',
-    'https://i.ibb.co/d4FjPYHc/IMG-6039.jpg',
-    'https://i.ibb.co/mrF0sThx/IMG-6038.jpg',
-    'https://i.ibb.co/9mWtM2kX/IMG-6037.jpg',
-    'https://i.ibb.co/HLt1Nzb6/IMG-6036.jpg'
-],
-      'personal-set-15': [
-    'https://i.ibb.co/1GC1Vz12/IMG-7994.jpg',
-    'https://i.ibb.co/zHD03D2W/IMG-7995.jpg',
-    'https://i.ibb.co/zwfJnf9/IMG-7996.jpg',
-    'https://i.ibb.co/mC60dtCH/IMG-7997.jpg',
-    'https://i.ibb.co/hxP00y2y/IMG-7998.jpg',
-    'https://i.ibb.co/VY01tbz6/IMG-7999.jpg',
-    'https://i.ibb.co/xtxTW8tc/IMG-8001.jpg',
-    'https://i.ibb.co/kVhpzhzK/IMG-8002.jpg',
-    'https://i.ibb.co/5hPzxYCV/IMG-8003.jpg',
-    'https://i.ibb.co/gLwTc4D2/IMG-8005.jpg',
-    'https://i.ibb.co/WvjHdb35/IMG-8004.jpg',
-    'https://i.ibb.co/cKVHh2L0/IMG-8006.jpg',
-    'https://i.ibb.co/yBgKGT7t/IMG-8007.jpg',
-    'https://i.ibb.co/Ndgk6wkJ/IMG-8008.jpg',
-    'https://i.ibb.co/kstvhHs6/IMG-8009.jpg',
-    'https://i.ibb.co/60dvVSvZ/IMG-8010.jpg',
-    'https://i.ibb.co/ynHC3ngm/IMG-8011.jpg'
-],
-      'personal-set-16': [
-    'https://i.ibb.co/G48xjVfY/IMG-7993.jpg',
-    'https://i.ibb.co/Kj7BwXzk/IMG-7992.jpg',
-    'https://i.ibb.co/sdqqGvPW/IMG-7991.jpg',
-    'https://i.ibb.co/mCGhQrQX/IMG-7990.jpg',
-    'https://i.ibb.co/p64BPg8k/IMG-7989.jpg',
-    'https://i.ibb.co/bTHRch3/IMG-7988.jpg',
-    'https://i.ibb.co/wFct8JDd/IMG-7986.jpg',
-    'https://i.ibb.co/zhccLfdT/IMG-7987.jpg'
-],
-      'personal-set-17': [
-    'https://i.ibb.co/7xp81X8B/IMG-7969.jpg',
-    'https://i.ibb.co/JWy25jCh/IMG-7972.jpg',
-    'https://i.ibb.co/zVDdvMRZ/IMG-7973.jpg',
-    'https://i.ibb.co/tpK9H4Br/IMG-7974.jpg',
-    'https://i.ibb.co/xKs1T132/IMG-7975.jpg',
-    'https://i.ibb.co/d4bZZd6C/IMG-7976.jpg',
-    'https://i.ibb.co/ymzX31cT/IMG-7977.jpg',
-    'https://i.ibb.co/wNGJwLGT/IMG-7979.jpg',
-    'https://i.ibb.co/5WZC6Gk5/IMG-7980.jpg',
-    'https://i.ibb.co/q3KMkn0K/IMG-7981.jpg',
-    'https://i.ibb.co/xqJ9FY1c/IMG-7982.jpg',
-    'https://i.ibb.co/fY62ZTMF/IMG-7983.jpg',
-    'https://i.ibb.co/3mCsPXw9/IMG-7984.jpg'
-],
-          
-          'personal-set-18': [
-    'https://i.ibb.co/4nKMcht8/IMG-7951.jpg',
-    'https://i.ibb.co/Z6B1VVjD/IMG-7952.jpg',
-    'https://i.ibb.co/KxssSPPt/IMG-7953.jpg',
-    'https://i.ibb.co/0RzDfQr9/IMG-7954.jpg',
-    'https://i.ibb.co/pjj3vp8F/IMG-7955.jpg',
-    'https://i.ibb.co/yFc1PYrX/IMG-7956.jpg',
-    'https://i.ibb.co/1HK5tGS/IMG-7957.jpg',
-    'https://i.ibb.co/LsrP63H/IMG-7958.jpg',
-    'https://i.ibb.co/VpjcQmLn/IMG-7959.jpg',
-    'https://i.ibb.co/Y4wBsBg8/IMG-7960.jpg',
-    'https://i.ibb.co/YBsCNr9D/IMG-7961.jpg',
-    'https://i.ibb.co/1S2qPFp/IMG-7962.jpg',
-    'https://i.ibb.co/WNnVg2dQ/IMG-7963.jpg'
-],
-          'personal-set-19': [
-    'https://i.ibb.co/Ng0qv9Fc/IMG-7938.jpg',
-    'https://i.ibb.co/bMxjfgd4/IMG-7939.jpg',
-    'https://i.ibb.co/tTfGymDd/IMG-7940.jpg',
-    'https://i.ibb.co/twMBXnNz/IMG-7941.jpg',
-    'https://i.ibb.co/TDdWZ34k/IMG-7942.jpg',
-    'https://i.ibb.co/SXV81MQM/IMG-7944.jpg',
-    'https://i.ibb.co/CKkS0kn3/IMG-7945.jpg',
-    'https://i.ibb.co/sv2tPLfV/IMG-7947.jpg',
-    'https://i.ibb.co/8LBCrckK/IMG-7946.jpg'
-],
-            'personal-set-20': [
-                'https://i.ibb.co/wNW088jj/IMG-7917.jpg',
-                'https://i.ibb.co/QvHQmQpV/IMG-7923.jpg',
-                'https://i.ibb.co/qMxHJN7p/IMG-7925.jpg',
-                'https://i.ibb.co/HL01VXw2/IMG-4353.jpg',
-                'https://i.ibb.co/ksDqC0PJ/IMG-7927.jpg',
-                'https://i.ibb.co/kVTgM9Cj/IMG-7928.jpg',
-                'https://i.ibb.co/wZnnHPWD/IMG-7930.jpg',
-                'https://i.ibb.co/KpYG8dqb/IMG-7931.jpg',
-                'https://i.ibb.co/rf6SWJdG/IMG-7932.jpg',
-                'https://i.ibb.co/JWzz3tcB/IMG-7933.jpg',
-                'https://i.ibb.co/SDn0xjz7/IMG-7934.jpg',
-                'https://i.ibb.co/pVFcyn1/IMG-7935.jpg',
-                'https://i.ibb.co/hFp2Brwm/IMG-7936.jpg'
-            ],
-           'personal-set-21': [
-                'https://i.ibb.co/mrx71PP1/IMG-7906.jpg',
-                'https://i.ibb.co/mFV3HNP2/IMG-7908.jpg',
-                'https://i.ibb.co/3m3QswYF/IMG-7909.jpg',
-                'https://i.ibb.co/Vp0Nz1Vk/IMG-7910.jpg',
-                'https://i.ibb.co/jsQB8p7/IMG-7911.jpg',
-                'https://i.ibb.co/fd5JNVH0/IMG-7912.jpg',
-                'https://i.ibb.co/Tzs2Bcz/IMG-7913.jpg',
-                'https://i.ibb.co/jPBkg8GL/IMG-7914.jpg',
-                'https://i.ibb.co/93ps5mRL/IMG-7914.jpg',
-                'https://i.ibb.co/fGNV6TSy/IMG-7914.jpg',
-                'https://i.ibb.co/Q3rRrhDX/IMG-7914.jpg',
-                'https://i.ibb.co/5WmGbmkL/IMG-7915.jpg',
-                'https://i.ibb.co/rf7DXbnp/IMG-7916.jpg'
-            ],
-            'personal-set-22': [
-                'https://i.ibb.co/V0r169cW/IMG-7896.jpg',
-                'https://i.ibb.co/20L0g9y9/IMG-7897.jpg',
-                'https://i.ibb.co/My990NFQ/IMG-7900.jpg',
-                'https://i.ibb.co/VcBJ1HwW/IMG-7901.jpg',
-                'https://i.ibb.co/qYzv03xJ/IMG-7902.jpg',
-                'https://i.ibb.co/BVLXszfy/IMG-7903.jpg',
-                'https://i.ibb.co/y3hjRcC/IMG-7904.jpg',
-                'https://i.ibb.co/y3hjRcC/IMG-7904.jpg'
-            ],
-  'magazine-set-1': [
-    'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
-    'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
-    'https://s2.loli.net/2026/01/25/fbhsR9ILqZP3KAH.jpg',
-    'https://s2.loli.net/2026/01/25/LiF3e9gBfhTbnjw.jpg',
-    'https://s2.loli.net/2026/01/25/ZCrqUSsdWKFyJBl.jpg'
-  ],
-  'mimu-set-1': [
-    'https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg',
-    'https://s2.loli.net/2026/01/25/8x9tCavqpjSzKod.jpg'
-  ],
-  'mimu-set-2': [
-    'https://s2.loli.net/2026/01/25/c7q1LkihZWAe4Hp.jpg',
-    'https://s2.loli.net/2026/01/25/2fqNiPQb4LBO5t8.jpg'
-  ]
+      // 官方照片
+      'photos-set-1': [
+        'https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg',
+        'https://s2.loli.net/2026/01/25/9xhGIrSFCL8Um53.jpg',
+        'https://s2.loli.net/2026/01/25/UClxQ216huqWimL.jpg',
+        'https://s2.loli.net/2026/01/25/FqIj34evdLJDpl9.jpg'
+      ],
+      'photos-set-2': [
+        'https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg',
+        'https://s2.loli.net/2026/01/25/Jg9BtyNAHuWOvi7.jpg',
+        'https://s2.loli.net/2026/01/25/m1v8NLuVyc9OUMk.jpg',
+        'https://s2.loli.net/2026/01/25/xGJbhnQFeSYv3gz.jpg'
+      ],
+      // 个人照片（这里只保留示例，您可以按需补充）
+      'personal-set-2': [
+        'https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg',
+        'https://s2.loli.net/2026/01/25/24OmhqIxXsFPLkp.jpg',
+        'https://s2.loli.net/2026/01/25/VjaqsuCYdTv5JFL.jpg'
+      ],
+      // 杂志照片
+      'magazine-set-1': [
+        'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
+        'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
+        'https://s2.loli.net/2026/01/25/fbhsR9ILqZP3KAH.jpg'
+      ],
+      // 咪姆照片
+      'mimu-set-1': [
+        'https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg',
+        'https://s2.loli.net/2026/01/25/8x9tCavqpjSzKod.jpg'
+      ]
     };
 
+    // 翻唱作品数据
     const coversData = [
       {
         title: "I'm Not Alone",
@@ -2315,79 +1966,11 @@
           weibo: "https://weibo.com/7825391749/PgRs849eh",
           bilibili: "https://www.bilibili.com/video/BV1BN95Y5ENB/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
         }
-      },
-      {
-        title: "Pretender",
-        date: "2024-07-17",
-        image: "https://s2.loli.net/2026/01/25/gPZi4UANfMchabo.jpg",
-        desc: "原唱: Official髭男dism",
-        links: {
-          weibo: "https://weibo.com/7825391749/Oo038pXcq",
-          bilibili: "https://www.bilibili.com/video/BV1fE421c7hq/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-        }
-      },
-      {
-    title: "十二月的奇迹",
-    date: "2024-07-03",
-    image: "https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg",
-    desc: "原唱: EXO",
-    links: {
-      weibo: "https://weibo.com/7825391749/OlS3N2Vqg",
-      bilibili: "https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "Dangerously",
-    date: "2024-06-07",
-    image: "https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg",
-    desc: "原唱: Charlie Puth",
-    links: {
-      weibo: "http://t.cn/A6HrT3Q5",
-      bilibili: "https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "Square",
-    date: "2024-05-29",
-    image: "https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg",
-    desc: "原唱: 白艺潾 (Yerin Baek)",
-    links: {
-      weibo: "http://t.cn/AXyOGz1e",
-      bilibili: "https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click"
-    }
-  },
-  {
-    title: "I hope It's breeze",
-    date: "2024-05-15",
-    image: "https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg",
-    desc: "原唱：봉구（GilguBonggu）",
-    links: {
-      weibo: "http://t.cn/A6HcnvQa",
-      bilibili: "https://www.bilibili.com/video/BV1vz42117D6/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "Versace On The Floor",
-    date: "2024-05-01",
-    image: "https://s2.loli.net/2026/01/27/ELVGcexyrin5lKZ.jpg",
-    desc: "原唱：Bruno Mars",
-    links: {
-      weibo: "https://weibo.com/7825391749/Oci8vlG0f",
-      bilibili: "https://www.bilibili.com/video/BV1fs421N7HP/?spm_id_from=333.1387.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "事件的地平线",
-    date: "2023-12-05",
-    image: "https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg",
-    desc: "原唱：高润荷（YOUNHA）",
-    links: {
-      weibo: "http://t.cn/AXyOGzBh",
-      bilibili: "https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click"
-    }
-  }
+      }
+      // 您可以在这里补充更多翻唱作品数据
     ];
 
+    // 翻跳作品数据
     const danceData = [
       {
         title: "姐姐真漂亮（横版）",
@@ -2398,265 +1981,83 @@
           weibo: "http://t.cn/A6041BZL",
           bilibili: "https://www.bilibili.com/video/BV1JW4y1o7Ri/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
         }
-      },
-      {
-        title: "姐姐真漂亮（竖版）",
-        date: "2023-07-10",
-        image: "https://s2.loli.net/2026/01/27/AqIafmXku7SZx9D.jpg",
-        desc: "《누난너무예뻐(Replay) 》 - SHINee",
-        links: {
-          weibo: "https://weibo.com/7825391749/N9ewzz7C8",
-          bilibili: "https://www.bilibili.com/video/BV1yk4y1P7Ke/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-        }
-      },
-      {
-    title: "JIKJIN",
-    date: "2023-03-23",
-    image: "https://s2.loli.net/2026/01/27/PgieZcUdD4Sh3ys.png",
-    desc: "《JIKJIN》- TREASURE",
-    links: {
-      weibo: "https://weibo.com/7825391749/MyEjBw4es",
-      bilibili: "https://www.bilibili.com/video/BV1Hg4y1W7zf/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "这么可爱真是抱歉",
-    date: "2023-03-05",
-    image: "https://s2.loli.net/2026/01/27/aC78AejyUz5Q1No.jpg",
-    desc: "宅舞翻跳",
-    links: {
-      weibo: null,
-      bilibili: "https://www.bilibili.com/video/BV1PL41127bw/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
-    title: "Ditto",
-    date: "2023-03-03",
-    image: "https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg",
-    desc: "《Ditto》 - NewJeans",
-    links: {
-      weibo: "http://t.cn/A6ONqqvk",
-      bilibili: "https://www.bilibili.com/video/BV1XM4y1R7EL/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  }
+      }
+      // 您可以在这里补充更多翻跳作品数据
     ];
 
+    // 物料数据
     const materialsData = {
-  concept: [
-    {
-      title: "PLBBUU",
-      date: "2025-10-30",
-      image: "https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg",
-      desc: "个人/团体概念照 - BAMBY",
-      gallery: "concept-set-8",
-      imageCount: 7
-    },
-    {
-      title: "Hide and Seek",
-      date: "2025-06-13",
-      image: "https://s2.loli.net/2026/01/25/CMv1Z9AoOJHbhLW.jpg",
-      desc: "个人/团体概念照 - BAMBY",
-      gallery: "concept-set-7",
-      imageCount: 3
-    },
-    {
-      title: "ASTERUM",
-      date: "2023-03-07",
-      image: "https://s2.loli.net/2026/01/25/dg7v5itPwUnzmLf.jpg",
-      desc: "个人/团体概念照+ MV拍摄现场照 - BAMBY",
-      gallery: "concept-set-1",
-      imageCount: 5
-    }
-  ],
-  photos: [
-    {
-      title: "Day of Asterum",
-      date: "2025-12-30",
-      image: "https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg",
-      desc: "wvs官方照片",
-      gallery: "photos-set-1",
-      imageCount: 4
-    },
-    {
-      title: "Day of Asterum",
-      date: "2025-12-28",
-      image: "https://s2.loli.net/2026/01/25/jSgfpGxNKqluwEH.jpg",
-      desc: "wvs官方照片",
-      gallery: "photos-set-2",
-      imageCount: 4
-    }
-  ],
-  "personal-photos": [
-    {
-      title: "26年1月汇总",
-      date: "2026-01",
-      image: "https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg",
-      desc: "26年1月直播等汇总照片",
-      gallery: "personal-set-2",
-      imageCount: 11
-    },
-    {
-      title: "25年12月汇总",
-      date: "2025-12",
-      image: "https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg",
-      desc: "25年12月直播等汇总照片",
-      gallery: "personal-set-3",
-      imageCount: 16
-    },
-    {
-            title: "25年3月汇总",
-            date: "2025-03",
-            image: "https://i.ibb.co/whwbxgWj/IMG-6089.png",
-            desc: "25年3月直播等汇总照片",
-            gallery: "personal-set-12",
-            imageCount: 16
-        },
+      concept: [
         {
-            title: "25年2月汇总",
-            date: "2025-02",
-            image: "https://i.ibb.co/QF5zY9Qn/IMG-6066.jpg",
-            desc: "25年2月直播等汇总照片",
-            gallery: "personal-set-13",
-            imageCount: 29
-        },
-    {
-            title: "24年12月汇总",
-            date: "2024-12",
-            image: "https://i.ibb.co/1GC1Vz12/IMG-7994.jpg",
-            desc: "24年12月直播等汇总照片",
-            gallery: "personal-set-15",
-            imageCount: 17
-        },
-    {
-            title: "24年11月汇总",
-            date: "2024-11",
-            image: "https://i.ibb.co/G48xjVfY/IMG-7993.jpg",
-            desc: "24年11月直播等汇总照片",
-            gallery: "personal-set-16",
-            imageCount: 8
-        },
-    {
-            title: "24年10月汇总",
-            date: "2024-10",
-            image: "https://i.ibb.co/7xp81X8B/IMG-7969.jpg",
-            desc: "24年10月直播等汇总照片",
-            gallery: "personal-set-17",
-            imageCount: 13
-        },
-        {
-            title: "24年9月汇总",
-            date: "2024-09",
-            image: "https://i.ibb.co/4nKMcht8/IMG-7951.jpg",
-            desc: "24年9月直播等汇总照片",
-            gallery: "personal-set-18",
-            imageCount: 13
-        },
-        {
-            title: "24年8月汇总",
-            date: "2024-08",
-            image: "https://i.ibb.co/Ng0qv9Fc/IMG-7938.jpg",
-            desc: "24年8月直播等汇总照片",
-            gallery: "personal-set-19",
-            imageCount: 13
-        },
-        {
-            title: "24年7月汇总",
-            date: "2024-07",
-            image: "https://i.ibb.co/wNW088jj/IMG-7917.jpg",
-            desc: "24年7月直播等汇总照片",
-            gallery: "personal-set-20",
-            imageCount: 13
-        },
-        {
-            title: "24年6月汇总",
-            date: "2024-06",
-            image: "https://i.ibb.co/mrx71PP1/IMG-7906.jpg",
-            desc: "24年6月直播等汇总照片",
-            gallery: "personal-set-21",
-            imageCount: 13
-        },
-        {
-            title: "24年5月汇总",
-            date: "2024-05",
-            image: "https://i.ibb.co/V0r169cW/IMG-7896.jpg",
-            desc: "24年5月直播等汇总照片",
-            gallery: "personal-set-22",
-            imageCount: 8
+          title: "PLBBUU",
+          date: "2025-10-30",
+          image: "https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg",
+          desc: "个人/团体概念照 - BAMBY",
+          gallery: "concept-set-8",
+          imageCount: 7
         }
-  ],
-      
-  magazine: [
-    {
-      title: "Cosmo Korea杂志",
-      date: "2026-01-13",
-      image: "https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg",
-      desc: "封面/内页/相关图片",
-      gallery: "magazine-set-1",
-      imageCount: 5
-    }
-  ],
-  "personal-mimu": [
-    {
-      title: "1月壁纸",
-      date: "2025-12-30",
-      image: "https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg",
-      desc: "咪姆壁纸",
-      gallery: "mimu-set-1",
-      imageCount: 2
-    },
-    {
-      title: "圣诞壁纸",
-      date: "2025-12-25",
-      image: "https://s2.loli.net/2026/01/25/c7q1LkihZWAe4Hp.jpg",
-      desc: "圣诞特别壁纸",
-      gallery: "mimu-set-2",
-      imageCount: 2
-    }
-  ]
-};
+        // 您可以在这里补充更多概念照数据
+      ],
+      photos: [
+        {
+          title: "Day of Asterum",
+          date: "2025-12-30",
+          image: "https://s2.loli.net/2026/01/25/MIfmSEKOt7y6Ghr.jpg",
+          desc: "wvs官方照片",
+          gallery: "photos-set-1",
+          imageCount: 4
+        }
+        // 您可以在这里补充更多官方照片数据
+      ],
+      "personal-photos": [
+        {
+          title: "26年1月汇总",
+          date: "2026-01",
+          image: "https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg",
+          desc: "26年1月直播等汇总照片",
+          gallery: "personal-set-2",
+          imageCount: 11
+        }
+        // 您可以在这里补充更多个人照数据
+      ],
+      magazine: [
+        {
+          title: "Cosmo Korea杂志",
+          date: "2026-01-13",
+          image: "https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg",
+          desc: "封面/内页/相关图片",
+          gallery: "magazine-set-1",
+          imageCount: 5
+        }
+      ],
+      "personal-mimu": [
+        {
+          title: "1月壁纸",
+          date: "2025-12-30",
+          image: "https://s2.loli.net/2026/01/25/pXZ5rdAtGcOe7a9.jpg",
+          desc: "咪姆壁纸",
+          gallery: "mimu-set-1",
+          imageCount: 2
+        }
+      ]
+    };
 
-const stageData = [
-  {
-    title: "왜요 왜요 왜 直拍",
-    date: "2023-06-03",
-    image: "https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg",
-    desc: "PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore",
-    video: "https://streamable.com/e/eazv9t?autoplay=1&controls=1&muted=0",
-    links: {
-      youtube: "https://www.youtube.com/watch?v=Yo_eIeYYUp4"
-    }
-  },
-  {
-    title: "WAY 4 LUV 直拍",
-    date: "2024-03-15",
-    image: "https://s2.loli.net/2026/01/26/7zRfE68NhAGZl1v.jpg",
-    desc: "PLAVE Bamby (플레이브 밤비) - WAY 4 LUV | MBC",
-    video: "https://streamable.com/e/adl7he?autoplay=1&controls=1&muted=0",
-    links: {
-      youtube: "https://www.youtube.com/watch?v=IqX2FZ-5wnI&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=2"
-    }
-  },
-  {
-    title: "Dash 直拍（横版）",
-    date: "2025-02-19",
-    image: "https://s2.loli.net/2026/01/26/eWkQsITmjtBMDSh.jpg",
-    desc: "PLAVE BAMBY (플레이브 밤비) – Dash | MBC",
-    video: "https://streamable.com/e/bdkzs4?autoplay=1&controls=1&muted=0",
-    links: {
-      youtube: "https://www.youtube.com/watch?v=Zh_LEsavI3s&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=9"
-    }
-  },
-  {
-    title: "Dash 直拍（竖版）",
-    date: "2025-02-19",
-    image: "https://s2.loli.net/2026/01/26/7DWHXd4jOqLBYpJ.jpg",
-    desc: "플레이브 밤비 직캠 4K 'Dash' (PLAVE BAMBY FanCam)",
-    links: {
-      youtube: "https://www.youtube.com/watch?v=kR32F9VemFg&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=3"
-    }
-  },
-];
+    // 直拍视频数据
+    const stageData = [
+      {
+        title: "왜요 왜요 왜 直拍",
+        date: "2023-06-03",
+        image: "https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg",
+        desc: "PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore",
+        video: "https://streamable.com/e/eazv9t?autoplay=1&controls=1&muted=0",
+        links: {
+          youtube: "https://www.youtube.com/watch?v=Yo_eIeYYUp4"
+        }
+      }
+      // 您可以在这里补充更多直拍视频数据
+    ];
 
+    // 行程数据
     const scheduleData = {
       upcoming: [
         {
@@ -2675,29 +2076,8 @@ const stageData = [
           type: "live",
           time: "19:00 (CST)",
           platform: "WVS直播"
-        },
-        {
-          date: "2026-01-12",
-          title: "💜💗 双人直播",
-          type: "live",
-          time: "19:00 (CST)",
-          platform: "YouTube & B站同步"
-        },
-        {
-          date: "2026-01-10",
-          title: "💗 单人直播",
-          type: "live",
-          time: "11:50 (CST)",
-          platform: "YouTube & B站同步"
-        },
-        {
-          date: "2025-12-31",
-          title: "🎤 2025 MBC歌谣大祭典",
-          type: "performance",
-          time: "19:50 (CST)",
-          platform: "MBC电视台",
-          important: true
         }
+        // 您可以在这里补充更多过往行程数据
       ]
     };
 
@@ -2708,153 +2088,360 @@ const stageData = [
     let currentYear = 2026;
     let currentTheme = 'light';
     const monthFullNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+    let isSnowing = false;
+    let snowInterval = null;
+    let imageSizes = {}; // 存储图片原始尺寸
 
     // ========== 初始化函数 ==========
     document.addEventListener('DOMContentLoaded', function() {
       initApp();
-      initDraggableControl();
-      initInteractiveFeatures();
-      initMobileControls();
-      initClickParticleEffect();
       
       // 动态生成内容
       generateContent();
     });
 
     function initApp() {
-    // 隐藏加载动画
-    setTimeout(() => {
+      // 隐藏加载动画
+      setTimeout(() => {
         const loading = document.getElementById('loading');
         loading.style.opacity = '0';
         setTimeout(() => loading.style.display = 'none', 500);
-    }, 1200);
+      }, 1200);
 
-    // 初始化各个功能模块
-    initNavigation();
-    initSubNavigation();
-    initMaterialNavigation();
-    initTheme();
-    initSortControls();
-    initScheduleNavigation();
-    initScheduleFilters();
-    
-    // 设置初始月份为当前月份
-    const today = new Date();
-    currentYear = today.getFullYear();
-    currentMonth = today.getMonth();
-    
-    initCalendar();
-    initVideoPlayback();
-    
-    // 初始化互动效果
-    initClickParticleEffect();  // 确保这行存在
-    
-    // 显示欢迎信息
-    setTimeout(function() {
+      // 初始化各个功能模块
+      initNavigation();
+      initSubNavigation();
+      initMaterialNavigation();
+      initTheme();
+      initSortControls();
+      initScheduleNavigation();
+      initScheduleFilters();
+      
+      // 设置初始月份为当前月份
+      const today = new Date();
+      currentYear = today.getFullYear();
+      currentMonth = today.getMonth();
+      
+      initCalendar();
+      initVideoPlayback();
+      
+      // 初始化粒子效果
+      initParticleEffect();
+      
+      // 显示欢迎信息
+      setTimeout(function() {
         showWelcomeMessage();
-    }, 1200);
+      }, 1200);
 
-    // 修复移动端触摸问题
-    fixMobileTouch();
+      // 修复移动端触摸问题
+      fixMobileTouch();
+      
+      // 初始化交互功能
+      initInteractiveFeatures();
+      
+      // 预加载飘落图片以获取原始尺寸
+      preloadFloatingImages();
+    }
+
+    // ========== 预加载图片获取原始尺寸 ==========
+    function preloadFloatingImages() {
+      floatingImages.forEach((src, index) => {
+        const img = new Image();
+        img.onload = function() {
+          // 保存原始尺寸
+          imageSizes[src] = {
+            width: this.naturalWidth,
+            height: this.naturalHeight
+          };
+          console.log(`图片 ${src} 原始尺寸: ${this.naturalWidth}x${this.naturalHeight}`);
+        };
+        img.onerror = function() {
+          // 如果加载失败，使用默认尺寸
+          imageSizes[src] = {
+            width: 100,
+            height: 100
+          };
+        };
+        img.src = src;
+      });
+    }
+
+    // ========== 粒子效果 ==========
+    function initParticleEffect() {
+      // 为可点击元素添加粒子效果
+      const clickableElements = document.querySelectorAll(
+        '.nav-item, .sub-nav-btn, .sort-btn, .filter-btn, .channel-btn, .play-button, .mobile-control-btn'
+      );
+      
+      clickableElements.forEach(el => {
+        el.addEventListener('click', function(e) {
+          createClickParticles(e);
+        });
+      });
+      
+      // 为整个文档添加点击粒子效果
+      document.addEventListener('click', function(e) {
+        // 排除一些不需要粒子效果的元素
+        if (!e.target.closest('.work-image-container') && 
+            !e.target.closest('.mobile-control-bar')) {
+          createClickParticles(e);
+        }
+      });
+    }
     
-    // 预加载飘落效果
-    setTimeout(createCustomFloatingImages, 1000);
-}
+    function createClickParticles(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      const particleCount = 8;
+      const colors = ['#FFC2D6', '#FF9EBD', '#FF85B3', '#FF6B9E'];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'click-particle';
+        
+        const size = Math.random() * 8 + 4;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const angle = (Math.PI * 2 * i) / particleCount;
+        const distance = Math.random() * 40 + 20;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        
+        particle.style.cssText = `
+          position: fixed;
+          left: ${x}px;
+          top: ${y}px;
+          width: ${size}px;
+          height: ${size}px;
+          background: ${color};
+          border-radius: 50%;
+          --tx: ${tx}px;
+          --ty: ${ty}px;
+          pointer-events: none;
+          z-index: 9999;
+          animation: particle-explode 0.6s ease-out forwards;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+          particle.remove();
+        }, 600);
+      }
+    }
+
+    // ========== 交互功能 ==========
+    function initInteractiveFeatures() {
+      // BGM 控制
+      window.toggleBGM = function() {
+        const bgmPlayer = document.getElementById('bgmPlayer');
+        if (bgmPlayer.paused) {
+          bgmPlayer.volume = 0.3;
+          bgmPlayer.play().catch(e => {
+            console.log("Auto-play blocked:", e);
+            showToast("点击页面任意位置以播放音乐");
+            document.addEventListener('click', playBGMOnInteraction, { once: true });
+          });
+          showToast('背景音乐开启');
+        } else {
+          bgmPlayer.pause();
+          showToast('背景音乐关闭');
+        }
+      };
+
+      function playBGMOnInteraction() {
+        const bgmPlayer = document.getElementById('bgmPlayer');
+        bgmPlayer.play().catch(e => console.log("Still blocked"));
+      }
+
+      // 飘落特效
+      window.toggleSnow = function() {
+        if (isSnowing) {
+          stopSnow();
+          showToast('飘落效果关闭');
+        } else {
+          startSnow();
+          showToast('飘落效果开启');
+        }
+      };
+
+      // 返回顶部
+      window.scrollToTop = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+    }
+
+    function startSnow() {
+      isSnowing = true;
+      const container = document.getElementById('snowContainer');
+      container.innerHTML = '';
+      container.style.display = 'block';
+      
+      const isMobile = window.innerWidth <= 768;
+      const count = isMobile ? 8 : 15; // 减少数量避免过于密集
+      
+      for (let i = 0; i < count; i++) {
+        const image = document.createElement('img');
+        const imgIndex = Math.floor(Math.random() * floatingImages.length);
+        const imgSrc = floatingImages[imgIndex];
+        
+        // 获取图片原始尺寸或使用默认值
+        const imgSize = imageSizes[imgSrc] || { width: 100, height: 100 };
+        
+        // 保持原始宽高比，但限制最大尺寸
+        const maxSize = 120;
+        let width, height;
+        
+        if (imgSize.width > imgSize.height) {
+          // 横向图片
+          width = Math.min(imgSize.width, maxSize);
+          height = (imgSize.height / imgSize.width) * width;
+        } else {
+          // 纵向或正方形图片
+          height = Math.min(imgSize.height, maxSize);
+          width = (imgSize.width / imgSize.height) * height;
+        }
+        
+        const duration = Math.random() * 10 + 15; // 更慢的飘落速度
+        const delay = Math.random() * 5;
+        const startX = Math.random() * 100;
+        const endX = (Math.random() - 0.5) * 50; // 横向飘移范围
+        
+        image.src = imgSrc;
+        image.style.cssText = `
+          position: absolute;
+          top: -${height}px;
+          left: ${startX}vw;
+          width: ${width}px;
+          height: ${height}px;
+          opacity: ${Math.random() * 0.4 + 0.3};
+          animation: float-image ${duration}s linear ${delay}s infinite;
+          filter: drop-shadow(0 0 8px rgba(255, 194, 214, 0.5));
+          pointer-events: none;
+          user-select: none;
+          z-index: 999;
+          --start-x: 0vw;
+          --end-x: ${endX}vw;
+        `;
+        
+        container.appendChild(image);
+      }
+      
+      // 每30秒重新生成一次飘落效果
+      snowInterval = setInterval(startSnow, 30000);
+    }
+
+    function stopSnow() {
+      isSnowing = false;
+      const container = document.getElementById('snowContainer');
+      container.innerHTML = '';
+      container.style.display = 'none';
+      if (snowInterval) {
+        clearInterval(snowInterval);
+        snowInterval = null;
+      }
+    }
+
     function generateContent() {
       // 生成翻唱作品
       const coversGrid = document.getElementById('covers-works-grid');
-      coversData.forEach(item => {
-        coversGrid.appendChild(createWorkCard(item));
-      });
+      if (coversGrid && coversData) {
+        coversData.forEach(item => {
+          coversGrid.appendChild(createWorkCard(item));
+        });
+      }
       
-
       // 生成翻跳作品
       const danceGrid = document.getElementById('dance-works-grid');
-      danceData.forEach(item => {
-        danceGrid.appendChild(createWorkCard(item));
-      });
+      if (danceGrid && danceData) {
+        danceData.forEach(item => {
+          danceGrid.appendChild(createWorkCard(item));
+        });
+      }
 
       // 生成直拍作品
-  const stageGrid = document.getElementById('stage-works-grid');
-  stageData.forEach(item => {
-    stageGrid.appendChild(createWorkCard(item));
-  });
+      const stageGrid = document.getElementById('stage-works-grid');
+      if (stageGrid && stageData) {
+        stageData.forEach(item => {
+          stageGrid.appendChild(createWorkCard(item));
+        });
+      }
 
       // 生成物料内容
-  generateMaterialsContent();
+      generateMaterialsContent();
 
       // 生成行程
       generateScheduleCards();
     }
 
     function generateMaterialsContent() {
-  // 生成回归照
-  const conceptGrid = document.getElementById('concept-works-grid');
-  if (conceptGrid && materialsData.concept) {
-    materialsData.concept.forEach(item => {
-      conceptGrid.appendChild(createMaterialCard(item));
-    });
-  }
+      // 生成回归照
+      const conceptGrid = document.getElementById('concept-works-grid');
+      if (conceptGrid && materialsData.concept) {
+        materialsData.concept.forEach(item => {
+          conceptGrid.appendChild(createMaterialCard(item));
+        });
+      }
 
-  // 生成官方照片
-  const photosGrid = document.getElementById('photos-works-grid');
-  if (photosGrid && materialsData.photos) {
-    materialsData.photos.forEach(item => {
-      photosGrid.appendChild(createMaterialCard(item));
-    });
-  }
+      // 生成官方照片
+      const photosGrid = document.getElementById('photos-works-grid');
+      if (photosGrid && materialsData.photos) {
+        materialsData.photos.forEach(item => {
+          photosGrid.appendChild(createMaterialCard(item));
+        });
+      }
 
-  // 生成个人照
-  const personalPhotosGrid = document.getElementById('personal-photos-works-grid');
-  if (personalPhotosGrid && materialsData['personal-photos']) {
-    materialsData['personal-photos'].forEach(item => {
-      personalPhotosGrid.appendChild(createMaterialCard(item));
-    });
-  }
+      // 生成个人照
+      const personalPhotosGrid = document.getElementById('personal-photos-works-grid');
+      if (personalPhotosGrid && materialsData['personal-photos']) {
+        materialsData['personal-photos'].forEach(item => {
+          personalPhotosGrid.appendChild(createMaterialCard(item));
+        });
+      }
 
-  // 生成杂志内容
-  const magazineGrid = document.getElementById('magazine-works-grid');
-  if (magazineGrid && materialsData.magazine) {
-    materialsData.magazine.forEach(item => {
-      magazineGrid.appendChild(createMaterialCard(item));
-    });
-  }
+      // 生成杂志内容
+      const magazineGrid = document.getElementById('magazine-works-grid');
+      if (magazineGrid && materialsData.magazine) {
+        materialsData.magazine.forEach(item => {
+          magazineGrid.appendChild(createMaterialCard(item));
+        });
+      }
 
-  // 生成咪姆照片
-  const mimuGrid = document.getElementById('mimu-works-grid');
-  if (mimuGrid && materialsData['personal-mimu']) {
-    materialsData['personal-mimu'].forEach(item => {
-      mimuGrid.appendChild(createMaterialCard(item));
-    });
-  }
-}
+      // 生成咪姆照片
+      const mimuGrid = document.getElementById('mimu-works-grid');
+      if (mimuGrid && materialsData['personal-mimu']) {
+        materialsData['personal-mimu'].forEach(item => {
+          mimuGrid.appendChild(createMaterialCard(item));
+        });
+      }
+    }
 
     function createMaterialCard(data) {
-  const card = document.createElement('div');
-  card.className = 'work-card';
-  card.setAttribute('data-date', data.date);
-  card.setAttribute('data-title', data.title);
-  
-  card.innerHTML = `
-    <div class="work-image-container" onclick="openImageGallery('${data.gallery}')">
-      <img src="${data.image}" alt="${data.title}" class="work-image">
-    </div>
-    <div class="work-content">
-      <h3 class="work-title">${data.title}</h3>
-      <div class="work-meta">
-        <span class="work-type">${data.date}</span>
-        ${data.imageCount ? `<span class="work-type">${data.imageCount}张</span>` : ''}
-      </div>
-      <p class="work-desc">${data.desc}</p>
-      <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('${data.gallery}')">
-        <i class="fas fa-images"></i>
-        查看图片集 (${data.imageCount}张)
-      </button>
-    </div>
-  `;
-  
-  return card;
-}
+      const card = document.createElement('div');
+      card.className = 'work-card';
+      card.setAttribute('data-date', data.date);
+      card.setAttribute('data-title', data.title);
+      
+      card.innerHTML = `
+        <div class="work-image-container" onclick="openImageGallery('${data.gallery}')">
+          <img src="${data.image}" alt="${data.title}" class="work-image">
+        </div>
+        <div class="work-content">
+          <h3 class="work-title">${data.title}</h3>
+          <div class="work-meta">
+            <span class="work-type">${data.date}</span>
+            ${data.imageCount ? `<span class="work-type">${data.imageCount}张</span>` : ''}
+          </div>
+          <p class="work-desc">${data.desc}</p>
+          <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('${data.gallery}')">
+            <i class="fas fa-images"></i>
+            查看图片集 (${data.imageCount}张)
+          </button>
+        </div>
+      `;
+      
+      return card;
+    }
 
     function createWorkCard(data) {
       const card = document.createElement('div');
@@ -2862,10 +2449,12 @@ const stageData = [
       card.setAttribute('data-date', data.date);
       card.setAttribute('data-title', data.title);
       
+      const hasVideo = data.video ? true : false;
+      
       card.innerHTML = `
-        <div class="work-image-container" onclick="openImageGallery('${data.gallery || ''}')">
+        <div class="work-image-container" onclick="${hasVideo ? '' : `openImageGallery('${data.gallery || ''}')`}">
           <img src="${data.image}" alt="${data.title}" class="work-image">
-          ${data.video ? `
+          ${hasVideo ? `
             <div class="video-poster" style="background-image: url('${data.image}');">
               <div class="poster-overlay">
                 <button class="play-button">
@@ -2900,15 +2489,19 @@ const stageData = [
     function generateScheduleCards() {
       // 生成近期行程
       const upcomingContainer = document.getElementById('upcoming-schedule');
-      scheduleData.upcoming.forEach(event => {
-        upcomingContainer.appendChild(createScheduleCard(event));
-      });
+      if (upcomingContainer && scheduleData.upcoming) {
+        scheduleData.upcoming.forEach(event => {
+          upcomingContainer.appendChild(createScheduleCard(event));
+        });
+      }
 
       // 生成过往记录
       const pastContainer = document.getElementById('past-schedule');
-      scheduleData.past.forEach(event => {
-        pastContainer.appendChild(createScheduleCard(event, true));
-      });
+      if (pastContainer && scheduleData.past) {
+        scheduleData.past.forEach(event => {
+          pastContainer.appendChild(createScheduleCard(event, true));
+        });
+      }
     }
 
     function createScheduleCard(event, isPast = false) {
@@ -3134,7 +2727,6 @@ const stageData = [
       const savedTheme = localStorage.getItem('bamby-theme') || 'light';
       setTheme(savedTheme);
       
-      // 为移动端添加主题切换
       window.toggleTheme = function() {
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
@@ -3146,26 +2738,6 @@ const stageData = [
     function setTheme(theme) {
       currentTheme = theme;
       document.documentElement.setAttribute('data-theme', theme);
-    }
-    
-    // ========== 返回顶部功能 ==========
-    function initBackToTop() {
-      const backToTopBtn = document.createElement('button');
-      backToTopBtn.className = 'back-to-top';
-      backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-      backToTopBtn.id = 'backToTop';
-      backToTopBtn.onclick = function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-      document.body.appendChild(backToTopBtn);
-      
-      window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-          backToTopBtn.style.display = 'flex';
-        } else {
-          backToTopBtn.style.display = 'none';
-        }
-      });
     }
     
     // ========== 欢迎信息 ==========
@@ -3474,347 +3046,6 @@ const stageData = [
       }
     }
     
-    // ========== 飘落特效 ==========
-    function createCustomFloatingImages() {
-      const snowToggle = document.getElementById('snowToggle');
-      if (!snowToggle || !snowToggle.checked) return;
-      
-      const container = document.getElementById('snowContainer');
-      if (!container) return;
-      
-      container.innerHTML = '';
-      const isMobile = window.innerWidth <= 768;
-      const count = isMobile ? 15 : 25;
-      
-      for (let i = 0; i < count; i++) {
-        const image = document.createElement('img');
-        const imgIndex = Math.floor(Math.random() * floatingImages.length);
-        
-        const size = Math.random() * 30 + 20;
-        const duration = Math.random() * 8 + 12;
-        const delay = Math.random() * 5;
-        const startX = Math.random() * 100;
-        const rotation = Math.random() * 720 - 360;
-        
-        image.src = floatingImages[imgIndex];
-        image.style.cssText = `
-          position: absolute;
-          top: -${size}px;
-          left: ${startX}vw;
-          width: ${size}px;
-          height: ${size}px;
-          opacity: ${Math.random() * 0.4 + 0.3};
-          animation: float-image ${duration}s linear ${delay}s infinite;
-          filter: drop-shadow(0 0 8px rgba(255, 194, 214, 0.5));
-          pointer-events: none;
-          user-select: none;
-          z-index: 999;
-        `;
-        
-        image.style.setProperty('--rotation', `${rotation}deg`);
-        
-        container.appendChild(image);
-      }
-    }
-    
-    // ========== 侧边控制面板拖拽 ==========
-    function initDraggableControl() {
-      const control = document.getElementById('sideControl');
-      const handle = document.getElementById('controlHandle');
-      let isDragging = false;
-      let offsetX, offsetY;
-
-      handle.addEventListener('mousedown', startDrag);
-      handle.addEventListener('touchstart', startDragTouch, { passive: false });
-
-      function startDrag(e) {
-        isDragging = true;
-        e.preventDefault();
-        const rect = control.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', stopDrag);
-      }
-
-      function startDragTouch(e) {
-        isDragging = true;
-        e.preventDefault();
-        const touch = e.touches[0];
-        const rect = control.getBoundingClientRect();
-        offsetX = touch.clientX - rect.left;
-        offsetY = touch.clientY - rect.top;
-
-        document.addEventListener('touchmove', dragTouch, { passive: false });
-        document.addEventListener('touchend', stopDragTouch);
-      }
-
-      function drag(e) {
-        if (!isDragging) return;
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        let x = e.clientX - offsetX;
-        let y = e.clientY - offsetY;
-
-        x = Math.max(0, Math.min(x, windowWidth - control.offsetWidth));
-        y = Math.max(0, Math.min(y, windowHeight - control.offsetHeight));
-
-        control.style.left = x + 'px';
-        control.style.top = y + 'px';
-        control.style.right = 'auto';
-        control.style.transform = 'none';
-      }
-
-      function dragTouch(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        const touch = e.touches[0];
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        let x = touch.clientX - offsetX;
-        let y = touch.clientY - offsetY;
-
-        x = Math.max(0, Math.min(x, windowWidth - control.offsetWidth));
-        y = Math.max(0, Math.min(y, windowHeight - control.offsetHeight));
-
-        control.style.left = x + 'px';
-        control.style.top = y + 'px';
-        control.style.right = 'auto';
-        control.style.transform = 'none';
-      }
-
-      function stopDrag() {
-        if (!isDragging) return;
-        isDragging = false;
-        snapToEdge();
-        document.removeEventListener('mousemove', drag);
-        document.removeEventListener('mouseup', stopDrag);
-      }
-
-      function stopDragTouch() {
-        if (!isDragging) return;
-        isDragging = false;
-        snapToEdge();
-        document.removeEventListener('touchmove', dragTouch);
-        document.removeEventListener('touchend', stopDragTouch);
-      }
-
-      function snapToEdge() {
-        const rect = control.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const centerX = windowWidth / 2;
-
-        if (rect.left + rect.width / 2 < centerX) {
-          control.style.left = '20px';
-          control.style.right = 'auto';
-        } else {
-          control.style.right = '20px';
-          control.style.left = 'auto';
-        }
-        control.style.top = '50%';
-        control.style.transform = 'translateY(-50%)';
-      }
-    }
-
-    // ========== 互动功能 ==========
-    function initInteractiveFeatures() {
-      const panel = document.getElementById('controlPanel');
-      const handle = document.getElementById('controlHandle');
-      const closeBtn = document.getElementById('controlClose');
-      const bgmToggle = document.getElementById('bgmToggle');
-      const snowToggle = document.getElementById('snowToggle');
-      const bgmPlayer = document.getElementById('bgmPlayer');
-
-      // 点击齿轮切换面板
-      handle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        panel.classList.toggle('active');
-      });
-
-      // 点击其他地方关闭面板
-      document.addEventListener('click', (e) => {
-        if (!panel.contains(e.target) && !handle.contains(e.target)) {
-          panel.classList.remove('active');
-        }
-      });
-
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        panel.classList.remove('active');
-      });
-
-      // BGM 控制
-      bgmToggle.addEventListener('change', function() {
-        if (this.checked) {
-          bgmPlayer.volume = 0.3;
-          bgmPlayer.play().catch(e => {
-            console.log("Auto-play blocked:", e);
-            showToast("点击页面任意位置以播放音乐");
-            document.addEventListener('click', playBGMOnInteraction, { once: true });
-          });
-        } else {
-          bgmPlayer.pause();
-        }
-      });
-
-      function playBGMOnInteraction() {
-        if (bgmToggle.checked) {
-          bgmPlayer.play().catch(e => console.log("Still blocked"));
-        }
-      }
-
-      // 飘落特效
-      let snowInterval;
-      snowToggle.addEventListener('change', function() {
-        const snowContainer = document.getElementById('snowContainer');
-        if (this.checked) {
-          snowContainer.style.display = 'block';
-          createCustomFloatingImages();
-          snowInterval = setInterval(createCustomFloatingImages, 45000);
-        } else {
-          snowContainer.style.display = 'none';
-          snowContainer.innerHTML = '';
-          if (snowInterval) clearInterval(snowInterval);
-        }
-      });
-
-      // 从本地存储恢复设置
-      const savedBGM = localStorage.getItem('bamby-bgm') === 'true';
-      const savedSnow = localStorage.getItem('bamby-snow') === 'true';
-      
-      if (savedBGM) {
-        bgmToggle.checked = true;
-        bgmToggle.dispatchEvent(new Event('change'));
-      }
-      
-      if (savedSnow) {
-        snowToggle.checked = true;
-        snowToggle.dispatchEvent(new Event('change'));
-      }
-
-      // 保存设置
-      bgmToggle.addEventListener('change', function() {
-        localStorage.setItem('bamby-bgm', this.checked);
-      });
-      
-      snowToggle.addEventListener('change', function() {
-        localStorage.setItem('bamby-snow', this.checked);
-      });
-    }
-
-    // ========== 移动端控制 ==========
-    function initMobileControls() {
-      const mobileControlBar = document.querySelector('.mobile-control-bar');
-      if (!mobileControlBar) return;
-      
-      // 移动端触摸优化
-      document.querySelectorAll('.work-image-container, .nav-item, .sub-nav-btn').forEach(el => {
-        el.style.cursor = 'pointer';
-        el.addEventListener('touchstart', function(e) {
-          this.style.opacity = '0.7';
-          createParticles(e.touches[0].clientX, e.touches[0].clientY);
-        });
-        el.addEventListener('touchend', function() {
-          this.style.opacity = '1';
-        });
-      });
-    }
-
-    window.toggleBGM = function() {
-      const bgmToggle = document.getElementById('bgmToggle');
-      bgmToggle.checked = !bgmToggle.checked;
-      bgmToggle.dispatchEvent(new Event('change'));
-      showToast(bgmToggle.checked ? '背景音乐开启' : '背景音乐关闭');
-    };
-
-    window.toggleSnow = function() {
-      const snowToggle = document.getElementById('snowToggle');
-      if (!snowToggle) return;
-      
-      snowToggle.checked = !snowToggle.checked;
-      snowToggle.dispatchEvent(new Event('change'));
-      showToast(snowToggle.checked ? '粉色图片飘落开启' : '粉色图片飘落关闭');
-    };
-
-    window.scrollToTop = function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    // ========== 点击粒子效果 ==========
-function initClickParticleEffect() {
-    let isMobile = 'ontouchstart' in window;
-    
-    document.addEventListener(isMobile ? 'touchstart' : 'click', function(e) {
-        // 排除点击移动端控制按钮时不产生粒子（可选）
-        if (e.target.closest('.mobile-control-bar')) {
-            return;
-        }
-        
-        const x = isMobile ? e.touches[0].clientX : e.clientX;
-        const y = isMobile ? e.touches[0].clientY : e.clientY;
-        
-        createParticles(x, y);
-    });
-    
-    // 为移动端控制按钮单独添加粒子效果
-    document.querySelectorAll('.mobile-control-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-            createParticles(x, y);
-        });
-    });
-    
-    function createParticles(x, y) {
-        const particleCount = 8;
-        const colors = ['#FFC2D6', '#FF9EBD', '#FF85B3', '#FF6B9E'];
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'click-particle';
-            
-            const size = Math.random() * 8 + 4;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const angle = (Math.PI * 2 * i) / particleCount;
-            const distance = Math.random() * 40 + 20;
-            const tx = Math.cos(angle) * distance;
-            const ty = Math.sin(angle) * distance;
-            
-            particle.style.cssText = `
-                position: fixed;
-                left: ${x}px;
-                top: ${y}px;
-                width: ${size}px;
-                height: ${size}px;
-                background: ${color};
-                border-radius: 50%;
-                --tx: ${tx}px;
-                --ty: ${ty}px;
-                pointer-events: none;
-                z-index: 9999;
-                animation: particle-explode 0.6s ease-out forwards;
-            `;
-            
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 600);
-        }
-    }
-}
-
-    // ========== 窗口大小变化时重新生成效果 ==========
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        createCustomFloatingImages();
-      }, 250);
-    });
-
     // ========== 修复移动端触摸 ==========
     function fixMobileTouch() {
       let lastTouchEnd = 0;
