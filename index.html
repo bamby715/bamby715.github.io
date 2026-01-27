@@ -1,82 +1,199 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>蔡丰玖·BAMBY 安利手册</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --color-primary-light: #FFE8F0;
-            --color-primary: #FFC2D6;
-            --color-primary-dark: #FF9EBD;
-            --color-gray-50: #FAFAFA;
-            --color-gray-100: #F5F5F5;
-            --color-gray-200: #EEEEEE;
-            --color-gray-300: #E0E0E0;
-            --color-gray-400: #BDBDBD;
-            --color-gray-500: #9E9E9E;
-            --color-gray-600: #757575;
-            --color-gray-700: #616161;
-            --color-gray-800: #424242;
-            --color-gray-900: #212121;
-            --color-white: #FFFFFF;
-            --color-black: #000000;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --radius-md: 10px;
-            --radius-lg: 14px;
-            --transition-normal: 0.25s ease;
-            --font-heading: 'Ma Shan Zheng', cursive;
-            --font-body: 'Noto Sans SC', sans-serif;
-        }
-        
-        [data-theme="dark"] {
-            --color-primary-light: #2A1A24;
-            --color-primary: #4A2D3A;
-            --color-primary-dark: #6A4050;
-            --color-gray-50: #121212;
-            --color-gray-100: #1E1E1E;
-            --color-gray-200: #2A2A2A;
-            --color-gray-300: #363636;
-            --color-gray-400: #424242;
-            --color-gray-500: #5A5A5A;
-            --color-gray-600: #757575;
-            --color-gray-700: #909090;
-            --color-gray-800: #ABABAB;
-            --color-gray-900: #C6C6C6;
-            --color-white: #121212;
-            --color-black: #FFFFFF;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
-        }
-        
-        body {
-            font-family: var(--font-body);
-            background: var(--color-gray-50);
-            color: var(--color-gray-800);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        
-        .loading-overlay {
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>蔡丰玖·BAMBY 安利手册</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary-light: #FFE8F0;
+      --color-primary: #FFC2D6;
+      --color-primary-dark: #FF9EBD;
+      --color-gray-50: #FAFAFA;
+      --color-gray-100: #F5F5F5;
+      --color-gray-200: #EEEEEE;
+      --color-gray-300: #E0E0E0;
+      --color-gray-400: #BDBDBD;
+      --color-gray-500: #9E9E9E;
+      --color-gray-600: #757575;
+      --color-gray-700: #616161;
+      --color-gray-800: #424242;
+      --color-gray-900: #212121;
+      --color-white: #FFFFFF;
+      --color-black: #000000;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --transition-normal: 0.25s ease;
+      --font-heading: 'Ma Shan Zheng', cursive;
+      --font-body: 'Noto Sans SC', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --color-primary-light: #2A1A24;
+      --color-primary: #4A2D3A;
+      --color-primary-dark: #6A4050;
+      --color-gray-50: #121111;
+      --color-gray-100: #1E1E1E;
+      --color-gray-200: #2A2A2A;
+      --color-gray-300: #363636;
+      --color-gray-400: #424242;
+      --color-gray-500: #5A5A5A;
+      --color-gray-600: #757575;
+      --color-gray-700: #909090;
+      --color-gray-800: #ABABAB;
+      --color-gray-900: #C6C6C6;
+      --color-white: #121212;
+      --color-black: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-gray-50);
+      color: var(--color-gray-800);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========= HEADER 背景定制 ========= */
+    .main-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      margin-bottom: 32px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 194, 214, 0.3);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 240, 245, 0.9), rgba(255, 230, 240, 0.7)),
+                  url('https://i.ibb.co/ns8WLb7P/Image-1769449627338.png') center/cover no-repeat;
+      z-index: -1;
+    }
+
+    [data-theme="dark"] .main-header {
+      background: rgba(30, 30, 30, 0.85);
+      border-bottom-color: rgba(106, 64, 80, 0.4);
+    }
+
+    [data-theme="dark"] .main-header::before {
+      background: linear-gradient(to bottom, rgba(42, 26, 36, 0.9), rgba(30, 30, 30, 0.7)),
+                  url('https://i.ibb.co/ns8WLb7P/Image-1769449627338.png') center/cover no-repeat;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+    }
+
+    .logo-text {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--color-primary-dark);
+      letter-spacing: 1px;
+      font-weight: normal;
+    }
+
+    .logo-sub {
+      font-size: 0.85rem;
+      color: var(--color-gray-900);
+      font-weight: 400;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      color: var(--color-gray-700);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all var(--transition-normal);
+    }
+
+    .main-nav {
+      display: flex;
+      overflow-x: auto;
+      padding: 16px 0;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+
+    .nav-item {
+      padding: 10px 20px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--color-gray-600);
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all var(--transition-normal);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+    }
+
+     .loading-overlay {
    position: fixed;
     top: 0;
     left: 0;
@@ -416,8 +533,8 @@
         .channel-btn.bilibili {
             background: var(--color-gray-700);
         }
-        
-        .image-viewer-overlay {
+
+ .image-viewer-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1200,7 +1317,93 @@
             z-index: 3;
         }
 
-        /* ========== 移动端适配 ========== */
+    /* ========== 侧边控制面板 ========== */
+    .side-control {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 2000;
+      cursor: move;
+    }
+
+    .control-handle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50% 0 0 50%;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: move;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .control-panel {
+      position: absolute;
+      top: 50%;
+      right: 55px;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 16px;
+      width: 200px;
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid var(--color-gray-200);
+      z-index: -1;
+    }
+
+    [data-theme="dark"] .control-panel {
+      background: rgba(30, 30, 30, 0.85);
+      border-color: var(--color-gray-300);
+    }
+
+    .control-panel.active {
+      display: flex;
+    }
+
+    .control-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--color-gray-800);
+    }
+
+    [data-theme="dark"] .control-item {
+      color: var(--color-gray-200);
+    }
+
+    .control-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--color-gray-500);
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    #snowContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ========== 移动端适配 ========== */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
@@ -1294,70 +1497,57 @@
                 width: 100%;
             }
         }
-    </style>
+  </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loading">
-        <div class="loading-spinner">
-            <div style="font-size: 2rem; color: var(--color-primary-dark); margin-bottom: 10px;">
-                <i class="fas fa-heart"></i>
-            </div>
-            <p>加载中...</p>
-        </div>
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loading">
+    <div class="loading-spinner">
+      <div><i class="fas fa-heart"></i></div>
+      <p>加载中...</p>
     </div>
-    
-    <div class="image-viewer-overlay" id="imageViewer">
-        <button class="image-close" onclick="closeImageViewer()">×</button>
-        <button class="image-nav image-prev" onclick="prevImage()">‹</button>
-        <div class="image-viewer">
-            <img id="viewerImage" src="" alt="">
+  </div>
+
+  <!-- 图片查看器（保留） -->
+  <div class="image-viewer-overlay" id="imageViewer">
+    <button class="image-close" onclick="closeImageViewer()">×</button>
+    <button class="image-nav image-prev" onclick="prevImage()">‹</button>
+    <div class="image-viewer"><img id="viewerImage" src="" alt=""></div>
+    <button class="image-nav image-next" onclick="nextImage()">›</button>
+    <div class="image-counter" id="imageCounter">1 / 5</div>
+  </div>
+
+  <!-- 飘落容器 -->
+  <div id="snowContainer"></div>
+
+  <div class="container">
+    <!-- HEADER 区域（已美化） -->
+    <header class="main-header">
+      <div class="header-content">
+        <div class="logo">
+          <h1 class="logo-text">蔡丰玖·BAMBY</h1>
+          <p class="logo-sub">安利手册 | 资源汇总</p>
         </div>
-        <button class="image-nav image-next" onclick="nextImage()">›</button>
-        <div class="image-counter" id="imageCounter">1 / 5</div>
-    </div>
-    
-    <div class="container">
-        <header class="main-header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1 class="logo-text">蔡丰玖·BAMBY</h1>
-                    <p class="logo-sub">安利手册 | 资源汇总</p>
-                </div>
-                <div class="theme-toggle">
-                    <button class="theme-btn" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                        <span>主题</span>
-                    </button>
-                </div>
-            </div>
-            <nav class="main-nav">
-                <a href="#personal" class="nav-item active" data-tab="personal">
-                    <i class="fas fa-user"></i>
-                    <span>个人信息</span>
-                </a>
-                <a href="#anli" class="nav-item" data-tab="anli">
-                    <i class="fas fa-star"></i>
-                    <span>安利向</span>
-                </a>
-                <a href="#materials" class="nav-item" data-tab="materials">
-                    <i class="fas fa-images"></i>
-                    <span>物料汇总</span>
-                </a>
-                <a href="#schedule" class="nav-item" data-tab="schedule">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>行程日程</span>
-                </a>
-                <a href="#others" class="nav-item" data-tab="others">
-                    <i class="fas fa-ellipsis-h"></i>
-                    <span>其他</span>
-                </a>
-            </nav>
-        </header>
-        
-        <main class="content-wrapper">
-            <!-- 个人信息部分 -->
-            <section id="personal" class="content-section active">
-                <div class="section-header">
+        <div class="theme-toggle">
+          <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-moon"></i><span>主题</span>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="#personal" class="nav-item active" data-tab="personal"><i class="fas fa-user"></i><span>个人信息</span></a>
+        <a href="#anli" class="nav-item" data-tab="anli"><i class="fas fa-star"></i><span>安利向</span></a>
+        <a href="#materials" class="nav-item" data-tab="materials"><i class="fas fa-images"></i><span>物料汇总</span></a>
+        <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>行程日程</span></a>
+        <a href="#others" class="nav-item" data-tab="others"><i class="fas fa-ellipsis-h"></i><span>其他</span></a>
+      </nav>
+    </header>
+
+    <!-- BEGIN MAIN CONTENT -->
+    <main class="content-wrapper">
+      <!-- 个人信息部分 -->
+      <section id="personal" class="content-section active">
+        <div class="section-header">
                     <h2 class="section-title">个人信息</h2>
                     <p class="section-subtitle">蔡丰玖 | 蔡斑比</p>
                 </div>
@@ -2337,7 +2527,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
 
               <!-- 杂志专区 -->
 <div class="sub-section" data-subtab="magazine">
@@ -2707,24 +2897,46 @@
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
     </button>
-    
-    <script>
-        // 初始化应用
-        document.addEventListener('DOMContentLoaded', function() {
-            initApp();
-        });
-        
-        function initApp() {
-            // 隐藏加载页面
-            setTimeout(function() {
-                var loading = document.getElementById('loading');
-                loading.classList.add('hidden');
-                setTimeout(function() {
-                    loading.style.display = 'none';
-                }, 500);
-            }, 1200);
-            
-            // 初始化各个功能模块
+
+  <!-- 侧边控制面板 -->
+  <div class="side-control" id="sideControl">
+    <button class="control-handle" id="controlHandle">
+      <i class="fas fa-cog"></i>
+    </button>
+    <div class="control-panel" id="controlPanel">
+      <h4 style="margin:0 0 12px; font-size:1rem; color:var(--color-gray-900);">
+ʚ⑅ɞ 互动设置</h4>
+      <label class="control-item">
+        <input type="checkbox" id="bgmToggle"> 背景音乐
+      </label>
+      <label class="control-item">
+        <input type="checkbox" id="snowToggle"> 爱心飘落
+      </label>
+      <button class="control-close" id="controlClose">×</button>
+    </div>
+  </div>
+
+  <!-- 音频（请替换为你自己的 BGM 链接） -->
+  <audio id="bgmPlayer" loop>
+    <source src="https://image2url.com/r2/default/audio/1769488066461-66d083fc-5858-4c83-9acb-3153691a8481.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ========== 初始化 ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+      initDraggableControl();
+      initInteractiveFeatures();
+    });
+
+    function initApp() {
+      setTimeout(() => {
+        const loading = document.getElementById('loading');
+        loading.classList.add('hidden');
+        setTimeout(() => loading.style.display = 'none', 500);
+      }, 1200);
+
+      // 初始化各个功能模块
             initNavigation();
             initSubNavigation();
             initMaterialNavigation();
@@ -3515,6 +3727,150 @@
                 }
             }
         }
-    </script>
+    
+
+    // ========== 侧边控制面板拖拽 ==========
+    function initDraggableControl() {
+      const control = document.getElementById('sideControl');
+      const handle = document.getElementById('controlHandle');
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      handle.addEventListener('mousedown', startDrag);
+      handle.addEventListener('touchstart', startDrag, { passive: false });
+
+      function startDrag(e) {
+        isDragging = true;
+        e.preventDefault();
+        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+        const rect = control.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
+      }
+
+      function drag(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        let x = clientX - offsetX;
+        let y = clientY - offsetY;
+
+        // 边界限制
+        x = Math.max(0, Math.min(x, windowWidth - control.offsetWidth));
+        y = Math.max(0, Math.min(y, windowHeight - control.offsetHeight));
+
+        control.style.left = x + 'px';
+        control.style.top = y + 'px';
+        control.style.right = 'auto';
+        control.style.transform = 'none';
+      }
+
+      function stopDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        const rect = control.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const centerX = windowWidth / 2;
+
+        // 自动吸附到左侧或右侧
+        if (rect.left + rect.width / 2 < centerX) {
+          control.style.left = '0';
+          control.style.right = 'auto';
+        } else {
+          control.style.right = '0';
+          control.style.left = 'auto';
+        }
+        control.style.top = '50%';
+        control.style.transform = 'translateY(-50%)';
+
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('touchmove', drag);
+        document.removeEventListener('mouseup', stopDrag);
+        document.removeEventListener('touchend', stopDrag);
+      }
+    }
+
+    // ========== 互动功能（BGM + 飘落） ==========
+    function initInteractiveFeatures() {
+      const panel = document.getElementById('controlPanel');
+      const handle = document.getElementById('controlHandle');
+      const closeBtn = document.getElementById('controlClose');
+      const bgmToggle = document.getElementById('bgmToggle');
+      const snowToggle = document.getElementById('snowToggle');
+      const bgmPlayer = document.getElementById('bgmPlayer');
+      const snowContainer = document.getElementById('snowContainer');
+
+      // 点击齿轮切换面板
+      handle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panel.classList.toggle('active');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        panel.classList.remove('active');
+      });
+
+      // BGM 控制
+      bgmToggle.addEventListener('change', function() {
+        if (this.checked) {
+          bgmPlayer.play().catch(e => console.log("Auto-play blocked:", e));
+        } else {
+          bgmPlayer.pause();
+        }
+      });
+
+      // 飘落特效
+      snowToggle.addEventListener('change', function() {
+        if (this.checked) {
+          createSnow();
+          snowContainer.style.display = 'block';
+        } else {
+          snowContainer.style.display = 'none';
+        }
+      });
+    }
+
+    // 飘落爱心生成
+    function createSnow() {
+      const container = document.getElementById('snowContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 30; i++) {
+        const snow = document.createElement('div');
+        snow.innerHTML = '💖';
+        snow.style.position = 'absolute';
+        snow.style.fontSize = Math.random() * 20 + 10 + 'px';
+        snow.style.opacity = Math.random() * 0.7 + 0.3;
+        snow.style.left = Math.random() * 100 + 'vw';
+        snow.style.top = '-50px';
+        snow.style.animation = `fall  $ {Math.random() * 5 + 5}s linear infinite`;
+        snow.style.zIndex = '1000';
+        container.appendChild(snow);
+      }
+
+      // 注入动画 CSS（仅一次）
+      if (!document.getElementById('snowStyle')) {
+        const style = document.createElement('style');
+        style.id = 'snowStyle';
+        style.textContent = `
+          @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // ========== 保留你原有的其他 JS 函数（如 openImageGallery, initNavigation 等） ==========
+    // 此处省略，实际使用时请将你原始文件中的全部 <script> 内容粘贴进来
+  </script>
 </body>
 </html>
