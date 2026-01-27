@@ -118,7 +118,7 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(to bottom, rgba(255, 240, 245, 0.9), rgba(255, 230, 240, 0.7)),
-                  url('https://i.ibb.co/ns8WLb7P/Image-1769449627338.png') center/cover no-repeat;
+                  center/cover no-repeat;
       z-index: -1;
     }
 
@@ -1428,6 +1428,15 @@
       }
     }
 
+    .click-particle {
+    position: absolute;
+    background: var(--color-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: particle-explode 0.6s ease-out forwards;
+}
+
     /* ========= 移动端适配 ========= */
     @media (max-width: 768px) {
       .container {
@@ -1618,7 +1627,7 @@
     <!-- 移动端底部控制条 -->
     <div class="mobile-control-bar">
       <button class="mobile-control-btn" onclick="toggleTheme()">
-        <i class="fas fa-palette"></i>
+        <i class="fas fa-moon"></i>
       </button>
       <button class="mobile-control-btn" onclick="toggleBGM()">
         <i class="fas fa-music"></i>
@@ -1673,19 +1682,19 @@
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">MBTI</div>
-                <div>INFP-T → INTP → </div>
+                <div>INFP-T → INTP → INFP</div>
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">定位</div>
-                <div>Dance, Vocal</div>
+                <div>Dance，Vocal，编舞师</div>
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">标志</div>
-                <div>鹿，粉红色爱心</div>
+                <div>🦌，粉红色爱心，🐹</div>
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">昵称</div>
-                <div>小可爱</div>
+                <div>小可爱，嘣咕，粉红小不点</div>
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">幸运数</div>
@@ -2109,6 +2118,166 @@
     'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
     'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
   ],
+      'personal-set-12': [
+    'https://i.ibb.co/whwbxgWj/IMG-6089.png',
+    'https://i.ibb.co/KxsdYPvw/IMG-6083.jpg',
+    'https://i.ibb.co/66WTSxn/IMG-6082.jpg',
+    'https://i.ibb.co/jjrS0KF/IMG-6081.jpg',
+    'https://i.ibb.co/jZDXLc4g/IMG-6080.jpg',
+    'https://i.ibb.co/LXqQxrNm/IMG-6079.jpg',
+    'https://i.ibb.co/9HTZGfrt/IMG-6078.jpg',
+    'https://i.ibb.co/Ldx38Lp1/IMG-6077.png',
+    'https://i.ibb.co/xqSsxVQC/IMG-6076.jpg',
+    'https://i.ibb.co/pvfhzBmx/IMG-6075.jpg',
+    'https://i.ibb.co/xt4tNfQs/IMG-6074.jpg',
+    'https://i.ibb.co/TqtxcrYW/IMG-6073.jpg',
+    'https://i.ibb.co/675zsb3x/IMG-6072.jpg',
+    'https://i.ibb.co/35kjr8Cg/IMG-6071.jpg',
+    'https://i.ibb.co/NdXybQqv/IMG-6070.jpg',
+    'https://i.ibb.co/JRj2J63V/IMG-6069.jpg'
+],
+          'personal-set-13': [
+    'https://i.ibb.co/QF5zY9Qn/IMG-6066.jpg',
+    'https://i.ibb.co/TxQ7dxnx/IMG-6065.jpg',
+    'https://i.ibb.co/WTdmsSX/IMG-6064.jpg',
+    'https://i.ibb.co/KjrF48qt/IMG-6063.jpg',
+    'https://i.ibb.co/Mx6mQV2Y/IMG-6062.jpg',
+    'https://i.ibb.co/1fJd3WpT/IMG-6061.jpg',
+    'https://i.ibb.co/F4Bvz91d/IMG-6060.jpg',
+    'https://i.ibb.co/4nmk4Df7/IMG-6059.jpg',
+    'https://i.ibb.co/8DXDmfnS/IMG-6058.jpg',
+    'https://i.ibb.co/ycthgxVc/IMG-6057.jpg',
+    'https://i.ibb.co/GfjpnCJj/IMG-6056.jpg',
+    'https://i.ibb.co/hxgNmHSL/IMG-6055.jpg',
+    'https://i.ibb.co/hxzvq6Ct/IMG-6054.jpg',
+    'https://i.ibb.co/C3rCHcMd/IMG-6053.jpg',
+    'https://i.ibb.co/8Lpw5Vxp/IMG-6052.jpg',
+    'https://i.ibb.co/ZR9Khhw1/IMG-6051.jpg',
+    'https://i.ibb.co/b5rbJvYh/IMG-6050.jpg',
+    'https://i.ibb.co/Jj9JF6tn/IMG-6049.jpg',
+    'https://i.ibb.co/0yBm7BW7/IMG-6048.jpg',
+    'https://i.ibb.co/qYjhZXqw/IMG-6047.jpg',
+    'https://i.ibb.co/fYkwpgQ0/IMG-6045.jpg',
+    'https://i.ibb.co/5xSg5m7x/IMG-6043.jpg',
+    'https://i.ibb.co/Cs51CKPR/IMG-6042.jpg',
+    'https://i.ibb.co/3Y9nwn0v/IMG-6041.jpg',
+    'https://i.ibb.co/jkKVFv0R/IMG-6040.jpg',
+    'https://i.ibb.co/d4FjPYHc/IMG-6039.jpg',
+    'https://i.ibb.co/mrF0sThx/IMG-6038.jpg',
+    'https://i.ibb.co/9mWtM2kX/IMG-6037.jpg',
+    'https://i.ibb.co/HLt1Nzb6/IMG-6036.jpg'
+],
+      'personal-set-15': [
+    'https://i.ibb.co/1GC1Vz12/IMG-7994.jpg',
+    'https://i.ibb.co/zHD03D2W/IMG-7995.jpg',
+    'https://i.ibb.co/zwfJnf9/IMG-7996.jpg',
+    'https://i.ibb.co/mC60dtCH/IMG-7997.jpg',
+    'https://i.ibb.co/hxP00y2y/IMG-7998.jpg',
+    'https://i.ibb.co/VY01tbz6/IMG-7999.jpg',
+    'https://i.ibb.co/xtxTW8tc/IMG-8001.jpg',
+    'https://i.ibb.co/kVhpzhzK/IMG-8002.jpg',
+    'https://i.ibb.co/5hPzxYCV/IMG-8003.jpg',
+    'https://i.ibb.co/gLwTc4D2/IMG-8005.jpg',
+    'https://i.ibb.co/WvjHdb35/IMG-8004.jpg',
+    'https://i.ibb.co/cKVHh2L0/IMG-8006.jpg',
+    'https://i.ibb.co/yBgKGT7t/IMG-8007.jpg',
+    'https://i.ibb.co/Ndgk6wkJ/IMG-8008.jpg',
+    'https://i.ibb.co/kstvhHs6/IMG-8009.jpg',
+    'https://i.ibb.co/60dvVSvZ/IMG-8010.jpg',
+    'https://i.ibb.co/ynHC3ngm/IMG-8011.jpg'
+],
+      'personal-set-16': [
+    'https://i.ibb.co/G48xjVfY/IMG-7993.jpg',
+    'https://i.ibb.co/Kj7BwXzk/IMG-7992.jpg',
+    'https://i.ibb.co/sdqqGvPW/IMG-7991.jpg',
+    'https://i.ibb.co/mCGhQrQX/IMG-7990.jpg',
+    'https://i.ibb.co/p64BPg8k/IMG-7989.jpg',
+    'https://i.ibb.co/bTHRch3/IMG-7988.jpg',
+    'https://i.ibb.co/wFct8JDd/IMG-7986.jpg',
+    'https://i.ibb.co/zhccLfdT/IMG-7987.jpg'
+],
+      'personal-set-17': [
+    'https://i.ibb.co/7xp81X8B/IMG-7969.jpg',
+    'https://i.ibb.co/JWy25jCh/IMG-7972.jpg',
+    'https://i.ibb.co/zVDdvMRZ/IMG-7973.jpg',
+    'https://i.ibb.co/tpK9H4Br/IMG-7974.jpg',
+    'https://i.ibb.co/xKs1T132/IMG-7975.jpg',
+    'https://i.ibb.co/d4bZZd6C/IMG-7976.jpg',
+    'https://i.ibb.co/ymzX31cT/IMG-7977.jpg',
+    'https://i.ibb.co/wNGJwLGT/IMG-7979.jpg',
+    'https://i.ibb.co/5WZC6Gk5/IMG-7980.jpg',
+    'https://i.ibb.co/q3KMkn0K/IMG-7981.jpg',
+    'https://i.ibb.co/xqJ9FY1c/IMG-7982.jpg',
+    'https://i.ibb.co/fY62ZTMF/IMG-7983.jpg',
+    'https://i.ibb.co/3mCsPXw9/IMG-7984.jpg'
+],
+          
+          'personal-set-18': [
+    'https://i.ibb.co/4nKMcht8/IMG-7951.jpg',
+    'https://i.ibb.co/Z6B1VVjD/IMG-7952.jpg',
+    'https://i.ibb.co/KxssSPPt/IMG-7953.jpg',
+    'https://i.ibb.co/0RzDfQr9/IMG-7954.jpg',
+    'https://i.ibb.co/pjj3vp8F/IMG-7955.jpg',
+    'https://i.ibb.co/yFc1PYrX/IMG-7956.jpg',
+    'https://i.ibb.co/1HK5tGS/IMG-7957.jpg',
+    'https://i.ibb.co/LsrP63H/IMG-7958.jpg',
+    'https://i.ibb.co/VpjcQmLn/IMG-7959.jpg',
+    'https://i.ibb.co/Y4wBsBg8/IMG-7960.jpg',
+    'https://i.ibb.co/YBsCNr9D/IMG-7961.jpg',
+    'https://i.ibb.co/1S2qPFp/IMG-7962.jpg',
+    'https://i.ibb.co/WNnVg2dQ/IMG-7963.jpg'
+],
+          'personal-set-19': [
+    'https://i.ibb.co/Ng0qv9Fc/IMG-7938.jpg',
+    'https://i.ibb.co/bMxjfgd4/IMG-7939.jpg',
+    'https://i.ibb.co/tTfGymDd/IMG-7940.jpg',
+    'https://i.ibb.co/twMBXnNz/IMG-7941.jpg',
+    'https://i.ibb.co/TDdWZ34k/IMG-7942.jpg',
+    'https://i.ibb.co/SXV81MQM/IMG-7944.jpg',
+    'https://i.ibb.co/CKkS0kn3/IMG-7945.jpg',
+    'https://i.ibb.co/sv2tPLfV/IMG-7947.jpg',
+    'https://i.ibb.co/8LBCrckK/IMG-7946.jpg'
+],
+            'personal-set-20': [
+                'https://i.ibb.co/wNW088jj/IMG-7917.jpg',
+                'https://i.ibb.co/QvHQmQpV/IMG-7923.jpg',
+                'https://i.ibb.co/qMxHJN7p/IMG-7925.jpg',
+                'https://i.ibb.co/HL01VXw2/IMG-4353.jpg',
+                'https://i.ibb.co/ksDqC0PJ/IMG-7927.jpg',
+                'https://i.ibb.co/kVTgM9Cj/IMG-7928.jpg',
+                'https://i.ibb.co/wZnnHPWD/IMG-7930.jpg',
+                'https://i.ibb.co/KpYG8dqb/IMG-7931.jpg',
+                'https://i.ibb.co/rf6SWJdG/IMG-7932.jpg',
+                'https://i.ibb.co/JWzz3tcB/IMG-7933.jpg',
+                'https://i.ibb.co/SDn0xjz7/IMG-7934.jpg',
+                'https://i.ibb.co/pVFcyn1/IMG-7935.jpg',
+                'https://i.ibb.co/hFp2Brwm/IMG-7936.jpg'
+            ],
+           'personal-set-21': [
+                'https://i.ibb.co/mrx71PP1/IMG-7906.jpg',
+                'https://i.ibb.co/mFV3HNP2/IMG-7908.jpg',
+                'https://i.ibb.co/3m3QswYF/IMG-7909.jpg',
+                'https://i.ibb.co/Vp0Nz1Vk/IMG-7910.jpg',
+                'https://i.ibb.co/jsQB8p7/IMG-7911.jpg',
+                'https://i.ibb.co/fd5JNVH0/IMG-7912.jpg',
+                'https://i.ibb.co/Tzs2Bcz/IMG-7913.jpg',
+                'https://i.ibb.co/jPBkg8GL/IMG-7914.jpg',
+                'https://i.ibb.co/93ps5mRL/IMG-7914.jpg',
+                'https://i.ibb.co/fGNV6TSy/IMG-7914.jpg',
+                'https://i.ibb.co/Q3rRrhDX/IMG-7914.jpg',
+                'https://i.ibb.co/5WmGbmkL/IMG-7915.jpg',
+                'https://i.ibb.co/rf7DXbnp/IMG-7916.jpg'
+            ],
+            'personal-set-22': [
+                'https://i.ibb.co/V0r169cW/IMG-7896.jpg',
+                'https://i.ibb.co/20L0g9y9/IMG-7897.jpg',
+                'https://i.ibb.co/My990NFQ/IMG-7900.jpg',
+                'https://i.ibb.co/VcBJ1HwW/IMG-7901.jpg',
+                'https://i.ibb.co/qYzv03xJ/IMG-7902.jpg',
+                'https://i.ibb.co/BVLXszfy/IMG-7903.jpg',
+                'https://i.ibb.co/y3hjRcC/IMG-7904.jpg',
+                'https://i.ibb.co/y3hjRcC/IMG-7904.jpg'
+            ],
   'magazine-set-1': [
     'https://s2.loli.net/2026/01/25/sdg9ZGuFfJc5Y6N.jpg',
     'https://s2.loli.net/2026/01/25/yFtR6KfxoZTm7wM.jpg',
@@ -2156,7 +2325,67 @@
           weibo: "https://weibo.com/7825391749/Oo038pXcq",
           bilibili: "https://www.bilibili.com/video/BV1fE421c7hq/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
         }
-      }
+      },
+      {
+    title: "十二月的奇迹",
+    date: "2024-07-03",
+    image: "https://s2.loli.net/2026/01/25/cAzshr4LtaSFpJe.jpg",
+    desc: "原唱: EXO",
+    links: {
+      weibo: "https://weibo.com/7825391749/OlS3N2Vqg",
+      bilibili: "https://www.bilibili.com/video/BV1ow4m1a7bz/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "Dangerously",
+    date: "2024-06-07",
+    image: "https://s2.loli.net/2026/01/25/cm13sfpCFGRla92.jpg",
+    desc: "原唱: Charlie Puth",
+    links: {
+      weibo: "http://t.cn/A6HrT3Q5",
+      bilibili: "https://www.bilibili.com/video/BV1KT421v7pT/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "Square",
+    date: "2024-05-29",
+    image: "https://s2.loli.net/2026/01/25/8zIxCUgi2YRvfOQ.jpg",
+    desc: "原唱: 白艺潾 (Yerin Baek)",
+    links: {
+      weibo: "http://t.cn/AXyOGz1e",
+      bilibili: "https://www.bilibili.com/video/BV17m421T79A/?spm_id_from=333.1387.search.video_card.click"
+    }
+  },
+  {
+    title: "I hope It's breeze",
+    date: "2024-05-15",
+    image: "https://s2.loli.net/2026/01/24/qK9YhEoGyVOnjQT.jpg",
+    desc: "原唱：봉구（GilguBonggu）",
+    links: {
+      weibo: "http://t.cn/A6HcnvQa",
+      bilibili: "https://www.bilibili.com/video/BV1vz42117D6/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "Versace On The Floor",
+    date: "2024-05-01",
+    image: "https://s2.loli.net/2026/01/27/ELVGcexyrin5lKZ.jpg",
+    desc: "原唱：Bruno Mars",
+    links: {
+      weibo: "https://weibo.com/7825391749/Oci8vlG0f",
+      bilibili: "https://www.bilibili.com/video/BV1fs421N7HP/?spm_id_from=333.1387.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "事件的地平线",
+    date: "2023-12-05",
+    image: "https://s2.loli.net/2026/01/24/U1YnDTWBfkQOmNI.jpg",
+    desc: "原唱：高润荷（YOUNHA）",
+    links: {
+      weibo: "http://t.cn/AXyOGzBh",
+      bilibili: "https://www.bilibili.com/video/BV1PG411v7DF/?spm_id_from=333.1387.top_right_bar_window_history.content.click"
+    }
+  }
     ];
 
     const danceData = [
@@ -2179,7 +2408,37 @@
           weibo: "https://weibo.com/7825391749/N9ewzz7C8",
           bilibili: "https://www.bilibili.com/video/BV1yk4y1P7Ke/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
         }
-      }
+      },
+      {
+    title: "JIKJIN",
+    date: "2023-03-23",
+    image: "https://s2.loli.net/2026/01/27/PgieZcUdD4Sh3ys.png",
+    desc: "《JIKJIN》- TREASURE",
+    links: {
+      weibo: "https://weibo.com/7825391749/MyEjBw4es",
+      bilibili: "https://www.bilibili.com/video/BV1Hg4y1W7zf/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "这么可爱真是抱歉",
+    date: "2023-03-05",
+    image: "https://s2.loli.net/2026/01/27/aC78AejyUz5Q1No.jpg",
+    desc: "宅舞翻跳",
+    links: {
+      weibo: null,
+      bilibili: "https://www.bilibili.com/video/BV1PL41127bw/?spm_id_from=333.1387.search.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "Ditto",
+    date: "2023-03-03",
+    image: "https://s2.loli.net/2026/01/25/Z1iXDGWdB6nyHeE.jpg",
+    desc: "《Ditto》 - NewJeans",
+    links: {
+      weibo: "http://t.cn/A6ONqqvk",
+      bilibili: "https://www.bilibili.com/video/BV1XM4y1R7EL/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  }
     ];
 
     const materialsData = {
@@ -2259,6 +2518,30 @@
             desc: "25年2月直播等汇总照片",
             gallery: "personal-set-13",
             imageCount: 29
+        },
+    {
+            title: "24年12月汇总",
+            date: "2024-12",
+            image: "https://i.ibb.co/1GC1Vz12/IMG-7994.jpg",
+            desc: "24年12月直播等汇总照片",
+            gallery: "personal-set-15",
+            imageCount: 17
+        },
+    {
+            title: "24年11月汇总",
+            date: "2024-11",
+            image: "https://i.ibb.co/G48xjVfY/IMG-7993.jpg",
+            desc: "24年11月直播等汇总照片",
+            gallery: "personal-set-16",
+            imageCount: 8
+        },
+    {
+            title: "24年10月汇总",
+            date: "2024-10",
+            image: "https://i.ibb.co/7xp81X8B/IMG-7969.jpg",
+            desc: "24年10月直播等汇总照片",
+            gallery: "personal-set-17",
+            imageCount: 13
         },
         {
             title: "24年9月汇总",
@@ -2362,7 +2645,16 @@ const stageData = [
     links: {
       youtube: "https://www.youtube.com/watch?v=Zh_LEsavI3s&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=9"
     }
-  }
+  },
+  {
+    title: "Dash 直拍（竖版）",
+    date: "2025-02-19",
+    image: "https://s2.loli.net/2026/01/26/7DWHXd4jOqLBYpJ.jpg",
+    desc: "플레이브 밤비 직캠 4K 'Dash' (PLAVE BAMBY FanCam)",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=kR32F9VemFg&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=3"
+    }
+  },
 ];
 
     const scheduleData = {
@@ -2389,6 +2681,13 @@ const stageData = [
           title: "💜💗 双人直播",
           type: "live",
           time: "19:00 (CST)",
+          platform: "YouTube & B站同步"
+        },
+        {
+          date: "2026-01-10",
+          title: "💗 单人直播",
+          type: "live",
+          time: "11:50 (CST)",
           platform: "YouTube & B站同步"
         },
         {
@@ -2423,43 +2722,44 @@ const stageData = [
     });
 
     function initApp() {
-      // 隐藏加载动画
-      setTimeout(() => {
+    // 隐藏加载动画
+    setTimeout(() => {
         const loading = document.getElementById('loading');
         loading.style.opacity = '0';
         setTimeout(() => loading.style.display = 'none', 500);
-      }, 1200);
+    }, 1200);
 
-      // 初始化各个功能模块
-      initNavigation();
-      initSubNavigation();
-      initMaterialNavigation();
-      initTheme();
-      initBackToTop();
-      initSortControls();
-      initScheduleNavigation();
-      initScheduleFilters();
-      
-      // 设置初始月份为当前月份
-      const today = new Date();
-      currentYear = today.getFullYear();
-      currentMonth = today.getMonth();
-      
-      initCalendar();
-      initVideoPlayback();
-      
-      // 显示欢迎信息
-      setTimeout(function() {
+    // 初始化各个功能模块
+    initNavigation();
+    initSubNavigation();
+    initMaterialNavigation();
+    initTheme();
+    initSortControls();
+    initScheduleNavigation();
+    initScheduleFilters();
+    
+    // 设置初始月份为当前月份
+    const today = new Date();
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+    
+    initCalendar();
+    initVideoPlayback();
+    
+    // 初始化互动效果
+    initClickParticleEffect();  // 确保这行存在
+    
+    // 显示欢迎信息
+    setTimeout(function() {
         showWelcomeMessage();
-      }, 1200);
+    }, 1200);
 
-      // 修复移动端触摸问题
-      fixMobileTouch();
-      
-      // 预加载飘落效果
-      setTimeout(createCustomFloatingImages, 1000);
-    }
-
+    // 修复移动端触摸问题
+    fixMobileTouch();
+    
+    // 预加载飘落效果
+    setTimeout(createCustomFloatingImages, 1000);
+}
     function generateContent() {
       // 生成翻唱作品
       const coversGrid = document.getElementById('covers-works-grid');
@@ -3028,6 +3328,7 @@ const stageData = [
         '2026-1-29': '💙💜💗 三人直播',
         '2026-1-19': '❤️💗 双人WVS直播',
         '2026-1-12': '💜💗 双人直播',
+        '2026-1-10': '💗 单人直播',
         '2025-12-31': '🎤 2025 MBC歌谣大祭典'
       };
       
@@ -3037,9 +3338,10 @@ const stageData = [
     
     function showDayEvents(day) {
       const events = {
-        '2026-1-29': '💙💜💗 三人直播 (19:00 CST, YouTube & B站同步)',
-        '2026-1-19': '❤️💗 双人WVS直播 (19:00 CST)',
-        '2026-1-12': '💜💗 双人直播 (19:00 CST, YouTube & B站同步)',
+        '2026-1-29': '💙💜💗  (19:00 CST)',
+        '2026-1-19': '❤️💗  (11:50 CST)',
+        '2026-1-12': '💜💗  (19:00 CST)',
+        '2026-1-10': '💗 (19:00 CST)',
         '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST, MBC电视台)'
       };
       
@@ -3440,54 +3742,69 @@ const stageData = [
     };
 
     // ========== 点击粒子效果 ==========
-    function initClickParticleEffect() {
-      let isMobile = 'ontouchstart' in window;
-      
-      document.addEventListener(isMobile ? 'touchstart' : 'click', function(e) {
+function initClickParticleEffect() {
+    let isMobile = 'ontouchstart' in window;
+    
+    document.addEventListener(isMobile ? 'touchstart' : 'click', function(e) {
+        // 排除点击移动端控制按钮时不产生粒子（可选）
+        if (e.target.closest('.mobile-control-bar')) {
+            return;
+        }
+        
         const x = isMobile ? e.touches[0].clientX : e.clientX;
         const y = isMobile ? e.touches[0].clientY : e.clientY;
         
         createParticles(x, y);
-      });
-      
-      function createParticles(x, y) {
+    });
+    
+    // 为移动端控制按钮单独添加粒子效果
+    document.querySelectorAll('.mobile-control-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            createParticles(x, y);
+        });
+    });
+    
+    function createParticles(x, y) {
         const particleCount = 8;
         const colors = ['#FFC2D6', '#FF9EBD', '#FF85B3', '#FF6B9E'];
         
         for (let i = 0; i < particleCount; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'click-particle';
-          
-          const size = Math.random() * 8 + 4;
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          const angle = (Math.PI * 2 * i) / particleCount;
-          const distance = Math.random() * 40 + 20;
-          const tx = Math.cos(angle) * distance;
-          const ty = Math.sin(angle) * distance;
-          
-          particle.style.cssText = `
-            position: fixed;
-            left: ${x}px;
-            top: ${y}px;
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            border-radius: 50%;
-            --tx: ${tx}px;
-            --ty: ${ty}px;
-            pointer-events: none;
-            z-index: 9999;
-            animation: particle-explode 0.6s ease-out forwards;
-          `;
-          
-          document.body.appendChild(particle);
-          
-          setTimeout(() => {
-            particle.remove();
-          }, 600);
+            const particle = document.createElement('div');
+            particle.className = 'click-particle';
+            
+            const size = Math.random() * 8 + 4;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const angle = (Math.PI * 2 * i) / particleCount;
+            const distance = Math.random() * 40 + 20;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            particle.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                border-radius: 50%;
+                --tx: ${tx}px;
+                --ty: ${ty}px;
+                pointer-events: none;
+                z-index: 9999;
+                animation: particle-explode 0.6s ease-out forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 600);
         }
-      }
     }
+}
 
     // ========== 窗口大小变化时重新生成效果 ==========
     let resizeTimeout;
