@@ -3220,8 +3220,10 @@
       try {
         const walineInstance = Waline.init({
           el: '#waline',
-          serverURL: 'https://bamby715-9npjahstm-bamby715s-projects.vercel.app/',
+          serverURL: 'https://bamby715-9npjahstm-bamby715s-projects.vercel.app',
+          path: '/',
           lang: 'zh-CN',
+          login: 'disable',
           emoji: [
             '//unpkg.com/@waline/emojis@1.2.0/weibo',
             '//unpkg.com/@waline/emojis@1.2.0/alus',
