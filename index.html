@@ -1725,6 +1725,252 @@
       color: var(--color-white);
     }
 
+    /* ========= 衣柜展示样式 ========= */
+    .wardrobe-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .wardrobe-item {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-bottom: 30px;
+      transition: all var(--transition-normal);
+    }
+    
+    .wardrobe-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    
+    .wardrobe-title {
+      font-size: 1.5rem;
+      color: var(--color-gray-900);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .wardrobe-desc {
+      color: var(--color-gray-600);
+      font-size: 0.95rem;
+    }
+    
+    .wardrobe-image-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, 
+                  var(--color-primary-light) 0%, 
+                  var(--color-gray-50) 100%);
+    }
+    
+    .wardrobe-image {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      transition: transform 0.5s ease;
+    }
+    
+    .wardrobe-item:hover .wardrobe-image {
+      transform: scale(1.02);
+    }
+    
+    .wardrobe-meta {
+      padding: 15px 20px;
+      background: var(--color-gray-50);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--color-gray-200);
+    }
+    
+    .wardrobe-colors {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+        /* ========= 服装款式选择器样式 ========= */
+    .wardrobe-style-selector {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      padding: 20px;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-gray-200);
+    }
+    
+    .style-selector-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .style-selector-title {
+      font-size: 1.3rem;
+      color: var(--color-gray-900);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .style-selector-subtitle {
+      color: var(--color-gray-600);
+      font-size: 0.9rem;
+    }
+    
+    .style-buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .style-button {
+      padding: 12px 20px;
+      background: var(--color-gray-100);
+      border: 2px solid transparent;
+      border-radius: 50px;
+      color: var(--color-gray-700);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    
+    .style-button:hover {
+      transform: translateY(-2px);
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .style-button.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+      box-shadow: 0 4px 12px rgba(255, 158, 189, 0.3);
+    }
+    
+    .style-button i {
+      font-size: 0.9rem;
+    }
+    
+    .style-button .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      font-size: 0.7rem;
+      margin-left: 5px;
+    }
+    
+    /* 移除原来的颜色选择器容器样式 */
+    .color-picker-container {
+      display: none;
+    }
+    
+    .color-picker-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+      padding: 20px;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-gray-200);
+    }
+    
+    .color-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 0.9rem;
+      color: var(--color-gray-700);
+    }
+    
+    .current-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--color-white);
+      box-shadow: 0 0 0 1px var(--color-gray-300);
+    }
+    
+    .color-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .color-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all var(--transition-normal);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .color-dot:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .color-dot.active {
+      border-color: var(--color-white);
+      box-shadow: 0 0 0 2px var(--color-primary), 0 4px 8px rgba(0,0,0,0.2);
+      transform: scale(1.1);
+    }
+    
+    .color-name {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: var(--color-gray-600);
+      white-space: nowrap;
+    }
+    
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .wardrobe-image-container {
+        height: 300px;
+      }
+      
+      .color-dots {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      .color-dot {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .wardrobe-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
     /* ========= 移动端适配 ========= */
     @media (max-width: 768px) {
       .container {
@@ -1873,6 +2119,45 @@
         font-size: 1.6rem;
       }
     }
+
+      .wardrobe-style-selector {
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .style-buttons-container {
+        gap: 8px;
+      }
+      
+      .style-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .style-button i {
+        display: none; /* 在移动端隐藏图标以节省空间 */
+      }
+      
+      .wardrobe-image-container {
+        height: 300px;
+      }
+      
+      .color-dots {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      .color-dot {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .wardrobe-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1909,7 +2194,9 @@
         <a href="#personal" class="nav-item active" data-tab="personal"><i class="fas fa-user"></i><span>个人信息</span></a>
         <a href="#anli" class="nav-item" data-tab="anli"><i class="fas fa-star"></i><span>安利向</span></a>
         <a href="#materials" class="nav-item" data-tab="materials"><i class="fas fa-images"></i><span>物料汇总</span></a>
-        <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>行程日程</span></a>
+        <a href="#wardrobe" class="nav-item" data-tab="wardrobe"><i class="fas fa-tshirt"></i><span>衣柜展示</span></a>
+        <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>
+          日程</span></a>
         <a href="#others" class="nav-item" data-tab="others"><i class="fas fa-ellipsis-h"></i><span>其他</span></a>
       </nav>
     </header>
@@ -2316,6 +2603,32 @@
         <div class="sub-section" data-subtab="past">
           <div class="schedule-container" id="past-schedule">
             <!-- 过往记录将通过JavaScript动态生成 -->
+          </div>
+        </div>
+      </section>
+
+              <!-- 衣柜展示部分 -->
+      <section id="wardrobe" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">BAMBY衣柜展示</h2>
+          <p class="section-subtitle">同款不同色服装展示</p>
+        </div>
+        
+        <!-- 服装款式选择器（放在卡片上方） -->
+        <div class="wardrobe-style-selector">
+          <div class="style-selector-header">
+            <h3 class="style-selector-title">选择服装款式</h3>
+            <p class="style-selector-subtitle">点击下方按钮切换不同服装</p>
+          </div>
+          <div class="style-buttons-container" id="style-buttons-container">
+            <!-- 服装款式按钮将通过JavaScript动态生成 -->
+          </div>
+        </div>
+        
+        <div class="wardrobe-container">
+          <!-- 衣柜展示将通过JavaScript动态生成 -->
+          <div id="wardrobe-content">
+            <!-- 默认展示第一个服装 -->
           </div>
         </div>
       </section>
@@ -3058,6 +3371,104 @@
   },
     ];
 
+        // 衣柜展示数据
+    const wardrobeData = [
+      {
+        id: 'outfit-1',
+        title: '背带裤',
+        description: '早期邪恶背带裤+后期鹿比+黑色背带裤',
+        colors: [
+          {
+            id: 'blue',
+            name: '蓝色',
+            colorCode: '#A7C7E7',
+            image: 'https://s2.loli.net/2026/01/29/HmrMRQVWL6Et8pG.png'
+          },
+          {
+            id: 'blue',
+            name: '蓝色',
+            colorCode: '#A7C7E7',
+            image: 'https://s2.loli.net/2026/01/29/OQhWA1zba7jXflS.png'
+          },
+          {
+            id: 'black',
+            name: '黑色',
+            colorCode: '#333333',
+            image: 'https://s2.loli.net/2026/01/29/AReMy5ECDmJtHih.png'
+          }
+        ]
+      },
+      {
+        id: 'outfit-2',
+        title: '出道服',
+        description: 'wait for you舞台服装',
+        colors: [
+          {
+            id: 'white',
+            name: '白色',
+            colorCode: '#FFFFFF',
+            image: 'https://s2.loli.net/2026/01/29/fecyDVMX4OkKUdQ.png'
+          },
+          {
+            id: 'black',
+            name: '黑色',
+            colorCode: '#333333',
+            image: 'https://s2.loli.net/2026/01/29/bTdO87Jifm4Mr52.png'
+          },
+        ]
+      },
+      {
+        id: 'outfit-3',
+        title: '军装服',
+        description: '演唱会舞台服装',
+        colors: [
+          {
+            id: 'white',
+            name: '白色',
+            colorCode: '#FFFFFF',
+            image: 'https://s2.loli.net/2026/01/27/VclTJdrhIGLit9p.png'
+          },
+          {
+            id: 'black',
+            name: '黑色',
+            colorCode: '#333333',
+            image: 'https://s2.loli.net/2026/01/27/FZ2RLa9qEG5sX7c.png'
+          },
+          {
+            id: 'red',
+            name: '红色',
+            colorCode: '#FF6B6B',
+            image: 'https://s2.loli.net/2026/01/27/YJyPVSqod5rj8BZ.png'
+          },
+          {
+            id: 'red',
+            name: '背面',
+            colorCode: '#FF6B6B',
+            image: 'https://s2.loli.net/2026/01/29/gfmyzuoAMKE5LGY.png'
+          },
+        ]
+      },
+      {
+        id: 'outfit-4',
+        title: '樱花',
+        description: '小粉粉+小蓝蓝，短裤短裤我们喜欢你',
+        colors: [
+          {
+            id: 'pink',
+            name: '粉色',
+            colorCode: '#FFE8F0',
+            image: 'https://s2.loli.net/2026/01/29/TlxjXGSoC8rKzPa.png'
+          },
+          {
+            id: 'blue',
+            name: '蓝色',
+            colorCode: '#A7C7E7',
+            image: 'https://s2.loli.net/2026/01/29/mUVu5Ry6nsHWdJQ.png'
+          }
+        ]
+      }
+    ];
+
     // 行程数据
     const scheduleData = {
       upcoming: [
@@ -3123,6 +3534,9 @@
       
       // 初始化音乐播放器（但不自动播放）
       initMusicPlayer();
+
+      // 生成衣柜展示
+      generateWardrobeContent();
     });
 
     function initApp() {
@@ -3455,6 +3869,197 @@
         materialsData['personal-mimu'].forEach(item => {
           mimuGrid.appendChild(createMaterialCard(item));
         });
+      }
+    }
+
+      function generateWardrobeContent() {
+      const wardrobeContainer = document.getElementById('wardrobe-content');
+      const colorPickerContainer = document.getElementById('color-picker-container');
+      
+      if (!wardrobeContainer || !wardrobeData) return;
+      
+      wardrobeContainer.innerHTML = '';
+      colorPickerContainer.innerHTML = '';
+      
+      // 创建第一个服装的展示
+      if (wardrobeData.length > 0) {
+        const firstOutfit = wardrobeData[0];
+        const firstColor = firstOutfit.colors[0];
+        
+        // 生成主展示卡
+        wardrobeContainer.appendChild(createWardrobeItem(firstOutfit, firstColor));
+        
+        // 生成颜色选择器
+        colorPickerContainer.appendChild(createColorPicker(firstOutfit));
+      }
+    }
+
+    // ========== 衣柜功能 ==========
+function switchOutfit(outfitId) {
+  const outfit = wardrobeData.find(item => item.id === outfitId);
+  if (!outfit) return;
+  
+  const wardrobeContainer = document.getElementById('wardrobe-content');
+  const firstColor = outfit.colors[0];
+  
+  // 移除现有的衣柜展示
+  wardrobeContainer.innerHTML = '';
+  
+  // 生成新的衣柜展示
+  wardrobeContainer.appendChild(createWardrobeItem(outfit, firstColor));
+}
+
+function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
+  // 更新当前颜色指示器
+  const currentColorElement = document.getElementById(`current-color-${outfitId}`);
+  const colorNameElement = document.getElementById(`color-name-${outfitId}`);
+  
+  if (currentColorElement) {
+    currentColorElement.style.backgroundColor = colorCode;
+  }
+  
+  if (colorNameElement) {
+    colorNameElement.textContent = colorName;
+  }
+  
+  // 更新图片
+  const wardrobeImage = document.getElementById(`wardrobe-image-${outfitId}`);
+  if (wardrobeImage) {
+    wardrobeImage.src = imageUrl;
+    wardrobeImage.alt = `${document.querySelector(`#wardrobe-${outfitId} .wardrobe-title`).textContent} - ${colorName}`;
+  }
+  
+  // 更新颜色点状态
+  const colorDots = document.querySelectorAll(`#color-dots-${outfitId} .color-dot`);
+  colorDots.forEach(dot => {
+    if (dot.getAttribute('data-color-id') === colorId) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+  
+  // 更新衣柜项的数据属性
+  const wardrobeItem = document.getElementById(`wardrobe-${outfitId}`);
+  if (wardrobeItem) {
+    wardrobeItem.setAttribute('data-current-color', colorId);
+  }
+  
+  showToast(`已切换到${colorName}款式`);
+}
+    
+      function createWardrobeItem(outfit, selectedColor) {
+      const item = document.createElement('div');
+      item.className = 'wardrobe-item';
+      item.id = `wardrobe-${outfit.id}`;
+      item.setAttribute('data-outfit-id', outfit.id);
+      item.setAttribute('data-current-color', selectedColor.id);
+      
+      item.innerHTML = `
+        <div class="wardrobe-header">
+          <h3 class="wardrobe-title">${outfit.title}</h3>
+          <p class="wardrobe-desc">${outfit.description}</p>
+        </div>
+        <div class="wardrobe-image-container">
+          <img src="${selectedColor.image}" alt="${outfit.title} - ${selectedColor.name}" class="wardrobe-image" id="wardrobe-image-${outfit.id}">
+        </div>
+        <div class="wardrobe-meta">
+          <div class="wardrobe-colors">
+            <span class="color-indicator">
+              当前颜色: 
+              <span class="current-color" id="current-color-${outfit.id}" style="background-color: ${selectedColor.colorCode};"></span>
+              <span id="color-name-${outfit.id}">${selectedColor.name}</span>
+            </span>
+          </div>
+          <div class="color-dots" id="color-dots-${outfit.id}">
+            <!-- 颜色点将通过JavaScript动态添加 -->
+          </div>
+        </div>
+      `;
+          
+      
+      // 生成颜色点
+      const colorDotsContainer = item.querySelector(`#color-dots-${outfit.id}`);
+      outfit.colors.forEach((color, index) => {
+        const colorDot = document.createElement('div');
+        colorDot.className = `color-dot ${color.id === selectedColor.id ? 'active' : ''}`;
+        colorDot.style.backgroundColor = color.colorCode;
+        colorDot.setAttribute('data-color-id', color.id);
+        colorDot.setAttribute('data-outfit-id', outfit.id);
+        colorDot.setAttribute('data-image-url', color.image);
+        colorDot.setAttribute('data-color-name', color.name);
+        colorDot.setAttribute('data-color-code', color.colorCode);
+        
+        const colorName = document.createElement('span');
+        colorName.className = 'color-name';
+        colorName.textContent = color.name;
+        colorDot.appendChild(colorName);
+        
+        colorDot.addEventListener('click', function() {
+          switchColor(outfit.id, color.id, color.image, color.name, color.colorCode);
+        });
+        
+        colorDotsContainer.appendChild(colorDot);
+      });
+      
+      return item;
+    }
+    
+        function generateWardrobeContent() {
+      const wardrobeContainer = document.getElementById('wardrobe-content');
+      const styleButtonsContainer = document.getElementById('style-buttons-container');
+      
+      if (!wardrobeContainer || !styleButtonsContainer || !wardrobeData) return;
+      
+      wardrobeContainer.innerHTML = '';
+      styleButtonsContainer.innerHTML = '';
+      
+      // 生成服装款式选择按钮
+      wardrobeData.forEach((outfit, index) => {
+        const styleButton = document.createElement('button');
+        styleButton.className = `style-button ${index === 0 ? 'active' : ''}`;
+        styleButton.setAttribute('data-outfit-id', outfit.id);
+        
+        // 添加图标
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-tshirt';
+        styleButton.appendChild(icon);
+        
+        // 添加文本
+        const text = document.createElement('span');
+        text.textContent = outfit.title;
+        styleButton.appendChild(text);
+        
+        // 添加颜色数量徽章
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = `${outfit.colors.length}色`;
+        styleButton.appendChild(badge);
+        
+        styleButton.addEventListener('click', function() {
+          // 移除所有按钮的active类
+          document.querySelectorAll('.style-button').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // 添加active类到当前按钮
+          this.classList.add('active');
+          
+          // 切换服装展示
+          switchOutfit(outfit.id);
+        });
+        
+        styleButtonsContainer.appendChild(styleButton);
+      });
+
+      
+      // 创建第一个服装的展示
+      if (wardrobeData.length > 0) {
+        const firstOutfit = wardrobeData[0];
+        const firstColor = firstOutfit.colors[0];
+        
+        // 生成主展示卡
+        wardrobeContainer.appendChild(createWardrobeItem(firstOutfit, firstColor));
       }
     }
 
