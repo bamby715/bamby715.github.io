@@ -2118,8 +2118,7 @@
         height: 55px;
         font-size: 1.6rem;
       }
-    }
-
+    
       .wardrobe-style-selector {
         padding: 15px;
         margin-bottom: 20px;
@@ -2157,7 +2156,445 @@
         align-items: flex-start;
         gap: 10px;
       }
-    }
+     }
+
+    /* ========= 二创汇总 ========= */
+.fanworks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.fanwork-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-gray-200);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fanwork-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.fanwork-image {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.fanwork-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.fanwork-card:hover .fanwork-image img {
+  transform: scale(1.05);
+}
+
+.fanwork-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fanwork-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-gray-900);
+  line-height: 1.4;
+}
+
+.fanwork-desc {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 15px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.fanwork-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.fanwork-author {
+  font-size: 0.85rem;
+  color: var(--color-gray-500);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fanwork-author i {
+  color: var(--color-primary);
+}
+
+.fanwork-link {
+  font-size: 0.85rem;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.fanwork-link:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.fanwork-note {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  padding: 20px;
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+}
+
+.fanwork-note a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.fanwork-note a:hover {
+  text-decoration: underline;
+}
+
+/* 二创作品类型标签 */
+.fanwork-type {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 194, 214, 0.3);
+  z-index: 2;
+}
+
+/* 投稿入口按钮 */
+.fanwork-submit-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.fanwork-submit-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3);
+}
+
+.fanwork-submit-btn i {
+  margin-right: 8px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .fanworks-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .fanwork-image {
+    height: 160px;
+  }
+  
+  .fanwork-content {
+    padding: 16px;
+  }
+}
+
+    /* Waline评论系统样式适配 */
+:root {
+  /* Waline变量 */
+  --waline-font-size: 16px;
+  --waline-border-radius: var(--radius-md);
+  --waline-theme-color: var(--color-primary);
+  --waline-active-color: var(--color-primary-dark);
+  --waline-bg-color: var(--color-white);
+  --waline-bg-color-light: var(--color-gray-50);
+  --waline-border-color: var(--color-gray-200);
+  --waline-text-color: var(--color-gray-800);
+  --waline-info-color: var(--color-gray-500);
+}
+
+[data-theme="dark"] {
+  --waline-bg-color: var(--color-gray-100);
+  --waline-bg-color-light: var(--color-gray-200);
+  --waline-border-color: var(--color-gray-300);
+  --waline-text-color: var(--color-gray-900);
+  --waline-info-color: var(--color-gray-700);
+}
+
+/* 评论区容器 */
+#waline {
+  margin-top: 30px;
+}
+
+/* 确保评论区响应式 */
+@media (max-width: 768px) {
+  #waline {
+    padding: 0 10px;
+  }
+}
+
+    /* ========== WALINE 评论区样式优化 ========== */
+#waline {
+  --waline-theme-color: var(--color-primary-dark) !important;
+  --waline-active-color: var(--color-primary) !important;
+  --waline-color: var(--color-gray-800) !important;
+  --waline-bg-color: var(--color-gray-50) !important;
+  --waline-bg-color-light: var(--color-gray-100) !important;
+  --waline-border-color: var(--color-gray-200) !important;
+  --waline-border: 1px solid var(--waline-border-color) !important;
+  --waline-border-radius: var(--radius-md) !important;
+  --waline-font-size: 16px !important;
+  --waline-avatar-size: 50px !important;
+  --waline-m-avatar-size: 40px !important;
+  --waline-box-shadow: var(--shadow-sm) !important;
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] #waline {
+  --waline-theme-color: var(--color-primary) !important;
+  --waline-active-color: var(--color-primary-light) !important;
+  --waline-color: var(--color-gray-900) !important;
+  --waline-bg-color: var(--color-gray-100) !important;
+  --waline-bg-color-light: var(--color-gray-200) !important;
+  --waline-border-color: var(--color-gray-300) !important;
+}
+
+/* 评论输入框样式优化 */
+.wl-editor {
+  border: 1px solid var(--color-gray-300) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--color-white) !important;
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .wl-editor {
+  background: var(--color-gray-100) !important;
+  border-color: var(--color-gray-400) !important;
+  color: var(--color-gray-900) !important;
+}
+
+.wl-editor:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.2) !important;
+  outline: none !important;
+}
+
+/* 按钮样式优化 */
+.wl-btn {
+  background: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  padding: 10px 24px !important;
+  font-weight: 600 !important;
+  transition: all var(--transition-normal) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.wl-btn:hover {
+  background: var(--color-primary-dark) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.wl-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* 评论卡片样式 */
+.wl-card {
+  background: var(--color-white) !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--color-gray-200) !important;
+  margin-bottom: 16px !important;
+  padding: 20px !important;
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .wl-card {
+  background: var(--color-gray-100) !important;
+  border-color: var(--color-gray-300) !important;
+}
+
+.wl-card:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: translateY(-2px);
+}
+
+/* 用户头像优化 */
+.wl-avatar {
+  border-radius: 50% !important;
+  border: 2px solid var(--color-primary-light) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* 评论内容样式 */
+.wl-content {
+  line-height: 1.7 !important;
+  color: var(--color-gray-800) !important;
+}
+
+[data-theme="dark"] .wl-content {
+  color: var(--color-gray-900) !important;
+}
+
+.wl-content p {
+  margin-bottom: 12px !important;
+}
+
+/* 昵称样式 */
+.wl-nick {
+  color: var(--color-gray-800) !important;
+  font-weight: 600 !important;
+  font-size: 1.1em !important;
+}
+
+[data-theme="dark"] .wl-nick {
+  color: var(--color-gray-900) !important;
+}
+
+/* 评论时间 */
+.wl-meta {
+  color: var(--color-gray-500) !important;
+  font-size: 0.9em !important;
+}
+
+/* 回复按钮 */
+.wl-reaction {
+  border: 1px solid var(--color-gray-300) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 4px 12px !important;
+  background: var(--color-white) !important;
+  color: var(--color-gray-600) !important;
+}
+
+[data-theme="dark"] .wl-reaction {
+  background: var(--color-gray-100) !important;
+  border-color: var(--color-gray-400) !important;
+  color: var(--color-gray-800) !important;
+}
+
+.wl-reaction:hover {
+  background: var(--color-primary-light) !important;
+  color: var(--color-primary-dark) !important;
+}
+
+/* 表情选择器样式 */
+.wl-emoji-popup {
+  border: 1px solid var(--color-gray-300) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+  background: var(--color-white) !important;
+}
+
+[data-theme="dark"] .wl-emoji-popup {
+  background: var(--color-gray-100) !important;
+  border-color: var(--color-gray-400) !important;
+}
+
+/* 分页样式 */
+.wl-page-item {
+  border: 1px solid var(--color-gray-300) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 6px 12px !important;
+  margin: 0 4px !important;
+}
+
+.wl-page-item:hover {
+  background: var(--color-primary-light) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.wl-page-item.active {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary-dark) !important;
+  color: var(--color-white) !important;
+}
+
+/* 底部信息样式 */
+.wl-footer {
+  color: var(--color-gray-500) !important;
+  border-top: 1px solid var(--color-gray-200) !important;
+  padding-top: 16px !important;
+  margin-top: 16px !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  #waline {
+    --waline-avatar-size: 40px !important;
+    --waline-font-size: 14px !important;
+  }
+  
+  .wl-card {
+    padding: 16px !important;
+  }
+  
+  .wl-btn {
+    padding: 8px 20px !important;
+  }
+}
+
+    /* Waline加载动画 */
+#waline:empty {
+  min-height: 200px;
+  background: linear-gradient(90deg, 
+    var(--color-gray-100) 25%, 
+    var(--color-gray-200) 50%, 
+    var(--color-gray-100) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
   </style>
 </head>
 <body>
@@ -2194,9 +2631,9 @@
         <a href="#personal" class="nav-item active" data-tab="personal"><i class="fas fa-user"></i><span>个人信息</span></a>
         <a href="#anli" class="nav-item" data-tab="anli"><i class="fas fa-star"></i><span>安利向</span></a>
         <a href="#materials" class="nav-item" data-tab="materials"><i class="fas fa-images"></i><span>物料汇总</span></a>
-        <a href="#wardrobe" class="nav-item" data-tab="wardrobe"><i class="fas fa-tshirt"></i><span>衣柜展示</span></a>
-        <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>
-          日程</span></a>
+        <a href="#wardrobe" class="nav-item" data-tab="wardrobe"><i class="fas fa-tshirt"></i><span>魔法衣橱</span></a>
+        <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>日程</span></a>
+        <a href="#fanworks" class="nav-item" data-tab="fanworks"><i class="fas fa-palette"></i><span>二创汇总</span></a>
         <a href="#others" class="nav-item" data-tab="others"><i class="fas fa-ellipsis-h"></i><span>其他</span></a>
       </nav>
     </header>
@@ -2222,7 +2659,7 @@
   <div class="music-player-overlay" id="musicPlayerOverlay">
     <div class="music-player">
       <div class="music-player-header">
-        <h3 class="music-player-title">𝄞⋆.˚BAMBY 音乐电台𓈒 ݁ ♬</h3>
+        <h3 class="music-player-title">𝄞⋆.˚BAMBY的音乐电台𓈒 ݁ ♬</h3>
         <button class="music-player-close" onclick="closeMusicPlayer()">
           <i class="fas fa-times"></i>
         </button>
@@ -2295,16 +2732,20 @@
           <h2 class="section-title">个人信息</h2>
           <p class="section-subtitle">蔡丰玖 | 蔡斑比</p>
         </div>
-        <div class="profile-card">
+        <div class="profile-links">
           <div class="profile-image-container">
             <img src="https://i.ibb.co/xSPTsw5B/img-1769293823449d8bfeac6b14d3a26a24242315f8fa5ac25202942436be088bb2339330656e9af.jpg" 
                  alt="蔡丰玖 Bamby" 
                  style="width:100%;border-radius:var(--radius-md);">
-            <a href="https://weibo.com/u/5143372154" target="_blank" class="profile-link">
-              <i class="fab fa-weibo"></i>
-              鹿站主页
-            </a>
-          </div>
+  <a href="https://weibo.com/u/5143372154"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="profile-link"
+     onclick="event.stopPropagation(); window.open(this.href,'_blank','noopener');">
+    <i class="fab fa-weibo"></i>
+    鹿站主页
+  </a>
+</div>
           <div class="profile-info">
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;width:100%;">
               <div class="info-item">
@@ -2337,7 +2778,7 @@
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">标志</div>
-                <div>🦌，粉红色爱心，🐹</div>
+                <div>鹿，粉红色爱心，鼠</div>
               </div>
               <div class="info-item">
                 <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">昵称</div>
@@ -2632,7 +3073,55 @@
           </div>
         </div>
       </section>
-      
+
+      <!-- 衣柜展示部分结束 -->
+
+
+<!-- 二创汇总模块 -->
+<section id="fanworks" class="content-section">
+  <div class="section-header">
+    <h2 class="section-title">二创汇总</h2>
+    <p class="section-subtitle">欢迎创作者展示 · 点击直达原作</p>
+  </div>
+  
+  <div class="container">
+    <!-- 分类筛选（可选） -->
+    <div class="sub-nav" style="margin-bottom: 30px;">
+      <button class="sub-nav-btn active" data-fanwork-type="all">全部</button>
+      <button class="sub-nav-btn" data-fanwork-type="illustration">绘画</button>
+      <button class="sub-nav-btn" data-fanwork-type="video">剪辑</button>
+      <button class="sub-nav-btn" data-fanwork-type="writing">同人文</button>
+      <button class="sub-nav-btn" data-fanwork-type="other">其他</button>
+    </div>
+    
+    <div class="fanworks-grid" id="fanworks-grid">
+      <!-- 二创卡片将通过JavaScript动态生成 -->
+    </div>
+    
+    <!-- 投稿入口 -->
+    <div style="text-align: center; margin: 40px 0;">
+      <p style="margin-bottom: 20px; color: var(--color-gray-600);">
+        欢迎创作者投稿，让更多人看到你的作品！
+      </p>
+      <a href="https://docs.google.com/forms/d/e/xxx" target="_blank" class="fanwork-submit-btn">
+        <i class="fas fa-paper-plane"></i>
+        
+      </a>
+    </div>
+    
+    <p class="fanwork-note">
+      本站为非盈利粉丝整理站点，仅作推荐与索引使用。<br>
+      所有作品版权归原作者所有。若作者希望补充信息或撤下展示，<br>
+      请在留言板评论或联系微博 <a href="https://weibo.com/u/5143372154" target="_blank">@蔡丰玖_DeerBamby0715</a>
+    </p>
+  </div>
+</section>
+
+<!-- 日程部分（原有内容） -->
+<section id="schedule" class="content-section">
+  <!-- ... 原有日程内容 ... -->
+</section>
+
       <!-- 其他部分 -->
       <section id="others" class="content-section">
         <div class="section-header">
@@ -2668,6 +3157,21 @@
           </div>
         </div>
       </section>
+
+      <!-- 评论区（始终显示在所有页面下方） -->
+<section id="comments" class="content-section" style="display: block; margin-top: 60px;">
+  <div class="section-header">
+    <h2 class="section-title">留言板</h2>
+    <p class="section-subtitle">本评论区仅用于交流与推荐</p>
+  </div>
+  
+  <div class="container">
+    <div id="waline" style="max-width: 800px; margin: 0 auto;"></div>
+  </div>
+</section>
+
+      <script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
       
       <footer class="main-footer">
         <div class="footer-content">
@@ -2692,11 +3196,89 @@
       </footer>
     </main>
   </div>
-
-  <!-- 音频 -->
-  <audio id="bgmPlayer" loop>
-    <source src="https://image2url.com/r2/default/audio/1769488066461-66d083fc-5858-4c83-9acb-3153691a8481.mp3" type="audio/mpeg">
-  </audio>
+  
+  <script src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
+  <script>
+    // 等待页面完全加载后
+    Waline
+    document.addEventListener('DOMContentLoaded', function() {
+      // 延迟初始化，确保DOM完全加载
+      setTimeout(() => {
+        initWalineComment();
+      }, 1000);
+    });
+    
+    function initWalineComment() {
+      // 检查元素是否存在
+      const walineEl = document.getElementById('waline');
+      if (!walineEl) {
+        console.error('Waline容器未找到');
+        return;
+      }
+      
+      // 初始化Waline
+      try {
+        const walineInstance = Waline.init({
+          el: '#waline',
+          serverURL: 'https://bamby715-9npjahstm-bamby715s-projects.vercel.app/',
+          lang: 'zh-CN',
+          emoji: [
+            '//unpkg.com/@waline/emojis@1.2.0/weibo',
+            '//unpkg.com/@waline/emojis@1.2.0/alus',
+            '//unpkg.com/@waline/emojis@1.2.0/bilibili',
+          ],
+          avatar: 'monsterid',
+          meta: ['nick', 'mail'],
+          pageview: false,
+          requiredMeta: ['nick'],
+          placeholder: '欢迎留言交流，支持Markdown语法~',
+          login: 'enable',
+          wordLimit: [0, 5000],
+          imageUploader: false,
+          copyright: false,
+          highlight: true,
+          emojiCDN: '//unpkg.com/@waline/emojis@1.2.0/',
+          dark: 'html[data-theme="dark"]',
+        });
+        
+        // 保存实例以便主题切换时更新
+        window.WalineInstance = walineInstance;
+        console.log('Waline评论系统初始化成功');
+      } catch (error) {
+        console.error('Waline初始化失败:', error);
+        
+        // 显示错误信息
+        walineEl.innerHTML = `
+          <div style="text-align: center; padding: 40px; background: var(--color-gray-50); border-radius: var(--radius-md);">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--color-primary); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--color-gray-700); margin-bottom: 10px;">评论系统加载失败</h3>
+            <p style="color: var(--color-gray-500);">请刷新页面重试或稍后再来</p>
+          </div>
+        `;
+      }
+    }
+    
+    // 监听主题切换，Waline需要重新渲染
+let originalToggleTheme = window.toggleTheme;
+window.toggleTheme = function() {
+  originalToggleTheme();
+  
+  // 添加主题切换动画
+  document.body.style.opacity = '0.8';
+  setTimeout(() => {
+    document.body.style.opacity = '1';
+  }, 200);
+  
+  // 重新初始化Waline以应用主题
+  setTimeout(() => {
+    const walineInstance = window.WalineInstance;
+    if (walineInstance && walineInstance.update) {
+      walineInstance.update();
+    }
+  }, 300);
+};
+    
+  </script>
 
   <script>
     // ========== 数据定义 ==========
@@ -3538,12 +4120,30 @@
       ]
     };
 
+    // ========== 二创作品数据 ==========
+    const fanworksData = [
+      {
+        id: 'fanwork-1',
+        title: '《Im Not Alone》',
+        type: 'video',
+        author: '@plave_official',
+        date: '2025-07-19',
+        image: 'https://s2.loli.net/2026/01/27/bnpUgqP1LfR2xSQ.jpg',
+        desc: '非同人，仅做示例',
+        link: 'https://www.bilibili.com/video/BV1Wou1z5EdA/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f',
+        platform: 'B站'
+      },
+      
+    ];
+
+    
     // ========== 全局变量 ==========
     let currentGallery = null;
     let currentImageIndex = 0;
     let currentMonth = 0;
     let currentYear = 2026;
     let currentTheme = 'light';
+    let fanworksInitialized = false;
     const monthFullNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
     let isSnowing = false;
     let snowInterval = null;
@@ -3561,6 +4161,11 @@
 
       // 生成衣柜展示
       generateWardrobeContent();
+
+      // 添加二创初始化 - 确保DOM完全加载
+      setTimeout(() => {
+        initFanworks();
+      }, 500);
     });
 
     function initApp() {
@@ -3570,6 +4175,8 @@
         loading.style.opacity = '0';
         setTimeout(() => loading.style.display = 'none', 500);
       }, 1200);
+
+    
 
       // 初始化各个功能模块
       initNavigation();
@@ -4295,18 +4902,31 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
     // ========== 导航功能 ==========
     function initNavigation() {
       const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(function(item) {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          navItems.forEach(function(nav) {
-            nav.classList.remove('active');
-          });
-          this.classList.add('active');
-          const tabId = this.getAttribute('href').substring(1);
-          switchTab(tabId);
-          history.pushState(null, null, this.getAttribute('href'));
+  navItems.forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      navItems.forEach(function(nav) {
+        nav.classList.remove('active');
+      });
+      this.classList.add('active');
+      const tabId = this.getAttribute('href').substring(1);
+
+       // 如果是二创标签，确保内容已加载
+      if (tabId === 'fanworks') {
+        // 延迟一点确保DOM已切换
+        setTimeout(() => {
+          if (!window.fanworksInitialized) {
+            initFanworks();
+            window.fanworksInitialized = true;
+          }
+        }, 300);
+      }
+      
+      switchTab(tabId);
+      history.pushState(null, null, this.getAttribute('href'));
         });
       });
+      
       
       window.addEventListener('hashchange', handleHashChange);
       handleHashChange();
@@ -5007,6 +5627,116 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
         });
       });
     }
+
+    // ========== 二创功能初始化 ==========
+    function initFanworks() {
+      generateFanworks();
+      initFanworksFilter();
+    }
+
+    function generateFanworks() {
+      const fanworksGrid = document.getElementById('fanworks-grid');
+      if (!fanworksGrid || !fanworksData) return;
+      
+      fanworksGrid.innerHTML = '';
+      
+      fanworksData.forEach(fanwork => {
+        fanworksGrid.appendChild(createFanworkCard(fanwork));
+      });
+      
+    }
+
+    function createFanworkCard(fanwork) {
+      const card = document.createElement('div');
+      card.className = 'fanwork-card';
+      card.setAttribute('data-type', fanwork.type);
+      card.setAttribute('data-id', fanwork.id);
+      
+      // 类型对应中文
+      const typeText = {
+        illustration: '插画',
+        video: '剪辑',
+        writing: '写作',
+        other: '其他'
+      }[fanwork.type] || '其他';
+      
+      // 平台图标
+      const platformIcons = {
+        '微博': 'fab fa-weibo',
+        'B站': 'fas fa-b',
+        'Lofter': 'fas fa-leaf',
+        'YouTube': 'fab fa-youtube',
+        'Twitter': 'fab fa-twitter',
+        '知乎': 'fas fa-question-circle'
+      };
+      
+      const platformIcon = platformIcons[fanwork.platform] || 'fas fa-external-link-alt';
+      
+      // 使用默认图片或占位图
+      const imageUrl = fanwork.image || 'https://via.placeholder.com/300x180?text=BAMBY二创';
+      
+      card.innerHTML = `
+        <div class="fanwork-image">
+          <img src="${imageUrl}" alt="${fanwork.title}" onerror="this.src='https://via.placeholder.com/300x180?text=BAMBY二创'">
+          <span class="fanwork-type">${typeText}</span>
+        </div>
+        <div class="fanwork-content">
+          <h3 class="fanwork-title">${fanwork.title}</h3>
+          <p class="fanwork-desc">${fanwork.desc}</p>
+          <div class="fanwork-meta">
+            <span class="fanwork-author">
+              <i class="fas fa-user-pen"></i> ${fanwork.author}
+            </span>
+            <a href="${fanwork.link}" target="_blank" class="fanwork-link" onclick="trackFanworkClick('${fanwork.id}')">
+              原作指路 <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      `;
+      
+      return card;
+    }
+
+    function initFanworksFilter() {
+      const filterButtons = document.querySelectorAll('#fanworks .sub-nav-btn');
+      
+      if (!filterButtons.length) return;
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const filterType = this.getAttribute('data-fanwork-type');
+          
+          // 更新按钮状态
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // 获取所有卡片
+          const fanworkCards = document.querySelectorAll('#fanworks .fanwork-card');
+          
+          // 筛选显示
+          let visibleCount = 0;
+          fanworkCards.forEach(card => {
+            const cardType = card.getAttribute('data-type');
+            if (filterType === 'all' || cardType === filterType) {
+              card.style.display = 'flex';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          // 显示筛选结果
+          showToast(`已筛选出 ${visibleCount} 个作品`);
+        });
+      });
+    }
+
+    function trackFanworkClick(id) {
+      // 可以在这里添加点击追踪代码
+      console.log(`二创作品被点击: ${id}`);
+      showToast('正在跳转到作品页面...', 1500);
+    }
+
     
     // ========== 视频播放功能 ==========
     function initVideoPlayback() {
@@ -5076,6 +5806,9 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
         prevImage();
       }
     });
+    
   </script>
+
+
 </body>
 </html>
