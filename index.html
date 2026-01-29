@@ -2424,6 +2424,24 @@
   align-items: center;
   gap: 5px;
 }
+
+    .comment-form { margin: 2rem 0; }
+.comment-form div { margin: 1rem 0; }
+.comment-form label { display: block; margin-bottom: 0.5rem; }
+.comment-form input, .comment-form textarea { 
+  width: 100%; 
+  max-width: 500px;
+  padding: 0.5rem; 
+}
+.comment-item { 
+  border-bottom: 1px solid #eee; 
+  padding: 1rem 0; 
+}
+.comment-header { 
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 0.5rem; 
+}
   </style>
 </head>
 <body>
@@ -3015,6 +3033,17 @@
     <!-- 评论将在这里显示 -->
   </div>
 </div>
+
+      <div id="comments"></div>
+<script src="https://bamby-comments.vercel.app/comments-widget.js"></script>
+<script>
+  // 手动初始化（如果需要自定义配置）
+  new CommentSystem({
+    postId: 'your-post-id', // 建议使用页面路径或文章ID
+    container: document.getElementById('comments'),
+    apiUrl: 'https://bamby-comments.vercel.app/api'
+  });
+</script>
 
       
       <footer class="main-footer">
