@@ -1971,6 +1971,191 @@
       }
     }
 
+    /* ========= 二创汇总 ========= */
+.fanworks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.fanwork-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-gray-200);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fanwork-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.fanwork-image {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.fanwork-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.fanwork-card:hover .fanwork-image img {
+  transform: scale(1.05);
+}
+
+.fanwork-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fanwork-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-gray-900);
+  line-height: 1.4;
+}
+
+.fanwork-desc {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 15px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.fanwork-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.fanwork-author {
+  font-size: 0.85rem;
+  color: var(--color-gray-500);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fanwork-author i {
+  color: var(--color-primary);
+}
+
+.fanwork-link {
+  font-size: 0.85rem;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.fanwork-link:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.fanwork-note {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  padding: 20px;
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+}
+
+.fanwork-note a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.fanwork-note a:hover {
+  text-decoration: underline;
+}
+
+/* 二创作品类型标签 */
+.fanwork-type {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 194, 214, 0.3);
+  z-index: 2;
+}
+
+/* 投稿入口按钮 */
+.fanwork-submit-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.fanwork-submit-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3);
+}
+
+.fanwork-submit-btn i {
+  margin-right: 8px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .fanworks-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .fanwork-image {
+    height: 160px;
+  }
+  
+  .fanwork-content {
+    padding: 16px;
+  }
+}
+
     /* ========= 移动端适配 ========= */
     @media (max-width: 768px) {
       .container {
@@ -2158,442 +2343,86 @@
       }
      }
 
-    /* ========= 二创汇总 ========= */
-.fanworks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 30px;
-  margin-bottom: 40px;
-}
-
-.fanwork-card {
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid var(--color-gray-200);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.fanwork-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
-}
-
-.fanwork-image {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-}
-
-.fanwork-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.fanwork-card:hover .fanwork-image img {
-  transform: scale(1.05);
-}
-
-.fanwork-content {
+    .comments-section {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
-  flex: 1;
+}
+
+.comment-form {
+  background: var(--color-gray-50);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+}
+
+.comment-form button {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.comments-list {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
-.fanwork-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: var(--color-gray-900);
-  line-height: 1.4;
+.comment-item {
+  background: white;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
 }
 
-.fanwork-desc {
-  font-size: 0.9rem;
-  color: var(--color-gray-600);
-  margin-bottom: 15px;
-  line-height: 1.5;
-  flex: 1;
-}
-
-.fanwork-meta {
+.comment-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 15px;
-  border-top: 1px solid var(--color-gray-100);
+  margin-bottom: 10px;
 }
 
-.fanwork-author {
-  font-size: 0.85rem;
-  color: var(--color-gray-500);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.fanwork-author i {
-  color: var(--color-primary);
-}
-
-.fanwork-link {
-  font-size: 0.85rem;
-  color: var(--color-primary-dark);
-  text-decoration: none;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s ease;
-}
-
-.fanwork-link:hover {
-  text-decoration: underline;
-  color: var(--color-primary);
-}
-
-.fanwork-note {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--color-gray-500);
-  padding: 20px;
-  background: var(--color-gray-50);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-gray-200);
-}
-
-.fanwork-note a {
-  color: var(--color-primary-dark);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.fanwork-note a:hover {
-  text-decoration: underline;
-}
-
-/* 二创作品类型标签 */
-.fanwork-type {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 4px 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  font-size: 0.7rem;
+.comment-author {
   font-weight: 600;
-  color: var(--color-primary-dark);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 194, 214, 0.3);
-  z-index: 2;
+  color: var(--color-gray-900);
 }
 
-/* 投稿入口按钮 */
-.fanwork-submit-btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 30px;
-  background: var(--color-primary);
-  color: var(--color-white);
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
+.comment-time {
+  color: var(--color-gray-500);
+  font-size: 0.9rem;
+}
+
+.comment-content {
+  color: var(--color-gray-700);
+  line-height: 1.5;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.like-btn {
+  background: none;
   border: none;
+  color: var(--color-gray-500);
   cursor: pointer;
-  font-size: 0.95rem;
-}
-
-.fanwork-submit-btn:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3);
-}
-
-.fanwork-submit-btn i {
-  margin-right: 8px;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .fanworks-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .fanwork-image {
-    height: 160px;
-  }
-  
-  .fanwork-content {
-    padding: 16px;
-  }
-}
-
-    /* Waline评论系统样式适配 */
-:root {
-  /* Waline变量 */
-  --waline-font-size: 16px;
-  --waline-border-radius: var(--radius-md);
-  --waline-theme-color: var(--color-primary);
-  --waline-active-color: var(--color-primary-dark);
-  --waline-bg-color: var(--color-white);
-  --waline-bg-color-light: var(--color-gray-50);
-  --waline-border-color: var(--color-gray-200);
-  --waline-text-color: var(--color-gray-800);
-  --waline-info-color: var(--color-gray-500);
-}
-
-[data-theme="dark"] {
-  --waline-bg-color: var(--color-gray-100);
-  --waline-bg-color-light: var(--color-gray-200);
-  --waline-border-color: var(--color-gray-300);
-  --waline-text-color: var(--color-gray-900);
-  --waline-info-color: var(--color-gray-700);
-}
-
-/* 评论区容器 */
-#waline {
-  margin-top: 30px;
-}
-
-/* 确保评论区响应式 */
-@media (max-width: 768px) {
-  #waline {
-    padding: 0 10px;
-  }
-}
-
-    /* ========== WALINE 评论区样式优化 ========== */
-#waline {
-  --waline-theme-color: var(--color-primary-dark) !important;
-  --waline-active-color: var(--color-primary) !important;
-  --waline-color: var(--color-gray-800) !important;
-  --waline-bg-color: var(--color-gray-50) !important;
-  --waline-bg-color-light: var(--color-gray-100) !important;
-  --waline-border-color: var(--color-gray-200) !important;
-  --waline-border: 1px solid var(--waline-border-color) !important;
-  --waline-border-radius: var(--radius-md) !important;
-  --waline-font-size: 16px !important;
-  --waline-avatar-size: 50px !important;
-  --waline-m-avatar-size: 40px !important;
-  --waline-box-shadow: var(--shadow-sm) !important;
-  transition: all var(--transition-normal);
-}
-
-[data-theme="dark"] #waline {
-  --waline-theme-color: var(--color-primary) !important;
-  --waline-active-color: var(--color-primary-light) !important;
-  --waline-color: var(--color-gray-900) !important;
-  --waline-bg-color: var(--color-gray-100) !important;
-  --waline-bg-color-light: var(--color-gray-200) !important;
-  --waline-border-color: var(--color-gray-300) !important;
-}
-
-/* 评论输入框样式优化 */
-.wl-editor {
-  border: 1px solid var(--color-gray-300) !important;
-  border-radius: var(--radius-md) !important;
-  background: var(--color-white) !important;
-  transition: all var(--transition-normal);
-}
-
-[data-theme="dark"] .wl-editor {
-  background: var(--color-gray-100) !important;
-  border-color: var(--color-gray-400) !important;
-  color: var(--color-gray-900) !important;
-}
-
-.wl-editor:focus {
-  border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.2) !important;
-  outline: none !important;
-}
-
-/* 按钮样式优化 */
-.wl-btn {
-  background: var(--color-primary) !important;
-  color: var(--color-white) !important;
-  border: none !important;
-  border-radius: var(--radius-md) !important;
-  padding: 10px 24px !important;
-  font-weight: 600 !important;
-  transition: all var(--transition-normal) !important;
-  box-shadow: var(--shadow-sm) !important;
-}
-
-.wl-btn:hover {
-  background: var(--color-primary-dark) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: var(--shadow-md) !important;
-}
-
-.wl-btn:active {
-  transform: translateY(0) !important;
-}
-
-/* 评论卡片样式 */
-.wl-card {
-  background: var(--color-white) !important;
-  border-radius: var(--radius-md) !important;
-  border: 1px solid var(--color-gray-200) !important;
-  margin-bottom: 16px !important;
-  padding: 20px !important;
-  transition: all var(--transition-normal);
-}
-
-[data-theme="dark"] .wl-card {
-  background: var(--color-gray-100) !important;
-  border-color: var(--color-gray-300) !important;
-}
-
-.wl-card:hover {
-  box-shadow: var(--shadow-md) !important;
-  transform: translateY(-2px);
-}
-
-/* 用户头像优化 */
-.wl-avatar {
-  border-radius: 50% !important;
-  border: 2px solid var(--color-primary-light) !important;
-  box-shadow: var(--shadow-sm) !important;
-}
-
-/* 评论内容样式 */
-.wl-content {
-  line-height: 1.7 !important;
-  color: var(--color-gray-800) !important;
-}
-
-[data-theme="dark"] .wl-content {
-  color: var(--color-gray-900) !important;
-}
-
-.wl-content p {
-  margin-bottom: 12px !important;
-}
-
-/* 昵称样式 */
-.wl-nick {
-  color: var(--color-gray-800) !important;
-  font-weight: 600 !important;
-  font-size: 1.1em !important;
-}
-
-[data-theme="dark"] .wl-nick {
-  color: var(--color-gray-900) !important;
-}
-
-/* 评论时间 */
-.wl-meta {
-  color: var(--color-gray-500) !important;
-  font-size: 0.9em !important;
-}
-
-/* 回复按钮 */
-.wl-reaction {
-  border: 1px solid var(--color-gray-300) !important;
-  border-radius: var(--radius-md) !important;
-  padding: 4px 12px !important;
-  background: var(--color-white) !important;
-  color: var(--color-gray-600) !important;
-}
-
-[data-theme="dark"] .wl-reaction {
-  background: var(--color-gray-100) !important;
-  border-color: var(--color-gray-400) !important;
-  color: var(--color-gray-800) !important;
-}
-
-.wl-reaction:hover {
-  background: var(--color-primary-light) !important;
-  color: var(--color-primary-dark) !important;
-}
-
-/* 表情选择器样式 */
-.wl-emoji-popup {
-  border: 1px solid var(--color-gray-300) !important;
-  border-radius: var(--radius-md) !important;
-  box-shadow: var(--shadow-lg) !important;
-  background: var(--color-white) !important;
-}
-
-[data-theme="dark"] .wl-emoji-popup {
-  background: var(--color-gray-100) !important;
-  border-color: var(--color-gray-400) !important;
-}
-
-/* 分页样式 */
-.wl-page-item {
-  border: 1px solid var(--color-gray-300) !important;
-  border-radius: var(--radius-md) !important;
-  padding: 6px 12px !important;
-  margin: 0 4px !important;
-}
-
-.wl-page-item:hover {
-  background: var(--color-primary-light) !important;
-  border-color: var(--color-primary) !important;
-}
-
-.wl-page-item.active {
-  background: var(--color-primary) !important;
-  border-color: var(--color-primary-dark) !important;
-  color: var(--color-white) !important;
-}
-
-/* 底部信息样式 */
-.wl-footer {
-  color: var(--color-gray-500) !important;
-  border-top: 1px solid var(--color-gray-200) !important;
-  padding-top: 16px !important;
-  margin-top: 16px !important;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-  #waline {
-    --waline-avatar-size: 40px !important;
-    --waline-font-size: 14px !important;
-  }
-  
-  .wl-card {
-    padding: 16px !important;
-  }
-  
-  .wl-btn {
-    padding: 8px 20px !important;
-  }
-}
-
-    /* Waline加载动画 */
-#waline:empty {
-  min-height: 200px;
-  background: linear-gradient(90deg, 
-    var(--color-gray-100) 25%, 
-    var(--color-gray-200) 50%, 
-    var(--color-gray-100) 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  border-radius: var(--radius-md);
-}
-
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
   </style>
 </head>
@@ -3158,20 +2987,35 @@
         </div>
       </section>
 
-      <!-- 评论区（始终显示在所有页面下方） -->
-<section id="comments" class="content-section" style="display: block; margin-top: 60px;">
-  <div class="section-header">
-    <h2 class="section-title">留言板</h2>
-    <p class="section-subtitle">本评论区仅用于交流与推荐</p>
+<!-- 评论容器 -->
+<div id="comments"></div>
+
+<!-- 引入评论脚本 -->
+<script src="https://bamby-comments.vercel.app/comments-widget.js"></script>
+
+<!-- 可选：自定义配置 -->
+<script>
+  // 可以自定义配置
+  window.bambyComments = new CommentSystem({
+    postId: '{{page.url}}',  // 使用页面路径作为文章ID
+    theme: 'light',          // light 或 dark
+    showAvatar: true
+  });
+</script>
+      
+      <div id="comments-section" class="comments-section">
+  <h2>留言板</h2>
+  <div class="comment-form">
+    <input type="text" id="comment-name" placeholder="你的昵称" required>
+    <textarea id="comment-content" placeholder="留下你的评论..." rows="3" required></textarea>
+    <button onclick="submitComment()">发布评论</button>
   </div>
   
-  <div class="container">
-    <div id="waline" style="max-width: 800px; margin: 0 auto;"></div>
+  <div id="comments-list" class="comments-list">
+    <!-- 评论将在这里显示 -->
   </div>
-</section>
+</div>
 
-      <script src="https://unpkg.com/@waline/client@v2/dist/waline.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
       
       <footer class="main-footer">
         <div class="footer-content">
@@ -3196,92 +3040,6 @@
       </footer>
     </main>
   </div>
-  
-  <script src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
-  <script>
-    // 等待页面完全加载后
-    Waline
-    document.addEventListener('DOMContentLoaded', function() {
-      // 延迟初始化，确保DOM完全加载
-      setTimeout(() => {
-        initWalineComment();
-      }, 1000);
-    });
-    
-    function initWalineComment() {
-      // 检查元素是否存在
-      const walineEl = document.getElementById('waline');
-      if (!walineEl) {
-        console.error('Waline容器未找到');
-        return;
-      }
-      
-      // 初始化Waline
-      try {
-        const walineInstance = Waline.init({
-          el: '#waline',
-          serverURL: 'https://bamby715-9npjahstm-bamby715s-projects.vercel.app',
-          path: '/',
-          lang: 'zh-CN',
-          login: 'disable',
-          emoji: [
-            '//unpkg.com/@waline/emojis@1.2.0/weibo',
-            '//unpkg.com/@waline/emojis@1.2.0/alus',
-            '//unpkg.com/@waline/emojis@1.2.0/bilibili',
-          ],
-          avatar: 'monsterid',
-          meta: ['nick', 'mail'],
-          pageview: false,
-          requiredMeta: ['nick'],
-          placeholder: '欢迎留言交流，支持Markdown语法~',
-          login: 'enable',
-          wordLimit: [0, 5000],
-          imageUploader: false,
-          copyright: false,
-          highlight: true,
-          emojiCDN: '//unpkg.com/@waline/emojis@1.2.0/',
-          dark: 'html[data-theme="dark"]',
-        });
-        
-        // 保存实例以便主题切换时更新
-        window.WalineInstance = walineInstance;
-        console.log('Waline评论系统初始化成功');
-      } catch (error) {
-        console.error('Waline初始化失败:', error);
-        
-        // 显示错误信息
-        walineEl.innerHTML = `
-          <div style="text-align: center; padding: 40px; background: var(--color-gray-50); border-radius: var(--radius-md);">
-            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--color-primary); margin-bottom: 20px;"></i>
-            <h3 style="color: var(--color-gray-700); margin-bottom: 10px;">评论系统加载失败</h3>
-            <p style="color: var(--color-gray-500);">请刷新页面重试或稍后再来</p>
-          </div>
-        `;
-      }
-    }
-    
-    // 监听主题切换，Waline需要重新渲染
-let originalToggleTheme = window.toggleTheme;
-window.toggleTheme = function() {
-  originalToggleTheme();
-  
-  // 添加主题切换动画
-  document.body.style.opacity = '0.8';
-  setTimeout(() => {
-    document.body.style.opacity = '1';
-  }, 200);
-  
-  // 重新初始化Waline以应用主题
-  setTimeout(() => {
-    const walineInstance = window.WalineInstance;
-    if (walineInstance && walineInstance.update) {
-      walineInstance.update();
-    }
-  }, 300);
-};
-    
-  </script>
-
   <script>
     // ========== 数据定义 ==========
     // 飘落图片
@@ -5792,6 +5550,7 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
         lastTouchEnd = now;
       }, false);
 
+  
       document.addEventListener('touchstart', function() {}, true);
     }
 
@@ -5808,9 +5567,110 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
         prevImage();
       }
     });
+
+    // 评论功能
+const API_URL = 'https://your-vercel-app.vercel.app/api'; // 替换为你的 Vercel URL
+
+async function loadComments() {
+  try {
+    const response = await fetch(`${API_URL}/comments?page=${window.location.pathname}`);
+    const comments = await response.json();
+    displayComments(comments);
+  } catch (error) {
+    console.error('加载评论失败:', error);
+  }
+}
+
+function displayComments(comments) {
+  const container = document.getElementById('comments-list');
+  container.innerHTML = '';
+  
+  comments.forEach(comment => {
+    const commentElement = document.createElement('div');
+    commentElement.className = 'comment-item';
+    commentElement.innerHTML = `
+      <div class="comment-header">
+        <span class="comment-author">${escapeHtml(comment.name)}</span>
+        <span class="comment-time">${formatDate(comment.timestamp)}</span>
+      </div>
+      <div class="comment-content">${escapeHtml(comment.content)}</div>
+      <div class="comment-actions">
+        <button class="like-btn" onclick="likeComment('${comment._id}')">
+          <i class="fas fa-heart"></i> ${comment.likes}
+        </button>
+      </div>
+    `;
+    container.appendChild(commentElement);
+  });
+}
+
+async function submitComment() {
+  const name = document.getElementById('comment-name').value.trim();
+  const content = document.getElementById('comment-content').value.trim();
+  
+  if (!name || !content) {
+    alert('请填写昵称和评论内容');
+    return;
+  }
+  
+  try {
+    const response = await fetch(`${API_URL}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        content,
+        page: window.location.pathname,
+      }),
+    });
     
+    if (response.ok) {
+      document.getElementById('comment-name').value = '';
+      document.getElementById('comment-content').value = '';
+      loadComments();
+    }
+  } catch (error) {
+    console.error('提交评论失败:', error);
+  }
+}
+
+async function likeComment(commentId) {
+  try {
+    const response = await fetch(`${API_URL}/comments/${commentId}/like`, {
+      method: 'POST',
+    });
+    
+    if (response.ok) {
+      loadComments();
+    }
+  } catch (error) {
+    console.error('点赞失败:', error);
+  }
+}
+
+// 工具函数
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+// 页面加载时加载评论
+document.addEventListener('DOMContentLoaded', loadComments);
+ 
   </script>
-
-
 </body>
 </html>
