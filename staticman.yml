@@ -1,0 +1,9 @@
+comments:
+  allowedFields:
+    - name
+    - message
+  requiredFields:
+    - message
+  path: "comments/{options.slug}"
+  branch: "main"
+  commitMessage: "New comment by {fields.name}"
