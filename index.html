@@ -59,7 +59,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 120px;
+      scroll-padding-top: 80px;
     }
 
     body {
@@ -416,7 +416,7 @@
     
     .sub-section {
       display: none;
-      scroll-margin-top: 100px;
+      
     }
     
     .sub-section.active {
@@ -2185,6 +2185,10 @@
         padding: 10px 16px;
         font-size: 0.9rem;
       }
+
+      html {
+    scroll-padding-top: 60px; /* 移动端用更小的值 */
+  }
       
       .content-wrapper {
         padding: 20px;
@@ -3857,6 +3861,165 @@
       fixMobileTouch();
     }
 
+    // ========== 改进的子导航功能 ==========
+    function initSubNavigation() {
+      const subNavBtns = document.querySelectorAll('#anli .sub-nav-btn');
+      const subSections = document.querySelectorAll('#anli .sub-section');
+      
+      subNavBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const subtab = this.getAttribute('data-subtab');
+          
+          // 移除所有按钮的active类
+          subNavBtns.forEach(function(b) {
+            b.classList.remove('active');
+          });
+          
+          // 为当前按钮添加active类
+          this.classList.add('active');
+          
+          // 切换显示对应的子部分
+          subSections.forEach(function(section) {
+            section.classList.remove('active');
+            if (section.getAttribute('data-subtab') === subtab) {
+              section.classList.add('active');
+            }
+          });
+          
+          // 滚动到对应的标题位置
+          setTimeout(function() {
+            const activeSection = document.querySelector('#anli .sub-section.active');
+            if (activeSection) {
+              // 找到标题元素
+              const titleElement = activeSection.querySelector('.section-title');
+              if (titleElement) {
+                // 计算标题的精确位置
+                const headerHeight = document.querySelector('.main-header').offsetHeight;
+                const titlePosition = titleElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                // 平滑滚动
+                window.scrollTo({
+                  top: titlePosition,
+                  behavior: 'smooth'
+                });
+              } else {
+                // 如果没有找到标题，滚动到子部分顶部
+                const sectionPosition = activeSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                window.scrollTo({
+                  top: sectionPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          }, 100);
+        });
+      });
+    }
+
+    function initMaterialNavigation() {
+      const subNavBtns = document.querySelectorAll('#materials .sub-nav-btn');
+      const subSections = document.querySelectorAll('#materials .sub-section');
+      
+      subNavBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const subtab = this.getAttribute('data-subtab');
+          
+          // 移除所有按钮的active类
+          subNavBtns.forEach(function(b) {
+            b.classList.remove('active');
+          });
+          
+          // 为当前按钮添加active类
+          this.classList.add('active');
+          
+          // 切换显示对应的子部分
+          subSections.forEach(function(section) {
+            section.classList.remove('active');
+            if (section.getAttribute('data-subtab') === subtab) {
+              section.classList.add('active');
+            }
+          });
+          
+          // 滚动到对应的标题位置
+          setTimeout(function() {
+            const activeSection = document.querySelector('#materials .sub-section.active');
+            if (activeSection) {
+              // 找到标题元素
+              const titleElement = activeSection.querySelector('.section-title');
+              if (titleElement) {
+                // 计算标题的精确位置
+                const headerHeight = document.querySelector('.main-header').offsetHeight;
+                const titlePosition = titleElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                // 平滑滚动
+                window.scrollTo({
+                  top: titlePosition,
+                  behavior: 'smooth'
+                });
+              } else {
+                // 如果没有找到标题，滚动到子部分顶部
+                const sectionPosition = activeSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                window.scrollTo({
+                  top: sectionPosition,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          }, 100);
+        });
+      });
+    }
+
+    function initScheduleNavigation() {
+      const subNavBtns = document.querySelectorAll('#schedule .sub-nav-btn');
+      const subSections = document.querySelectorAll('#schedule .sub-section');
+      
+      subNavBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const subtab = this.getAttribute('data-subtab');
+          
+          subNavBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          subSections.forEach(section => {
+            section.classList.remove('active');
+            if (section.getAttribute('data-subtab') === subtab) {
+              section.classList.add('active');
+              
+              if (subtab === 'monthly') {
+                setTimeout(() => {
+                  const today = new Date();
+                  currentYear = today.getFullYear();
+                  currentMonth = today.getMonth();
+                  updateCalendar();
+                }, 50);
+              }
+              
+              // 滚动到标题位置
+              setTimeout(() => {
+                const activeSection = document.querySelector('#schedule .sub-section.active');
+                if (activeSection) {
+                  const titleElement = activeSection.querySelector('.section-title');
+                  if (titleElement) {
+                    const headerHeight = document.querySelector('.main-header').offsetHeight;
+                    const titlePosition = titleElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                    
+                    window.scrollTo({
+                      top: titlePosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }
+              }, 100);
+            }
+          });
+        });
+      });
+    }
+
     // ========== 粒子效果 ==========
     function initParticleEffect() {
       // 为可点击元素添加粒子效果
@@ -4579,60 +4742,6 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
       handleHashChange();
     }
     
-    function initSubNavigation() {
-      const subNavBtns = document.querySelectorAll('#anli .sub-nav-btn');
-      const subSections = document.querySelectorAll('#anli .sub-section');
-      
-      subNavBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          const subtab = this.getAttribute('data-subtab');
-          subNavBtns.forEach(function(b) {
-            b.classList.remove('active');
-          });
-          this.classList.add('active');
-          subSections.forEach(function(section) {
-            section.classList.remove('active');
-            if (section.getAttribute('data-subtab') === subtab) {
-              section.classList.add('active');
-            }
-          });
-          setTimeout(function() {
-            document.getElementById('anli').scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }, 100);
-        });
-      });
-    }
-    
-    function initMaterialNavigation() {
-      const subNavBtns = document.querySelectorAll('#materials .sub-nav-btn');
-      const subSections = document.querySelectorAll('#materials .sub-section');
-      
-      subNavBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          const subtab = this.getAttribute('data-subtab');
-          subNavBtns.forEach(function(b) {
-            b.classList.remove('active');
-          });
-          this.classList.add('active');
-          subSections.forEach(function(section) {
-            section.classList.remove('active');
-            if (section.getAttribute('data-subtab') === subtab) {
-              section.classList.add('active');
-            }
-          });
-          setTimeout(function() {
-            document.getElementById('materials').scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }, 100);
-        });
-      });
-    }
-    
     function handleHashChange() {
       const hash = window.location.hash.substring(1);
       if (hash) {
@@ -4644,13 +4753,33 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
     }
     
     function switchTab(tabId) {
-      document.querySelectorAll('.content-section').forEach(function(section) {
-        section.classList.remove('active');
-      });
-      const targetSection = document.getElementById(tabId);
-      if (targetSection) {
-        targetSection.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelectorAll('.content-section').forEach(function(section) {
+    section.classList.remove('active');
+  });
+  const targetSection = document.getElementById(tabId);
+  if (targetSection) {
+    targetSection.classList.add('active');
+    
+    // 滚动到主标题位置
+        setTimeout(() => {
+          const titleElement = targetSection.querySelector('.section-title');
+          if (titleElement) {
+            const headerHeight = document.querySelector('.main-header').offsetHeight;
+            const titlePosition = titleElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+            
+            window.scrollTo({
+              top: titlePosition,
+              behavior: 'smooth'
+            });
+          } else {
+            // 如果没有找到标题，滚动到部分顶部
+            const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+            window.scrollTo({
+              top: sectionPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
         
         if (tabId === 'schedule') {
           setTimeout(() => {
@@ -5291,6 +5420,57 @@ function switchColor(outfitId, colorId, imageUrl, colorName, colorCode) {
         fanworksGrid.appendChild(createFanworkCard(fanwork));
       });
       
+    }
+
+    function initFanworksFilter() {
+      const filterButtons = document.querySelectorAll('#fanworks .sub-nav-btn');
+      
+      if (!filterButtons.length) return;
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const filterType = this.getAttribute('data-fanwork-type');
+          
+          // 更新按钮状态
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // 获取所有卡片
+          const fanworkCards = document.querySelectorAll('#fanworks .fanwork-card');
+          
+          // 筛选显示
+          let visibleCount = 0;
+          fanworkCards.forEach(card => {
+            const cardType = card.getAttribute('data-type');
+            if (filterType === 'all' || cardType === filterType) {
+              card.style.display = 'flex';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          // 滚动到顶部
+          setTimeout(() => {
+            const fanworksSection = document.getElementById('fanworks');
+            if (fanworksSection) {
+              const headerHeight = document.querySelector('.main-header').offsetHeight;
+              const titleElement = fanworksSection.querySelector('.section-title');
+              if (titleElement) {
+                const titlePosition = titleElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                window.scrollTo({
+                  top: titlePosition,
+                  behavior: 'smooth'
+                });
+              }
+            }
+          }, 100);
+          
+          // 显示筛选结果
+          showToast(`已筛选出 ${visibleCount} 个作品`);
+        });
+      });
     }
 
     function createFanworkCard(fanwork) {
