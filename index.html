@@ -1056,6 +1056,7 @@
       background: #000;
       border-radius: 8px;
       overflow: hidden;
+      min-height: 200px;
     }
 
     .video-wrapper {
@@ -1095,6 +1096,22 @@
       border-radius: 3px;
       font-size: 0.75rem;
     }
+    /* 视频海报样式 */
+.video-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
     /* ========= 视频相关 ========= */
     .original-links {
@@ -2534,7 +2551,10 @@
       <section id="anli" class="content-section">
         <div class="section-header">
           <h2 class="section-title">安利向</h2>
-          <p class="section-subtitle">翻唱、翻跳、舞台直拍</p>
+          <p class="section-subtitle">翻唱、翻跳、舞台直拍、演唱会</p>
+<p class="section-annotation" style="color: var(--color-gray-500); font-size: 0.9rem; margin-top: 0px; margin-bottom: 20px; text-align: center;">
+  <i class="fas fa-info-circle"></i> 视频过多会引起加载缓慢，故只保留三个直拍内嵌视频，其余直拍bamline成员可前往原视频观看
+</p>
         </div>
         
         <div class="sub-nav">
@@ -2550,6 +2570,10 @@
             <i class="fas fa-video"></i>
             舞台直拍
           </button>
+          <button class="sub-nav-btn" data-subtab="concert">
+  <i class="fas fa-guitar"></i>
+  演唱会
+</button>
         </div>
         
         <!-- 翻唱作品 -->
@@ -2590,7 +2614,22 @@
             <!-- 直拍视频卡片将通过JavaScript动态生成 -->
           </div>
         </div>
+
+        <!-- 演唱会区域 -->
+<div class="sub-section" data-subtab="concert">
+  <h3 class="section-title mb-4">🎤 演唱会</h3>
+  <div class="sort-controls" id="concert-sort-controls">
+    <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+    <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+    <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+  </div>
+  <div class="works-grid" id="concert-works-grid">
+    <!-- 演唱会卡片将通过JavaScript动态生成 -->
+  </div>
+</div>
       </section>
+
+      
       
       <!-- 物料汇总部分 -->
       <section id="materials" class="content-section">
@@ -2955,7 +2994,7 @@
 
     // 图片库数据
     const imageGalleries = {
-      // 回归照
+      // 回归照数据
       'concept-set-8': [
         'https://s2.loli.net/2026/01/25/e3Kz98cW7kmAops.jpg',
         'https://s2.loli.net/2026/01/25/NtBSZe8TlLmPRFW.jpg',
@@ -2982,7 +3021,7 @@
         'https://s2.loli.net/2026/01/25/A5XuNMat8d6Kw7W.jpg',
         'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg'
       ],
-      // 官方照片
+      // 官方照数据
       'photos-set-0': [
         'https://s2.loli.net/2026/01/27/LyTodn5UWYj2kr6.jpg',
         'https://s2.loli.net/2026/01/27/PB3fxKVyAzvXULD.jpg',
@@ -3012,38 +3051,44 @@
         'https://s2.loli.net/2026/02/01/flmagRQ1iG4YxAV.jpg',
         'https://s2.loli.net/2026/02/01/KkCHOA1PrWz7DXh.jpg'
       ],
-      // 个人照片
+      // 个人照数据
+      'personal-set-1': [
+        'https://s2.loli.net/2026/02/02/lMZ7tFbYIVHwixp.jpg',
+        'https://s2.loli.net/2026/02/02/NKUldbtehVGgnDx.jpg'
+      ],
       'personal-set-2': [
+        'https://s2.loli.net/2026/02/02/uOymGHYrfXKgEIV.jpg',
+        'https://s2.loli.net/2026/02/02/tTXIo6erY9Ahdyk.jpg',
         'https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg',
         'https://s2.loli.net/2026/01/25/24OmhqIxXsFPLkp.jpg',
         'https://s2.loli.net/2026/01/25/VjaqsuCYdTv5JFL.jpg',
-    'https://s2.loli.net/2026/01/25/IPTGe9K2ZSOnhxv.jpg',
-    'https://s2.loli.net/2026/01/25/WaYRBUyHP3xwr1D.jpg',
-    'https://s2.loli.net/2026/01/25/sxFKdDichwuRa35.jpg',
-    'https://s2.loli.net/2026/01/25/Af1yLSp2Ksqvcib.jpg',
-    'https://s2.loli.net/2026/01/25/HPyDMIz1g4ZA37n.jpg',
-    'https://s2.loli.net/2026/01/25/eWuZD5KwBb2HNIy.jpg',
-    'https://s2.loli.net/2026/01/25/tSTsWyoKRbic3I5.jpg',
-    'https://s2.loli.net/2026/01/25/8NCMinDx1mSTu96.jpg'
+        'https://s2.loli.net/2026/01/25/IPTGe9K2ZSOnhxv.jpg',
+        'https://s2.loli.net/2026/01/25/WaYRBUyHP3xwr1D.jpg',
+        'https://s2.loli.net/2026/01/25/sxFKdDichwuRa35.jpg',
+        'https://s2.loli.net/2026/01/25/Af1yLSp2Ksqvcib.jpg',
+        'https://s2.loli.net/2026/01/25/HPyDMIz1g4ZA37n.jpg',
+        'https://s2.loli.net/2026/01/25/eWuZD5KwBb2HNIy.jpg',
+        'https://s2.loli.net/2026/01/25/tSTsWyoKRbic3I5.jpg',
+        'https://s2.loli.net/2026/01/25/8NCMinDx1mSTu96.jpg'
       ],
       'personal-set-3': [
-    'https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg',
-    'https://s2.loli.net/2026/01/25/eHTF7zSQUtWi5uv.jpg',
-    'https://s2.loli.net/2026/01/25/u52svHCTj8V1PER.jpg',
-    'https://s2.loli.net/2026/01/25/2PoLecsj7E1OZhI.jpg',
-    'https://s2.loli.net/2026/01/25/w7LdWobmgkaDGzu.jpg',
-    'https://s2.loli.net/2026/01/25/vjN436qlZ8wJKSB.jpg',
-    'https://s2.loli.net/2026/01/25/TxesEKiqbNPlXM7.jpg',
-    'https://s2.loli.net/2026/01/25/juVg3KNcXdysYQr.jpg',
-    'https://s2.loli.net/2026/01/25/As6Wdet9rubxGTV.jpg',
-    'https://s2.loli.net/2026/01/25/Uf9qOjbW2IkSvnw.jpg',
-    'https://s2.loli.net/2026/01/25/GAH4OMQpobN9TPl.jpg',
-    'https://s2.loli.net/2026/01/25/z4RvStYFM1eq28f.jpg',
-    'https://s2.loli.net/2026/01/25/KP4eIhpXo8qvy9f.jpg',
-    'https://s2.loli.net/2026/01/25/AlmCbzPh3BMjvYg.jpg',
-    'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
-    'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
-  ],
+        'https://s2.loli.net/2026/01/25/1Gqa5694gvIRSB8.jpg',
+        'https://s2.loli.net/2026/01/25/eHTF7zSQUtWi5uv.jpg',
+        'https://s2.loli.net/2026/01/25/u52svHCTj8V1PER.jpg',
+        'https://s2.loli.net/2026/01/25/2PoLecsj7E1OZhI.jpg',
+        'https://s2.loli.net/2026/01/25/w7LdWobmgkaDGzu.jpg',
+        'https://s2.loli.net/2026/01/25/vjN436qlZ8wJKSB.jpg',
+        'https://s2.loli.net/2026/01/25/TxesEKiqbNPlXM7.jpg',
+        'https://s2.loli.net/2026/01/25/juVg3KNcXdysYQr.jpg',
+        'https://s2.loli.net/2026/01/25/As6Wdet9rubxGTV.jpg',
+        'https://s2.loli.net/2026/01/25/Uf9qOjbW2IkSvnw.jpg',
+        'https://s2.loli.net/2026/01/25/GAH4OMQpobN9TPl.jpg',
+        'https://s2.loli.net/2026/01/25/z4RvStYFM1eq28f.jpg',
+        'https://s2.loli.net/2026/01/25/KP4eIhpXo8qvy9f.jpg',
+        'https://s2.loli.net/2026/01/25/AlmCbzPh3BMjvYg.jpg',
+        'https://s2.loli.net/2026/01/25/WF3PaXG2sIcYivB.jpg',
+        'https://s2.loli.net/2026/01/25/GBTzJdHVLPWa6C5.jpg'
+      ],
       'personal-set-10': [
     'https://i.ibb.co/0jzjg036/IMG-6146.jpg',
     'https://i.ibb.co/1fN7tVKn/IMG-6147.jpg',
@@ -3269,6 +3314,16 @@
     // 翻唱作品数据
     const coversData = [
       {
+        title: "GreatestMoment_Challenge with BAMBY",
+        date: "2026-01-30",
+        image: "https://s2.loli.net/2026/02/02/O1e8jzU2B6axCtr.png",
+        desc: "原唱：BTOB 徐恩光",
+        links: {
+          weibo: "https://weibo.com/5143372154/QpwiukVxK",
+          youtube: "https://www.youtube.com/shorts/NQAzVXsciUA"
+        }
+      },
+      {
         title: "I'm Not Alone",
         date: "2025-07-19",
         image: "https://s2.loli.net/2026/01/27/bnpUgqP1LfR2xSQ.jpg",
@@ -3276,6 +3331,16 @@
         links: {
           weibo: "https://weibo.com/7825391749/PBNGb28Bn",
           bilibili: "https://www.bilibili.com/video/BV1Wou1z5EdA/?spm_id_from=333.1387.search.video_card.click"
+        }
+      },
+      {
+        title: "晩餐歌",
+        date: "2025-06-03",
+        image: "https://s2.loli.net/2026/02/02/EST7VxkcmqlJn5z.png",
+        desc: "原唱：tuki.",
+        links: {
+          weibo: "https://weibo.com/5143372154/PuQ7L3VFP",
+          youtube: "https://www.youtube.com/shorts/nVRsJReX2PM"
         }
       },
       {
@@ -3360,8 +3425,28 @@
   }
     ];
     
-    // 翻跳作品数据
+    // 翻跳数据
     const danceData = [
+      {
+        title: "𝑷𝒖𝒕 𝒚𝒐𝒖𝒓 𝒃𝒐𝒅𝒚",
+        date: "2025-10-04",
+        image: "https://s2.loli.net/2026/02/01/oCxtwn2BdkgG8vF.png",
+        desc: "《 body 》 - 任多荣",
+        links: {
+          weibo: "https://weibo.com/7825391749/Q7zpg9UaZ",
+          bilibili: "https://www.bilibili.com/video/BV1nixpz7EPz/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+        }
+      },
+      {
+        title: "🩷 Pookie 🐿️ 🩷",
+        date: "2025-07-16",
+        image: "https://s2.loli.net/2026/02/02/Osaf6jzC4HWGThV.png",
+        desc: "《 Pookie 》 - FIFTY FIFTY",
+        links: {
+          weibo: "https://weibo.com/7825391749/PBmY6kwcg",
+          bilibili: "https://www.bilibili.com/video/BV1iEutzjEzL/?spm_id_from=333.1387.upload.video_card.click"
+        }
+      },
       {
         title: "姐姐真漂亮（横版）",
         date: "2023-07-10",
@@ -3495,12 +3580,20 @@
       ],
       "personal-photos": [
         {
+          title: "26年2月汇总",
+          date: "2026-02",
+          image: "https://s2.loli.net/2026/02/02/lMZ7tFbYIVHwixp.jpg",
+          desc: "26年2月直播等汇总照片",
+          gallery: "personal-set-1",
+          imageCount: 2
+        },
+        {
           title: "26年1月汇总",
           date: "2026-01",
-          image: "https://s2.loli.net/2026/01/25/J127SlwpWBZviOM.jpg",
+          image: "https://s2.loli.net/2026/02/02/uOymGHYrfXKgEIV.jpg",
           desc: "26年1月直播等汇总照片",
           gallery: "personal-set-2",
-          imageCount: 11
+          imageCount: 13
         },
         {
       title: "25年12月汇总",
@@ -3653,8 +3746,18 @@
       ]
     };
 
-    // 跳舞挑战数据
+    // challenge数据
 const danceChallengeData = [
+  {
+    title: "Love Love Love ·°♡",
+    date: "2026-02-01",
+    image: "https://s2.loli.net/2026/02/02/8ljMzvVaDhcRfeK.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: "https://weibo.com/7825391749/QoJqcjLbX",
+      bilibili: "https://www.bilibili.com/video/BV1cK6yBbEWa/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
   {
     title: "Ooh-ah-ah 💨",
     date: "2026-01-25",
@@ -3856,16 +3959,6 @@ const danceChallengeData = [
     }
   },
   {
-    title: "𝑷𝒖𝒕 𝒚𝒐𝒖𝒓 𝒃𝒐𝒅𝒚",
-    date: "2025-10-04",
-    image: "https://s2.loli.net/2026/02/01/oCxtwn2BdkgG8vF.png", 
-    desc: "💗",
-    links: {
-      weibo: 'https://weibo.com/7825391749/Q7zpg9UaZ',
-      bilibili: "https://www.bilibili.com/video/BV1nixpz7EPz/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
-    }
-  },
-  {
     title: "❤️🩷🌳 | ू*ˊᗜˋ ) 藏好了吗 💜",
     date: "2025-09-17",
     image: "https://s2.loli.net/2026/02/01/ft9Tuzn76QMPOWL.png", 
@@ -3884,14 +3977,304 @@ const danceChallengeData = [
       weibo: 'https://weibo.com/7825391749/Q4QNh7zzJ',
       bilibili: "https://www.bilibili.com/video/BV1E9pyzeEAq/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
     }
+  },
+  {
+    title: "Barabam 🩷🖤",
+    date: "2025-09-03",
+    image: "https://s2.loli.net/2026/02/02/CrcYDOFvLs3WRio.png", 
+    desc: "💗🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Q2RQsF64C',
+      bilibili: "https://www.bilibili.com/video/BV1qhagz9ETR/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "PLLI☝️ and only 🎶",
+    date: "2025-09-02",
+    image: "https://s2.loli.net/2026/02/02/V3oNzRCaXniEDMj.png", 
+    desc: "💜💗❤️",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Q2IpY4Nk5',
+      bilibili: "https://www.bilibili.com/video/BV1YWawz4EM9/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "君の好きなところ ♡ ⋆｡˚",
+    date: "2025-08-26",
+    image: "https://s2.loli.net/2026/02/02/uCUah5pHcLVtJEw.png", 
+    desc: "💙💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Q1EqusQaZ',
+      bilibili: "https://www.bilibili.com/video/BV1J5vwz5EAX/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "Grrr 🐾🐺🐿️",
+    date: "2025-08-21",
+    image: "https://s2.loli.net/2026/02/02/o6GJEzx5AvIhSfl.png", 
+    desc: "💗❤️",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Q0Ti1hcfw',
+      bilibili: "https://www.bilibili.com/video/BV1gMYXzeEKN/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "都好好评论哈~⌨️💢",
+    date: "2025-08-07",
+    image: "https://s2.loli.net/2026/02/02/4SgNVKevLHuGB3n.png", 
+    desc: "💙💜💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PEILnu3rq',
+      bilibili: "https://www.bilibili.com/video/BV1fWtBztEMV/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "かくれんぼ 🫣👀 with ME:I MIU",
+    date: "2025-07-31",
+    image: "https://s2.loli.net/2026/02/02/7rsi1jUYBnZKJ9R.png", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PDDZbuQMZ',
+      bilibili: "https://www.bilibili.com/video/BV1DM81zzEW2/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "SODA POP 🫧 SoloCam Mix",
+    date: "2025-07-25",
+    image: "https://s2.loli.net/2026/02/02/cxlmRio3DkC6p9b.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PCKp6lK5g',
+      bilibili: "https://www.bilibili.com/video/BV1VMbXzfEVW/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "I'ma be Your Idol 😈🔮",
+    date: "2025-07-15",
+    image: "", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PBdVY2ZB5',
+      bilibili: "https://www.bilibili.com/video/BV1FouEz8Ezi/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "かくれんぼ 🫣👀 with SHINee KEY",
+    date: "2025-07-22",
+    image: "https://s2.loli.net/2026/02/02/Oq79buTYLGfsziy.png", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PCh8J9KYM',
+      bilibili: "https://www.bilibili.com/video/BV1DAgJzEEJg/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "I'ma be Your Idol 😈🔮",
+    date: "2025-07-15",
+    image: "https://s2.loli.net/2026/02/02/OAnGRlzJrjDq3kM.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PBdVY2ZB5',
+      bilibili: "https://www.bilibili.com/video/BV1FouEz8Ezi/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "Hide and Seek 🫣🫶🩷",
+    date: "2025-07-11",
+    image: "https://s2.loli.net/2026/02/02/Q9F5tqRg8Ka3HZ1.png", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PAB2UqtuW',
+      bilibili: "https://www.bilibili.com/video/BV16PGgzyE98/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "Hide and Seek ☝️✌️👌",
+    date: "2025-07-05",
+    image: "https://s2.loli.net/2026/02/02/Ni7uhEgZqD1J5tb.png", 
+    desc: "💜💗🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PzFiS1yuF',
+      bilibili: "https://www.bilibili.com/video/BV1tv37zkE7D/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "ⓈⓄⒹⒶ ⓅⓄⓅ ｡ﾟ*｡♡",
+    date: "2025-07-03",
+    image: "https://s2.loli.net/2026/02/02/RrY486FIU3DJMyb.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PzpcI8KM2',
+      bilibili: "https://www.bilibili.com/video/BV1tE3uzHEvK/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "𝘼𝙗𝙨𝙤𝙡𝙪𝙩𝙚 𝙯𝙚𝙧𝙤 🎸",
+    date: "2025-07-01",
+    image: "https://s2.loli.net/2026/02/02/vtPlogWj7x89zKD.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Pz5yEmmlC',
+      bilibili: "https://www.bilibili.com/video/BV1XogDzkEGJ/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "かくれんぼ 👀👋 with JO1 川尻蓮 REN",
+    date: "2025-06-23",
+    image: "https://s2.loli.net/2026/02/02/6LBekChT5fVsaPz.png", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PxRlYvVY0',
+      bilibili: "https://www.bilibili.com/video/BV1DsKtzhEYf/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "かくれんぼ 🫣🩷👀💙",
+    date: "2025-06-19",
+    image: "https://s2.loli.net/2026/02/02/YUA9T64pjHrD28o.png", 
+    desc: "💙💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Pxg2l4Ypg',
+      bilibili: "https://www.bilibili.com/video/BV1gRNsznEuA/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "✨ A to TikTok 1M ✨",
+    date: "2025-06-13",
+    image: "https://s2.loli.net/2026/02/02/2ZWRlS54FGQdfNm.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PwlRIowQr',
+      bilibili: "https://www.bilibili.com/video/BV1dJMgzZEbh/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "イライラ💢",
+    date: "2025-06-10",
+    image: "https://s2.loli.net/2026/02/02/9DfoNOy8d1ECRka.png", 
+    desc: "💙💗❤️",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PvTYAlCxP',
+      bilibili: "https://www.bilibili.com/video/BV1QHTCzkEFd/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "✧ﾟ･ 🎀 公主的规则 🎀 ･ﾟ✧",
+    date: "2025-05-15",
+    image: "https://s2.loli.net/2026/02/02/86WHVEYlmOJh5xa.png", 
+    desc: "💜💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PrW4Xwqlc',
+      bilibili: "https://www.bilibili.com/video/BV1wMEkzXE7s/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "大股の正社員と 👣 小股のバイト 🐾",
+    date: "2025-05-12",
+    image: "https://s2.loli.net/2026/02/02/XE63iFrWJK7D2cB.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PrsCp66v5',
+      bilibili: "https://www.bilibili.com/video/BV1z1ELzkEXs/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "エッホエッホ みんなに伝えなきゃ",
+    date: "2025-05-09",
+    image: "https://s2.loli.net/2026/02/02/egr3L2auD9RvNBz.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Pr0kV4dox',
+      bilibili: "https://www.bilibili.com/video/BV1J55KzMEhY/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "MMMM也向Terra Dash ⚡",
+    date: "2025-04-29",
+    image: "https://s2.loli.net/2026/02/02/ro5asnOX98KGLiB.png", 
+    desc: "💙💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PpvPy4GRv',
+      bilibili: "https://www.bilibili.com/video/BV1WjGCzyEzK/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "すごい速さ 💨",
+    date: "2025-04-24",
+    image: "https://s2.loli.net/2026/02/02/PA8aH4EZexfjiTL.png", 
+    desc: "💙💜💗❤️🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PoJIaxSYY',
+      bilibili: "https://www.bilibili.com/video/BV1GDLez3ELG/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "🎀 (ง💜)ว (ง🩷)ว 🎀",
+    date: "2025-04-21",
+    image: "https://s2.loli.net/2026/02/02/eIkuyct5Q9nKN4S.png", 
+    desc: "💜💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PohP2x9Ns',
+      bilibili: "https://www.bilibili.com/video/BV1UgLuzhEev/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: " ˚✧⁎彡Kawaiiミ˚✧⁎",
+    date: "2025-04-12",
+    image: "https://s2.loli.net/2026/02/02/ZJg9NLoQ8rmezjE.png", 
+    desc: "💗❤️",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PmTp9Betk',
+      bilibili: "https://www.bilibili.com/video/BV13bddYoEBM/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: " 没关系 ✋",
+    date: "2025-04-07",
+    image: "https://s2.loli.net/2026/02/02/NojHpwYbxD5aWs4.png", 
+    desc: "💗🖤",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Pm9rJeZLU',
+      bilibili: "https://www.bilibili.com/video/BV1HJRyYgEW6/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "♫͙◟̊👋+🎀=🍨◞̊♫͙",
+    date: "2025-04-05",
+    image: "https://s2.loli.net/2026/02/02/ldfzoPQ4xpyVr6I.png", 
+    desc: "💙💜💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PlPpG2ODB',
+      bilibili: "https://www.bilibili.com/video/BV1BRRSYDEUn/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "★˚₊ ᴅɪɴɢ ᴅᴏɴɢ ᴠɪʙᴇ 🎧⋆｡˚ ꩜",
+    date: "2025-04-03",
+    image: "https://s2.loli.net/2026/02/02/79MBu1aQoDSU62R.png", 
+    desc: "💙💜💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/Ply86tPgZ',
+      bilibili: "https://www.bilibili.com/video/BV1KJZ2YfETo/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "格外奇异却又美丽的夜晚..斑比 🖥️🩷",
+    date: "2025-03-26",
+    image: "https://s2.loli.net/2026/02/02/giEvMQep9OkHtTn.png", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/7825391749/PkloKcPpL',
+      bilibili: "https://www.bilibili.com/video/BV1A5oeYDETr/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
   }
   // 可以继续添加更多挑战...
 ];
     
-    // 直拍视频数据
+    // 直拍数据
     const stageData = [
       {
-        title: "왜요 왜요 왜 直拍",
+        title: "왜요 왜요 왜 直拍（横版）",
         date: "2023-06-03",
         image: "https://s2.loli.net/2026/01/26/OnQfu6C2zLXZJEh.jpg",
         desc: "PLAVE Bamby - Why(플레이브 밤비 - 왜요 왜요 왜) Close-up Cam | Show! MusicCore",
@@ -3901,8 +4284,8 @@ const danceChallengeData = [
         }
       },
       {
-    title: "WAY 4 LUV 直拍",
-    date: "2024-03-15",
+    title: "WAY 4 LUV 直拍（横版）",
+    date: "2024-03-09",
     image: "https://s2.loli.net/2026/01/26/7zRfE68NhAGZl1v.jpg",
     desc: "PLAVE Bamby (플레이브 밤비) - WAY 4 LUV | MBC",
     video: "https://streamable.com/e/adl7he?autoplay=1&controls=1&muted=0",
@@ -3912,7 +4295,7 @@ const danceChallengeData = [
   },
   {
     title: "Dash 直拍（横版）",
-    date: "2025-02-19",
+    date: "2025-02-15",
     image: "https://s2.loli.net/2026/01/26/eWkQsITmjtBMDSh.jpg",
     desc: "PLAVE BAMBY (플레이브 밤비) – Dash | MBC",
     video: "https://streamable.com/e/bdkzs4?autoplay=1&controls=1&muted=0",
@@ -3922,14 +4305,157 @@ const danceChallengeData = [
   },
   {
     title: "Dash 直拍（竖版）",
-    date: "2025-02-19",
+    date: "2025-02-06",
     image: "https://s2.loli.net/2026/01/26/7DWHXd4jOqLBYpJ.jpg",
     desc: "플레이브 밤비 직캠 4K 'Dash' (PLAVE BAMBY FanCam)",
     links: {
       youtube: "https://www.youtube.com/watch?v=kR32F9VemFg&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=3"
     }
   },
+   {
+    title: "The 6th Summer 直拍（横版）",
+    date: "2023-08-26",
+    image: "https://s2.loli.net/2026/02/02/I1hUQx5gkKoA3PB.png",
+    desc: "(플레이브 밤비 - 여섯 번째 여름) Close-up Cam | Show! MusicCore",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=Iu_KlxLeqSk&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=4"
+    }
+  },
+    {
+    title: "Pink Venom 直拍（竖版）",
+    date: "2025-03-27",
+    image: "https://s2.loli.net/2026/02/02/hvtQD7JjGHR9ZWq.png",
+    desc: "플레이브 밤비 직캠 4K 'Pink Venom' (PLAVE BAMBY FanCam)",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=on5so3m7Xtc&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=5"
+    }
+  },
+    {
+    title: "Pump Up The Volume! + Watch Me Woo! 直拍（竖版）",
+    date: "2025-01-29",
+    image: "https://s2.loli.net/2026/02/02/NOHq6jkpiE1VBny.png",
+    desc: "플레이브 밤비–Pump Up The Volume! + Watch Me Woo!직캠(PLAVE BAMBY Fancam)|MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=WlqLb17Y5Fw&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=6"
+    }
+  },
+    {
+        title: "왜요 왜요 왜 直拍（竖版）",
+        date: "2023-06-03",
+        image: "https://s2.loli.net/2026/02/02/WGYvcZLbU8haqF6.png",
+        desc: "PLAVE Bamby – Why?(플레이브 밤비 - 왜요 왜요 왜?) FanCam | Show! MusicCore | MBC",
+        links: {
+          youtube: "https://www.youtube.com/watch?v=7QScAqmpdCA&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=7"
+        }
+      },
+      {
+    title: "Pump Up The Volume! + Watch Me Woo! 直拍（横版）",
+    date: "2025-01-29",
+    image: "https://s2.loli.net/2026/02/02/snhWNRMeDrlTjbq.png",
+    desc: "플레이브 밤비 (PLAVE BAMBY)–Pump Up The Volume! + Watch Me Woo! | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=HdSTh3Aw0yU&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=8"
+    }
+  },
+    {
+    title: "Hide and Seek 直拍（横版）",
+    date: "2025-09-20",
+    image: "https://s2.loli.net/2026/02/02/TG8n5shM9dVrxHj.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – 숨바꼭질 (Hide and Seek) | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=OuvzgzZbwGY&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=10"
+    }
+  },
+    {
+    title: "BBUU! 直拍（横版）",
+    date: "2025-11-15",
+    image: "https://s2.loli.net/2026/02/02/dTPLJcRU1VQIiWO.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU! | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=MwRD53JY0sg&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=11"
+    }
+  },
+    {
+    title: "Dash 直拍（竖版）",
+    date: "2025-02-15",
+    image: "https://s2.loli.net/2026/02/02/OKTXWaNEsx5hgVw.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – Dash FanCam | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=XIyMRq-IA1o&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=12"
+    }
+  },
+    {
+    title: "Hide and Seek 直拍（竖版）",
+    date: "2025-09-20",
+    image: "https://s2.loli.net/2026/02/02/ecLyArPbGN73vHS.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – 숨바꼭질 (Hide and Seek) FanCam | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=akW7Wh7Nvuo&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=13"
+    }
+  },
+    {
+    title: "BBUU! 直拍（竖版）",
+    date: "2025-11-15",
+    image: "https://s2.loli.net/2026/02/02/glQt1Y4zKVUo2JA.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU! FanCam | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=e6owgPWmD8M&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=14"
+    }
+  },
+    {
+    title: "BBUU!+Dash 直拍（竖版）",
+    date: "2025-12-31",
+    image: "https://s2.loli.net/2026/02/02/tHQuZmc67OjxnCf.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU!+Dash FanCam | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=gg5M1LAy0zQ&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=15"
+    }
+  },
+    {
+    title: "BBUU! 直拍（横版）",
+    date: "2025-11-22",
+    image: "https://s2.loli.net/2026/02/02/PyIWGVc87aOZbJ3.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU! | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=-x4szEmBoBw&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=16"
+    }
+  },
+    {
+    title: "BBUU!+Dash 直拍（横版）",
+    date: "2025-12-31",
+    image: "https://s2.loli.net/2026/02/02/vldTVtqjXe541RL.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU!+Dash | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=AFQx0cC6bz0&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=17"
+    }
+  },
+    {
+    title: "BBUU! 直拍（竖版）",
+    date: "2025-11-22",
+    image: "https://s2.loli.net/2026/02/02/LYDaFEB8UjN5xVG.png",
+    desc: "PLAVE BAMBY (플레이브 밤비) – BBUU! FanCam | 쇼! 음악중심 | MBC",
+    links: {
+      youtube: "https://www.youtube.com/watch?v=yakrZaBOQII&list=PLyyaQiJ4Eolxv0ljDwqP-zzBqGrv6PTCX&index=18"
+    }
+  }
     ];
+
+    // 演唱会数据
+const concertData = [
+  {
+    title: "'Hello, Asterum!' ENCORE",
+    date: "2025-04-22",
+    image: "https://s2.loli.net/2026/02/02/sr4tEKM9edfWNVD.png", 
+    desc: "BAMBY & EUNHO - 'Hold my hand' + 'LIT' + 'Next Level' (原唱 : IU, aespa)",
+    video: "https://streamable.com/e/t93vch?autoplay=1&controls=1&muted=0", 
+    links: {
+      weibo: "https://weibo.com/7825391749/PosqBzrAm",
+      bilibili: "https://www.bilibili.com/video/BV18L5DzLE51/",
+      youtube: "https://www.youtube.com/watch?v=6sLCCvvg9Io"
+    }
+  }
+  //
+];
 
     // 衣柜展示数据
     const wardrobeData = [
@@ -4574,6 +5100,23 @@ const danceChallengeData = [
         });
       }
 
+      // 生成演唱会内容 - 这里要修改
+  const concertGrid = document.getElementById('concert-works-grid');
+  if (concertGrid && concertData && concertData.length > 0) {
+    concertData.forEach(item => {
+      concertGrid.appendChild(createWorkCard(item));
+    });
+  } else {
+    // 如果还没有演唱会数据，显示提示
+    concertGrid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+        <i class="fas fa-calendar-alt" style="font-size: 3rem; color: var(--color-gray-300); margin-bottom: 20px;"></i>
+        <h3 style="color: var(--color-gray-700); margin-bottom: 10px;">暂无演唱会数据</h3>
+        <p style="color: var(--color-gray-500);">演唱会数据正在整理中...</p>
+      </div>
+    `;
+  }
+
       // 生成物料内容
       generateMaterialsContent();
 
@@ -4826,47 +5369,54 @@ const danceChallengeData = [
     }
 
     function createWorkCard(data) {
-      const card = document.createElement('div');
-      card.className = 'work-card';
-      card.setAttribute('data-date', data.date);
-      card.setAttribute('data-title', data.title);
-      
-      const hasVideo = data.video ? true : false;
-      
-      card.innerHTML = `
-        <div class="work-image-container" onclick="${hasVideo ? '' : `openImageGallery('${data.gallery || ''}')`}">
-          <img src="${data.image}" alt="${data.title}" class="work-image">
-          ${hasVideo ? `
-            <div class="video-poster" style="background-image: url('${data.image}');">
-              <div class="poster-overlay">
-                <button class="play-button">
-                  <i class="fas fa-play-circle"></i>
-                </button>
-                <div class="play-text">点击播放视频</div>
-              </div>
-            </div>
-            <iframe data-src="${data.video}" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-          ` : ''}
-        </div>
-        <div class="work-content">
-          <h3 class="work-title">${data.title}</h3>
-          <div class="work-meta">
-            <span class="work-type">${data.date}</span>
-          </div>
-          <p class="work-desc">${data.desc}</p>
-          <div class="channels-section">
-            <h4>观看渠道</h4>
-            <div class="channels-grid">
-              ${data.links.weibo ? `<a href="${data.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>` : ''}
-              ${data.links.bilibili ? `<a href="${data.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>` : ''}
-              ${data.links.youtube ? `<a href="${data.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>` : ''}
-            </div>
+  const card = document.createElement('div');
+  card.className = 'work-card';
+  card.setAttribute('data-date', data.date);
+  card.setAttribute('data-title', data.title);
+  
+  const hasVideo = data.video ? true : false;
+  const uniqueId = 'video-' + Math.random().toString(36).substr(2, 9);
+  
+  card.innerHTML = `
+    <div class="work-image-container" ${hasVideo ? `id="${uniqueId}-container"` : ''}>
+      <img src="${data.image}" alt="${data.title}" class="work-image" ${hasVideo ? 'style="display: none;"' : ''}>
+      ${hasVideo ? `
+        <!-- 视频海报 -->
+        <div class="video-poster" id="${uniqueId}-poster" style="background-image: url('${data.image}'); display: flex;">
+          <div class="poster-overlay">
+            <button class="play-button" onclick="playVideo('${uniqueId}', '${data.video}')">
+              <i class="fas fa-play-circle"></i>
+            </button>
+            <div class="play-text">点击播放视频</div>
           </div>
         </div>
-      `;
-      
-      return card;
-    }
+        <!-- 视频播放器容器 -->
+        <div class="video-player-container" id="${uniqueId}-player" style="display: none;">
+          <div class="video-wrapper" id="${uniqueId}-wrapper">
+            <!-- iframe将通过JavaScript动态插入 -->
+          </div>
+        </div>
+      ` : ''}
+    </div>
+    <div class="work-content">
+      <h3 class="work-title">${data.title}</h3>
+      <div class="work-meta">
+        <span class="work-type">${data.date}</span>
+      </div>
+      <p class="work-desc">${data.desc}</p>
+      <div class="channels-section">
+        <h4>观看渠道</h4>
+        <div class="channels-grid">
+          ${data.links.weibo ? `<a href="${data.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>` : ''}
+          ${data.links.bilibili ? `<a href="${data.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>` : ''}
+          ${data.links.youtube ? `<a href="${data.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+  
+  return card;
+}
 
     function generateScheduleCards() {
       // 生成近期行程 - 检查是否已经存在
@@ -5601,6 +6151,7 @@ const danceChallengeData = [
         '2026-1-19': '❤️💗 双人WVS直播',
         '2026-1-12': '💜💗 双人直播',
         '2026-1-10': '💗 单人直播',
+        '2026-2-2': '💙💜💗❤️🖤 (19:00 CST)',
         '2025-12-31': '🎤 2025 MBC歌谣大祭典'
       };
       
@@ -5614,7 +6165,8 @@ const danceChallengeData = [
         '2026-1-19': '❤️💗  (11:50 CST)',
         '2026-1-12': '💜💗  (19:00 CST)',
         '2026-1-10': '💗 (19:00 CST)',
-        '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST, MBC电视台)'
+        '2026-2-2': '💙💜💗❤️🖤 (19:00 CST)',
+        '2025-12-31': '🎤 2025 MBC歌谣大祭典 (19:50 CST)'
       };
       
       const key = `${currentYear}-${currentMonth + 1}-${day}`;
@@ -5980,6 +6532,79 @@ const danceChallengeData = [
         prevImage();
       }
     });
+
+    // ========== 视频播放功能 ==========
+
+// 播放视频函数
+function playVideo(videoId, videoSrc) {
+  const container = document.getElementById(videoId + '-container');
+  const poster = document.getElementById(videoId + '-poster');
+  const player = document.getElementById(videoId + '-player');
+  const wrapper = document.getElementById(videoId + '-wrapper');
+  
+  if (container && poster && player && wrapper) {
+    // 隐藏海报
+    poster.style.display = 'none';
+    
+    // 显示视频播放器
+    player.style.display = 'block';
+    
+    // 清除之前的iframe（如果存在）
+    wrapper.innerHTML = '';
+    
+    // 创建新的iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = videoSrc + '?autoplay=1&controls=1&muted=0';
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    
+    wrapper.appendChild(iframe);
+    
+    // 强制重新计算布局
+    player.offsetHeight;
+    
+    // 添加到播放类以应用样式
+    wrapper.classList.add('playing');
+    
+    // 确保容器有正确的高度
+    if (container.offsetHeight < 200) {
+      container.style.minHeight = '200px';
+    }
+  }
+}
+
+// 停止所有视频播放的函数
+function stopAllVideos() {
+  document.querySelectorAll('.video-player-container').forEach(player => {
+    player.style.display = 'none';
+    const wrapper = player.querySelector('.video-wrapper');
+    if (wrapper) {
+      const iframe = wrapper.querySelector('iframe');
+      if (iframe) {
+        // 停止视频播放
+        iframe.src = '';
+      }
+    }
+  });
+  
+  // 显示所有海报
+  document.querySelectorAll('.video-poster').forEach(poster => {
+    poster.style.display = 'flex';
+  });
+}
+
+// 点击页面其他位置时停止视频
+document.addEventListener('click', function(e) {
+  // 如果不是点击视频播放按钮，停止所有视频
+  if (!e.target.closest('.play-button') && !e.target.closest('.video-player-container')) {
+    stopAllVideos();
+  }
+});
+    
   </script>
 </body>
 </html>
