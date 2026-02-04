@@ -26,6 +26,7 @@
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
       --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.15);
       --radius-md: 10px;
       --radius-lg: 14px;
       --transition-normal: 0.25s ease;
@@ -2150,6 +2151,132 @@
       margin-right: 8px;
     }
 
+        /* ========= 证书展示样式 ========= */
+    .certificate-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .certificate-content {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .certificate-image-container {
+      flex: 1;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-gray-200);
+      transition: transform var(--transition-normal);
+    }
+    
+    .certificate-image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .certificate-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .certificate-info {
+      padding: 25px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--color-primary-light), rgba(255, 255, 255, 0.9));
+      border-top: 1px solid var(--color-gray-200);
+    }
+    
+    .certificate-info h4 {
+      font-size: 1.4rem;
+      color: var(--color-gray-900);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .certificate-info p {
+      color: var(--color-gray-600);
+      font-size: 1rem;
+      margin: 0;
+    }
+    
+    .certificate-video-container {
+      flex: 1;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-gray-200);
+      transition: transform var(--transition-normal);
+    }
+    
+    .certificate-video-container:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .certificate-video-wrapper {
+      width: 100%;
+      background: #000;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    
+    .certificate-video-wrapper > div {
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 视频比例 */
+      position: relative;
+    }
+    
+    .certificate-video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    /* 深色模式适配 */
+    [data-theme="dark"] .certificate-image-container,
+    [data-theme="dark"] .certificate-video-container {
+      background: var(--color-gray-100);
+      border-color: var(--color-gray-300);
+    }
+    
+    [data-theme="dark"] .certificate-info {
+      background: linear-gradient(135deg, var(--color-primary), rgba(30, 30, 30, 0.9));
+      border-top-color: var(--color-gray-300);
+    }
+    
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .certificate-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .certificate-image-container,
+      .certificate-video-container {
+        width: 100%;
+      }
+      
+      .certificate-info {
+        padding: 20px;
+      }
+      
+      .certificate-info h4 {
+        font-size: 1.2rem;
+      }
+    }
+
     /* ========= 移动端适配 ========= */
     @media (max-width: 768px) {
       .container {
@@ -2571,9 +2698,13 @@
             舞台直拍
           </button>
           <button class="sub-nav-btn" data-subtab="concert">
-  <i class="fas fa-guitar"></i>
-  演唱会
-</button>
+            <i class="fas fa-guitar"></i>
+            演唱会
+          </button>
+          <button class="sub-nav-btn" data-subtab="certificate">
+            <i class="fas fa-award"></i>
+            证书
+          </button>
         </div>
         
         <!-- 翻唱作品 -->
@@ -2627,6 +2758,29 @@
     <!-- 演唱会卡片将通过JavaScript动态生成 -->
   </div>
 </div>
+
+         <!-- 证书展示模块 -->
+        <div class="sub-section" data-subtab="certificate">
+          <h3 class="section-title mb-4">🏆 证书展示</h3>
+          <div class="certificate-container">
+            <div class="certificate-content">
+              <div class="certificate-image-container">
+                <img src="https://s2.loli.net/2026/02/05/wzn4jkLV2YA5WDs.jpg" alt="日语N3证书" class="certificate-image">
+                <div class="certificate-info">
+                  <h4>日本語能力試験 N3</h4>
+                  <p>2024年合格</p>
+                </div>
+              </div>
+              <div class="certificate-video-container">
+                <div class="certificate-video-wrapper">
+                  <div style="position:relative; width:100%; height:0px; padding-bottom:57.103%">
+                    <iframe allow="fullscreen" allowfullscreen height="100%" src="https://streamable.com/e/pno02p?" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       
