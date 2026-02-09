@@ -3013,6 +3013,58 @@
     box-shadow: 0 6px 15px rgba(255, 182, 193, 0.3) !important;
     border-style: solid !important;
 }
+    /* 上传图片按钮 - 使用正确的类名选择器 */
+#HCB_comment_box .btn.btn-secondary {
+    display: inline-block !important;
+    font-size: 0.95rem !important;
+    padding: 8px 18px !important;
+    margin: 10px 6px !important;
+    background: rgba(255, 240, 245, 0.9) !important;
+    color: var(--color-primary-dark) !important;
+    border-radius: 20px !important;
+    border: 2px dashed rgba(255, 158, 189, 0.6) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    font-weight: 600 !important;
+    box-shadow: 0 3px 10px rgba(255, 182, 193, 0.2) !important;
+    position: relative;
+    cursor: pointer !important;
+}
+
+/* 添加相机emoji图标 */
+#HCB_comment_box .btn.btn-secondary::before {
+    content: '🖼️ ';
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+#HCB_comment_box .btn.btn-secondary:hover {
+    background: rgba(255, 224, 235, 0.95) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(255, 182, 193, 0.35) !important;
+    border-style: solid !important;
+    border-color: var(--color-primary) !important;
+    color: #C2185B !important;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] #HCB_comment_box .btn.btn-secondary {
+    background: linear-gradient(135deg, 
+        rgba(74, 45, 58, 0.7), 
+        rgba(106, 64, 80, 0.8)) !important;
+    color: #F8BBD0 !important;
+    border-color: #BA68C8 !important;
+    box-shadow: 0 4px 12px rgba(106, 64, 80, 0.3) !important;
+}
+
+[data-theme="dark"] #HCB_comment_box .btn.btn-secondary:hover {
+    background: linear-gradient(135deg, 
+        rgba(94, 55, 68, 0.8), 
+        rgba(126, 74, 90, 0.9)) !important;
+    color: #FCE4EC !important;
+    border-color: #EC407A !important;
+    box-shadow: 0 8px 20px rgba(106, 64, 80, 0.4) !important;
+}
 
 /* 管理员链接 */
 #HCB_comment_box a[href*="admin"],
