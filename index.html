@@ -2720,107 +2720,162 @@
 
     /* ========= HTMLCommentBox 自定义样式 ========= */
 #HCB_comment_box {
-    font-family: var(--font-body); /* 使用你网站的正文字体 */
-    margin-top: 40px; /* 与上方内容拉开距离 */
+    font-family: var(--font-body) !important; /* 使用你网站的正文字体 */
+    margin-top: 20px !important;
+    min-height: 300px; /* 确保有足够高度 */
 }
 
-/* 评论框整体卡片 */
+/* 评论框整体卡片 - 添加 !important 覆盖默认样式 */
 #HCB_comment_box .hcb-wrapper {
-    background: rgba(255, 255, 255, 0.85); /* 毛玻璃白底 */
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 194, 214, 0.4); /* 粉色边框 */
-    border-radius: var(--radius-lg); /* 使用你定义的大圆角 */
-    padding: 25px;
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 194, 214, 0.4) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 25px !important;
+    box-shadow: var(--shadow-md) !important;
+    width: 100% !important;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] #HCB_comment_box .hcb-wrapper {
+    background: rgba(30, 30, 30, 0.85) !important;
+    border-color: rgba(106, 64, 80, 0.4) !important;
 }
 
 /* 评论框标题 */
 #HCB_comment_box h3 {
-    color: var(--color-gray-900);
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-    text-align: center;
-    position: relative;
+    color: var(--color-gray-900) !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 20px !important;
+    text-align: center !important;
+    position: relative !important;
+    font-family: var(--font-body) !important;
 }
+
 #HCB_comment_box h3::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-    border-radius: 2px;
+    content: '' !important;
+    position: absolute !important;
+    bottom: -8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px !important;
+    height: 3px !important;
+    background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark)) !important;
+    border-radius: 2px !important;
 }
 
 /* 评论表单输入框 */
 #HCB_comment_box textarea,
 #HCB_comment_box input[type="text"],
 #HCB_comment_box input[type="email"] {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: 1px solid var(--color-gray-300);
-    border-radius: var(--radius-md);
-    background: var(--color-white);
-    font-family: var(--font-body);
-    transition: all var(--transition-normal);
-    box-sizing: border-box; /* 重要：确保宽度计算正确 */
+    width: 100% !important;
+    padding: 12px 15px !important;
+    margin-bottom: 15px !important;
+    border: 1px solid var(--color-gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    background: var(--color-white) !important;
+    font-family: var(--font-body) !important;
+    transition: all var(--transition-normal) !important;
+    box-sizing: border-box !important;
+    font-size: 14px !important;
 }
+
 #HCB_comment_box textarea:focus,
 #HCB_comment_box input[type="text"]:focus,
 #HCB_comment_box input[type="email"]:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.2);
+    outline: none !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.2) !important;
 }
 
 /* 提交按钮 */
 #HCB_comment_box input[type="submit"] {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 50px; /* 胶囊按钮 */
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    display: block;
-    margin: 20px auto 0;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 30px !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all var(--transition-normal) !important;
+    display: block !important;
+    margin: 20px auto 0 !important;
+    font-family: var(--font-body) !important;
+    font-size: 14px !important;
 }
+
 #HCB_comment_box input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3);
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3) !important;
 }
 
 /* 单条评论样式 */
 #HCB_comment_box .hcb-comment {
-    background: var(--color-white);
-    border-left: 4px solid var(--color-primary);
-    padding: 18px;
-    margin-bottom: 20px;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    background: var(--color-white) !important;
+    border-left: 4px solid var(--color-primary) !important;
+    padding: 18px !important;
+    margin-bottom: 20px !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm) !important;
 }
 
 /* 评论者姓名 */
 #HCB_comment_box .hcb-author {
-    color: var(--color-primary-dark);
-    font-weight: 600;
+    color: var(--color-primary-dark) !important;
+    font-weight: 600 !important;
+    font-family: var(--font-body) !important;
 }
 
 /* 评论日期 */
 #HCB_comment_box .hcb-date {
-    color: var(--color-gray-500);
-    font-size: 0.85rem;
+    color: var(--color-gray-500) !important;
+    font-size: 0.85rem !important;
+    font-family: var(--font-body) !important;
 }
 
 /* 评论内容 */
 #HCB_comment_box .hcb-msg {
-    color: var(--color-gray-800);
-    margin-top: 10px;
-    line-height: 1.5;
+    color: var(--color-gray-800) !important;
+    margin-top: 10px !important;
+    line-height: 1.5 !important;
+    font-family: var(--font-body) !important;
+}
+
+/* 确保评论框可见 */
+#HCB_comment_box {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+    /* 隐藏HTMLCommentBox的底部推广链接 */
+#HCB_comment_box > div:last-child a[href*="htmlcommentbox.com"] {
+    display: none !important;
+}
+
+/* 隐藏"Add Image"链接 */
+#HCB_comment_box a[href*="image"] {
+    display: none !important;
+}
+
+/* 居中评论框内容 */
+#HCB_comment_box .hcb-wrapper {
+    margin: 0 auto !important;
+    text-align: center !important;
+}
+
+/* 隐藏不想要的文本 */
+#HCB_comment_box span:contains("Not using Html Comment Box yet?"),
+#HCB_comment_box span:contains("account Settings") {
+    display: none !important;
+}
+
+/* 强制隐藏整个底部区域（如果有的话） */
+#HCB_comment_box > div:last-child {
+    text-align: center !important;
+    font-size: 0.8rem !important;
+    color: var(--color-gray-500) !important;
+    margin-top: 10px !important;
 }
   </style>
 </head>
@@ -3463,18 +3518,95 @@
         </div>
       </section>
 
+      <!-- HTMLCommentBox 本地化配置 (必须放在主脚本之前) -->
+  <script>
+  hcb_user = {
+      /* L10N - 中文本地化 */
+      comments_header : '留言板',
+      name_label : '昵称',
+      content_label: '在这里输入你的留言...',
+      submit : '发表留言',
+      logout_link : '<img title="退出登录" src="https://www.htmlcommentbox.com/static/images/door_out.svg" alt="[退出]" class="hcb-icon hcb-door-out"/>',
+      admin_link : '<img title="管理评论" src="https://www.htmlcommentbox.com/static/images/door_in.svg" alt="[登录]" class="hcb-icon hcb-door-in"/>',
+      no_comments_msg: '还没有人留言，快来抢沙发吧！',
+      add:'添加留言',
+      again: '再写一条',
+      rss:'<img src="https://www.htmlcommentbox.com/static/images/feed.svg" class="hcb-icon" alt="rss"/>',
+      said:'说：',
+      prev_page:'<img src="https://www.htmlcommentbox.com/static/images/arrow_left.png" class="hcb-icon" title="上一页" alt="[上一页]"/>',
+      next_page:'<img src="https://www.htmlcommentbox.com/static/images/arrow_right.png" class="hcb-icon" title="下一页" alt="[下一页]"/>',
+      showing:'显示',
+      to:'到',
+      website_label:'网站（选填）',
+      email_label:'邮箱',
+      anonymous:'匿名用户',
+      mod_label:'（管理员）',
+      subscribe:'邮件通知回复',
+      add_image:'添加图片',
+      are_you_sure:'确定要举报这条评论吗？',
+
+      reply:'回复',
+      flag:'举报',
+      like:'点赞',
+
+      /* 日期显示 */
+      days_ago:'天前',
+      hours_ago:'小时前',
+      minutes_ago:'分钟前',
+      within_the_last_minute:'刚刚',
+
+      msg_thankyou:'感谢你的留言！',
+      msg_approval:'注意：此留言需要审核后才能显示',
+      msg_approval_required:'感谢留言！管理员审核通过后即可显示。',
+
+      err_bad_html:'留言包含无效的HTML代码。',
+      err_bad_email:'请输入有效的邮箱地址。',
+      err_too_frequent:'请等待几秒后再发表留言。',
+      err_comment_empty:'留言内容不能为空！',
+      err_denied:'留言未被接受。',
+      err_unknown:'留言因未知原因被阻止，请报告此问题。',
+      err_spam:'留言被检测为垃圾信息。',
+      err_blocked:'留言因站点策略被阻止。',
+
+      /* 设置 */
+      MAX_CHARS: 4096,
+      PAGE: 'https://bamby715.github.io', // 所有页面使用相同的评论框
+      RELATIVE_DATES: true,
+      
+      // 评论框加载完成后的回调函数
+      ON_LOAD: function() {
+          console.log('评论框加载完成');
+          // 隐藏或调整那些不需要的链接
+          setTimeout(function() {
+              hideUnwantedElements();
+          }, 500);
+      }
+  };
+  </script>
+
       <!-- 全站评论区 -->
-        <section class="content-section" style="padding-top: 0; margin-top: 40px;">
-            <div class="work-card">
-                <div class="work-content">
-                    <h3 class="work-title">💌 留言板</h3>
-                    <p class="work-desc">欢迎bamline进行评论</p>
+        <section class="content-section" style="padding-top: 0; margin-top: 40px; display: block;">
+  <div class="work-card">
+    <div class="work-content">
+      <h3 class="work-title">💌 留言板</h3>
+      <p class="work-desc">欢迎bamline进行评论</p>
+      
+      <!-- 评论框容器 -->
+            <div id="HCB_comment_box" style="min-height: 400px;">
+                <p style="text-align: center; color: var(--color-gray-500); padding: 20px;">
+                    <i class="fas fa-spinner fa-spin"></i> 正在加载留言板...
+                </p>
+            </div>
 <!-- begin wwww.htmlcommentbox.com -->
 <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com"></a> is loading comments...</div>
 <script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} hcb_user.PAGE="https://bamby715.github.io";(function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&opts=278&num=10&ts=1770661804212");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
-                </div>
+                <!-- 隐藏不需要的元素 -->
+            <div id="comment-tips" style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: var(--color-gray-500);">
+                <p><i class="fas fa-info-circle"></i> 留言需要审核后才能显示，请文明发言</p>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
       
       <footer class="main-footer">
         <div class="footer-content">
@@ -7275,6 +7407,9 @@ const concertData = [
       setTimeout(() => {
         initFanworks();
       }, 500);
+
+      // 初始化评论框
+  initCommentBox();
     });
 
     function initApp() {
@@ -8401,6 +8536,12 @@ document.addEventListener('DOMContentLoaded', function() {
             initCalendar();
           }, 100);
         }
+
+        // 如果切换到其他标签页后再切换回来，检查评论框
+  if (tabId === 'others') {
+    setTimeout(initCommentBox, 500);
+  }
+
       }
     }
     
@@ -8775,6 +8916,22 @@ document.addEventListener('DOMContentLoaded', function() {
       else greeting = '晚上好';
       showToast(greeting + '，亲爱的bamline成员', 3000);
     }
+
+    // ========== 检查并重新加载评论框 ==========
+function initCommentBox() {
+  // 等待页面完全加载后初始化评论框
+  setTimeout(function() {
+    const commentBox = document.getElementById('HCB_comment_box');
+    if (commentBox && !window.HCB) {
+      // 如果评论框没有正确加载，重新加载脚本
+      const script = document.getElementById('hcb');
+      if (script) {
+        // 重新执行脚本
+        eval(script.innerHTML);
+      }
+    }
+  }, 2000); // 延迟2秒确保其他内容先加载
+}
     
     // ========== Toast消息提示 ==========
     function showToast(message, duration) {
@@ -9398,6 +9555,121 @@ document.addEventListener('click', function(e) {
   if (!e.target.closest('.play-button') && !e.target.closest('.video-player-container')) {
     stopAllVideos();
   }
+});
+
+    // ========== 隐藏HTMLCommentBox不需要的元素 ==========
+function hideUnwantedElements() {
+    // 等待评论框完全加载
+    setTimeout(function() {
+        // 隐藏"Add Image"链接
+        const addImageLinks = document.querySelectorAll('#HCB_comment_box a[href*="image"], #HCB_comment_box a:contains("Add Image"), #HCB_comment_box a:contains("添加图片")');
+        addImageLinks.forEach(link => {
+            link.style.display = 'none';
+        });
+        
+        // 隐藏"Not using Html Comment Box yet?"和账户设置链接
+        const unwantedLinks = document.querySelectorAll('#HCB_comment_box a[href*="htmlcommentbox.com"]');
+        unwantedLinks.forEach(link => {
+            if (link.textContent.includes('Html Comment Box') || 
+                link.textContent.includes('account Settings') ||
+                link.textContent.includes('HtmlCommentBox')) {
+                link.style.display = 'none';
+                link.parentElement.style.display = 'none';
+            }
+        });
+        
+        // 隐藏整个底部链接区域（如果存在）
+        const bottomLinks = document.querySelectorAll('#HCB_comment_box > div:last-child');
+        bottomLinks.forEach(div => {
+            if (div.textContent.includes('Html Comment Box') || 
+                div.textContent.includes('account Settings')) {
+                div.style.display = 'none';
+            }
+        });
+        
+        // 确保评论框内容居中
+        const commentBox = document.getElementById('HCB_comment_box');
+        if (commentBox) {
+            const wrapper = commentBox.querySelector('.hcb-wrapper');
+            if (wrapper) {
+                wrapper.style.margin = '0 auto';
+                wrapper.style.textAlign = 'center';
+            }
+        }
+    }, 1000); // 延迟1秒确保评论框完全加载
+}
+
+// ========== 管理评论功能 ==========
+// 你可以通过HTMLCommentBox网站管理评论
+// 登录网址：https://www.htmlcommentbox.com
+// 使用你的GitHub邮箱登录即可管理
+
+// ========== 重新加载评论框 ==========
+function reloadCommentBox() {
+    const commentBox = document.getElementById('HCB_comment_box');
+    if (commentBox) {
+        commentBox.innerHTML = '<p style="text-align: center; color: var(--color-gray-500); padding: 20px;"><i class="fas fa-spinner fa-spin"></i> 重新加载留言板...</p>';
+        
+        // 重新执行HTMLCommentBox脚本
+        const script = document.getElementById('hcb');
+        if (script && window.hcb_user) {
+            // 重新加载评论框
+            (function(){
+                var s = document.createElement("script"), 
+                    l = hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"),
+                    h = "https://www.htmlcommentbox.com";
+                s.setAttribute("type","text/javascript");
+                s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Wj7w94LJJY%2FqTfeMZvVYq1"+"&opts=278&num=10&ts=1770661804212");
+                if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);
+            })();
+        }
+        
+        showToast('正在重新加载留言板...');
+    }
+}
+
+// ========== 初始化评论框 ==========
+function initCommentBox() {
+    // 评论框脚本已经在head中加载
+    // 添加一个检查机制
+    setTimeout(function() {
+        const commentBox = document.getElementById('HCB_comment_box');
+        if (commentBox && commentBox.innerHTML.includes('正在加载')) {
+            // 如果5秒后还在加载，显示重试按钮
+            setTimeout(function() {
+                if (commentBox.innerHTML.includes('正在加载')) {
+                    commentBox.innerHTML += `
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button onclick="reloadCommentBox()" 
+                                    style="padding: 8px 16px; background: var(--color-primary); color: white; border: none; border-radius: var(--radius-md); cursor: pointer;">
+                                <i class="fas fa-redo"></i> 点击重新加载留言板
+                            </button>
+                        </div>
+                    `;
+                }
+            }, 5000);
+        }
+    }, 1000);
+}
+
+// 在DOM加载完成后调用
+document.addEventListener('DOMContentLoaded', function() {
+    // ... 其他初始化代码 ...
+    
+    // 初始化评论框
+    initCommentBox();
+    
+    // 监听标签页切换，当切换到其他标签页时处理评论框
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            const tabId = this.getAttribute('href').substring(1);
+            if (tabId === 'others') {
+                // 当切换到"其他"标签页时，确保评论框正常
+                setTimeout(hideUnwantedElements, 1500);
+            }
+        });
+    });
 });
     
   </script>
