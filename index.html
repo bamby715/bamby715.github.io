@@ -3162,6 +3162,90 @@
     color: #CE93D8 !important;
     border-color: rgba(106, 64, 80, 0.7) !important;
 }
+
+    /* ========= 移动端适配 (屏幕宽度 ≤ 768px) ========= */
+@media (max-width: 768px) {
+    /* 调整“添加图片”按钮 */
+    #HCB_comment_box .btn.btn-secondary {
+        font-size: 0.75rem !important;  /* 缩小文字 */
+        padding: 6px 14px !important;   /* 缩小内边距 */
+        margin: 8px 4px !important;     /* 缩小外边距 */
+        border-width: 2px !important;   /* 减小边框粗细 */
+        border-radius: 18px !important; /* 稍微减小圆角 */
+        
+        /* 如果是浮动动画版本，移除动画避免拥挤 */
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    /* 调整按钮图标大小 */
+    #HCB_comment_box .btn.btn-secondary::before {
+        font-size: 1em !important;
+        margin-right: 6px !important;
+    }
+    
+    /* 调整“发表留言”按钮（如果也需要） */
+    #HCB_comment_box input[type="submit"] {
+        padding: 12px 28px !important;  /* 缩小内边距 */
+        font-size: 15px !important;     /* 稍微缩小文字 */
+        margin: 20px auto 0 !important;
+        width: 90% !important;          /* 限制最大宽度 */
+        max-width: 280px !important;
+    }
+    
+    /* 调整表单内元素的间距 */
+    #HCB_comment_box form {
+        padding: 20px !important;       /* 减少表单内边距 */
+    }
+    
+    #HCB_comment_box input[type="text"],
+    #HCB_comment_box input[type="email"],
+    #HCB_comment_box textarea {
+        padding: 12px 15px !important;  /* 减小内边距 */
+        margin: 8px 0 !important;       /* 减小上下间距 */
+    }
+    
+    /* 调整评论卡片内边距 */
+    #HCB_comment_box .hcb-comment {
+        padding: 18px !important;
+        margin-bottom: 18px !important;
+    }
+    
+    /* 调整功能链接区域 */
+    #HCB_comment_box a[href*="admin"],
+    #HCB_comment_box a[href*="logout"] {
+        font-size: 0.8rem !important;
+        padding: 5px 10px !important;
+        margin: 6px 3px !important;
+    }
+
+   /* 调整右下角的管理员登录/登出链接 */
+    #HCB_comment_box a[href*="admin"],
+    #HCB_comment_box a[href*="logout"] {
+        font-size: 0.75rem !important;     /* 更小的文字 */
+        padding: 4px 8px !important;       /* 更小的内边距 */
+        margin: 4px 2px !important;        /* 更小的外边距 */
+        border-radius: 6px !important;     /* 稍微减小圆角 */
+        border-width: 1px !important;      /* 更细的边框 */
+        
+        /* 如果链接有固定位置，调整位置 */
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        display: inline-block !important;
+    }
+    
+    /* 如果登录链接是固定在右下角的 */
+    #HCB_comment_box {
+        position: relative;
+    }
+    
+    #HCB_comment_box .admin-links-container {
+        position: static;
+        text-align: center;
+        margin-top: 10px;
+    }
+}
     
   </style>
 </head>
