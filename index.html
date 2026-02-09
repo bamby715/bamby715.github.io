@@ -878,6 +878,151 @@
   }
 }
 
+    /* 行程链接通用样式 */
+.schedule-links {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--color-gray-200);
+}
+
+.links-label {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.links-label i {
+  color: var(--color-primary);
+}
+
+.links-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.schedule-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all var(--transition-normal);
+  border: 1px solid transparent;
+}
+
+.schedule-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 预告链接 - YouTube */
+.schedule-link.youtube-preview-link {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.1));
+  color: #FF0000;
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.schedule-link.youtube-preview-link:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.25), rgba(255, 0, 0, 0.2));
+  color: #FF0000;
+}
+
+/* 预告链接 - B站 */
+.schedule-link.bilibili-preview-link {
+  background: linear-gradient(135deg, rgba(251, 114, 153, 0.15), rgba(251, 114, 153, 0.1));
+  color: #FB7299;
+  border-color: rgba(251, 114, 153, 0.3);
+}
+
+.schedule-link.bilibili-preview-link:hover {
+  background: linear-gradient(135deg, rgba(251, 114, 153, 0.25), rgba(251, 114, 153, 0.2));
+  color: #FB7299;
+}
+
+/* 回放链接 - YouTube */
+.schedule-link.youtube-link {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+  color: #FF0000;
+  border-color: rgba(255, 0, 0, 0.2);
+}
+
+.schedule-link.youtube-link:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.15));
+  color: #FF0000;
+}
+
+/* 回放链接 - B站 */
+.schedule-link.bilibili-link {
+  background: linear-gradient(135deg, rgba(251, 114, 153, 0.1), rgba(251, 114, 153, 0.05));
+  color: #FB7299;
+  border-color: rgba(251, 114, 153, 0.2);
+}
+
+.schedule-link.bilibili-link:hover {
+  background: linear-gradient(135deg, rgba(251, 114, 153, 0.2), rgba(251, 114, 153, 0.15));
+  color: #FB7299;
+}
+
+.schedule-link i {
+  font-size: 1rem;
+}
+
+/* 倒计时徽章 */
+.countdown-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 500;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* 重要日程的特殊样式 */
+.schedule-card.important .schedule-link {
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+}
+
+.schedule-card.important .schedule-link:hover {
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .links-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .schedule-link {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .countdown-badge {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
     .schedule-time, .schedule-platform {
       display: flex;
       align-items: center;
@@ -6748,7 +6893,11 @@ const concertData = [
           type: "live",
           time: "19:00 (CST)",
           platform: "YouTube & B站同步",
-          important: true
+          important: true,
+          preview: {
+            bilibili: "https://live.bilibili.com/27433801?broadcast_type=0&is_room_feed=1&spm_id_from=333.1387.to_liveroom.0.click&live_from=86002",
+            youtube: "https://www.youtube.com/watch?v=Xm5QIEoV8TU"
+        },
         },
       ],
       past: [
@@ -7684,16 +7833,26 @@ const concertData = [
   // 生成近期行程
   const upcomingContainer = document.getElementById('upcoming-schedule');
   if (upcomingContainer && scheduleData.upcoming && upcomingContainer.children.length === 0) {
-    scheduleData.upcoming.forEach(event => {
-      upcomingContainer.appendChild(createScheduleCard(event, false)); // 不是过往记录
+    // 按日期排序（最近的在前）
+    const sortedUpcoming = [...scheduleData.upcoming].sort((a, b) => 
+      new Date(a.date) - new Date(b.date)
+    );
+    
+    sortedUpcoming.forEach(event => {
+      upcomingContainer.appendChild(createScheduleCard(event, false));
     });
   }
 
   // 生成过往记录
   const pastContainer = document.getElementById('past-schedule');
   if (pastContainer && scheduleData.past && pastContainer.children.length === 0) {
-    scheduleData.past.forEach(event => {
-      pastContainer.appendChild(createScheduleCard(event, true)); // 是过往记录
+    // 按日期排序（最近的在前）
+    const sortedPast = [...scheduleData.past].sort((a, b) => 
+      new Date(b.date) - new Date(a.date)
+    );
+    
+    sortedPast.forEach(event => {
+      pastContainer.appendChild(createScheduleCard(event, true));
     });
   }
 }
@@ -7711,7 +7870,7 @@ const concertData = [
     
     if (event.replay.bilibili) {
       replayLinks.push(`
-        <a href="${event.replay.bilibili}" target="_blank" class="replay-link bilibili-link" title="B站回放">
+        <a href="${event.replay.bilibili}" target="_blank" class="schedule-link bilibili-link" title="B站回放">
           <i class="fab fa-bilibili"></i> B站回放
         </a>
       `);
@@ -7719,7 +7878,7 @@ const concertData = [
     
     if (event.replay.youtube) {
       replayLinks.push(`
-        <a href="${event.replay.youtube}" target="_blank" class="replay-link youtube-link" title="YouTube回放">
+        <a href="${event.replay.youtube}" target="_blank" class="schedule-link youtube-link" title="YouTube回放">
           <i class="fab fa-youtube"></i> YouTube回放
         </a>
       `);
@@ -7727,12 +7886,50 @@ const concertData = [
     
     if (replayLinks.length > 0) {
       replayHTML = `
-        <div class="schedule-replay">
-          <div class="replay-label">
+        <div class="schedule-links">
+          <div class="links-label">
             <i class="fas fa-video"></i> 直播回放:
           </div>
-          <div class="replay-buttons">
+          <div class="links-buttons">
             ${replayLinks.join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  // 构建预告链接HTML（仅显示在未来行程中）
+  let previewHTML = '';
+  if (!isPast && event.preview) {
+    const previewLinks = [];
+
+    if (event.preview.bilibili) {
+      previewLinks.push(`
+        <a href="${event.preview.bilibili}" target="_blank" class="schedule-link bilibili-preview-link" title="B站">
+          <i class="fab fa-bilibili"></i> B站
+        </a>
+      `);
+    }
+    
+    if (event.preview.youtube) {
+      previewLinks.push(`
+        <a href="${event.preview.youtube}" target="_blank" class="schedule-link youtube-preview-link" title="YouTube">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+      `);
+    }
+ 
+    if (previewLinks.length > 0) {
+      previewHTML = `
+        <div class="schedule-links">
+          <div class="links-label">
+            <i class="fas fa-calendar-alt"></i> 直播链接:
+          </div>
+          <div class="links-buttons">
+            ${previewLinks.join('')}
+            ${event.countdown ? `<span class="countdown-badge" data-date="${event.date} ${event.time.split(' ')[0]}">
+              <i class="fas fa-clock"></i> 倒计时中
+            </span>` : ''}
           </div>
         </div>
       `;
@@ -7760,6 +7957,14 @@ const concertData = [
       </div>
       ${event.replay && isPast ? `
       ` : ''}
+      ${!isPast ? `
+        <div class="schedule-desc" style="margin-top: 10px;">
+          <span style="color: var(--color-gray-600); font-size: 0.9rem;">
+            <i class="fas fa-clock" style="color: #4CAF50;"></i> ${getDaysUntil(event.date)}天后开始
+          </span>
+        </div>
+      ` : ''}
+      ${previewHTML}
       ${replayHTML}
     </div>
   `;
@@ -7767,6 +7972,61 @@ const concertData = [
   return card;
 }
 
+// 添加辅助函数：计算剩余天数
+function getDaysUntil(eventDate) {
+  const event = new Date(eventDate);
+  const now = new Date();
+  const diffTime = event - now;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays > 0 ? diffDays : 0;
+}
+
+    // 倒计时更新函数
+function updateAllCountdowns() {
+  document.querySelectorAll('.countdown-badge').forEach(badge => {
+    const dateTimeStr = badge.getAttribute('data-date');
+    const [dateStr, timeStr] = dateTimeStr.split(' ');
+    
+    const eventDate = new Date(dateStr);
+    if (timeStr) {
+      const [hours, minutes] = timeStr.split(':');
+      eventDate.setHours(hours, minutes || 0, 0, 0);
+    }
+    
+    const now = new Date();
+    const diffMs = eventDate - now;
+    
+    if (diffMs > 0) {
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+      
+      if (days > 0) {
+        badge.innerHTML = `<i class="fas fa-clock"></i> ${days}天${hours}小时后开始`;
+      } else if (hours > 0) {
+        badge.innerHTML = `<i class="fas fa-clock"></i> ${hours}小时${minutes}分钟后开始`;
+      } else {
+        badge.innerHTML = `<i class="fas fa-clock"></i> ${minutes}分钟后开始`;
+      }
+    } else {
+      badge.innerHTML = `<i class="fas fa-play-circle"></i> 直播进行中`;
+      badge.style.background = 'linear-gradient(135deg, #FF6B6B, #FF5252)';
+    }
+  });
+}
+
+// 初始化倒计时
+function initCountdown() {
+  updateAllCountdowns();
+  // 每分钟更新一次
+  setInterval(updateAllCountdowns, 60000);
+}
+
+// 在页面加载完成后调用
+document.addEventListener('DOMContentLoaded', function() {
+  // ... 其他初始化代码 ...
+  initCountdown();
+});
     // ========== 图片查看器功能 ==========
     function openImageGallery(galleryId) {
       currentGallery = imageGalleries[galleryId];
