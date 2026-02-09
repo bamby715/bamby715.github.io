@@ -790,6 +790,94 @@
       flex-wrap: wrap;
     }
 
+    /* 回放链接样式 */
+.schedule-replay {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--color-gray-200);
+}
+
+.replay-label {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.replay-label i {
+  color: var(--color-primary);
+}
+
+.replay-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.replay-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all var(--transition-normal);
+  border: 1px solid transparent;
+}
+
+.replay-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.replay-link.bilibili-link {
+  background: rgba(251, 114, 153, 0.1);
+  color: #FB7299;
+  border-color: rgba(251, 114, 153, 0.3);
+}
+
+.replay-link.bilibili-link:hover {
+  background: rgba(251, 114, 153, 0.2);
+  color: #FB7299;
+}
+
+.replay-link.youtube-link {
+  background: rgba(255, 0, 0, 0.1);
+  color: #FF0000;
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.replay-link.youtube-link:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: #FF0000;
+}
+
+.replay-link i {
+  font-size: 1rem;
+}
+
+/* 仅对过往记录显示回放 */
+.schedule-card.past .schedule-replay {
+  opacity: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .replay-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .replay-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
     .schedule-time, .schedule-platform {
       display: flex;
       align-items: center;
@@ -6568,7 +6656,7 @@ const concertData = [
       },
       {
         id: 'outfit-4',
-        title: '贝雷帽',
+        title: '3why',
         description: '喂哟喂哟喂',
         colors: [
           {
@@ -6670,7 +6758,12 @@ const concertData = [
           type: "live",
           time: "19:00 (CST)",
           platform: "YouTube & B站同步",
-          important: true
+          important: true,
+          //回放链接
+          replay: {
+            bilibili: "https://www.bilibili.com/video/BV1V3FzzEENV/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f", 
+            youtube: "https://www.youtube.com/watch?v=xdz0eKgsxYU&t=305s"
+         }
         },
         {
           date: "2026-01-29",
@@ -7588,53 +7681,91 @@ const concertData = [
 }
 
     function generateScheduleCards() {
-      // 生成近期行程 - 检查是否已经存在
-      const upcomingContainer = document.getElementById('upcoming-schedule');
-      if (upcomingContainer && scheduleData.upcoming && upcomingContainer.children.length === 0) {
-        scheduleData.upcoming.forEach(event => {
-          upcomingContainer.appendChild(createScheduleCard(event));
-        });
-      }
+  // 生成近期行程
+  const upcomingContainer = document.getElementById('upcoming-schedule');
+  if (upcomingContainer && scheduleData.upcoming && upcomingContainer.children.length === 0) {
+    scheduleData.upcoming.forEach(event => {
+      upcomingContainer.appendChild(createScheduleCard(event, false)); // 不是过往记录
+    });
+  }
 
-      // 生成过往记录 - 检查是否已经存在
-      const pastContainer = document.getElementById('past-schedule');
-      if (pastContainer && scheduleData.past && pastContainer.children.length === 0) {
-        scheduleData.past.forEach(event => {
-          pastContainer.appendChild(createScheduleCard(event, true));
-        });
-      }
-    }
+  // 生成过往记录
+  const pastContainer = document.getElementById('past-schedule');
+  if (pastContainer && scheduleData.past && pastContainer.children.length === 0) {
+    scheduleData.past.forEach(event => {
+      pastContainer.appendChild(createScheduleCard(event, true)); // 是过往记录
+    });
+  }
+}
 
     function createScheduleCard(event, isPast = false) {
-      const date = new Date(event.date);
-      const card = document.createElement('div');
-      card.className = `schedule-card ${isPast ? 'past' : ''} ${event.important ? 'important' : ''}`;
-      card.setAttribute('data-type', event.type);
-      
-      card.innerHTML = `
-        <div class="schedule-date">
-          <div class="schedule-day">${date.getDate()}</div>
-          <div class="schedule-month">${date.getMonth() + 1}月</div>
-          <div class="schedule-year">${date.getFullYear()}</div>
-        </div>
-        <div class="schedule-content">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <h3 class="schedule-title">${event.title}</h3>
-            <span class="schedule-type ${event.type}">${event.type === 'live' ? '直播' : '演出'}</span>
+  const date = new Date(event.date);
+  const card = document.createElement('div');
+  card.className = `schedule-card ${isPast ? 'past' : ''} ${event.important ? 'important' : ''}`;
+  card.setAttribute('data-type', event.type);
+  
+  // 构建回放链接HTML（仅显示在过往记录中）
+  let replayHTML = '';
+  if (isPast && event.replay) {
+    const replayLinks = [];
+    
+    if (event.replay.bilibili) {
+      replayLinks.push(`
+        <a href="${event.replay.bilibili}" target="_blank" class="replay-link bilibili-link" title="B站回放">
+          <i class="fab fa-bilibili"></i> B站回放
+        </a>
+      `);
+    }
+    
+    if (event.replay.youtube) {
+      replayLinks.push(`
+        <a href="${event.replay.youtube}" target="_blank" class="replay-link youtube-link" title="YouTube回放">
+          <i class="fab fa-youtube"></i> YouTube回放
+        </a>
+      `);
+    }
+    
+    if (replayLinks.length > 0) {
+      replayHTML = `
+        <div class="schedule-replay">
+          <div class="replay-label">
+            <i class="fas fa-video"></i> 直播回放:
           </div>
-          <div class="schedule-meta">
-            <span class="schedule-time"><i class="far fa-clock"></i> ${event.time}</span>
-            <span class="schedule-platform">
-              ${event.platform.includes('YouTube') ? '<i class="fab fa-youtube" style="color: #FF0000;"></i>' : ''}
-              ${event.platform.includes('B站') ? '<i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>' : ''}
-              ${event.platform}
-            </span>
+          <div class="replay-buttons">
+            ${replayLinks.join('')}
           </div>
         </div>
       `;
-      
-      return card;
     }
+  }
+  
+  card.innerHTML = `
+    <div class="schedule-date">
+      <div class="schedule-day">${date.getDate()}</div>
+      <div class="schedule-month">${date.getMonth() + 1}月</div>
+      <div class="schedule-year">${date.getFullYear()}</div>
+    </div>
+    <div class="schedule-content">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <h3 class="schedule-title">${event.title}</h3>
+        <span class="schedule-type ${event.type}">${event.type === 'live' ? '直播' : '演出'}</span>
+      </div>
+      <div class="schedule-meta">
+        <span class="schedule-time"><i class="far fa-clock"></i> ${event.time}</span>
+        <span class="schedule-platform">
+          ${event.platform.includes('YouTube') ? '<i class="fab fa-youtube" style="color: #FF0000;"></i>' : ''}
+          ${event.platform.includes('B站') ? '<i class="fab fa-bilibili" style="color: #FB7299; margin-left: 5px;"></i>' : ''}
+          ${event.platform}
+        </span>
+      </div>
+      ${event.replay && isPast ? `
+      ` : ''}
+      ${replayHTML}
+    </div>
+  `;
+  
+  return card;
+}
 
     // ========== 图片查看器功能 ==========
     function openImageGallery(galleryId) {
