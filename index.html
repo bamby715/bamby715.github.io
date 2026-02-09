@@ -2717,6 +2717,111 @@
         font-size: 1.5rem;
       }
     }
+
+    /* ========= HTMLCommentBox 自定义样式 ========= */
+#HCB_comment_box {
+    font-family: var(--font-body); /* 使用你网站的正文字体 */
+    margin-top: 40px; /* 与上方内容拉开距离 */
+}
+
+/* 评论框整体卡片 */
+#HCB_comment_box .hcb-wrapper {
+    background: rgba(255, 255, 255, 0.85); /* 毛玻璃白底 */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 194, 214, 0.4); /* 粉色边框 */
+    border-radius: var(--radius-lg); /* 使用你定义的大圆角 */
+    padding: 25px;
+    box-shadow: var(--shadow-md);
+}
+
+/* 评论框标题 */
+#HCB_comment_box h3 {
+    color: var(--color-gray-900);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+#HCB_comment_box h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+    border-radius: 2px;
+}
+
+/* 评论表单输入框 */
+#HCB_comment_box textarea,
+#HCB_comment_box input[type="text"],
+#HCB_comment_box input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    font-family: var(--font-body);
+    transition: all var(--transition-normal);
+    box-sizing: border-box; /* 重要：确保宽度计算正确 */
+}
+#HCB_comment_box textarea:focus,
+#HCB_comment_box input[type="text"]:focus,
+#HCB_comment_box input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.2);
+}
+
+/* 提交按钮 */
+#HCB_comment_box input[type="submit"] {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px; /* 胶囊按钮 */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: block;
+    margin: 20px auto 0;
+}
+#HCB_comment_box input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 158, 189, 0.3);
+}
+
+/* 单条评论样式 */
+#HCB_comment_box .hcb-comment {
+    background: var(--color-white);
+    border-left: 4px solid var(--color-primary);
+    padding: 18px;
+    margin-bottom: 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 评论者姓名 */
+#HCB_comment_box .hcb-author {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+}
+
+/* 评论日期 */
+#HCB_comment_box .hcb-date {
+    color: var(--color-gray-500);
+    font-size: 0.85rem;
+}
+
+/* 评论内容 */
+#HCB_comment_box .hcb-msg {
+    color: var(--color-gray-800);
+    margin-top: 10px;
+    line-height: 1.5;
+}
   </style>
 </head>
 <body>
@@ -3357,6 +3462,19 @@
           </div>
         </div>
       </section>
+
+      <!-- 全站评论区 -->
+        <section class="content-section" style="padding-top: 0; margin-top: 40px;">
+            <div class="work-card">
+                <div class="work-content">
+                    <h3 class="work-title">💌 留言板</h3>
+                    <p class="work-desc">欢迎bamline进行评论</p>
+<!-- begin wwww.htmlcommentbox.com -->
+<div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com"></a> is loading comments...</div>
+<script type="text/javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={};} hcb_user.PAGE="https://bamby715.github.io";(function(){var s=document.createElement("script"), l=hcb_user.PAGE || (""+window.location).replace(/'/g,"%27"), h="https://www.htmlcommentbox.com";s.setAttribute("type","text/javascript");s.setAttribute("src", h+"/jread?page="+encodeURIComponent(l).replace("+","%2B")+"&opts=278&num=10&ts=1770661804212");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+                </div>
+            </div>
+        </section>
       
       <footer class="main-footer">
         <div class="footer-content">
