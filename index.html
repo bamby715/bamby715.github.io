@@ -3239,7 +3239,77 @@
         margin-top: 10px;
     }
 }
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px);
+}
+.modal-content {
+  position: relative;
+  margin: 3% auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+  height: 85%;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+.modal-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius-md);
+}
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: var(--color-gray-600);
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+}
+.close-button:hover {
+  color: var(--color-primary-dark);
+}
     
+/* 添加到你的样式表中 */
+.easter-egg-btn {
+  position: relative;
+  overflow: hidden;
+  animation: eggPulse 2s ease-in-out infinite;
+}
+
+.easter-egg-btn:hover {
+  animation: none;
+  transform: translateY(-3px) scale(1.05);
+}
+
+@keyframes eggPulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 158, 189, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 158, 189, 0.8); }
+}
+
+/* 添加一个微小的✨图标飘动效果 */
+.easter-egg-btn i {
+  animation: sparkleRotate 3s linear infinite;
+}
+
+@keyframes sparkleRotate {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
   </style>
 </head>
 <body>
@@ -3262,6 +3332,14 @@
 
   <!-- 飘落容器 -->
   <div id="snowContainer"></div>
+
+  <!-- 游戏模态框 -->
+  <div id="gameModal" class="modal" style="display: none;">
+    <div class="modal-content">
+    <span class="close-button" onclick="closeGameModal()">&times;</span>
+    <iframe id="gameIframe" src="" frameborder="0"></iframe>
+    </div>
+  </div>
 
   <div class="container">
     <!-- HEADER 区域 -->
@@ -3545,7 +3623,6 @@
           </div>
         </div>
       </section>
-
       
       
       <!-- 物料汇总部分 -->
@@ -3587,6 +3664,12 @@
             <i class="fas fa-video"></i>
             幕后花絮
           </button>
+
+          <!-- 🎮 彩蛋按钮 -->
+  <button class="sub-nav-btn easter-egg-btn" onclick="openGameModal('/bamby-memory-game/')">
+    <i class="fas fa-puzzle-piece" style="color: var(--color-primary-dark);"></i>
+    <span style="background: linear-gradient(135deg, #FF9EBD, #FF6B9E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">✨ 隐藏惊喜</span>
+  </button>
         </div>
         
         <!-- 回归照 -->
@@ -10553,6 +10636,17 @@ function applyCommentBoxStyles() {
             console.log('评论框样式已应用');
         }
     }, 500);
+}
+
+function openGameModal(gameUrl) {
+  document.getElementById('gameIframe').src = gameUrl;
+  document.getElementById('gameModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeGameModal() {
+  document.getElementById('gameModal').style.display = 'none';
+  document.getElementById('gameIframe').src = '';
+  document.body.style.overflow = '';
 }
     
   </script>
