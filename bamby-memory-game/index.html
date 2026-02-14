@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>斑比翻翻乐 · 记忆挑战</title>
+  <link rel="stylesheet" href="./src/styles/reset.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🦌 斑比翻翻乐 🫧</h2>
+    <div class="game" id="gameBoard"></div>
+    <button class="reset" id="resetGameBtn">重新开始</button>
+  </div>
+
+  <script src="./src/scripts/engine.js"></script>
+
+  <!-- 胜利弹窗 -->
+<div id="victoryModal" class="victory-modal" style="display: none;">
+  <div class="victory-content">
+    <h3>🎉 恭喜！ 🎉</h3>
+    <p>你集齐了所有斑比！</p>
+    <div class="victory-stickers">
+      🦌 💗 🐭
+    </div>
+    <button class="victory-close-btn" onclick="closeVictoryModal()">太棒啦！</button>
+  </div>
+</div>
+</body>
+</html>
