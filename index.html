@@ -3282,34 +3282,6 @@
   color: var(--color-primary-dark);
 }
     
-/* 添加到你的样式表中 */
-.easter-egg-btn {
-  position: relative;
-  overflow: hidden;
-  animation: eggPulse 2s ease-in-out infinite;
-}
-
-.easter-egg-btn:hover {
-  animation: none;
-  transform: translateY(-3px) scale(1.05);
-}
-
-@keyframes eggPulse {
-  0%, 100% { box-shadow: 0 0 5px rgba(255, 158, 189, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(255, 158, 189, 0.8); }
-}
-
-/* 添加一个微小的✨图标飘动效果 */
-.easter-egg-btn i {
-  animation: sparkleRotate 3s linear infinite;
-}
-
-@keyframes sparkleRotate {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(10deg); }
-  75% { transform: rotate(-10deg); }
-  100% { transform: rotate(0deg); }
-}
   </style>
 </head>
 <body>
@@ -3664,12 +3636,6 @@
             <i class="fas fa-video"></i>
             幕后花絮
           </button>
-
-          <!-- 🎮 彩蛋按钮 -->
-  <button class="sub-nav-btn easter-egg-btn" onclick="openGameModal('/bamby-memory-game/')">
-    <i class="fas fa-puzzle-piece" style="color: var(--color-primary-dark);"></i>
-    <span style="background: linear-gradient(135deg, #FF9EBD, #FF6B9E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">✨ 隐藏惊喜</span>
-  </button>
         </div>
         
         <!-- 回归照 -->
@@ -8329,7 +8295,10 @@ const concertData = [
       }, 500);
 
       // 初始化评论框
-  initCommentBox();
+      initCommentBox();
+
+      // 初始化物料汇总彩蛋
+      setTimeout(initMaterialEasterEgg, 1000); // 等待页面完全加载
     });
 
     function initApp() {
@@ -10648,6 +10617,85 @@ function closeGameModal() {
   document.getElementById('gameIframe').src = '';
   document.body.style.overflow = '';
 }
+
+// ========== 物料汇总彩蛋触发器（点击三次） ==========
+let materialClickCount = 0;
+let clickTimer = null;
+
+function initMaterialEasterEgg() {
+  const materialTitle = document.querySelector('#materials .section-title');
+  
+  if (materialTitle) {
+    materialTitle.addEventListener('click', function(e) {
+      // 增加点击计数
+      materialClickCount++;
+      
+      // 显示点击进度（可选，给玩家一点反馈）
+      showClickFeedback(e, materialClickCount);
+      
+      // 清除之前的计时器
+      if (clickTimer) {
+        clearTimeout(clickTimer);
+      }
+      
+      // 设置新计时器：2秒内没点满3次就重置
+      clickTimer = setTimeout(() => {
+        materialClickCount = 0;
+        console.log('彩蛋触发重置'); // 调试用
+      }, 2000);
+      
+      // 检查是否点满3次
+      if (materialClickCount === 3) {
+        // 触发彩蛋！
+        openGameModal('/bamby-memory-game/');
+        
+        // 重置计数
+        materialClickCount = 0;
+        clearTimeout(clickTimer);
+      }
+    });
+    
+    // 添加一个微妙的提示（鼠标悬停时显示）
+    materialTitle.style.cursor = 'pointer';
+    materialTitle.title = '🔍 点击有惊喜？';
+  }
+}
+
+// 点击反馈（小爱心飘起）
+function showClickFeedback(event, count) {
+  const heart = document.createElement('div');
+  heart.innerHTML = '💗';
+  heart.style.cssText = `
+    position: fixed;
+    left: ${event.clientX}px;
+    top: ${event.clientY}px;
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: clickHeart 1s ease-out forwards;
+    opacity: 0.8;
+  `;
+  
+  // 根据点击次数改变颜色
+  if (count === 1) heart.style.color = '#FFC2D6';
+  if (count === 2) heart.style.color = '#FF9EBD';
+  if (count === 3) heart.style.color = '#FF6B9E';
+  
+  document.body.appendChild(heart);
+  
+  setTimeout(() => heart.remove(), 1000);
+}
+
+// 添加动画样式
+const clickHeartStyle = document.createElement('style');
+clickHeartStyle.textContent = `
+  @keyframes clickHeart {
+    0% { transform: scale(0.5) translateY(0); opacity: 0.8; }
+    100% { transform: scale(1.5) translateY(-50px); opacity: 0; }
+  }
+`;
+document.head.appendChild(clickHeartStyle);
+
     
   </script>
 </body>
