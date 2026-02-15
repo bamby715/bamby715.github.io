@@ -3282,8 +3282,255 @@
   color: var(--color-primary-dark);
 }
 
+    /* ========= 滚动公告栏 ========= */
+.announcement-bar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 194, 214, 0.3);
+  border-radius: 50px;
+  margin: 10px auto 20px;
+  padding: 10px 20px;
+  max-width: 800px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 100;
+}
+
+.announcement-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  overflow: hidden;
+}
+
+.announcement-icon {
+  font-size: 1.3rem;
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+  animation: bellShake 2s ease-in-out infinite;
+}
+
+@keyframes bellShake {
+  0%, 100% { transform: rotate(0); }
+  10% { transform: rotate(15deg); }
+  20% { transform: rotate(-15deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  50% { transform: rotate(5deg); }
+  60% { transform: rotate(-5deg); }
+  70% { transform: rotate(0); }
+}
+
+.announcement-text-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+}
+
+.announcement-text {
+  position: absolute;
+  white-space: nowrap;
+  animation: scrollAnnouncement 20s linear infinite;
+  color: var(--color-gray-700);
+  font-size: 0.95rem;
+  padding-right: 50px; /* 避免文字紧贴边缘 */
+}
+
+.announcement-bar:hover .announcement-text {
+  animation-play-state: paused;
+}
+
+@keyframes scrollAnnouncement {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.announcement-hint {
+  font-size: 0.8rem;
+  color: var(--color-primary-dark);
+  flex-shrink: 0;
+  background: rgba(255, 194, 214, 0.2);
+  padding: 4px 12px;
+  border-radius: 30px;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+.announcement-bar:hover .announcement-hint {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ========= 公告详情弹窗 ========= */
+.announcement-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.announcement-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.announcement-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.announcement-modal-header h3 {
+  font-size: 1.3rem;
+  color: var(--color-gray-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.announcement-modal-header h3 i {
+  color: var(--color-primary-dark);
+}
+
+.announcement-modal-close {
+  font-size: 2rem;
+  color: var(--color-gray-600);
+  cursor: pointer;
+  line-height: 1;
+  transition: all var(--transition-normal);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.announcement-modal-close:hover {
+  color: var(--color-primary-dark);
+  background: var(--color-gray-100);
+  transform: rotate(90deg);
+}
+
+.announcement-modal-body {
+  padding: 25px;
+  line-height: 1.8;
+  color: var(--color-gray-800);
+}
+
+.announcement-modal-body p {
+  margin-bottom: 15px;
+}
+
+.announcement-modal-body ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.announcement-modal-body li {
+  margin-bottom: 5px;
+}
+
+.announcement-date {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: var(--color-gray-500);
+  text-align: right;
+  border-top: 1px dashed var(--color-gray-200);
+  padding-top: 15px;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .announcement-bar {
+  background: rgba(30, 30, 30, 0.9);
+  border-color: rgba(106, 64, 80, 0.4);
+}
+
+[data-theme="dark"] .announcement-text {
+  color: var(--color-gray-300);
+}
+
+[data-theme="dark"] .announcement-modal-content {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: var(--color-primary-dark);
+}
+
+[data-theme="dark"] .announcement-modal-header {
+  border-bottom-color: var(--color-gray-300);
+}
+
+[data-theme="dark"] .announcement-modal-body {
+  color: var(--color-gray-200);
+}
+
+[data-theme="dark"] .announcement-date {
+  border-top-color: var(--color-gray-300);
+  color: var(--color-gray-400);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .announcement-bar {
+    margin: 5px 10px 15px;
+    padding: 8px 15px;
+  }
+  
+  .announcement-icon {
+    font-size: 1rem;
+  }
+  
+  .announcement-text {
+    font-size: 0.85rem;
+    animation-duration: 15s; /* 移动端滚动快一点 */
+  }
+  
+  .announcement-hint {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+  
+  .announcement-modal-content {
+    width: 95%;
+    margin: 20px;
+  }
+}
+    
     /* ========= 新年加载动画 ========= */
-/* ========= 新年加载动画 - 无裁剪版 ========= */
 .new-year-container {
   position: relative;
   width: 100%;
@@ -3502,6 +3749,32 @@
       </nav>
     </header>
 
+    <!-- 滚动公告栏 -->
+<div class="announcement-bar" id="announcementBar" onclick="showAnnouncementDetail()">
+  <div class="announcement-content">
+    <span class="announcement-icon">📢</span>
+    <div class="announcement-text-wrapper">
+      <div class="announcement-text" id="announcementText">
+        <!-- 公告内容会通过JS动态生成，支持多条滚动 -->
+      </div>
+    </div>
+    <span class="announcement-hint">点击查看详情 ></span>
+  </div>
+</div>
+
+<!-- 公告详情弹窗 -->
+<div class="announcement-modal" id="announcementModal" onclick="closeAnnouncementModal(event)">
+  <div class="announcement-modal-content">
+    <div class="announcement-modal-header">
+      <h3><i class="fas fa-bullhorn"></i> 最新公告</h3>
+      <span class="announcement-modal-close" onclick="closeAnnouncementModal(event)">&times;</span>
+    </div>
+    <div class="announcement-modal-body" id="announcementDetail">
+      <!-- 完整公告内容会通过JS动态生成 -->
+    </div>
+  </div>
+</div>
+    
     <!-- PC/移动端底部控制条（统一） -->
     <div class="mobile-control-bar">
       <button class="mobile-control-btn" onclick="toggleTheme()">
@@ -10865,8 +11138,88 @@ clickHeartStyle.textContent = `
 `;
 document.head.appendChild(clickHeartStyle);
 
+    // ========== 公告栏配置 ==========
+const announcementConfig = {
+  // 滚动显示的短文本（支持多条，用 | 分隔）
+  scrollText: '🎉 网站更新啦！新增翻翻乐彩蛋游戏  |   祝大家新年快乐！💗 |  点击查看完整公告 ',
+  
+  // 点击后显示的完整公告内容（支持 HTML）
+  detailHTML: `
+    <p>🎉 <strong>网站更新通知</strong> 🎉</p>
+    <p>感谢各位bamline的支持！最近我们新增了以下内容：</p>
+    <ul>
+      <li>🦌 <strong>彩蛋游戏：翻翻乐</strong> - 在"物料汇总"标题上点击三次即可触发</li>
+      <li>🦌 <strong>新年祝福开屏</strong> - 祝大家新年快乐~万事如意~</li>
+    </ul>
+    <p>更多彩蛋正在路上，敬请期待！</p>
+    <p>如果你有其他感到惊喜的地方，欢迎在留言板分享～</p>
+    <div class="announcement-date">公告日期：2026年2月16日</div>
+  `,
+  
+  // 是否启用多条滚动
+  enableMultipleScroll: true
+};
+
+// 初始化公告栏
+function initAnnouncement() {
+  const announcementText = document.getElementById('announcementText');
+  if (!announcementText) return;
+  
+  // 设置滚动文本
+  if (announcementConfig.enableMultipleScroll) {
+    // 多条滚动：用 | 分隔，每条之间加空格分隔
+    const texts = announcementConfig.scrollText.split('|');
+    const scrollContent = texts.map(text => text.trim()).join(' &nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp; ');
+    announcementText.innerHTML = scrollContent;
+  } else {
+    // 单条滚动
+    announcementText.textContent = announcementConfig.scrollText;
+  }
+}
+
+// 显示公告详情弹窗
+function showAnnouncementDetail() {
+  const modal = document.getElementById('announcementModal');
+  const detail = document.getElementById('announcementDetail');
+  
+  if (!modal || !detail) return;
+  
+  // 设置完整公告内容
+  detail.innerHTML = announcementConfig.detailHTML;
+  
+  // 显示弹窗
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // 禁止背景滚动
+}
+
+// 关闭公告详情弹窗
+function closeAnnouncementModal(event) {
+  // 阻止事件冒泡，防止点击关闭按钮时触发父元素
+  event.stopPropagation();
+  
+  const modal = document.getElementById('announcementModal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // 恢复背景滚动
+  }
+}
+
+// 点击弹窗背景关闭
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('announcementModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+
+// 在页面加载时初始化
+document.addEventListener('DOMContentLoaded', function() {
+  initAnnouncement();
+  // ... 你原来的其他初始化代码 ...
+});
+
     // ========== 新年加载动画配置 ==========
-// ========== 修复版随机 ==========
 const newYearImages = [
   'https://img.cdn1.vip/i/6991fbee375f4_1771174894.webp',
   'https://img.cdn1.vip/i/6991fbf128c6d_1771174897.webp' 
