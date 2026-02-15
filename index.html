@@ -3281,18 +3281,187 @@
 .close-button:hover {
   color: var(--color-primary-dark);
 }
+
+    /* ========= 新年加载动画 ========= */
+/* ========= 新年加载动画 - 无裁剪版 ========= */
+.new-year-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #8B0000, #B22222);
+  overflow-y: auto;  /* 允许滚动，防止图片过高时被裁 */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 图片容器 - 自适应高度 */
+.image-wrapper {
+  width: 100%;
+  max-width: 400px;  /* 限制最大宽度 */
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-year-image {
+  max-width: 70%;
+  height: auto;  /* 高度自适应，保持原始比例 */
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 3px #FFD700;
+  animation: fadeInScale 0.8s ease, glowPulse 2s ease-in-out infinite;
+  display: block;
+}
+
+/* 文字区域 */
+.new-year-text {
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+}
+
+.greeting-main {
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  color: #FFD700;
+  text-shadow: 0 0 15px #FF4500, 2px 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 8px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  animation: slideUpFade 0.6s ease 0.2s both;
+}
+
+.greeting-sub {
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
+  color: #fff;
+  text-shadow: 0 0 10px #FFA500;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  animation: slideUpFade 0.6s ease 0.4s both;
+}
+
+.loading-status {
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1px;
+  animation: fadePulse 1.5s ease-in-out infinite;
+}
+
+/* 动画关键帧 */
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 3px #FFD700; }
+  50% { box-shadow: 0 25px 50px rgba(255, 215, 0, 0.4), 0 0 0 5px #FFD700; }
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadePulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .new-year-container {
+  background: linear-gradient(145deg, #660000, #8B0000);
+}
+
+/* 漂浮的新年元素 */
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.floating-elements span {
+  position: absolute;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  animation: float-around 4s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+/* 为每个元素随机位置 */
+.floating-elements span:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.floating-elements span:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
+.floating-elements span:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 1s; }
+.floating-elements span:nth-child(4) { bottom: 25%; right: 25%; animation-delay: 1.5s; }
+.floating-elements span:nth-child(5) { top: 40%; left: 5%; animation-delay: 2s; }
+.floating-elements span:nth-child(6) { bottom: 40%; right: 5%; animation-delay: 2.5s; }
+
+/* 动画关键帧 */
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px #FFD700 inset; }
+  50% { box-shadow: 0 25px 50px rgba(255, 215, 0, 0.4), 0 0 0 4px #FFD700 inset; }
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadePulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes float-around {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* 深色模式适配 - 保持喜庆，稍微调整 */
+[data-theme="dark"] .new-year-container {
+  background: linear-gradient(145deg, #660000, #8B0000);
+}
     
   </style>
 </head>
 <body>
   <!-- 加载动画 -->
-  <div class="loading-overlay" id="loading">
-    <div class="loading-spinner">
-      <div><i class="fas fa-heart"></i></div>
-      <p>加载中...</p>
+<div class="loading-overlay" id="loading">
+  <div class="new-year-container" id="newYearContainer">
+    <!-- 贺图容器 - 不固定比例 -->
+    <div class="image-wrapper" id="imageWrapper">
+      <img src="" alt="新年快乐" class="new-year-image" id="newYearImage">
+    </div>
+    
+    <!-- 新年文字 -->
+    <div class="new-year-text">
+      <p class="greeting-main">新年快乐</p>
+      <p class="greeting-sub">万事如意</p>
+    </div>
+
+    
+    <!-- 漂浮的小元素（增加节日氛围） -->
+    <div class="floating-elements">
+      <span>🧧</span>
+      <span>🏮</span>
+      <span>🧨</span>
+      <span>🐴</span>
+      <span>💰</span>
+      <span>🥟</span>
     </div>
   </div>
-
+</div>
   <!-- 图片查看器 -->
   <div class="image-viewer-overlay" id="imageViewer">
     <button class="image-close" onclick="closeImageViewer()">×</button>
@@ -10696,7 +10865,44 @@ clickHeartStyle.textContent = `
 `;
 document.head.appendChild(clickHeartStyle);
 
-    
+    // ========== 新年加载动画配置 ==========
+// ========== 修复版随机 ==========
+const newYearImages = [
+  'https://img.cdn1.vip/i/6991fbee375f4_1771174894.webp',
+  'https://img.cdn1.vip/i/6991fbf128c6d_1771174897.webp' 
+];
+
+function setRandomImage() {
+  const img = document.getElementById('newYearImage');
+  if (!img) {
+    console.error('错误：找不到 img 元素');
+    return;
+  }
+  
+  // 随机选一张
+  const randomIndex = Math.floor(Math.random() * newYearImages.length);
+  const imageUrl = newYearImages[randomIndex];
+  
+  console.log('选中图片:', randomIndex, imageUrl);
+  
+  // 设置图片
+  img.src = imageUrl;
+  
+  // 成功回调
+  img.onload = () => {
+    console.log('✅ 图片加载成功');
+  };
+  
+  // 失败回调
+  img.onerror = () => {
+    console.log('❌ 图片加载失败，尝试备用');
+    img.src = 'https://via.placeholder.com/400x533?text=新年快乐';
+  };
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', setRandomImage);
+
   </script>
 </body>
 </html>
