@@ -11215,55 +11215,79 @@ document.getElementById('height-trigger')?.addEventListener('click', function(e)
   }
 });
 
-// 打开跳一跳游戏
 function openJumpGame() {
+  // 检查 THREE 是否存在
+  if (typeof THREE === 'undefined') {
+    console.error('THREE 未加载');
+    showToast('游戏加载失败，请刷新页面重试', 3000);
+    return;
+  }
+  
   const modal = document.getElementById('gameModal');
   const iframe = document.getElementById('gameIframe');
   
-  // 隐藏 iframe（我们直接使用 canvas 渲染）
-  iframe.style.display = 'none';
+  // 隐藏 iframe
+  if (iframe) iframe.style.display = 'none';
   
-  // 准备一个容器用于 Three.js 渲染
-  let gameContainer = document.getElementById('jump-game-container');
-  if (!gameContainer) {
-    gameContainer = document.createElement('div');
-    gameContainer.id = 'jump-game-container';
-    gameContainer.style.width = '100%';
-    gameContainer.style.height = '100%';
-    gameContainer.style.position = 'relative';
-    document.querySelector('#gameModal .modal-content').appendChild(gameContainer);
+  // **重要：移除旧的游戏容器（如果存在）**
+  const oldContainer = document.getElementById('jump-game-container');
+  if (oldContainer) oldContainer.remove();
+  
+  // 创建新容器
+  const gameContainer = document.createElement('div');
+  gameContainer.id = 'jump-game-container';
+  gameContainer.style.width = '100%';
+  gameContainer.style.height = '100%';
+  gameContainer.style.position = 'relative';
+  
+  const modalContent = document.querySelector('#gameModal .modal-content');
+  if (!modalContent) {
+    console.error('找不到模态框内容容器');
+    return;
   }
+  modalContent.appendChild(gameContainer);
   
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
   
-  // 初始化游戏（如果尚未初始化）
-  if (!window.jumpGameInstance) {
-    window.jumpGameInstance = initJumpGame(gameContainer);
-  } else {
-    // 重置游戏
-    window.jumpGameInstance.restart();
-  }
+  // 给一点时间让模态框渲染
+  setTimeout(() => {
+    try {
+      // 先停止旧游戏（如果有）
+      if (window.jumpGameInstance) {
+        window.jumpGameInstance.stop();
+        window.jumpGameInstance = null;
+      }
+      
+      // 初始化新游戏
+      window.jumpGameInstance = initJumpGame(gameContainer);
+    } catch (error) {
+      console.error('游戏初始化失败:', error);
+      showToast('游戏启动失败', 3000);
+    }
+  }, 100);
 }
 
 // 关闭模态框时清理游戏（可选）
 function closeGameModal() {
   const modal = document.getElementById('gameModal');
-  modal.style.display = 'none';
+  if (modal) modal.style.display = 'none';
   document.body.style.overflow = '';
   
-  // 停止游戏渲染循环（如果游戏提供了 stop 方法）
-  if (window.jumpGameInstance && window.jumpGameInstance.stop) {
+  // 停止并销毁游戏实例
+  if (window.jumpGameInstance) {
     window.jumpGameInstance.stop();
+    window.jumpGameInstance = null;
   }
-  // 重新显示 iframe（如果翻翻乐还需要）
-  document.getElementById('gameIframe').style.display = 'block';
+  
+  // 重新显示 iframe
+  const iframe = document.getElementById('gameIframe');
+  if (iframe) iframe.style.display = 'block';
+  
+  // 移除游戏容器
+  const gameContainer = document.getElementById('jump-game-container');
+  if (gameContainer) gameContainer.remove();
 }
-
-// 修改原来的 closeGameModal 函数，确保命名不冲突（原函数已存在，需合并或覆盖）
-// 建议将原 closeGameModal 重命名，或在此处覆盖。这里我们直接覆盖原函数。
-window.closeGameModal = closeGameModal;
-
     // ========== 公告栏配置 ==========
 const announcementConfig = {
   // 滚动显示的短文本（支持多条，用 | 分隔）
