@@ -29,16 +29,12 @@
       this.isGameOver = false;
       
       // 速度
-      this.currentSpeed = 0;
-      this.currentVSpeed = 0;
+      this.currentSpeed = 0;      // 水平速度（用于决定移动距离）
+      this.currentVSpeed = 0;      // 垂直速度
       
       // 蓄力
       this.pressStartTime = 0;
       this.pressProgress = 0;
-      
-      // 时间相关
-      this.lastFrameTime = 0;
-      this.frameInterval = 1000 / 60;
       
       // 分数
       this.score = 0;
@@ -77,15 +73,15 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        // 跳跃参数
-        minSpeed: 0.02,
-        maxSpeed: 0.07,
-        pressDuration: 800,
-        gravity: 0.008,
-        verticalFactor: 2.5,
+        // 跳跃参数（以60fps为基准）
+        minSpeed: 0.02,          // 最小水平速度
+        maxSpeed: 0.07,          // 最大水平速度
+        pressDuration: 800,       // 蓄力到最大所需毫秒
+        gravity: 0.008,           // 重力
+        verticalFactor: 2.5,      // 垂直初速度系数
         
         // 特效参数
-        centerThreshold: 0.8,        // 中心判定阈值（距离中心小于此值算完美）
+        centerThreshold: 0.8,        // 中心判定阈值
         platformCompressScale: 0.6,  // 平台被压缩时的Y轴缩放
         compressDuration: 200,        // 压缩动画时长（毫秒）
       };
@@ -103,7 +99,7 @@
         const width = this.container.clientWidth || 600;
         const height = this.container.clientHeight || 400;
         
-        // 主相机（用于3D物体）
+        // 主相机
         this.camera = new THREE.OrthographicCamera(
           width / -80,
           width / 80,
@@ -121,14 +117,14 @@
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.container.appendChild(this.renderer.domElement);
         
-        // CSS2渲染器（用于文字标签）
+        // CSS2渲染器（文字标签）
         if (typeof THREE.CSS2DRenderer !== 'undefined') {
           this.labelRenderer = new THREE.CSS2DRenderer();
           this.labelRenderer.setSize(width, height);
           this.labelRenderer.domElement.style.position = 'absolute';
           this.labelRenderer.domElement.style.top = '0';
           this.labelRenderer.domElement.style.left = '0';
-          this.labelRenderer.domElement.style.pointerEvents = 'none'; // 避免遮挡点击
+          this.labelRenderer.domElement.style.pointerEvents = 'none';
           this.container.appendChild(this.labelRenderer.domElement);
         } else {
           console.warn('CSS2DRenderer未加载，将无法显示得分文字');
@@ -185,7 +181,7 @@
       if (scoreEl) scoreEl.textContent = this.score;
     }
     
-    // 创建平台
+    // 创建平台（不变）
     createCube() {
       try {
         const relativePos = Math.random() > 0.5 ? 'zDir' : 'xDir';
@@ -258,6 +254,7 @@
       }
     }
     
+    // 创建跳棋（不变）
     createJumper() {
       try {
         const geometry = new THREE.CylinderGeometry(
@@ -411,64 +408,77 @@
       this.endPress();
     }
     
+    // ---------- 修改后的跳跃逻辑（可靠移动）----------
     endPress() {
       if (!this.isPressing || !this.jumper) return;
       
       this.isPressing = false;
       this.isJumping = true;
       
+      // 垂直初速度
       this.currentVSpeed = this.currentSpeed * this.config.verticalFactor;
       
+      // 恢复高度
       if (this.jumper) {
         this.jumper.scale.y = 1;
       }
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
+      console.log('起始位置:', this.jumper.position.clone());
       
-      this.lastFrameTime = performance.now();
-      this.jumpAnimation(this.lastFrameTime);
+      // 开始跳跃循环
+      this.jumpLoop();
     }
     
-    jumpAnimation(timestamp) {
+    jumpLoop() {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
-      const deltaTime = timestamp - this.lastFrameTime;
-      this.lastFrameTime = timestamp;
+      // 移动距离 = 速度 * 2（可以调整系数以改变手感）
+      const moveDistance = this.currentSpeed * 2; 
       
-      const speedMultiplier = deltaTime / this.frameInterval;
-      const safeMultiplier = Math.min(speedMultiplier, 2.5);
-      
-      const dir = this.getDirection();
-      if (dir === 'x') {
-        this.jumper.position.x += this.currentSpeed * safeMultiplier;
-      } else {
-        this.jumper.position.z -= this.currentSpeed * safeMultiplier;
+      // 确定移动方向
+      let dir = 'z';
+      if (this.cubes.length >= 2) {
+        const from = this.cubes[this.cubes.length - 2];
+        const to = this.cubes[this.cubes.length - 1];
+        if (from.position.x !== to.position.x) {
+          dir = 'x';
+        }
       }
       
-      this.jumper.position.y += this.currentVSpeed * safeMultiplier;
-      this.currentVSpeed -= this.config.gravity * safeMultiplier;
+      // 水平移动
+      if (dir === 'x') {
+        this.jumper.position.x += moveDistance;
+      } else {
+        this.jumper.position.z -= moveDistance;
+      }
+      
+      // 垂直移动
+      this.jumper.position.y += this.currentVSpeed;
+      this.currentVSpeed -= this.config.gravity;
       
       this.render();
       
+      // 判断落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
         console.log('落地位置:', this.jumper.position.clone());
         this.checkLanding();
       } else {
-        this.animationId = requestAnimationFrame((t) => this.jumpAnimation(t));
+        requestAnimationFrame(() => this.jumpLoop());
       }
     }
     
+    // ---------- 新增特效 ----------
     // 检查落点并触发特效
     checkLanding() {
       if (!this.jumper || !this.scene) return;
       
       const type = this.getJumpState();
-      const vard = this.getd();
       console.log('跳跃结果:', type, '速度:', this.currentSpeed);
       
       if (type === 1) {
@@ -490,13 +500,11 @@
         let addScore = 1;
         let text = '+1';
         
-        // 判断是否在中心区域（根据平台类型调整阈值）
+        // 根据平台类型计算中心阈值
         let threshold = this.config.centerThreshold;
         if (toCube.geometry instanceof THREE.BoxGeometry) {
-          // 立方体中心区域阈值
           threshold = Math.min(this.config.cubeX, this.config.cubeZ) * 0.3;
         } else {
-          // 圆柱体中心区域阈值
           threshold = this.config.cylinderRadius * 0.5;
         }
         
@@ -525,12 +533,10 @@
     
     // 获取平台中心点
     getCubeCenter(cube) {
-      const center = cube.position.clone();
-      // 对于圆柱体，中心就是position；对于立方体也是position（因为几何体原点在中心）
-      return center;
+      return cube.position.clone();
     }
     
-    // 显示得分文字（使用CSS2D）
+    // 显示得分文字
     showScoreLabel(text, position) {
       if (!this.labelRenderer) return;
       
@@ -542,15 +548,18 @@
       div.style.textShadow = '2px 2px 4px rgba(0,0,0,0.5)';
       div.style.animation = 'scoreFade 1s ease-out forwards';
       
-      // 添加动画样式
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes scoreFade {
-          0% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(-50px); }
-        }
-      `;
-      document.head.appendChild(style);
+      // 添加动画样式（只需添加一次）
+      if (!document.getElementById('score-style')) {
+        const style = document.createElement('style');
+        style.id = 'score-style';
+        style.textContent = `
+          @keyframes scoreFade {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-50px); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
       
       const label = new THREE.CSS2DObject(div);
       label.position.copy(position);
@@ -561,7 +570,6 @@
       // 1秒后移除
       setTimeout(() => {
         this.scene.remove(label);
-        div.remove();
       }, 1000);
     }
     
@@ -581,6 +589,7 @@
       }, this.config.compressDuration);
     }
     
+    // 重置跳棋状态
     resetJumper() {
       if (!this.jumper) return;
       
@@ -638,6 +647,7 @@
       continueFalling();
     }
     
+    // 以下方法保持不变（getJumpState, getd, getDirection, getRandomValue）
     getJumpState() {
       if (this.cubes.length < 2 || !this.jumper) return 1;
       
