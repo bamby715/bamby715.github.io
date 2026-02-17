@@ -175,21 +175,23 @@
           
           const mesh = new THREE.Mesh(geometry, material);
           
-          // 根据部件类型调整位置
-          // 这些值需要根据实际模型调整
+          // 关键修复：旋转模型使其站立
+          // 假设STL文件是躺着的（脸朝下），绕X轴旋转-90度使其站立
+          mesh.rotation.x = -Math.PI / 2;
+          
+          // 根据部件类型调整位置（在旋转后的坐标系中）
           switch(part.name) {
             case 'body':
-              mesh.position.y = 0;
+              mesh.position.set(0, 0, 0);
               break;
             case 'head':
-              mesh.position.y = 1.0; // 头部在身体上方
+              mesh.position.set(0, 1.0, 0); // 头部在身体上方（Y轴）
               break;
             case 'ears':
-              mesh.position.y = 1.8; // 耳朵在头部上方
+              mesh.position.set(0, 1.8, 0); // 耳朵在头部上方
               break;
             case 'tail':
-              mesh.position.y = 0.3;
-              mesh.position.z = -0.5; // 尾巴向后
+              mesh.position.set(0, 0.3, -0.5); // 尾巴向后（Z轴负方向）
               break;
           }
           
@@ -220,7 +222,7 @@
       // 移除旧跳棋
       this.scene.remove(this.jumper);
       
-      // 缩放模型到合适大小
+      // 计算模型原始尺寸
       const box = new THREE.Box3().setFromObject(group);
       const size = box.getSize(new THREE.Vector3());
       console.log('模型原始尺寸:', size);
@@ -241,10 +243,6 @@
       // 设置位置
       group.position.x = oldX;
       group.position.z = oldZ;
-      
-      // 确保Y轴方向正确
-      group.rotation.x = 0;
-      group.rotation.z = 0;
       
       this.jumper = group;
       this.scene.add(group);
