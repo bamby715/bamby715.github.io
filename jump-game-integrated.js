@@ -22,16 +22,22 @@
       this.cubes = [];
       this.jumper = null;
       
-      // 跳跃状态
+      // 状态
       this.isPressing = false;
       this.isJumping = false;
       this.isGameOver = false;
       
-      // 速度参数
+      // 速度（基于60fps的每帧速度）
+      this.currentSpeed = 0;      // 水平速度（每帧移动距离，以60fps为基准）
+      this.currentVSpeed = 0;      // 垂直速度（每帧移动距离，以60fps为基准）
+      
+      // 蓄力
       this.pressStartTime = 0;
       this.pressProgress = 0;
-      this.currentSpeed = 0;      // 水平速度（基准60fps下的每帧速度）
-      this.currentVSpeed = 0;      // 垂直速度（基准60fps下的每帧速度）
+      
+      // 时间相关
+      this.lastFrameTime = 0;
+      this.frameInterval = 1000 / 60; // 60fps的理想帧间隔（约16.67ms）
       
       // 分数
       this.score = 0;
@@ -49,13 +55,15 @@
         return;
       }
       
-      // ========== 参数 ==========
+      // ========== 可调节参数 ==========
       this.config = {
+        // 跳棋
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
         jumpHeight: 2,
         jumpColor: 0xffc2d6,
         
+        // 平台
         cubeX: 4,
         cubeY: 2,
         cubeZ: 4,
@@ -68,11 +76,12 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        minSpeed: 0.03,
-        maxSpeed: 0.12,
-        pressDuration: 600,
-        gravity: 0.006,
-        verticalFactor: 3.2,
+        // 跳跃参数（以60fps为基准）
+        minSpeed: 0.02,          // 最小水平速度（每帧，60fps下）
+        maxSpeed: 0.07,          // 最大水平速度（降低以防止电脑飞太远）
+        pressDuration: 800,       // 蓄力到最大所需毫秒（稍长，便于控制）
+        gravity: 0.008,           // 重力（每帧速度减少量，60fps下）
+        verticalFactor: 2.5,      // 垂直初速度 = 水平速度 * 系数
       };
       
       this.init();
@@ -386,37 +395,40 @@
       }
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
-      console.log('起始位置:', this.jumper.position.clone());
       
-      this.jumpAnimation();
+      // 记录起始时间
+      this.lastFrameTime = performance.now();
+      this.jumpAnimation(this.lastFrameTime);
     }
     
-    // 简化的跳跃动画：不使用delta，假设60fps
-    jumpAnimation() {
+    // 基于时间差的跳跃动画
+    jumpAnimation(timestamp) {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
+      // 计算时间差（毫秒）
+      const deltaTime = timestamp - this.lastFrameTime;
+      this.lastFrameTime = timestamp;
+      
+      // 计算速度乘数：如果帧间隔大于理想间隔（16.67ms），则移动更多
+      const speedMultiplier = deltaTime / this.frameInterval;
+      
+      // 限制乘数范围，防止卡顿时跳得太离谱
+      const safeMultiplier = Math.min(speedMultiplier, 2.5);
+      
       // 水平移动
       const dir = this.getDirection();
-      const oldX = this.jumper.position.x;
-      const oldZ = this.jumper.position.z;
-      
       if (dir === 'x') {
-        this.jumper.position.x += this.currentSpeed;
-        console.log('X移动:', oldX, '->', this.jumper.position.x, '速度', this.currentSpeed);
+        this.jumper.position.x += this.currentSpeed * safeMultiplier;
       } else {
-        this.jumper.position.z -= this.currentSpeed;
-        console.log('Z移动:', oldZ, '->', this.jumper.position.z, '速度', this.currentSpeed);
+        this.jumper.position.z -= this.currentSpeed * safeMultiplier;
       }
       
       // 垂直移动
-      this.jumper.position.y += this.currentVSpeed;
-      console.log('Y位置:', this.jumper.position.y);
-      
-      // 重力
-      this.currentVSpeed -= this.config.gravity;
+      this.jumper.position.y += this.currentVSpeed * safeMultiplier;
+      this.currentVSpeed -= this.config.gravity * safeMultiplier;
       
       this.render();
       
@@ -427,7 +439,7 @@
         console.log('落地位置:', this.jumper.position.clone());
         this.checkLanding();
       } else {
-        this.animationId = requestAnimationFrame(this.jumpAnimation.bind(this));
+        this.animationId = requestAnimationFrame((t) => this.jumpAnimation(t));
       }
     }
     
