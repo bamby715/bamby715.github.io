@@ -26,11 +26,10 @@
       this.isPressing = false;
       this.isJumping = false;
       this.isGameOver = false;
-      this.modelsLoaded = false;
       
-      // 速度
-      this.currentSpeed = 0;
-      this.currentVSpeed = 0;
+      // 速度（基于60fps的每帧速度）
+      this.currentSpeed = 0;      // 水平速度（每帧移动距离，以60fps为基准）
+      this.currentVSpeed = 0;      // 垂直速度（每帧移动距离，以60fps为基准）
       
       // 蓄力
       this.pressStartTime = 0;
@@ -38,7 +37,7 @@
       
       // 时间相关
       this.lastFrameTime = 0;
-      this.frameInterval = 1000 / 60;
+      this.frameInterval = 1000 / 60; // 60fps的理想帧间隔（约16.67ms）
       
       // 分数
       this.score = 0;
@@ -56,13 +55,15 @@
         return;
       }
       
-      // ========== 参数 ==========
+      // ========== 可调节参数 ==========
       this.config = {
+        // 跳棋
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
         jumpHeight: 2,
         jumpColor: 0xffc2d6,
         
+        // 平台
         cubeX: 4,
         cubeY: 2,
         cubeZ: 4,
@@ -75,11 +76,12 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        minSpeed: 0.02,
-        maxSpeed: 0.07,
-        pressDuration: 800,
-        gravity: 0.008,
-        verticalFactor: 2.5,
+        // 跳跃参数（以60fps为基准）
+        minSpeed: 0.02,          // 最小水平速度（每帧，60fps下）
+        maxSpeed: 0.07,          // 最大水平速度（降低以防止电脑飞太远）
+        pressDuration: 800,       // 蓄力到最大所需毫秒（稍长，便于控制）
+        gravity: 0.008,           // 重力（每帧速度减少量，60fps下）
+        verticalFactor: 2.5,      // 垂直初速度 = 水平速度 * 系数
       };
       
       this.init();
@@ -120,15 +122,9 @@
         
         this.registerEvents();
         
-        // 先创建平台
         this.createCube();
         this.createCube();
-        
-        // 先创建默认跳棋（粉色圆柱体）确保游戏可以玩
-        this.createDefaultJumper();
-        
-        // 然后尝试加载模型
-        this.tryLoadModel();
+        this.createJumper();
         
         this.initScore();
         
@@ -138,140 +134,6 @@
         
       } catch (error) {
         console.error('游戏初始化失败:', error);
-      }
-    }
-    
-    // 尝试加载模型
-    tryLoadModel() {
-      if (typeof THREE.STLLoader === 'undefined') {
-        console.log('STLLoader 未加载，使用默认跳棋');
-        return;
-      }
-      
-      const loader = new THREE.STLLoader();
-      const parts = [
-        { file: 'images/game/mimu_body.stl', color: 0xff9ebd, name: 'body' },
-        { file: 'images/game/mimu_head.stl', color: 0xffc2d6, name: 'head' },
-        { file: 'images/game/mimu_ears.stl', color: 0xff85b3, name: 'ears' },
-        { file: 'images/game/mimu_tail.stl', color: 0xff9ebd, name: 'tail' }
-      ];
-      
-      let loadedCount = 0;
-      const group = new THREE.Group();
-      
-      parts.forEach((part) => {
-        loader.load(part.file, (geometry) => {
-          console.log(`模型加载成功: ${part.name}`);
-          
-          // 计算几何体范围
-          geometry.computeBoundingBox();
-          
-          // 创建材质
-          const material = new THREE.MeshLambertMaterial({ 
-            color: part.color,
-            emissive: 0x000000,
-            shininess: 30
-          });
-          
-          const mesh = new THREE.Mesh(geometry, material);
-          
-          // 关键修复：旋转模型使其站立
-          // 假设STL文件是躺着的（脸朝下），绕X轴旋转-90度使其站立
-          mesh.rotation.x = -Math.PI / 2;
-          
-          // 根据部件类型调整位置（在旋转后的坐标系中）
-          switch(part.name) {
-            case 'body':
-              mesh.position.set(0, 0, 0);
-              break;
-            case 'head':
-              mesh.position.set(0, 1.0, 0); // 头部在身体上方（Y轴）
-              break;
-            case 'ears':
-              mesh.position.set(0, 1.8, 0); // 耳朵在头部上方
-              break;
-            case 'tail':
-              mesh.position.set(0, 0.3, -0.5); // 尾巴向后（Z轴负方向）
-              break;
-          }
-          
-          group.add(mesh);
-          
-          loadedCount++;
-          if (loadedCount === parts.length) {
-            // 所有部件加载完成，替换跳棋
-            this.replaceJumperWithModel(group);
-          }
-        }, undefined, (error) => {
-          console.log(`模型加载失败: ${part.name}`, error);
-          loadedCount++;
-        });
-      });
-    }
-    
-    // 用模型替换默认跳棋
-    replaceJumperWithModel(group) {
-      if (!this.jumper || !this.scene) return;
-      
-      console.log('替换跳棋为模型');
-      
-      // 保存当前位置
-      const oldX = this.jumper.position.x;
-      const oldZ = this.jumper.position.z;
-      
-      // 移除旧跳棋
-      this.scene.remove(this.jumper);
-      
-      // 计算模型原始尺寸
-      const box = new THREE.Box3().setFromObject(group);
-      const size = box.getSize(new THREE.Vector3());
-      console.log('模型原始尺寸:', size);
-      
-      // 计算缩放比例，使模型高度与跳棋高度一致
-      const targetHeight = this.config.jumpHeight;
-      const scale = targetHeight / size.y;
-      group.scale.set(scale, scale, scale);
-      
-      // 重新计算缩放后的包围盒
-      box.setFromObject(group);
-      const center = box.getCenter(new THREE.Vector3());
-      console.log('缩放后中心点:', center);
-      
-      // 将模型底部放在 y=0 处
-      group.position.y = -center.y;
-      
-      // 设置位置
-      group.position.x = oldX;
-      group.position.z = oldZ;
-      
-      this.jumper = group;
-      this.scene.add(group);
-      this.modelsLoaded = true;
-      
-      console.log('模型替换完成，最终位置:', group.position);
-    }
-    
-    // 创建默认跳棋
-    createDefaultJumper() {
-      try {
-        const geometry = new THREE.CylinderGeometry(
-          this.config.jumpTopRadius,
-          this.config.jumpBottomRadius,
-          this.config.jumpHeight,
-          32
-        );
-        geometry.translate(0, this.config.jumpHeight / 2, 0);
-        
-        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
-        
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(0, this.config.jumpHeight / 2, 0);
-        this.jumper = mesh;
-        this.scene.add(mesh);
-        
-        console.log('创建默认圆柱体跳棋');
-      } catch (error) {
-        console.error('创建默认跳棋失败:', error);
       }
     }
     
@@ -370,6 +232,28 @@
         
       } catch (error) {
         console.error('创建平台失败:', error);
+      }
+    }
+    
+    createJumper() {
+      try {
+        const geometry = new THREE.CylinderGeometry(
+          this.config.jumpTopRadius,
+          this.config.jumpBottomRadius,
+          this.config.jumpHeight,
+          32
+        );
+        geometry.translate(0, this.config.jumpHeight / 2, 0);
+        
+        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(0, this.config.jumpHeight / 2, 0);
+        this.jumper = mesh;
+        this.scene.add(mesh);
+        
+      } catch (error) {
+        console.error('创建跳棋失败:', error);
       }
     }
     
@@ -480,7 +364,6 @@
       this.currentSpeed = this.config.minSpeed + 
         (this.config.maxSpeed - this.config.minSpeed) * this.pressProgress;
       
-      // 压缩跳棋
       const scale = 1 - this.pressProgress * 0.7;
       this.jumper.scale.y = scale;
       
@@ -507,49 +390,49 @@
       
       this.currentVSpeed = this.currentSpeed * this.config.verticalFactor;
       
-      // 恢复高度
       if (this.jumper) {
         this.jumper.scale.y = 1;
       }
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
-      console.log('起始位置:', this.jumper.position.clone());
       
+      // 记录起始时间
       this.lastFrameTime = performance.now();
       this.jumpAnimation(this.lastFrameTime);
     }
     
+    // 基于时间差的跳跃动画
     jumpAnimation(timestamp) {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
+      // 计算时间差（毫秒）
       const deltaTime = timestamp - this.lastFrameTime;
       this.lastFrameTime = timestamp;
       
+      // 计算速度乘数：如果帧间隔大于理想间隔（16.67ms），则移动更多
       const speedMultiplier = deltaTime / this.frameInterval;
+      
+      // 限制乘数范围，防止卡顿时跳得太离谱
       const safeMultiplier = Math.min(speedMultiplier, 2.5);
       
+      // 水平移动
       const dir = this.getDirection();
-      const oldX = this.jumper.position.x;
-      const oldZ = this.jumper.position.z;
-      
       if (dir === 'x') {
         this.jumper.position.x += this.currentSpeed * safeMultiplier;
-        console.log(`X移动: ${oldX.toFixed(2)} -> ${this.jumper.position.x.toFixed(2)}`);
       } else {
         this.jumper.position.z -= this.currentSpeed * safeMultiplier;
-        console.log(`Z移动: ${oldZ.toFixed(2)} -> ${this.jumper.position.z.toFixed(2)}`);
       }
       
+      // 垂直移动
       this.jumper.position.y += this.currentVSpeed * safeMultiplier;
       this.currentVSpeed -= this.config.gravity * safeMultiplier;
       
-      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
-      
       this.render();
       
+      // 判断落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
@@ -808,8 +691,7 @@
       if (this.scene) {
         this.createCube();
         this.createCube();
-        this.createDefaultJumper();
-        this.tryLoadModel();
+        this.createJumper();
       }
       
       this.animate();
