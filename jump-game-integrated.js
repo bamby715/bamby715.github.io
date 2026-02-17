@@ -1,105 +1,157 @@
 (function() {
   // 防止重复加载
-  if (window.JumpGameInstance) return;
+  if (window.JumpGameInstance) {
+    console.log('游戏实例已存在');
+    return;
+  }
+  
+  console.log('开始加载跳一跳游戏...');
   
   class JumpGame {
     constructor(container) {
+      console.log('游戏构造函数被调用，容器:', container);
+      
+      if (!container) {
+        console.error('容器不存在！');
+        return;
+      }
+      
       this.container = container;
       this.scene = null;
       this.camera = null;
       this.renderer = null;
       this.cubes = [];
       this.jumper = null;
-      this.mouseState = 0;
+      this.mouseState = 0; // -1: 按下, 1: 抬起
       this.xspeed = 0;
       this.yspeed = 0;
       this.score = 0;
       this.animationId = null;
+      this.isJumping = false; // 是否正在跳跃中
+      this.isGameOver = false; // 是否游戏结束
       this.failCallback = null;
       this.cameraPos = {
         current: new THREE.Vector3(0, 0, 0),
         next: new THREE.Vector3()
       };
       
+      // 检查 THREE 是否存在
+      if (typeof THREE === 'undefined') {
+        console.error('THREE 未定义！请检查 Three.js 是否加载成功');
+        return;
+      }
+      console.log('THREE 版本:', THREE.REVISION);
+      
+      // ========== 调整后的参数 ==========
       this.config = {
         // 跳棋参数
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
         jumpHeight: 2,
-        jumpColor: 0xffc2d6,        // 粉色（可替换为纹理）
+        jumpColor: 0xffc2d6,
         // 平台参数
         cubeX: 4,
         cubeY: 2,
         cubeZ: 4,
-        cubeColor: 0xff9ebd,        // 深粉色（可替换为纹理）
+        cubeColor: 0xff9ebd,
         cylinderRadius: 2,
         cylinderHeight: 2,
         cylinderColor: 0xffc2d6,
         cubeMaxLen: 6,
-        cubeMinDis: 2.5,
-        cubeMaxDis: 4
+        cubeMinDis: 2.5,  // 最小距离
+        cubeMaxDis: 4,     // 最大距离
+        
+        // ===== 新增：蓄力速度控制 =====
+        pressSpeedX: 0.001,    // 水平蓄力速度（原0.004）
+        pressSpeedY: 0.002,    // 垂直蓄力速度（原0.008）
+        maxSpeed: 0.15,        // 最大速度限制
+        gravity: 0.008,        // 重力加速度（原0.01）
       };
       
       this.init();
     }
     
     init() {
-      // 创建场景
-      this.scene = new THREE.Scene();
+      console.log('开始初始化游戏...');
       
-      // 背景色或背景图片（假链接）
-      // 素材：背景图片（可选）请替换为实际图片链接
-      // const bgTexture = new THREE.TextureLoader().load('https://your-image-host.com/bamby-bg.jpg');
-      // this.scene.background = bgTexture;
-      this.scene.background = new THREE.Color(0xfff0f5); // 浅粉色背景
-      
-      // 相机
-      this.camera = new THREE.OrthographicCamera(
-        this.container.clientWidth / -80,
-        this.container.clientWidth / 80,
-        this.container.clientHeight / 80,
-        this.container.clientHeight / -80,
-        0.1, 5000
-      );
-      this.camera.position.set(100, 100, 100);
-      this.cameraPos.current.set(0, 0, 0);
-      this.cameraPos.next.set(0, 0, 0);
-      
-      // 渲染器
-      this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-      this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-      this.renderer.setPixelRatio(window.devicePixelRatio);
-      this.container.appendChild(this.renderer.domElement);
-      
-      // 灯光
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
-      directionalLight.position.set(3, 10, 15);
-      this.scene.add(directionalLight);
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-      this.scene.add(ambientLight);
-      
-      // 鼠标事件
-      this.mouse = {
-        down: this.isPC() ? 'mousedown' : 'touchstart',
-        up: this.isPC() ? 'mouseup' : 'touchend'
-      };
-      this.registerEvents();
-      
-      // 开始生成物体
-      this.createCube(); // 第一个平台
-      this.createCube(); // 第二个平台
-      this.createJumper();
-      
-      // 更新分数显示
-      this.initScore();
-      
-      // 开始渲染循环
-      this.animate();
+      try {
+        // 创建场景
+        this.scene = new THREE.Scene();
+        console.log('场景创建成功');
+        
+        // 背景色
+        this.scene.background = new THREE.Color(0xfff0f5);
+        
+        // 获取容器尺寸
+        const width = this.container.clientWidth;
+        const height = this.container.clientHeight;
+        console.log('容器尺寸:', width, 'x', height);
+        
+        if (width === 0 || height === 0) {
+          console.warn('容器尺寸为0，可能是模态框还没显示完全');
+        }
+        
+        // 相机
+        this.camera = new THREE.OrthographicCamera(
+          width / -80,
+          width / 80,
+          height / 80,
+          height / -80,
+          0.1, 5000
+        );
+        this.camera.position.set(100, 100, 100);
+        this.cameraPos.current.set(0, 0, 0);
+        this.cameraPos.next.set(0, 0, 0);
+        console.log('相机创建成功');
+        
+        // 渲染器
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.container.appendChild(this.renderer.domElement);
+        console.log('渲染器创建成功');
+        
+        // 灯光
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
+        directionalLight.position.set(3, 10, 15);
+        this.scene.add(directionalLight);
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        this.scene.add(ambientLight);
+        console.log('灯光添加成功');
+        
+        // 鼠标事件
+        this.mouse = {
+          down: this.isPC() ? 'mousedown' : 'touchstart',
+          up: this.isPC() ? 'mouseup' : 'touchend'
+        };
+        this.registerEvents();
+        
+        // 开始生成物体
+        console.log('开始创建第一个平台...');
+        this.createCube();
+        
+        console.log('开始创建第二个平台...');
+        this.createCube();
+        
+        console.log('开始创建跳棋...');
+        this.createJumper();
+        
+        // 更新分数显示
+        this.initScore();
+        
+        // 开始渲染循环
+        this.animate();
+        
+        console.log('游戏初始化完成！');
+        
+      } catch (error) {
+        console.error('游戏初始化失败:', error);
+      }
     }
     
     // 初始化分数显示
     initScore() {
-      // 检查是否已存在分数显示
       let scoreEl = document.getElementById('jump-game-score');
       if (!scoreEl) {
         scoreEl = document.createElement('div');
@@ -110,10 +162,10 @@
           left: 20px;
           font-size: 24px;
           font-weight: bold;
-          color: var(--color-primary-dark);
+          color: #ff9ebd;
           text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
           z-index: 100;
-          font-family: var(--font-body);
+          font-family: 'Noto Sans SC', sans-serif;
         `;
         this.container.appendChild(scoreEl);
       }
@@ -128,120 +180,117 @@
       }
     }
     
-    // 创建平台（立方体或圆柱体）- 完整版
+    // 创建平台
     createCube() {
-      const relativePos = Math.random() > 0.5 ? 'zDir' : 'xDir';
-      const cubeType = Math.random() > 0.5 ? 'cube' : 'cylinder';
-      
-      let geometry, material;
-      if (cubeType === 'cube') {
-        geometry = new THREE.BoxGeometry(this.config.cubeX, this.config.cubeY, this.config.cubeZ);
-        // 使用纹理（假链接）请替换为实际图片
-        // const texture = new THREE.TextureLoader().load('https://your-image-host.com/platform-cube.jpg');
-        // material = new THREE.MeshLambertMaterial({ map: texture });
-        material = new THREE.MeshLambertMaterial({ color: this.config.cubeColor });
-      } else {
-        geometry = new THREE.CylinderGeometry(this.config.cylinderRadius, this.config.cylinderRadius, this.config.cylinderHeight, 32);
-        // 使用纹理（假链接）请替换为实际图片
-        // const texture = new THREE.TextureLoader().load('https://your-image-host.com/platform-cylinder.jpg');
-        // material = new THREE.MeshLambertMaterial({ map: texture });
-        material = new THREE.MeshLambertMaterial({ color: this.config.cylinderColor });
-      }
-      
-      const mesh = new THREE.Mesh(geometry, material);
-      
-      // 位置计算
-      if (this.cubes.length) {
-        const dis = this.getRandomValue(this.config.cubeMinDis, this.config.cubeMaxDis);
-        const lastcube = this.cubes[this.cubes.length - 1];
+      try {
+        const relativePos = Math.random() > 0.5 ? 'zDir' : 'xDir';
+        const cubeType = Math.random() > 0.5 ? 'cube' : 'cylinder';
         
-        if (relativePos === 'zDir') {
-          // Z轴方向（向后）
-          if (cubeType === 'cube') {
-            if (lastcube.geometry instanceof THREE.BoxGeometry) {
-              // 方体 -> 方体
-              mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cubeZ);
+        let geometry, material;
+        if (cubeType === 'cube') {
+          geometry = new THREE.BoxGeometry(this.config.cubeX, this.config.cubeY, this.config.cubeZ);
+          material = new THREE.MeshLambertMaterial({ color: this.config.cubeColor });
+        } else {
+          geometry = new THREE.CylinderGeometry(this.config.cylinderRadius, this.config.cylinderRadius, this.config.cylinderHeight, 32);
+          material = new THREE.MeshLambertMaterial({ color: this.config.cylinderColor });
+        }
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        
+        if (this.cubes.length) {
+          const dis = this.getRandomValue(this.config.cubeMinDis, this.config.cubeMaxDis);
+          const lastcube = this.cubes[this.cubes.length - 1];
+          
+          if (relativePos === 'zDir') {
+            if (cubeType === 'cube') {
+              if (lastcube.geometry instanceof THREE.BoxGeometry) {
+                mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cubeZ);
+              } else {
+                mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius - this.config.cubeZ / 2);
+              }
             } else {
-              // 圆柱体 -> 方体
-              mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius - this.config.cubeZ / 2);
+              if (lastcube.geometry instanceof THREE.BoxGeometry) {
+                mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius - this.config.cubeZ / 2);
+              } else {
+                mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius * 2);
+              }
             }
           } else {
-            if (lastcube.geometry instanceof THREE.BoxGeometry) {
-              // 方体 -> 圆柱体
-              mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius - this.config.cubeZ / 2);
+            if (cubeType === 'cube') {
+              if (lastcube.geometry instanceof THREE.BoxGeometry) {
+                mesh.position.set(lastcube.position.x + dis + this.config.cubeX, lastcube.position.y, lastcube.position.z);
+              } else {
+                mesh.position.set(lastcube.position.x + dis + this.config.cubeX / 2 + this.config.cylinderRadius, lastcube.position.y, lastcube.position.z);
+              }
             } else {
-              // 圆柱体 -> 圆柱体
-              mesh.position.set(lastcube.position.x, lastcube.position.y, lastcube.position.z - dis - this.config.cylinderRadius * 2);
+              if (lastcube.geometry instanceof THREE.BoxGeometry) {
+                mesh.position.set(lastcube.position.x + dis + this.config.cylinderRadius + this.config.cubeX / 2, lastcube.position.y, lastcube.position.z);
+              } else {
+                mesh.position.set(lastcube.position.x + dis + this.config.cylinderRadius * 2, lastcube.position.y, lastcube.position.z);
+              }
             }
           }
         } else {
-          // X轴方向（向右）
-          if (cubeType === 'cube') {
-            if (lastcube.geometry instanceof THREE.BoxGeometry) {
-              // 方体 -> 方体
-              mesh.position.set(lastcube.position.x + dis + this.config.cubeX, lastcube.position.y, lastcube.position.z);
-            } else {
-              // 圆柱体 -> 方体
-              mesh.position.set(lastcube.position.x + dis + this.config.cubeX / 2 + this.config.cylinderRadius, lastcube.position.y, lastcube.position.z);
-            }
-          } else {
-            if (lastcube.geometry instanceof THREE.BoxGeometry) {
-              // 方体 -> 圆柱体
-              mesh.position.set(lastcube.position.x + dis + this.config.cylinderRadius + this.config.cubeX / 2, lastcube.position.y, lastcube.position.z);
-            } else {
-              // 圆柱体 -> 圆柱体
-              mesh.position.set(lastcube.position.x + dis + this.config.cylinderRadius * 2, lastcube.position.y, lastcube.position.z);
-            }
-          }
+          mesh.position.set(0, 0, 0);
         }
-      } else {
-        mesh.position.set(0, 0, 0);
-      }
-      
-      this.testPosition(mesh.position);
-      this.cubes.push(mesh);
-      this.scene.add(mesh);
-      
-      // 如果缓存图形数大于最大缓存数，去掉一个
-      if (this.cubes.length > this.config.cubeMaxLen) {
-        this.scene.remove(this.cubes.shift());
-      }
-      
-      if (this.cubes.length > 1) {
-        this.updateCameraPos();
-      } else {
-        this.camera.lookAt(this.cameraPos.current);
+        
+        this.testPosition(mesh.position);
+        this.cubes.push(mesh);
+        this.scene.add(mesh);
+        
+        if (this.cubes.length > this.config.cubeMaxLen) {
+          this.scene.remove(this.cubes.shift());
+        }
+        
+        if (this.cubes.length > 1) {
+          this.updateCameraPos();
+        } else {
+          this.camera.lookAt(this.cameraPos.current);
+        }
+        
+        console.log(`平台创建成功，类型: ${cubeType}, 位置:`, mesh.position);
+        
+      } catch (error) {
+        console.error('创建平台失败:', error);
       }
     }
     
-    // 创建跳棋（jumper）—— 使用纹理或颜色
+    // 创建跳棋
     createJumper() {
-      const geometry = new THREE.CylinderGeometry(
-        this.config.jumpTopRadius,
-        this.config.jumpBottomRadius,
-        this.config.jumpHeight,
-        32
-      );
-      geometry.translate(0, this.config.jumpHeight / 2, 0);
-      
-      // 使用纹理（假链接）请替换为实际图片
-      // const texture = new THREE.TextureLoader().load('https://your-image-host.com/bamby-jumper.png');
-      // const material = new THREE.MeshLambertMaterial({ map: texture, transparent: true });
-      const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
-      
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(0, this.config.jumpHeight / 2, 0);
-      this.jumper = mesh;
-      this.scene.add(mesh);
+      try {
+        const geometry = new THREE.CylinderGeometry(
+          this.config.jumpTopRadius,
+          this.config.jumpBottomRadius,
+          this.config.jumpHeight,
+          32
+        );
+        geometry.translate(0, this.config.jumpHeight / 2, 0);
+        
+        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(0, this.config.jumpHeight / 2, 0);
+        this.jumper = mesh;
+        this.scene.add(mesh);
+        
+        console.log('跳棋创建成功');
+        
+      } catch (error) {
+        console.error('创建跳棋失败:', error);
+      }
     }
     
     // 渲染场景
     render() {
-      this.renderer.render(this.scene, this.camera);
+      if (this.renderer && this.scene && this.camera) {
+        this.renderer.render(this.scene, this.camera);
+      }
     }
     
     // 更新相机位置
     updateCameraPos() {
+      if (this.cubes.length < 2) return;
+      
       const a = this.cubes[this.cubes.length - 2];
       const b = this.cubes[this.cubes.length - 1];
       const toPos = {
@@ -282,6 +331,8 @@
       this.renderer.domElement.addEventListener(this.mouse.down, this.onMouseDown);
       this.renderer.domElement.addEventListener(this.mouse.up, this.onMouseUp);
       window.addEventListener('resize', this.onWindowResize, false);
+      
+      console.log('事件注册成功');
     }
     
     // 窗口大小改变
@@ -297,96 +348,180 @@
       this.render();
     }
     
-    // 鼠标按下
-    onMouseDown() {
+    // 鼠标按下 - 蓄力
+    onMouseDown(e) {
+      e.preventDefault();
+      
+      // 如果正在跳跃中或游戏结束，不能再次按下
+      if (this.isJumping || this.isGameOver) return;
+      
       this.mouseState = -1;
-      if (this.jumper.scale.y > 0.02) {
+      this.pressAnimation();
+    }
+    
+    // 蓄力动画
+    pressAnimation() {
+      if (this.mouseState !== -1) return;
+      if (!this.jumper) return;
+      
+      // 限制最大压缩程度
+      if (this.jumper.scale.y > 0.5) {
         this.jumper.scale.y -= 0.01;
-        this.xspeed += 0.004;
-        this.yspeed += 0.008;
+        
+        // 限制最大速度
+        this.xspeed = Math.min(this.xspeed + this.config.pressSpeedX, this.config.maxSpeed);
+        this.yspeed = Math.min(this.yspeed + this.config.pressSpeedY, this.config.maxSpeed * 2);
+        
         this.render();
-        if (this.mouseState === -1) {
-          this.animationId = requestAnimationFrame(this.onMouseDown.bind(this));
-        }
+        
+        // 继续蓄力
+        this.animationId = requestAnimationFrame(this.pressAnimation.bind(this));
       }
     }
     
-    // 鼠标抬起
-    onMouseUp() {
+    // 鼠标抬起 - 跳跃
+    onMouseUp(e) {
+      e.preventDefault();
+      
+      // 如果已经松开或者正在跳跃中，不处理
+      if (this.mouseState !== -1 || this.isJumping || this.isGameOver) return;
+      
       this.mouseState = 1;
+      this.isJumping = true;
+      
       const self = this;
       
-      function step() {
+      function jumpStep() {
+        if (!self.jumper || !self.scene || self.isGameOver) {
+          self.isJumping = false;
+          return;
+        }
+        
+        // 在空中时
         if (self.jumper.position.y >= self.config.jumpHeight / 2) {
           const dir = self.getDirection();
           if (dir === 'x') {
             self.jumper.position.x += self.xspeed;
-            self.jumper.position.y += self.yspeed;
           } else {
             self.jumper.position.z -= self.xspeed;
-            self.jumper.position.y += self.yspeed;
           }
-          self.yspeed -= 0.01;
+          self.jumper.position.y += self.yspeed;
           
+          // 重力作用
+          self.yspeed -= self.config.gravity;
+          
+          // 恢复跳棋形状
           if (self.jumper.scale.y < 1) {
             self.jumper.scale.y += 0.02;
+            if (self.jumper.scale.y > 1) self.jumper.scale.y = 1;
           }
           
           self.render();
-          self.animationId = requestAnimationFrame(step);
+          self.animationId = requestAnimationFrame(jumpStep);
         } else {
-          const type = self.getJumpState();
-          console.log('jumpstate:' + type);
-          
-          if (type === 1) {
-            // 落在当前块上
-            self.xspeed = 0;
-            self.yspeed = 0;
-            self.jumper.scale.y = 1;
-            self.jumper.position.y = self.config.jumpHeight / 2;
-          } else if (type === 2 || type === 3) {
-            // 成功降落
-            self.score += 1;
-            self.xspeed = 0;
-            self.yspeed = 0;
-            self.jumper.scale.y = 1;
-            self.jumper.position.y = self.config.jumpHeight / 2;
-            self.updateScore();
-            self.createCube();
-          } else if (type === -2) {
-            // 落到大地上动画
-            (function continuefalling() {
-              if (self.jumper.position.y >= -self.config.jumpHeight / 2) {
-                self.jumper.position.y -= 0.06;
-                self.render();
-                requestAnimationFrame(continuefalling);
-              }
-            })();
-            // 失败后延迟重启
-            setTimeout(() => {
-              self.restart();
-            }, 1500);
-          } else {
-            // 落到边缘处
-            self.failingAnimation(type);
-            setTimeout(() => {
-              self.restart();
-            }, 1500);
-          }
+          // 落地判定
+          self.isJumping = false;
+          self.landing();
         }
       }
       
-      step();
+      jumpStep();
     }
     
-    // 根据落点判断是否成功或失败
+    // 落地处理
+    landing() {
+      if (!this.jumper || !this.scene) return;
+      
+      const type = this.getJumpState();
+      console.log('跳跃结果:', type);
+      
+      if (type === 1) {
+        // 落在当前块上
+        this.resetJumper();
+      } else if (type === 2 || type === 3) {
+        // 成功跳到下一个块
+        this.score += 1;
+        this.updateScore();
+        this.resetJumper();
+        this.createCube();
+      } else {
+        // 失败
+        this.isGameOver = true;
+        this.failAnimation(type);
+      }
+    }
+    
+    // 重置跳棋状态
+    resetJumper() {
+      if (!this.jumper) return;
+      
+      this.xspeed = 0;
+      this.yspeed = 0;
+      this.jumper.scale.y = 1;
+      this.jumper.position.y = this.config.jumpHeight / 2;
+      this.mouseState = 0;
+    }
+    
+    // 失败动画
+    failAnimation(state) {
+      if (!this.jumper) return;
+      
+      const rotateAxis = this.getDirection() === 'z' ? 'x' : 'z';
+      let rotateAdd, rotateTo;
+      
+      if (state === -1) {
+        rotateAdd = this.jumper.rotation[rotateAxis] - 0.05;
+        rotateTo = this.jumper.rotation[rotateAxis] > -Math.PI / 2;
+      } else {
+        rotateAdd = this.jumper.rotation[rotateAxis] + 0.05;
+        rotateTo = this.jumper.rotation[rotateAxis] < Math.PI / 2;
+      }
+      
+      if (rotateTo) {
+        this.jumper.rotation[rotateAxis] = rotateAdd;
+        this.render();
+        requestAnimationFrame(() => {
+          this.failAnimation(state);
+        });
+      } else {
+        // 下落动画
+        this.fallDown();
+      }
+    }
+    
+    // 下落动画
+    fallDown() {
+      const self = this;
+      
+      function continueFalling() {
+        if (!self.jumper || !self.scene) return;
+        
+        if (self.jumper.position.y >= -self.config.jumpHeight / 2) {
+          self.jumper.position.y -= 0.06;
+          self.render();
+          requestAnimationFrame(continueFalling);
+        } else {
+          // 延迟重启
+          setTimeout(() => {
+            self.restart();
+          }, 1000);
+        }
+      }
+      
+      continueFalling();
+    }
+    
+    // 计算跳跃状态
     getJumpState() {
+      if (this.cubes.length < 2 || !this.jumper) return 1;
+      
       const jumpR = this.config.jumpBottomRadius;
       const vard = this.getd();
+      if (!vard) return 1;
+      
       const d = vard.d;
       const d1 = vard.d1;
       const d2 = vard.d2;
-      const d3 = vard.d3;
       const d4 = vard.d4;
       
       if (d <= d1) {
@@ -406,146 +541,111 @@
       }
     }
     
-    // 计算各个关键距离
+    // 计算距离（保持原逻辑不变）
     getd() {
-      let d, d1, d2, d3, d4;
-      const fromObj = this.cubes[this.cubes.length - 2];
-      const fromPosition = fromObj.position;
-      const fromType = fromObj.geometry instanceof THREE.BoxGeometry ? 'cube' : 'cylinder';
-      const toObj = this.cubes[this.cubes.length - 1];
-      const toPosition = toObj.position;
-      const toType = toObj.geometry instanceof THREE.BoxGeometry ? 'cube' : 'cylinder';
-      const position = this.jumper.position;
+      if (this.cubes.length < 2 || !this.jumper) return null;
       
-      if (fromType === 'cube') {
-        if (toType === 'cube') {
-          if (fromPosition.x === toPosition.x) {
-            // -z 方向
-            d = Math.abs(position.z);
-            d1 = Math.abs(fromPosition.z - this.config.cubeZ / 2);
-            d2 = Math.abs(toPosition.z + this.config.cubeZ / 2);
-            d3 = Math.abs(toPosition.z);
-            d4 = Math.abs(toPosition.z - this.config.cubeZ / 2);
+      try {
+        let d, d1, d2, d3, d4;
+        const fromObj = this.cubes[this.cubes.length - 2];
+        const fromPosition = fromObj.position;
+        const fromType = fromObj.geometry instanceof THREE.BoxGeometry ? 'cube' : 'cylinder';
+        const toObj = this.cubes[this.cubes.length - 1];
+        const toPosition = toObj.position;
+        const toType = toObj.geometry instanceof THREE.BoxGeometry ? 'cube' : 'cylinder';
+        const position = this.jumper.position;
+        
+        if (fromType === 'cube') {
+          if (toType === 'cube') {
+            if (fromPosition.x === toPosition.x) {
+              d = Math.abs(position.z);
+              d1 = Math.abs(fromPosition.z - this.config.cubeZ / 2);
+              d2 = Math.abs(toPosition.z + this.config.cubeZ / 2);
+              d3 = Math.abs(toPosition.z);
+              d4 = Math.abs(toPosition.z - this.config.cubeZ / 2);
+            } else {
+              d = Math.abs(position.x);
+              d1 = Math.abs(fromPosition.x + this.config.cubeX / 2);
+              d2 = Math.abs(toPosition.x - this.config.cubeX / 2);
+              d3 = Math.abs(toPosition.x);
+              d4 = Math.abs(toPosition.x + this.config.cubeX / 2);
+            }
           } else {
-            // x 方向
-            d = Math.abs(position.x);
-            d1 = Math.abs(fromPosition.x + this.config.cubeX / 2);
-            d2 = Math.abs(toPosition.x - this.config.cubeX / 2);
-            d3 = Math.abs(toPosition.x);
-            d4 = Math.abs(toPosition.x + this.config.cubeX / 2);
+            if (fromPosition.x === toPosition.x) {
+              d = Math.abs(position.z);
+              d1 = Math.abs(fromPosition.z - this.config.cubeZ / 2);
+              d2 = Math.abs(toPosition.z + this.config.cylinderRadius);
+              d3 = Math.abs(toPosition.z);
+              d4 = Math.abs(toPosition.z - this.config.cylinderRadius);
+            } else {
+              d = Math.abs(position.x);
+              d1 = Math.abs(fromPosition.x + this.config.cubeX / 2);
+              d2 = Math.abs(toPosition.x - this.config.cylinderRadius);
+              d3 = Math.abs(toPosition.x);
+              d4 = Math.abs(toPosition.x + this.config.cylinderRadius);
+            }
           }
         } else {
-          if (fromPosition.x === toPosition.x) {
-            // -z 方向
-            d = Math.abs(position.z);
-            d1 = Math.abs(fromPosition.z - this.config.cubeZ / 2);
-            d2 = Math.abs(toPosition.z + this.config.cylinderRadius);
-            d3 = Math.abs(toPosition.z);
-            d4 = Math.abs(toPosition.z - this.config.cylinderRadius);
+          if (toType === 'cube') {
+            if (fromPosition.x === toPosition.x) {
+              d = Math.abs(position.z);
+              d1 = Math.abs(fromPosition.z - this.config.cylinderRadius);
+              d2 = Math.abs(toPosition.z + this.config.cubeZ / 2);
+              d3 = Math.abs(toPosition.z);
+              d4 = Math.abs(toPosition.z - this.config.cubeZ / 2);
+            } else {
+              d = Math.abs(position.x);
+              d1 = Math.abs(fromPosition.x + this.config.cylinderRadius);
+              d2 = Math.abs(toPosition.x - this.config.cubeX / 2);
+              d3 = Math.abs(toPosition.x);
+              d4 = Math.abs(toPosition.x + this.config.cubeX / 2);
+            }
           } else {
-            // x 方向
-            d = Math.abs(position.x);
-            d1 = Math.abs(fromPosition.x + this.config.cubeX / 2);
-            d2 = Math.abs(toPosition.x - this.config.cylinderRadius);
-            d3 = Math.abs(toPosition.x);
-            d4 = Math.abs(toPosition.x + this.config.cylinderRadius);
+            if (fromPosition.x === toPosition.x) {
+              d = Math.abs(position.z);
+              d1 = Math.abs(fromPosition.z - this.config.cylinderRadius);
+              d2 = Math.abs(toPosition.z + this.config.cylinderRadius);
+              d3 = Math.abs(toPosition.z);
+              d4 = Math.abs(toPosition.z - this.config.cylinderRadius);
+            } else {
+              d = Math.abs(position.x);
+              d1 = Math.abs(fromPosition.x + this.config.cylinderRadius);
+              d2 = Math.abs(toPosition.x - this.config.cylinderRadius);
+              d3 = Math.abs(toPosition.x);
+              d4 = Math.abs(toPosition.x + this.config.cylinderRadius);
+            }
           }
         }
-      } else {
-        if (toType === 'cube') {
-          if (fromPosition.x === toPosition.x) {
-            // -z 方向
-            d = Math.abs(position.z);
-            d1 = Math.abs(fromPosition.z - this.config.cylinderRadius);
-            d2 = Math.abs(toPosition.z + this.config.cubeZ / 2);
-            d3 = Math.abs(toPosition.z);
-            d4 = Math.abs(toPosition.z - this.config.cubeZ / 2);
-          } else {
-            // x 方向
-            d = Math.abs(position.x);
-            d1 = Math.abs(fromPosition.x + this.config.cylinderRadius);
-            d2 = Math.abs(toPosition.x - this.config.cubeX / 2);
-            d3 = Math.abs(toPosition.x);
-            d4 = Math.abs(toPosition.x + this.config.cubeX / 2);
-          }
-        } else {
-          if (fromPosition.x === toPosition.x) {
-            // -z 方向
-            d = Math.abs(position.z);
-            d1 = Math.abs(fromPosition.z - this.config.cylinderRadius);
-            d2 = Math.abs(toPosition.z + this.config.cylinderRadius);
-            d3 = Math.abs(toPosition.z);
-            d4 = Math.abs(toPosition.z - this.config.cylinderRadius);
-          } else {
-            // x 方向
-            d = Math.abs(position.x);
-            d1 = Math.abs(fromPosition.x + this.config.cylinderRadius);
-            d2 = Math.abs(toPosition.x - this.config.cylinderRadius);
-            d3 = Math.abs(toPosition.x);
-            d4 = Math.abs(toPosition.x + this.config.cylinderRadius);
-          }
-        }
+        
+        return {d: d, d1: d1, d2: d2, d3: d3, d4: d4};
+        
+      } catch (error) {
+        console.error('计算距离失败:', error);
+        return null;
       }
-      
-      return {d: d, d1: d1, d2: d2, d3: d3, d4: d4};
     }
     
     // 获取跳跃方向
     getDirection() {
-      let direction;
-      if (this.cubes.length > 1) {
-        const from = this.cubes[this.cubes.length - 2];
-        const to = this.cubes[this.cubes.length - 1];
-        if (from.position.z === to.position.z) direction = 'x';
-        if (from.position.x === to.position.x) direction = 'z';
-      }
-      return direction;
+      if (this.cubes.length < 2) return 'x';
+      
+      const from = this.cubes[this.cubes.length - 2];
+      const to = this.cubes[this.cubes.length - 1];
+      if (from.position.z === to.position.z) return 'x';
+      if (from.position.x === to.position.x) return 'z';
+      return 'x';
     }
     
-    // 失败动画
-    failingAnimation(state) {
-      const rotateAxis = this.getDirection() === 'z' ? 'x' : 'z';
-      let rotateAdd, rotateTo;
-      
-      if (state === -1) {
-        rotateAdd = this.jumper.rotation[rotateAxis] - 0.1;
-        rotateTo = this.jumper.rotation[rotateAxis] > -Math.PI / 2;
-      } else {
-        rotateAdd = this.jumper.rotation[rotateAxis] + 0.1;
-        rotateTo = this.jumper.rotation[rotateAxis] < Math.PI / 2;
-      }
-      
-      if (rotateTo) {
-        this.jumper.rotation[rotateAxis] = rotateAdd;
-        this.render();
-        requestAnimationFrame(() => {
-          this.failingAnimation(state);
-        });
-      } else {
-        const self = this;
-        (function continuefalling() {
-          if (self.jumper.position.y >= -self.config.jumpHeight / 2) {
-            self.jumper.position.y -= 0.06;
-            self.render();
-            requestAnimationFrame(continuefalling);
-          }
-        })();
-      }
-    }
-    
-    // 生成随机数
     getRandomValue(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     }
     
-    // 检查位置是否有效
     testPosition(position) {
       if (isNaN(position.x) || isNaN(position.y) || isNaN(position.z)) {
         console.log('position incorrect！');
       }
     }
     
-    // 判断是否为PC端
     isPC() {
       const userAgentInfo = navigator.userAgent;
       const Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
@@ -559,27 +659,38 @@
       return flag;
     }
     
-    // 动画循环
     animate() {
+      if (!this.scene) return; // 防止场景被清理后还渲染
+      
       this.render();
       this.animationId = requestAnimationFrame(this.animate.bind(this));
     }
     
-    // 重新开始游戏
     restart() {
-      // 清除现有物体
-      while (this.cubes.length) {
-        this.scene.remove(this.cubes.shift());
-      }
-      this.scene.remove(this.jumper);
+      console.log('重新开始游戏');
       
       // 重置状态
-      this.cameraPos.current.set(0, 0, 0);
-      this.cameraPos.next.set(0, 0, 0);
+      this.isJumping = false;
+      this.isGameOver = false;
       this.mouseState = 0;
       this.xspeed = 0;
       this.yspeed = 0;
       this.score = 0;
+      
+      // 清除所有物体
+      while (this.cubes.length) {
+        this.scene.remove(this.cubes.shift());
+      }
+      if (this.jumper) {
+        this.scene.remove(this.jumper);
+        this.jumper = null;
+      }
+      
+      // 重置相机
+      this.cameraPos.current.set(0, 0, 0);
+      this.cameraPos.next.set(0, 0, 0);
+      
+      // 更新分数显示
       this.updateScore();
       
       // 重新生成
@@ -588,30 +699,40 @@
       this.createJumper();
     }
     
-    // 停止游戏（关闭模态框时调用）
     stop() {
+      console.log('停止游戏');
+      
       if (this.animationId) {
         cancelAnimationFrame(this.animationId);
       }
-      // 移除事件监听
-      this.renderer.domElement.removeEventListener(this.mouse.down, this.onMouseDown);
-      this.renderer.domElement.removeEventListener(this.mouse.up, this.onMouseUp);
+      
+      if (this.renderer && this.renderer.domElement) {
+        this.renderer.domElement.removeEventListener(this.mouse.down, this.onMouseDown);
+        this.renderer.domElement.removeEventListener(this.mouse.up, this.onMouseUp);
+      }
       window.removeEventListener('resize', this.onWindowResize);
       
-      // 清空容器
       while (this.container.firstChild) {
         this.container.removeChild(this.container.firstChild);
       }
       
-      // 清理 Three.js 资源
-      this.renderer.dispose();
+      if (this.renderer) {
+        this.renderer.dispose();
+      }
       this.scene = null;
     }
   }
   
-  // 暴露初始化函数
   window.initJumpGame = function(container) {
-    const game = new JumpGame(container);
-    return game;
+    console.log('initJumpGame 被调用，容器:', container);
+    try {
+      const game = new JumpGame(container);
+      return game;
+    } catch (error) {
+      console.error('创建游戏实例失败:', error);
+      return null;
+    }
   };
+  
+  console.log('跳一跳游戏代码加载完成');
 })();
