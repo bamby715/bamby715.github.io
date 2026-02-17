@@ -81,24 +81,7 @@
         
         centerThreshold: 0.8,
         
-        // 纹理路径配置（请替换为您的实际图片URL）
-        textures: {
-          jumper: 'images/game/bamby-jumper.png', // 棋子图片
-          platformCube: [ // 立方体纹理组
-            'images/game/platform-cube1.jpg',
-            'images/game/platform-cube2.jpg',
-            'images/game/platform-cube3.jpg',
-            'images/game/platform-cube4.jpg'
-          ],
-          platformCylinder: [ // 圆柱体纹理组
-            'images/game/platform-cylinder1.jpg',
-            'images/game/platform-cylinder2.jpg',
-            'images/game/platform-cylinder3.jpg',
-            'images/game/platform-cylinder4.jpg'
-          ]
-        }
-      };
-      
+        
       this.init();
     }
     
