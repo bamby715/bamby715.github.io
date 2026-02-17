@@ -27,9 +27,9 @@
       this.isJumping = false;
       this.isGameOver = false;
       
-      // 速度（基于60fps的每帧速度）
-      this.currentSpeed = 0;      // 水平速度（每帧移动距离，以60fps为基准）
-      this.currentVSpeed = 0;      // 垂直速度（每帧移动距离，以60fps为基准）
+      // 速度
+      this.currentSpeed = 0;
+      this.currentVSpeed = 0;
       
       // 蓄力
       this.pressStartTime = 0;
@@ -37,7 +37,7 @@
       
       // 时间相关
       this.lastFrameTime = 0;
-      this.frameInterval = 1000 / 60; // 60fps的理想帧间隔（约16.67ms）
+      this.frameInterval = 1000 / 60;
       
       // 分数
       this.score = 0;
@@ -55,15 +55,13 @@
         return;
       }
       
-      // ========== 可调节参数 ==========
+      // ========== 参数 ==========
       this.config = {
-        // 跳棋
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
         jumpHeight: 2,
         jumpColor: 0xffc2d6,
         
-        // 平台
         cubeX: 4,
         cubeY: 2,
         cubeZ: 4,
@@ -76,12 +74,11 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        // 跳跃参数（以60fps为基准）
-        minSpeed: 0.02,          // 最小水平速度（每帧，60fps下）
-        maxSpeed: 0.07,          // 最大水平速度（降低以防止电脑飞太远）
-        pressDuration: 800,       // 蓄力到最大所需毫秒（稍长，便于控制）
-        gravity: 0.008,           // 重力（每帧速度减少量，60fps下）
-        verticalFactor: 2.5,      // 垂直初速度 = 水平速度 * 系数
+        minSpeed: 0.02,
+        maxSpeed: 0.07,
+        pressDuration: 800,
+        gravity: 0.008,
+        verticalFactor: 2.5,
       };
       
       this.init();
@@ -122,8 +119,11 @@
         
         this.registerEvents();
         
+        // 创建平台
         this.createCube();
         this.createCube();
+        
+        // 创建跳棋
         this.createJumper();
         
         this.initScore();
@@ -134,6 +134,30 @@
         
       } catch (error) {
         console.error('游戏初始化失败:', error);
+      }
+    }
+    
+    // 创建跳棋
+    createJumper() {
+      try {
+        const geometry = new THREE.CylinderGeometry(
+          this.config.jumpTopRadius,
+          this.config.jumpBottomRadius,
+          this.config.jumpHeight,
+          32
+        );
+        geometry.translate(0, this.config.jumpHeight / 2, 0);
+        
+        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(0, this.config.jumpHeight / 2, 0);
+        this.jumper = mesh;
+        this.scene.add(mesh);
+        
+        console.log('创建默认圆柱体跳棋');
+      } catch (error) {
+        console.error('创建跳棋失败:', error);
       }
     }
     
@@ -232,28 +256,6 @@
         
       } catch (error) {
         console.error('创建平台失败:', error);
-      }
-    }
-    
-    createJumper() {
-      try {
-        const geometry = new THREE.CylinderGeometry(
-          this.config.jumpTopRadius,
-          this.config.jumpBottomRadius,
-          this.config.jumpHeight,
-          32
-        );
-        geometry.translate(0, this.config.jumpHeight / 2, 0);
-        
-        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
-        
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(0, this.config.jumpHeight / 2, 0);
-        this.jumper = mesh;
-        this.scene.add(mesh);
-        
-      } catch (error) {
-        console.error('创建跳棋失败:', error);
       }
     }
     
@@ -364,6 +366,7 @@
       this.currentSpeed = this.config.minSpeed + 
         (this.config.maxSpeed - this.config.minSpeed) * this.pressProgress;
       
+      // 压缩跳棋
       const scale = 1 - this.pressProgress * 0.7;
       this.jumper.scale.y = scale;
       
@@ -390,49 +393,59 @@
       
       this.currentVSpeed = this.currentSpeed * this.config.verticalFactor;
       
+      // 恢复高度
       if (this.jumper) {
         this.jumper.scale.y = 1;
       }
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
+      console.log('起始位置:', this.jumper.position.clone());
       
-      // 记录起始时间
       this.lastFrameTime = performance.now();
       this.jumpAnimation(this.lastFrameTime);
     }
     
-    // 基于时间差的跳跃动画
     jumpAnimation(timestamp) {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
-      // 计算时间差（毫秒）
       const deltaTime = timestamp - this.lastFrameTime;
       this.lastFrameTime = timestamp;
       
-      // 计算速度乘数：如果帧间隔大于理想间隔（16.67ms），则移动更多
       const speedMultiplier = deltaTime / this.frameInterval;
-      
-      // 限制乘数范围，防止卡顿时跳得太离谱
       const safeMultiplier = Math.min(speedMultiplier, 2.5);
       
-      // 水平移动
-      const dir = this.getDirection();
-      if (dir === 'x') {
-        this.jumper.position.x += this.currentSpeed * safeMultiplier;
-      } else {
-        this.jumper.position.z -= this.currentSpeed * safeMultiplier;
+      // 重要修复：强制方向为 x 轴，确保能移动
+      // 先检查平台位置，决定移动方向
+      let dir = 'x';
+      if (this.cubes.length >= 2) {
+        const from = this.cubes[this.cubes.length - 2];
+        const to = this.cubes[this.cubes.length - 1];
+        if (from.position.z !== to.position.z) {
+          dir = 'z';
+        }
       }
       
-      // 垂直移动
+      const oldX = this.jumper.position.x;
+      const oldZ = this.jumper.position.z;
+      
+      if (dir === 'x') {
+        this.jumper.position.x += this.currentSpeed * safeMultiplier;
+        console.log(`X移动: ${oldX.toFixed(2)} -> ${this.jumper.position.x.toFixed(2)}`);
+      } else {
+        this.jumper.position.z -= this.currentSpeed * safeMultiplier;
+        console.log(`Z移动: ${oldZ.toFixed(2)} -> ${this.jumper.position.z.toFixed(2)}`);
+      }
+      
       this.jumper.position.y += this.currentVSpeed * safeMultiplier;
       this.currentVSpeed -= this.config.gravity * safeMultiplier;
       
+      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
+      
       this.render();
       
-      // 判断落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
