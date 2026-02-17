@@ -51,7 +51,7 @@
         return;
       }
       
-      // ========== 参数 ==========
+      // ========== 调整后的参数 ==========
       this.config = {
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
@@ -70,11 +70,12 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        minSpeed: 0.02,
-        maxSpeed: 0.07,
-        pressDuration: 800,
-        gravity: 0.008,
-        verticalFactor: 2.5,
+        // 调整后的跳跃参数
+        minSpeed: 0.05,      // 最小速度（提高，让轻点也能跳远点）
+        maxSpeed: 0.25,      // 最大速度（大幅提高，确保能跳远）
+        pressDuration: 1000,  // 蓄力时间（1秒，便于控制）
+        gravity: 0.012,       // 重力（加大，让下落更快）
+        verticalFactor: 2.8,  // 垂直速度系数
       };
       
       this.init();
@@ -403,15 +404,15 @@
       this.jumpLoop();
     }
     
-    // 极简跳跃循环
+    // 改进的跳跃循环，使用 requestAnimationFrame
     jumpLoop() {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
-      // 固定每次移动 0.1
-      const moveDistance = 0.1;
+      // 根据速度决定移动距离（速度越快，移动距离越大）
+      const moveDistance = this.currentSpeed * 2; // 每帧移动速度 * 2
       
       // 检查平台方向
       let dir = 'z';
@@ -423,22 +424,16 @@
         }
       }
       
-      console.log('移动方向:', dir);
-      
       // 移动
       if (dir === 'x') {
         this.jumper.position.x += moveDistance;
-        console.log(`X位置: ${this.jumper.position.x.toFixed(2)}`);
       } else {
         this.jumper.position.z -= moveDistance;
-        console.log(`Z位置: ${this.jumper.position.z.toFixed(2)}`);
       }
       
       // 垂直移动
       this.jumper.position.y += this.currentVSpeed;
       this.currentVSpeed -= this.config.gravity;
-      
-      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
       
       this.render();
       
@@ -450,9 +445,7 @@
         console.log('落地位置:', this.jumper.position.clone());
         this.checkLanding();
       } else {
-        setTimeout(() => {
-          this.jumpLoop();
-        }, 16); // 约60fps
+        requestAnimationFrame(() => this.jumpLoop());
       }
     }
     
