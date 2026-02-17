@@ -87,11 +87,14 @@
           platformCube: [ // 立方体纹理组
             'images/game/platform-cube1.jpg',
             'images/game/platform-cube2.jpg',
-            'images/game/platform-cube3.jpg'
+            'images/game/platform-cube3.jpg',
+            'images/game/platform-cube4.jpg'
           ],
           platformCylinder: [ // 圆柱体纹理组
             'images/game/platform-cylinder1.jpg',
-            'images/game/platform-cylinder2.jpg'
+            'images/game/platform-cylinder2.jpg',
+            'images/game/platform-cylinder3.jpg',
+            'images/game/platform-cylinder4.jpg'
           ]
         }
       };
@@ -100,36 +103,52 @@
     }
     
     init() {
-      console.log('开始初始化游戏...');
-      
-      try {
-        this.scene = new THREE.Scene();
-        
-        // 设置容器背景（CSS实现，支持透明度）
-        // 示例：半透明白色遮罩 + 背景图
-        this.container.style.background = 'linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url(images/game/bg.jpg) no-repeat center center';
-        this.container.style.backgroundSize = 'cover';
-        
-        const width = this.container.clientWidth || 600;
-        const height = this.container.clientHeight || 400;
-        
-        this.camera = new THREE.OrthographicCamera(
-          width / -80,
-          width / 80,
-          height / 80,
-          height / -80,
-          0.1, 5000
-        );
-        this.camera.position.set(100, 100, 100);
-        this.cameraPos.current.set(0, 0, 0);
-        this.cameraPos.next.set(0, 0, 0);
-        
-        // 渲染器（透明背景）
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(width, height);
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setClearColor(0x000000, 0);
-        this.container.appendChild(this.renderer.domElement);
+  console.log('开始初始化游戏...');
+  
+  try {
+    this.scene = new THREE.Scene();
+    
+    // 设置容器为相对定位，以便覆盖层定位
+    this.container.style.position = 'relative';
+    
+    // 创建半透明覆盖层
+    const overlay = document.createElement('div');
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(255,255,255,0.7)'; // 可调整透明度
+    overlay.style.pointerEvents = 'none';
+    overlay.style.zIndex = '0';
+    this.container.appendChild(overlay);
+    
+    // 设置背景图（覆盖层下方）
+    this.container.style.background = 'url(images/game/bg.jpg) no-repeat center center';
+    this.container.style.backgroundSize = 'cover';
+    
+    const width = this.container.clientWidth || 600;
+    const height = this.container.clientHeight || 400;
+    
+    this.camera = new THREE.OrthographicCamera(
+      width / -80,
+      width / 80,
+      height / 80,
+      height / -80,
+      0.1, 5000
+    );
+    this.camera.position.set(100, 100, 100);
+    this.cameraPos.current.set(0, 0, 0);
+    this.cameraPos.next.set(0, 0, 0);
+    
+    // 渲染器（透明背景）
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setClearColor(0x000000, 0);
+    this.renderer.domElement.style.position = 'relative';
+    this.renderer.domElement.style.zIndex = '1';
+    this.container.appendChild(this.renderer.domElement);
         
         if (typeof THREE.CSS2DRenderer !== 'undefined') {
           this.labelRenderer = new THREE.CSS2DRenderer();
@@ -197,10 +216,17 @@
       this.config.textures.platformCylinder.forEach((url) => {
         totalToLoad++;
         loader.load(url,
-          (texture) => { this.textures.platformCylinder.push(texture); checkDone(); },
-          undefined,
-          (err) => { console.warn('圆柱体纹理加载失败', url, err); checkDone(); }
-        );
+  (texture) => {
+    console.log('圆柱体纹理加载成功:', url);
+    this.textures.platformCylinder.push(texture);
+    checkDone();
+  },
+  undefined,
+  (err) => {
+    console.error('圆柱体纹理加载失败:', url, err);
+    checkDone();
+  }
+);
       });
       
       if (totalToLoad === 0) callback();
@@ -257,6 +283,18 @@
             material = new THREE.MeshLambertMaterial({ color: this.config.cylinderColor });
           }
         }
+
+        if (cubeType === 'cylinder') {
+  if (this.textures.platformCylinder.length > 0) {
+    console.log('使用圆柱体纹理，当前数组长度:', this.textures.platformCylinder.length);
+    const randomIndex = Math.floor(Math.random() * this.textures.platformCylinder.length);
+    const texture = this.textures.platformCylinder[randomIndex];
+    material = new THREE.MeshLambertMaterial({ map: texture });
+  } else {
+    console.warn('圆柱体纹理数组为空，使用默认颜色');
+    material = new THREE.MeshLambertMaterial({ color: this.config.cylinderColor });
+  }
+}
         
         const mesh = new THREE.Mesh(geometry, material);
         
