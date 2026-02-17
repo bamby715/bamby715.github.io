@@ -74,7 +74,7 @@
         cubeMaxDis: 4,
         
         minSpeed: 0.02,
-        maxSpeed: 0.07,
+        maxSpeed: 0.08,
         pressDuration: 800,
         gravity: 0.008,
         verticalFactor: 2.5,
@@ -118,7 +118,7 @@
     overlay.style.left = '0';
     overlay.style.width = '100%';
     overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(255,255,255,0.7)'; // 可调整透明度
+    overlay.style.backgroundColor = 'rgba(255,255,255,0.9)'; // 可调整透明度
     overlay.style.pointerEvents = 'none';
     overlay.style.zIndex = '0';
     this.container.appendChild(overlay);
