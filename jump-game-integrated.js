@@ -19,6 +19,7 @@
       this.scene = null;
       this.camera = null;
       this.renderer = null;
+      this.labelRenderer = null; // 用于CSS2D文字
       this.cubes = [];
       this.jumper = null;
       
@@ -27,9 +28,9 @@
       this.isJumping = false;
       this.isGameOver = false;
       
-      // 速度（基于60fps的每帧速度）
-      this.currentSpeed = 0;      // 水平速度（每帧移动距离，以60fps为基准）
-      this.currentVSpeed = 0;      // 垂直速度（每帧移动距离，以60fps为基准）
+      // 速度
+      this.currentSpeed = 0;
+      this.currentVSpeed = 0;
       
       // 蓄力
       this.pressStartTime = 0;
@@ -37,7 +38,7 @@
       
       // 时间相关
       this.lastFrameTime = 0;
-      this.frameInterval = 1000 / 60; // 60fps的理想帧间隔（约16.67ms）
+      this.frameInterval = 1000 / 60;
       
       // 分数
       this.score = 0;
@@ -76,12 +77,17 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        // 跳跃参数（以60fps为基准）
-        minSpeed: 0.02,          // 最小水平速度（每帧，60fps下）
-        maxSpeed: 0.07,          // 最大水平速度（降低以防止电脑飞太远）
-        pressDuration: 800,       // 蓄力到最大所需毫秒（稍长，便于控制）
-        gravity: 0.008,           // 重力（每帧速度减少量，60fps下）
-        verticalFactor: 2.5,      // 垂直初速度 = 水平速度 * 系数
+        // 跳跃参数
+        minSpeed: 0.02,
+        maxSpeed: 0.07,
+        pressDuration: 800,
+        gravity: 0.008,
+        verticalFactor: 2.5,
+        
+        // 特效参数
+        centerThreshold: 0.8,        // 中心判定阈值（距离中心小于此值算完美）
+        platformCompressScale: 0.6,  // 平台被压缩时的Y轴缩放
+        compressDuration: 200,        // 压缩动画时长（毫秒）
       };
       
       this.init();
@@ -97,6 +103,7 @@
         const width = this.container.clientWidth || 600;
         const height = this.container.clientHeight || 400;
         
+        // 主相机（用于3D物体）
         this.camera = new THREE.OrthographicCamera(
           width / -80,
           width / 80,
@@ -108,11 +115,26 @@
         this.cameraPos.current.set(0, 0, 0);
         this.cameraPos.next.set(0, 0, 0);
         
+        // 主渲染器
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
         this.renderer.setSize(width, height);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.container.appendChild(this.renderer.domElement);
         
+        // CSS2渲染器（用于文字标签）
+        if (typeof THREE.CSS2DRenderer !== 'undefined') {
+          this.labelRenderer = new THREE.CSS2DRenderer();
+          this.labelRenderer.setSize(width, height);
+          this.labelRenderer.domElement.style.position = 'absolute';
+          this.labelRenderer.domElement.style.top = '0';
+          this.labelRenderer.domElement.style.left = '0';
+          this.labelRenderer.domElement.style.pointerEvents = 'none'; // 避免遮挡点击
+          this.container.appendChild(this.labelRenderer.domElement);
+        } else {
+          console.warn('CSS2DRenderer未加载，将无法显示得分文字');
+        }
+        
+        // 灯光
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1.1);
         directionalLight.position.set(3, 10, 15);
         this.scene.add(directionalLight);
@@ -163,6 +185,7 @@
       if (scoreEl) scoreEl.textContent = this.score;
     }
     
+    // 创建平台
     createCube() {
       try {
         const relativePos = Math.random() > 0.5 ? 'zDir' : 'xDir';
@@ -261,6 +284,9 @@
       if (this.renderer && this.scene && this.camera) {
         this.renderer.render(this.scene, this.camera);
       }
+      if (this.labelRenderer && this.scene && this.camera) {
+        this.labelRenderer.render(this.scene, this.camera);
+      }
     }
     
     updateCameraPos() {
@@ -327,7 +353,10 @@
         this.camera.bottom = height / -80;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);
-        this.render();
+        
+        if (this.labelRenderer) {
+          this.labelRenderer.setSize(width, height);
+        }
       }
     }
     
@@ -396,29 +425,22 @@
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
       
-      // 记录起始时间
       this.lastFrameTime = performance.now();
       this.jumpAnimation(this.lastFrameTime);
     }
     
-    // 基于时间差的跳跃动画
     jumpAnimation(timestamp) {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
-      // 计算时间差（毫秒）
       const deltaTime = timestamp - this.lastFrameTime;
       this.lastFrameTime = timestamp;
       
-      // 计算速度乘数：如果帧间隔大于理想间隔（16.67ms），则移动更多
       const speedMultiplier = deltaTime / this.frameInterval;
-      
-      // 限制乘数范围，防止卡顿时跳得太离谱
       const safeMultiplier = Math.min(speedMultiplier, 2.5);
       
-      // 水平移动
       const dir = this.getDirection();
       if (dir === 'x') {
         this.jumper.position.x += this.currentSpeed * safeMultiplier;
@@ -426,13 +448,11 @@
         this.jumper.position.z -= this.currentSpeed * safeMultiplier;
       }
       
-      // 垂直移动
       this.jumper.position.y += this.currentVSpeed * safeMultiplier;
       this.currentVSpeed -= this.config.gravity * safeMultiplier;
       
       this.render();
       
-      // 判断落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
@@ -443,23 +463,122 @@
       }
     }
     
+    // 检查落点并触发特效
     checkLanding() {
       if (!this.jumper || !this.scene) return;
       
       const type = this.getJumpState();
+      const vard = this.getd();
       console.log('跳跃结果:', type, '速度:', this.currentSpeed);
       
       if (type === 1) {
+        // 落在原地，触发平台压缩（当前平台）
+        const currentCube = this.cubes[this.cubes.length - 1];
+        this.compressPlatform(currentCube);
         this.resetJumper();
       } else if (type === 2 || type === 3) {
-        this.score += 1;
+        // 成功跳到下一个块，判断是否为中心
+        const toCube = this.cubes[this.cubes.length - 1];
+        const toCenter = this.getCubeCenter(toCube);
+        const jumperPos = this.jumper.position.clone();
+        
+        // 计算落点与平台中心的距离
+        const dx = Math.abs(jumperPos.x - toCenter.x);
+        const dz = Math.abs(jumperPos.z - toCenter.z);
+        const distance = Math.sqrt(dx*dx + dz*dz);
+        
+        let addScore = 1;
+        let text = '+1';
+        
+        // 判断是否在中心区域（根据平台类型调整阈值）
+        let threshold = this.config.centerThreshold;
+        if (toCube.geometry instanceof THREE.BoxGeometry) {
+          // 立方体中心区域阈值
+          threshold = Math.min(this.config.cubeX, this.config.cubeZ) * 0.3;
+        } else {
+          // 圆柱体中心区域阈值
+          threshold = this.config.cylinderRadius * 0.5;
+        }
+        
+        if (distance < threshold) {
+          addScore = 2;
+          text = '+2';
+        }
+        
+        this.score += addScore;
         this.updateScore();
+        
+        // 显示得分文字
+        this.showScoreLabel(text, jumperPos);
+        
+        // 压缩目标平台
+        this.compressPlatform(toCube);
+        
         this.resetJumper();
         this.createCube();
       } else {
+        // 失败
         this.isGameOver = true;
         this.failAnimation(type);
       }
+    }
+    
+    // 获取平台中心点
+    getCubeCenter(cube) {
+      const center = cube.position.clone();
+      // 对于圆柱体，中心就是position；对于立方体也是position（因为几何体原点在中心）
+      return center;
+    }
+    
+    // 显示得分文字（使用CSS2D）
+    showScoreLabel(text, position) {
+      if (!this.labelRenderer) return;
+      
+      const div = document.createElement('div');
+      div.textContent = text;
+      div.style.color = text === '+2' ? '#ffd700' : '#ffffff';
+      div.style.fontSize = '48px';
+      div.style.fontWeight = 'bold';
+      div.style.textShadow = '2px 2px 4px rgba(0,0,0,0.5)';
+      div.style.animation = 'scoreFade 1s ease-out forwards';
+      
+      // 添加动画样式
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes scoreFade {
+          0% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-50px); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      const label = new THREE.CSS2DObject(div);
+      label.position.copy(position);
+      label.position.y += 2; // 显示在跳棋上方
+      
+      this.scene.add(label);
+      
+      // 1秒后移除
+      setTimeout(() => {
+        this.scene.remove(label);
+        div.remove();
+      }, 1000);
+    }
+    
+    // 平台压缩动画
+    compressPlatform(platform) {
+      const originalScale = platform.scale.clone();
+      const targetY = this.config.platformCompressScale;
+      
+      // 压缩
+      platform.scale.y = targetY;
+      this.render();
+      
+      // 短暂延迟后恢复
+      setTimeout(() => {
+        platform.scale.y = originalScale.y;
+        this.render();
+      }, this.config.compressDuration);
     }
     
     resetJumper() {
