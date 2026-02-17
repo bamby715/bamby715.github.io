@@ -408,8 +408,8 @@
       // 记录跳跃起始时间
       this.lastJumpTime = performance.now();
       
-      // 开始跳跃（传入当前时间戳）
-      this.jumpAnimation(performance.now());
+      // 开始跳跃
+      requestAnimationFrame((t) => this.jumpAnimation(t));
     }
     
     // 基于时间差的跳跃动画
@@ -420,35 +420,39 @@
       }
       
       // 计算时间差（相对于上一帧），单位是相对于60fps的帧数比例
-      if (!this.lastJumpTime) this.lastJumpTime = timestamp;
-      const delta = (timestamp - this.lastJumpTime) * 60 / 1000; // 60fps为标准
+      const delta = (timestamp - this.lastJumpTime) * 60 / 1000;
       this.lastJumpTime = timestamp;
       
       // 限制最大delta，防止卡顿时跳得太远
       const safeDelta = Math.min(delta, 2.0);
       
-      const dir = this.getDirection();
-      
-      // 水平移动
-      if (dir === 'x') {
-        this.jumper.position.x += this.currentSpeed * safeDelta;
-      } else {
-        this.jumper.position.z -= this.currentSpeed * safeDelta;
+      // 只有当跳棋在空中时才移动（避免落地后继续）
+      if (this.jumper.position.y >= this.config.jumpHeight / 2) {
+        const dir = this.getDirection();
+        
+        // 水平移动
+        if (dir === 'x') {
+          this.jumper.position.x += this.currentSpeed * safeDelta;
+        } else {
+          this.jumper.position.z -= this.currentSpeed * safeDelta;
+        }
+        
+        // 垂直移动
+        this.jumper.position.y += this.currentVSpeed * safeDelta;
+        this.currentVSpeed -= this.config.gravity * safeDelta;
+        
+        this.render();
       }
-      
-      // 垂直移动
-      this.jumper.position.y += this.currentVSpeed * safeDelta;
-      this.currentVSpeed -= this.config.gravity * safeDelta;
-      
-      this.render();
       
       // 判断是否落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
+        // 落地，修正位置
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
         this.checkLanding();
       } else {
-        this.animationId = requestAnimationFrame((t) => this.jumpAnimation(t));
+        // 继续下一帧
+        requestAnimationFrame((t) => this.jumpAnimation(t));
       }
     }
     
