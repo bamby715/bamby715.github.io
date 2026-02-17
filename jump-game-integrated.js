@@ -398,7 +398,9 @@
         this.jumper.scale.y = 1;
       }
       
-      console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
+      console.log('========== 开始跳跃 ==========');
+      console.log('当前速度值:', this.currentSpeed);
+      console.log('垂直速度值:', this.currentVSpeed);
       console.log('起始位置:', this.jumper.position.clone());
       
       this.lastFrameTime = performance.now();
@@ -417,38 +419,33 @@
       const speedMultiplier = deltaTime / this.frameInterval;
       const safeMultiplier = Math.min(speedMultiplier, 2.5);
       
-      // 重要修复：强制方向为 x 轴，确保能移动
-      // 先检查平台位置，决定移动方向
-      let dir = 'x';
-      if (this.cubes.length >= 2) {
-        const from = this.cubes[this.cubes.length - 2];
-        const to = this.cubes[this.cubes.length - 1];
-        if (from.position.z !== to.position.z) {
-          dir = 'z';
-        }
-      }
+      // 调试：打印当前速度
+      console.log('当前this.currentSpeed:', this.currentSpeed);
+      console.log('速度乘数:', safeMultiplier);
+      console.log('移动距离:', this.currentSpeed * safeMultiplier);
+      
+      // 强制使用 x 方向测试
+      const dir = 'x';
       
       const oldX = this.jumper.position.x;
-      const oldZ = this.jumper.position.z;
       
-      if (dir === 'x') {
-        this.jumper.position.x += this.currentSpeed * safeMultiplier;
-        console.log(`X移动: ${oldX.toFixed(2)} -> ${this.jumper.position.x.toFixed(2)}`);
-      } else {
-        this.jumper.position.z -= this.currentSpeed * safeMultiplier;
-        console.log(`Z移动: ${oldZ.toFixed(2)} -> ${this.jumper.position.z.toFixed(2)}`);
-      }
+      // 强制移动 X 坐标
+      this.jumper.position.x += this.currentSpeed * safeMultiplier;
       
+      console.log(`X移动: ${oldX.toFixed(4)} -> ${this.jumper.position.x.toFixed(4)}`);
+      
+      // 垂直移动
       this.jumper.position.y += this.currentVSpeed * safeMultiplier;
       this.currentVSpeed -= this.config.gravity * safeMultiplier;
       
-      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
+      console.log(`Y位置: ${this.jumper.position.y.toFixed(4)}`);
       
       this.render();
       
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
+        console.log('========== 落地 ==========');
         console.log('落地位置:', this.jumper.position.clone());
         this.checkLanding();
       } else {
