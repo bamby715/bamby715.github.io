@@ -35,10 +35,6 @@
       this.pressStartTime = 0;
       this.pressProgress = 0;
       
-      // 时间相关
-      this.lastFrameTime = 0;
-      this.frameInterval = 1000 / 60;
-      
       // 分数
       this.score = 0;
       
@@ -403,45 +399,50 @@
       console.log('垂直速度值:', this.currentVSpeed);
       console.log('起始位置:', this.jumper.position.clone());
       
-      this.lastFrameTime = performance.now();
-      this.jumpAnimation(this.lastFrameTime);
+      // 开始跳跃循环
+      this.jumpLoop();
     }
     
-    jumpAnimation(timestamp) {
+    // 极简跳跃循环
+    jumpLoop() {
       if (!this.jumper || !this.scene || this.isGameOver) {
         this.isJumping = false;
         return;
       }
       
-      const deltaTime = timestamp - this.lastFrameTime;
-      this.lastFrameTime = timestamp;
+      // 固定每次移动 0.1
+      const moveDistance = 0.1;
       
-      const speedMultiplier = deltaTime / this.frameInterval;
-      const safeMultiplier = Math.min(speedMultiplier, 2.5);
+      // 检查平台方向
+      let dir = 'z';
+      if (this.cubes.length >= 2) {
+        const from = this.cubes[this.cubes.length - 2];
+        const to = this.cubes[this.cubes.length - 1];
+        if (from.position.x !== to.position.x) {
+          dir = 'x';
+        }
+      }
       
-      // 调试：打印当前速度
-      console.log('当前this.currentSpeed:', this.currentSpeed);
-      console.log('速度乘数:', safeMultiplier);
-      console.log('移动距离:', this.currentSpeed * safeMultiplier);
+      console.log('移动方向:', dir);
       
-      // 强制使用 x 方向测试
-      const dir = 'x';
-      
-      const oldX = this.jumper.position.x;
-      
-      // 强制移动 X 坐标
-      this.jumper.position.x += this.currentSpeed * safeMultiplier;
-      
-      console.log(`X移动: ${oldX.toFixed(4)} -> ${this.jumper.position.x.toFixed(4)}`);
+      // 移动
+      if (dir === 'x') {
+        this.jumper.position.x += moveDistance;
+        console.log(`X位置: ${this.jumper.position.x.toFixed(2)}`);
+      } else {
+        this.jumper.position.z -= moveDistance;
+        console.log(`Z位置: ${this.jumper.position.z.toFixed(2)}`);
+      }
       
       // 垂直移动
-      this.jumper.position.y += this.currentVSpeed * safeMultiplier;
-      this.currentVSpeed -= this.config.gravity * safeMultiplier;
+      this.jumper.position.y += this.currentVSpeed;
+      this.currentVSpeed -= this.config.gravity;
       
-      console.log(`Y位置: ${this.jumper.position.y.toFixed(4)}`);
+      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
       
       this.render();
       
+      // 判断落地
       if (this.jumper.position.y <= this.config.jumpHeight / 2) {
         this.jumper.position.y = this.config.jumpHeight / 2;
         this.isJumping = false;
@@ -449,7 +450,9 @@
         console.log('落地位置:', this.jumper.position.clone());
         this.checkLanding();
       } else {
-        this.animationId = requestAnimationFrame((t) => this.jumpAnimation(t));
+        setTimeout(() => {
+          this.jumpLoop();
+        }, 16); // 约60fps
       }
     }
     
