@@ -11156,6 +11156,44 @@ clickHeartStyle.textContent = `
 `;
 document.head.appendChild(clickHeartStyle);
 
+
+// 身高点击彩蛋（三次触发游戏）
+let heightClickCount = 0;
+let heightTimer = null;
+
+// 找到身高标签
+const infoItems = document.querySelectorAll('.info-item');
+let heightLabel = null;
+infoItems.forEach(item => {
+    const labelDiv = item.querySelector('div:first-child');
+    if (labelDiv && labelDiv.textContent.trim() === '身高') {
+        heightLabel = labelDiv;
+    }
+});
+
+if (heightLabel) {
+    heightLabel.style.cursor = 'pointer';
+    heightLabel.title = '点击三次有惊喜✨';
+    heightLabel.addEventListener('click', function(e) {
+        heightClickCount++;
+        // 复用已有的点击反馈函数
+        if (typeof showClickFeedback === 'function') {
+            showClickFeedback(e, heightClickCount);
+        }
+        if (heightTimer) clearTimeout(heightTimer);
+        heightTimer = setTimeout(() => {
+            heightClickCount = 0;
+        }, 2000);
+
+        if (heightClickCount === 3) {
+            // 注意路径：指向新创建的 bamby-jump 文件夹
+            openGameModal('/bamby-jump/');  // 或者 '/bamby-jump/index.html'
+            heightClickCount = 0;
+            clearTimeout(heightTimer);
+        }
+    });
+}
+
     // ========== 公告栏配置 ==========
 const announcementConfig = {
   // 滚动显示的短文本（支持多条，用 | 分隔）
