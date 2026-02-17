@@ -51,29 +51,30 @@
       
       // ========== 参数 ==========
       this.config = {
-        jumpTopRadius: 0.3,
-        jumpBottomRadius: 0.5,
-        jumpHeight: 2,
-        jumpColor: 0xffc2d6,
-        
-        cubeX: 4,
-        cubeY: 2,
-        cubeZ: 4,
-        cubeColor: 0xff9ebd,
-        cylinderRadius: 2,
-        cylinderHeight: 2,
-        cylinderColor: 0xffc2d6,
-        
-        cubeMaxLen: 6,
-        cubeMinDis: 2.5,
-        cubeMaxDis: 4,
-        
-        minSpeed: 0.03,
-        maxSpeed: 0.12,
-        pressDuration: 600,
-        gravity: 0.006,
-        verticalFactor: 3.2,
-      };
+  jumpTopRadius: 0.3,
+  jumpBottomRadius: 0.5,
+  jumpHeight: 2,
+  jumpColor: 0xffc2d6,
+
+  cubeX: 4,
+  cubeY: 2,
+  cubeZ: 4,
+  cubeColor: 0xff9ebd,
+  cylinderRadius: 2,
+  cylinderHeight: 2,
+  cylinderColor: 0xffc2d6,
+
+  cubeMaxLen: 6,
+  cubeMinDis: 2.5,
+  cubeMaxDis: 4,
+
+  // 优化后的跳跃参数（更低、更快、更可控）
+  minSpeed: 0.04,          // 最小水平速度（稍微提高，避免太慢）
+  maxSpeed: 0.10,          // 最大水平速度（降低，防止跳过头）
+  pressDuration: 600,      // 蓄力到最大所需毫秒（保持0.6秒）
+  gravity: 0.012,          // 重力加大（让下落更快）
+  verticalFactor: 2.2,     // 垂直初速度系数降低（跳得更低）
+};
       
       this.init();
     }
@@ -735,3 +736,4 @@
   
   console.log('跳一跳游戏代码加载完成');
 })();
+
