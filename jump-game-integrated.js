@@ -26,8 +26,9 @@
       this.isPressing = false;
       this.isJumping = false;
       this.isGameOver = false;
+      this.modelsLoaded = false; // 标记模型是否加载成功
       
-      // 速度（基于60fps的每帧速度）
+      // 速度
       this.currentSpeed = 0;
       this.currentVSpeed = 0;
       
@@ -55,15 +56,13 @@
         return;
       }
       
-      // ========== 可调节参数 ==========
+      // ========== 参数 ==========
       this.config = {
-        // 跳棋（模型参数）
         jumpTopRadius: 0.3,
         jumpBottomRadius: 0.5,
         jumpHeight: 2,
         jumpColor: 0xffc2d6,
         
-        // 平台
         cubeX: 4,
         cubeY: 2,
         cubeZ: 4,
@@ -76,7 +75,6 @@
         cubeMinDis: 2.5,
         cubeMaxDis: 4,
         
-        // 跳跃参数
         minSpeed: 0.02,
         maxSpeed: 0.07,
         pressDuration: 800,
@@ -122,9 +120,15 @@
         
         this.registerEvents();
         
+        // 先创建平台
         this.createCube();
         this.createCube();
-        this.createJumper();
+        
+        // 先创建默认跳棋，确保游戏可以玩
+        this.createDefaultJumper();
+        
+        // 然后尝试加载模型，如果成功就替换
+        this.tryLoadModel();
         
         this.initScore();
         
@@ -134,6 +138,115 @@
         
       } catch (error) {
         console.error('游戏初始化失败:', error);
+      }
+    }
+    
+    // 尝试加载模型
+    tryLoadModel() {
+      if (typeof THREE.STLLoader === 'undefined') {
+        console.log('STLLoader 未加载，使用默认跳棋');
+        return;
+      }
+      
+      const loader = new THREE.STLLoader();
+      const parts = [
+        { file: 'images/game/mimu_body.stl', color: 0xff9ebd, name: 'body' },
+        { file: 'images/game/mimu_head.stl', color: 0xffc2d6, name: 'head' },
+        { file: 'images/game/mimu_ears.stl', color: 0xff85b3, name: 'ears' },
+        { file: 'images/game/mimu_tail.stl', color: 0xff9ebd, name: 'tail' }
+      ];
+      
+      let loadedCount = 0;
+      const group = new THREE.Group();
+      
+      parts.forEach((part) => {
+        loader.load(part.file, (geometry) => {
+          console.log(`模型加载成功: ${part.name}`);
+          
+          geometry.computeBoundingBox();
+          const material = new THREE.MeshLambertMaterial({ color: part.color });
+          const mesh = new THREE.Mesh(geometry, material);
+          
+          // 简单居中，不调整位置，让模型重叠在一起（至少能看见）
+          mesh.position.set(0, 0, 0);
+          
+          group.add(mesh);
+          
+          loadedCount++;
+          if (loadedCount === parts.length) {
+            // 所有部件加载完成，替换跳棋
+            this.replaceJumperWithModel(group);
+          }
+        }, undefined, (error) => {
+          console.log(`模型加载失败: ${part.name}`, error);
+          loadedCount++;
+          // 即使有失败，如果已经有模型部件，也尝试显示
+          if (loadedCount === parts.length && group.children.length > 0) {
+            this.replaceJumperWithModel(group);
+          }
+        });
+      });
+    }
+    
+    // 用模型替换默认跳棋
+    replaceJumperWithModel(group) {
+      if (!this.jumper || !this.scene) return;
+      
+      console.log('替换跳棋为模型');
+      
+      // 保存当前位置和状态
+      const oldPosition = this.jumper.position.clone();
+      const oldScale = this.jumper.scale.clone();
+      
+      // 移除旧跳棋
+      this.scene.remove(this.jumper);
+      
+      // 缩放模型到合适大小
+      const box = new THREE.Box3().setFromObject(group);
+      const size = box.getSize(new THREE.Vector3());
+      const scale = this.config.jumpHeight / Math.max(size.y, 0.1);
+      group.scale.set(scale, scale, scale);
+      
+      // 计算中心点，使模型底部在地面
+      box.setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      group.position.y = -center.y;
+      
+      // 设置位置
+      group.position.x = oldPosition.x;
+      group.position.z = oldPosition.z;
+      
+      // 设置缩放
+      group.scale.y = oldScale.y;
+      
+      this.jumper = group;
+      this.scene.add(group);
+      this.modelsLoaded = true;
+      
+      console.log('模型替换完成');
+    }
+    
+    // 创建默认跳棋
+    createDefaultJumper() {
+      try {
+        const geometry = new THREE.CylinderGeometry(
+          this.config.jumpTopRadius,
+          this.config.jumpBottomRadius,
+          this.config.jumpHeight,
+          32
+        );
+        geometry.translate(0, this.config.jumpHeight / 2, 0);
+        
+        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(0, this.config.jumpHeight / 2, 0);
+        this.jumper = mesh;
+        this.scene.add(mesh);
+        
+        console.log('创建默认圆柱体跳棋');
+      } catch (error) {
+        console.error('创建默认跳棋失败:', error);
       }
     }
     
@@ -233,166 +346,6 @@
       } catch (error) {
         console.error('创建平台失败:', error);
       }
-    }
-    
-    // 加载咪姆模型（四个部件）
-    loadMimuModel(callback) {
-      const loader = new THREE.STLLoader();
-      const group = new THREE.Group();
-      
-      // 部件列表 - 请根据实际文件路径修改
-      const parts = [
-        { file: 'images/game/mimu_body.stl', color: 0xff9ebd, name: 'body' },    // 身体 - 深粉色
-        { file: 'images/game/mimu_head.stl', color: 0xffc2d6, name: 'head' },    // 头部 - 浅粉色
-        { file: 'images/game/mimu_ears.stl', color: 0xff85b3, name: 'ears' },    // 耳朵 - 粉红色
-        { file: 'images/game/mimu_tail.stl', color: 0xff9ebd, name: 'tail' }     // 尾巴 - 深粉色
-      ];
-      
-      let loadedCount = 0;
-      let hasError = false;
-      
-      // 先创建一个基础底座（用于占位和定位）
-      const baseGeometry = new THREE.CylinderGeometry(
-        this.config.jumpBottomRadius,
-        this.config.jumpBottomRadius,
-        0.1,
-        16
-      );
-      const baseMaterial = new THREE.MeshLambertMaterial({ color: 0xffc2d6, transparent: true, opacity: 0 });
-      const baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
-      baseMesh.position.y = 0;
-      group.add(baseMesh);
-      
-      parts.forEach((part) => {
-        loader.load(part.file, (geometry) => {
-          console.log(`加载成功: ${part.name}`);
-          
-          // 计算几何体范围
-          geometry.computeBoundingBox();
-          const box = geometry.boundingBox;
-          const size = new THREE.Vector3();
-          box.getSize(size);
-          const center = box.getCenter(new THREE.Vector3());
-          
-          // 创建材质
-          const material = new THREE.MeshLambertMaterial({ 
-            color: part.color,
-            emissive: 0x000000,
-            shininess: 30
-          });
-          
-          const mesh = new THREE.Mesh(geometry, material);
-          
-          // 根据部件类型调整位置（这些值需要根据实际模型微调）
-          switch(part.name) {
-            case 'body':
-              // 身体放在中心，底部在 y=0
-              mesh.position.y = -center.y;
-              break;
-            case 'head':
-              // 头部放在身体上方
-              mesh.position.y = 0.8 - center.y;
-              break;
-            case 'ears':
-              // 耳朵放在头部上方两侧（假设模型已经是双耳）
-              mesh.position.y = 1.2 - center.y;
-              mesh.position.x = 0; // 如果耳朵模型是分开的，可能需要调整
-              break;
-            case 'tail':
-              // 尾巴放在身体后方
-              mesh.position.y = 0.3 - center.y;
-              mesh.position.z = -0.3; // 向后偏移
-              break;
-          }
-          
-          group.add(mesh);
-          
-          loadedCount++;
-          if (loadedCount === parts.length && !hasError) {
-            callback(group);
-          }
-        }, undefined, (error) => {
-          console.error(`模型加载失败: ${part.file}`, error);
-          hasError = true;
-          loadedCount++;
-          if (loadedCount === parts.length) {
-            // 所有部件都尝试过了，但可能有失败
-            if (group.children.length > 1) { // 至少有一个部件成功（除了底座）
-              callback(group);
-            } else {
-              callback(null);
-            }
-          }
-        });
-      });
-    }
-    
-    // 创建默认跳棋（备用）
-    createDefaultJumper() {
-      try {
-        const geometry = new THREE.CylinderGeometry(
-          this.config.jumpTopRadius,
-          this.config.jumpBottomRadius,
-          this.config.jumpHeight,
-          32
-        );
-        geometry.translate(0, this.config.jumpHeight / 2, 0);
-        
-        const material = new THREE.MeshLambertMaterial({ color: this.config.jumpColor });
-        
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(0, this.config.jumpHeight / 2, 0);
-        this.jumper = mesh;
-        this.scene.add(mesh);
-        
-        console.log('使用默认圆柱体跳棋');
-      } catch (error) {
-        console.error('创建默认跳棋失败:', error);
-      }
-    }
-    
-    // 创建跳棋（尝试加载模型，失败则用默认）
-    createJumper() {
-      // 先尝试加载模型
-      this.loadMimuModel((modelGroup) => {
-        if (modelGroup) {
-          // 模型加载成功，进行缩放和整体调整
-          
-          // 计算模型整体大小
-          const box = new THREE.Box3().setFromObject(modelGroup);
-          const size = box.getSize(new THREE.Vector3());
-          const center = box.getCenter(new THREE.Vector3());
-          
-          console.log('模型原始尺寸:', size);
-          console.log('模型中心点:', center);
-          
-          // 缩放模型高度到跳棋高度
-          const targetHeight = this.config.jumpHeight;
-          const scale = targetHeight / size.y;
-          modelGroup.scale.set(scale, scale, scale);
-          
-          // 重新计算缩放后的包围盒
-          box.setFromObject(modelGroup);
-          const newCenter = box.getCenter(new THREE.Vector3());
-          
-          // 将模型底部放在 y=0 处
-          modelGroup.position.y = -newCenter.y;
-          
-          // 设置模型为 jumper
-          this.jumper = modelGroup;
-          this.scene.add(modelGroup);
-          
-          // 确保跳棋初始位置正确
-          this.jumper.position.x = 0;
-          this.jumper.position.z = 0;
-          
-          console.log('咪姆模型加载成功，缩放比例:', scale);
-          console.log('模型最终位置:', this.jumper.position);
-        } else {
-          console.log('模型加载失败，使用默认跳棋');
-          this.createDefaultJumper();
-        }
-      });
     }
     
     render() {
@@ -502,7 +455,7 @@
       this.currentSpeed = this.config.minSpeed + 
         (this.config.maxSpeed - this.config.minSpeed) * this.pressProgress;
       
-      // 模型压缩（整体缩放y轴）
+      // 压缩跳棋
       const scale = 1 - this.pressProgress * 0.7;
       this.jumper.scale.y = scale;
       
@@ -529,12 +482,13 @@
       
       this.currentVSpeed = this.currentSpeed * this.config.verticalFactor;
       
-      // 恢复模型高度
+      // 恢复高度
       if (this.jumper) {
         this.jumper.scale.y = 1;
       }
       
       console.log('开始跳跃，速度:', this.currentSpeed, '垂直速度:', this.currentVSpeed);
+      console.log('起始位置:', this.jumper.position.clone());
       
       this.lastFrameTime = performance.now();
       this.jumpAnimation(this.lastFrameTime);
@@ -553,14 +507,21 @@
       const safeMultiplier = Math.min(speedMultiplier, 2.5);
       
       const dir = this.getDirection();
+      const oldX = this.jumper.position.x;
+      const oldZ = this.jumper.position.z;
+      
       if (dir === 'x') {
         this.jumper.position.x += this.currentSpeed * safeMultiplier;
+        console.log(`X移动: ${oldX.toFixed(2)} -> ${this.jumper.position.x.toFixed(2)}`);
       } else {
         this.jumper.position.z -= this.currentSpeed * safeMultiplier;
+        console.log(`Z移动: ${oldZ.toFixed(2)} -> ${this.jumper.position.z.toFixed(2)}`);
       }
       
       this.jumper.position.y += this.currentVSpeed * safeMultiplier;
       this.currentVSpeed -= this.config.gravity * safeMultiplier;
+      
+      console.log(`Y位置: ${this.jumper.position.y.toFixed(2)}`);
       
       this.render();
       
@@ -822,7 +783,8 @@
       if (this.scene) {
         this.createCube();
         this.createCube();
-        this.createJumper();
+        this.createDefaultJumper();
+        this.tryLoadModel(); // 再次尝试加载模型
       }
       
       this.animate();
