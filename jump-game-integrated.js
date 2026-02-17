@@ -32,6 +32,7 @@
       this.pressStartTime = 0;      // 按压开始时间
       this.currentSpeed = 0;         // 当前水平速度
       this.currentVSpeed = 0;        // 当前垂直速度
+      this.pressProgress = 0;        // 蓄力进度 0-1
       
       // 分数
       this.score = 0;
@@ -71,11 +72,11 @@
         cubeMinDis: 2.5,   // 最小间距
         cubeMaxDis: 4,      // 最大间距
         
-        // 跳跃参数
-        minSpeed: 0.02,      // 最小水平速度
-        maxSpeed: 0.08,      // 最大水平速度（原0.12）
-        pressSpeedRate: 0.0005, // 每毫秒速度增加率（按压时间控制）
-        gravity: 0.006,       // 重力（原0.008）
+        // 跳跃参数 - 调整后
+        minSpeed: 0.03,      // 最小水平速度
+        maxSpeed: 0.15,      // 最大水平速度（让跳跃距离足够）
+        pressDuration: 1000, // 最长按压时间（毫秒）
+        gravity: 0.008,      // 重力
       };
       
       this.init();
@@ -345,6 +346,7 @@
       
       this.isPressing = true;
       this.pressStartTime = performance.now();
+      this.pressProgress = 0;
       this.currentSpeed = this.config.minSpeed;
       
       // 开始蓄力动画
@@ -358,6 +360,7 @@
       
       this.isPressing = true;
       this.pressStartTime = performance.now();
+      this.pressProgress = 0;
       this.currentSpeed = this.config.minSpeed;
       
       this.pressAnimation();
@@ -370,15 +373,16 @@
       // 计算按压时长（毫秒）
       const pressDuration = performance.now() - this.pressStartTime;
       
-      // 根据时长计算速度（线性增长，不超过最大速度）
-      let targetSpeed = this.config.minSpeed + pressDuration * this.config.pressSpeedRate;
-      if (targetSpeed > this.config.maxSpeed) targetSpeed = this.config.maxSpeed;
+      // 计算蓄力进度（0-1）
+      this.pressProgress = Math.min(1, pressDuration / this.config.pressDuration);
       
-      this.currentSpeed = targetSpeed;
+      // 根据进度计算速度（线性增长）
+      this.currentSpeed = this.config.minSpeed + 
+        (this.config.maxSpeed - this.config.minSpeed) * this.pressProgress;
       
-      // 跳棋压缩：速度越大压缩越狠（scale.y 从1到0.6）
-      const scale = 1 - (this.currentSpeed - this.config.minSpeed) / (this.config.maxSpeed - this.config.minSpeed) * 0.4;
-      this.jumper.scale.y = Math.max(0.6, scale);
+      // 跳棋压缩：进度越大压缩越狠（scale.y 从1到0.4）
+      const scale = 1 - this.pressProgress * 0.6; // 最大压缩到0.4
+      this.jumper.scale.y = scale;
       
       this.render();
       
@@ -403,8 +407,8 @@
       this.isPressing = false;
       this.isJumping = true;
       
-      // 根据 currentSpeed 设置水平和垂直初速度
-      this.currentVSpeed = this.currentSpeed * 2; // 垂直速度是水平的两倍
+      // 根据当前速度设置水平和垂直初速度
+      this.currentVSpeed = this.currentSpeed * 2.5; // 垂直速度是水平的2.5倍，跳得更高
       
       // 恢复跳棋形状
       if (this.jumper) {
@@ -451,7 +455,7 @@
       if (!this.jumper || !this.scene) return;
       
       const type = this.getJumpState();
-      console.log('跳跃结果:', type);
+      console.log('跳跃结果:', type, '速度:', this.currentSpeed);
       
       if (type === 1) {
         // 落在原地
@@ -474,7 +478,9 @@
       
       this.currentSpeed = 0;
       this.currentVSpeed = 0;
+      this.pressProgress = 0;
       this.jumper.position.y = this.config.jumpHeight / 2;
+      this.jumper.scale.y = 1;
       this.isJumping = false;
       this.isGameOver = false;
     }
@@ -524,7 +530,7 @@
       continueFalling();
     }
     
-    // 以下 getJumpState, getd, getDirection, getRandomValue 与之前相同，但确保没有错误
+    // 计算跳跃状态
     getJumpState() {
       if (this.cubes.length < 2 || !this.jumper) return 1;
       
@@ -687,6 +693,7 @@
       this.cubes = [];
       this.currentSpeed = 0;
       this.currentVSpeed = 0;
+      this.pressProgress = 0;
       this.score = 0;
       
       // 重置相机
