@@ -26,7 +26,7 @@
       this.isPressing = false;
       this.isJumping = false;
       this.isGameOver = false;
-      this.modelsLoaded = false; // 标记模型是否加载成功
+      this.modelsLoaded = false;
       
       // 速度
       this.currentSpeed = 0;
@@ -124,10 +124,10 @@
         this.createCube();
         this.createCube();
         
-        // 先创建默认跳棋，确保游戏可以玩
+        // 先创建默认跳棋（粉色圆柱体）确保游戏可以玩
         this.createDefaultJumper();
         
-        // 然后尝试加载模型，如果成功就替换
+        // 然后尝试加载模型
         this.tryLoadModel();
         
         this.initScore();
@@ -163,12 +163,35 @@
         loader.load(part.file, (geometry) => {
           console.log(`模型加载成功: ${part.name}`);
           
+          // 计算几何体范围
           geometry.computeBoundingBox();
-          const material = new THREE.MeshLambertMaterial({ color: part.color });
+          
+          // 创建材质
+          const material = new THREE.MeshLambertMaterial({ 
+            color: part.color,
+            emissive: 0x000000,
+            shininess: 30
+          });
+          
           const mesh = new THREE.Mesh(geometry, material);
           
-          // 简单居中，不调整位置，让模型重叠在一起（至少能看见）
-          mesh.position.set(0, 0, 0);
+          // 根据部件类型调整位置
+          // 这些值需要根据实际模型调整
+          switch(part.name) {
+            case 'body':
+              mesh.position.y = 0;
+              break;
+            case 'head':
+              mesh.position.y = 1.0; // 头部在身体上方
+              break;
+            case 'ears':
+              mesh.position.y = 1.8; // 耳朵在头部上方
+              break;
+            case 'tail':
+              mesh.position.y = 0.3;
+              mesh.position.z = -0.5; // 尾巴向后
+              break;
+          }
           
           group.add(mesh);
           
@@ -180,10 +203,6 @@
         }, undefined, (error) => {
           console.log(`模型加载失败: ${part.name}`, error);
           loadedCount++;
-          // 即使有失败，如果已经有模型部件，也尝试显示
-          if (loadedCount === parts.length && group.children.length > 0) {
-            this.replaceJumperWithModel(group);
-          }
         });
       });
     }
@@ -194,9 +213,9 @@
       
       console.log('替换跳棋为模型');
       
-      // 保存当前位置和状态
-      const oldPosition = this.jumper.position.clone();
-      const oldScale = this.jumper.scale.clone();
+      // 保存当前位置
+      const oldX = this.jumper.position.x;
+      const oldZ = this.jumper.position.z;
       
       // 移除旧跳棋
       this.scene.remove(this.jumper);
@@ -204,26 +223,34 @@
       // 缩放模型到合适大小
       const box = new THREE.Box3().setFromObject(group);
       const size = box.getSize(new THREE.Vector3());
-      const scale = this.config.jumpHeight / Math.max(size.y, 0.1);
+      console.log('模型原始尺寸:', size);
+      
+      // 计算缩放比例，使模型高度与跳棋高度一致
+      const targetHeight = this.config.jumpHeight;
+      const scale = targetHeight / size.y;
       group.scale.set(scale, scale, scale);
       
-      // 计算中心点，使模型底部在地面
+      // 重新计算缩放后的包围盒
       box.setFromObject(group);
       const center = box.getCenter(new THREE.Vector3());
+      console.log('缩放后中心点:', center);
+      
+      // 将模型底部放在 y=0 处
       group.position.y = -center.y;
       
       // 设置位置
-      group.position.x = oldPosition.x;
-      group.position.z = oldPosition.z;
+      group.position.x = oldX;
+      group.position.z = oldZ;
       
-      // 设置缩放
-      group.scale.y = oldScale.y;
+      // 确保Y轴方向正确
+      group.rotation.x = 0;
+      group.rotation.z = 0;
       
       this.jumper = group;
       this.scene.add(group);
       this.modelsLoaded = true;
       
-      console.log('模型替换完成');
+      console.log('模型替换完成，最终位置:', group.position);
     }
     
     // 创建默认跳棋
@@ -784,7 +811,7 @@
         this.createCube();
         this.createCube();
         this.createDefaultJumper();
-        this.tryLoadModel(); // 再次尝试加载模型
+        this.tryLoadModel();
       }
       
       this.animate();
