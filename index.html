@@ -195,6 +195,29 @@
       color: var(--color-gray-300);
     }
 
+    /* ========= 新增：头部右下角装饰 GIF ========= */
+    .header-decor-gif {
+      position: absolute;
+      bottom: 15px;      /* 距离粉色区域底部的距离，可根据你的GIF视觉重心微调 */
+      right: 5%;         /* 距离右侧的距离，用百分比在不同屏幕下更自然 */
+      width: 90px;       /* ⚠️ 控制GIF的大小，根据你的原图尺寸修改 */
+      height: auto;
+      z-index: 10;       /* 确保浮在背景之上 */
+      pointer-events: none; /* 穿透点击：防止GIF的透明区域遮挡别的按钮 */
+      /* --- 下面是可选的修饰 --- */
+  opacity: 0.9;      /* 让它稍微有一点点透明，能透出一点点底部的粉色，更融合 */
+  filter: drop-shadow(0 2px 5px rgba(255,194,214,0.5)); /* 给它加一个粉色的淡淡投影 */
+    }
+
+    /* 移动端适配：屏幕变小時让 GIF 跟着变小，避免拥挤 */
+    @media (max-width: 768px) {
+      .header-decor-gif {
+        width: 55px;     /* 手机端缩小尺寸 */
+        right: 15px;
+        bottom: 10px;
+      }
+    }
+
     /* ========= 导航栏 ========= */
     .main-nav {
       display: flex;
@@ -3772,6 +3795,7 @@
           <h1 class="logo-text">蔡丰玖·BAMBY</h1>
           <p class="logo-sub">安利手册 | 资源汇总</p>
         </div>
+        <img src="https://img.cdn1.vip/i/6996a1e6ebb31_1771479526.webp" alt="Bamby GIF" class="header-decor-gif">
       </div>
       <nav class="main-nav">
         <a href="#personal" class="nav-item active" data-tab="personal"><i class="fas fa-user"></i><span>个人信息</span></a>
@@ -4531,7 +4555,7 @@
     // ========== 数据定义 ==========
     // 飘落图片
     const floatingImages = [
-      'https://s2.loli.net/2026/02/04/yGAfJciW98KC7Ok.gif'
+      'https://img.cdn1.vip/i/6996a1e6ebb31_1771479526.webp'
     ];
 
     // 图片库数据
