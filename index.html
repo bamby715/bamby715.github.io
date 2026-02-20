@@ -3552,6 +3552,33 @@
     margin: 20px;
   }
 }
+
+    /* 针对手机端“魔法衣橱”分类标签的横向滑动优化 */
+@media (max-width: 768px) {
+  .style-buttons-container {
+    display: flex !important;       /* 强制使用弹性布局 */
+    flex-wrap: nowrap !important;   /* 核心：强制不换行，让多出的分类往右排 */
+    overflow-x: auto !important;    /* 核心：允许横向滚动 */
+    justify-content: flex-start !important; /* 对齐方式改为从左开始 */
+    padding: 10px 5px 15px !important; /* 留出底部空间防止阴影被裁切 */
+    gap: 10px !important;
+    
+    /* 隐藏手机端难看的滚动条 */
+    scrollbar-width: none;          /* Firefox */
+    -webkit-overflow-scrolling: touch; /* 增加 iOS 滑动流畅度 */
+  }
+
+  .style-buttons-container::-webkit-scrollbar {
+    display: none;                  /* Chrome/Safari */
+  }
+
+  .style-button {
+    flex-shrink: 0 !important;      /* 核心：防止按钮被挤压变窄 */
+    white-space: nowrap !important; /* 确保文字不换行 */
+    padding: 8px 16px !important;   /* 稍微减小一点内边距，让一行显示更多内容 */
+    font-size: 0.85rem !important;  /* 移动端字号微调 */
+  }
+}
     
     /* ========= 新年加载动画 ========= */
 .new-year-container {
