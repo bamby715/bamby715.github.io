@@ -2246,6 +2246,8 @@
       color: var(--color-gray-600);
       white-space: nowrap;
     }
+
+    
     
     /* ========= 二创汇总 ========= */
     .fanworks-grid {
@@ -3553,7 +3555,7 @@
   }
 }
 
-    /* 针对手机端“魔法衣橱”分类标签的横向滑动优化 */
+/* 针对手机端“魔法衣橱”分类标签的横向滑动优化 */
 @media (max-width: 768px) {
   .style-buttons-container {
     display: flex !important;       /* 强制使用弹性布局 */
@@ -3579,6 +3581,166 @@
     font-size: 0.85rem !important;  /* 移动端字号微调 */
   }
 }
+
+/* ========= 每日推荐弹窗核心容器 ========= */
+    .daily-recommendation-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 4000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .daily-recommendation-modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .daily-rec-content {
+      position: relative;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 关闭按钮 & 标题 */
+    .daily-rec-close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 1.8rem;
+      color: var(--color-gray-500);
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .daily-rec-title {
+      text-align: center;
+      color: var(--color-primary-dark);
+      margin: 0;
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+
+    /* 图片显示区域 */
+    .daily-rec-image-wrapper {
+      width: 100%;
+      max-height: 60vh;
+      display: flex; justify-content: center; align-items: center;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-gray-50);
+      border: 1px solid var(--color-gray-200);
+    }
+
+    .daily-rec-image-wrapper img {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+    }
+
+    /* 底部布局栏 */
+    .daily-rec-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--color-gray-600);
+      margin-top: 5px;
+    }
+
+    .daily-rec-author {
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      background: var(--color-primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* 互动图标区域 */
+    .daily-rec-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 0 auto 0 10px; /* 紧贴作者名字右侧 */
+    }
+
+    .daily-rec-like-wrap, .daily-rec-cheer-wrap {
+      position: relative;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    /* 统一 GIF 样式：原地弹出，不乱飘，尺寸一致 */
+    .pop-gif {
+      position: absolute;
+      bottom: 120%; /* 弹出在图标正上方 */
+      left: 50%;
+      transform: translateX(-50%) translateY(10px); 
+      width: 120px; /* 统一尺寸 */
+      height: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+    }
+
+    .pop-gif.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0); /* 原地显示 */
+      animation: fadeOutOnly 1.5s forwards; 
+    }
+
+    @keyframes fadeOutOnly {
+      0%, 80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* 点赞图标样式 */
+    #likeIcon { color: #ccc; font-size: 1.2rem; transition: all 0.3s; }
+    .daily-rec-like-wrap.liked #likeIcon {
+      color: #ff6b81;
+      transform: scale(1.2);
+    }
+
+    /* 荧光棒图标样式 (修正为斜举状) */
+    #cheerIcon { 
+      color: #ccc; 
+      font-size: 1.2rem; 
+      transition: all 0.3s;
+      transform: rotate(15deg); /* 默认斜着拿 */
+    }
+
+    .daily-rec-cheer-wrap.cheered #cheerIcon {
+      color: #ff00ff;
+      animation: waveStick 0.5s infinite; /* 点击后开始晃动 */
+    }
+
+    /* 荧光棒晃动动画：更像应援 */
+    @keyframes waveStick {
+      0%, 100% { transform: rotate(15deg) scale(1.2); }
+      50% { transform: rotate(45deg) scale(1.2); }
+    }
+
+    /* 跳过提醒按钮 */
+    .daily-rec-skip {
+      display: flex; align-items: center; gap: 5px; cursor: pointer; white-space: nowrap;
+    }
+    .daily-rec-skip input { accent-color: var(--color-primary); width: 15px; height: 15px; }
     
     /* ========= 新年加载动画 ========= */
 .new-year-container {
@@ -3770,30 +3932,12 @@
 <body>
   <!-- 加载动画 -->
 <div class="loading-overlay" id="loading">
-  <div class="new-year-container" id="newYearContainer">
-    <!-- 贺图容器 - 不固定比例 -->
-    <div class="image-wrapper" id="imageWrapper">
-      <img src="" alt="新年快乐" class="new-year-image" id="newYearImage">
-    </div>
-    
-    <!-- 新年文字 -->
-    <div class="new-year-text">
-      <p class="greeting-main">新年快乐</p>
-      <p class="greeting-sub">万事如意</p>
-    </div>
-
-    
-    <!-- 漂浮的小元素（增加节日氛围） -->
-    <div class="floating-elements">
-      <span>🧧</span>
-      <span>🏮</span>
-      <span>🧨</span>
-      <span>🐴</span>
-      <span>💰</span>
-      <span>🥟</span>
-    </div>
+  <div class="loading-spinner">
+    <div><i class="fas fa-heart"></i></div>
+    <p>加载中...</p>
   </div>
 </div>
+
   <!-- 图片查看器 -->
   <div class="image-viewer-overlay" id="imageViewer">
     <button class="image-close" onclick="closeImageViewer()">×</button>
@@ -3811,6 +3955,38 @@
     <div class="modal-content">
     <span class="close-button" onclick="closeGameModal()">&times;</span>
     <iframe id="gameIframe" src="" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <!-- 今日二创推荐 -->
+  <div class="daily-recommendation-modal" id="dailyRecModal">
+    <div class="daily-rec-content">
+      <span class="daily-rec-close" onclick="closeDailyRec()">&times;</span>
+      <h3 class="daily-rec-title"><i class="fas fa-heart"></i> 今日二创推荐</h3>
+      <div class="daily-rec-image-wrapper">
+        <a href="#" target="_blank" id="dailyRecLink">
+          <img id="dailyRecImage" src="" alt="每日推荐">
+        </a>
+      </div>
+      <div class="daily-rec-footer">
+        <span class="daily-rec-author" id="dailyRecAuthor"></span>
+
+        <div class="daily-rec-actions">
+  <div class="daily-rec-like-wrap" onclick="triggerLike(this)">
+    <i class="fas fa-heart" id="likeIcon"></i>
+    <img src="https://img.cdn1.vip/i/6997fc8812ff5_1771568264.webp" class="pop-gif" id="likeGif">
+  </div>
+
+  <div class="daily-rec-cheer-wrap" onclick="triggerCheer(this)">
+    <i class="fas fa-bolt-lightning" id="cheerIcon"></i>
+    <img src="https://img.cdn1.vip/i/6997ff048029b_1771568900.webp" class="pop-gif" id="cheerGif">
+  </div>
+</div>
+
+        <label class="daily-rec-skip">
+          <input type="checkbox" id="dailyRecSkipCheck"> 今日不再提醒
+        </label>
+      </div>
     </div>
   </div>
 
@@ -8893,6 +9069,9 @@ const concertData = [
       // 初始化粒子效果
       initParticleEffect();
 
+      // 初始化每日推荐弹窗
+      initDailyRecommendation();
+
       // 初始化交互功能
       initInteractiveFeatures();
       
@@ -11473,9 +11652,116 @@ function setRandomImage() {
   };
 }
 
+// ========== 每日二创推荐功能 ==========
+    function initDailyRecommendation() {
+      // 1. 检查今日是否已经勾选“不再提醒”
+      const skipDate = localStorage.getItem('bamby-daily-rec-skip');
+      const today = new Date().toLocaleDateString();
+      
+      if (skipDate === today) {
+        return; // 今日已跳过，不弹出
+      }
+
+      // 2. 从已有的二创数据中自动提取所有的“绘画”作品
+      const illustrations = fanworksData.filter(work => work.type === 'illustration');
+      if (illustrations.length === 0) return; // 如果没有绘画数据则退出
+
+      // 3. 计算今天是今年的第几天，实现"每日一换"的算法
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const diff = now - start;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      
+      // 取模运算，确保索引一直在绘画数组的范围内循环
+      const targetIndex = dayOfYear % illustrations.length;
+      const selectedWork = illustrations[targetIndex];
+
+      // 4. 将数据填充到弹窗中
+      const imgElement = document.getElementById('dailyRecImage');
+      imgElement.src = selectedWork.image;
+      imgElement.alt = selectedWork.title;
+      
+      document.getElementById('dailyRecAuthor').innerHTML = `<i class="fas fa-paint-brush"></i> ${selectedWork.author || '匿名'}`;
+      
+      // 如果作品有链接，允许点击图片跳转
+      const linkElement = document.getElementById('dailyRecLink');
+      if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
+        linkElement.href = selectedWork.link;
+        linkElement.style.cursor = 'pointer';
+      } else {
+        linkElement.removeAttribute('href');
+        linkElement.style.cursor = 'default';
+      }
+
+      // 5. 延迟弹出（等待开屏的新年动画或欢迎语之后）
+      setTimeout(() => {
+        const modal = document.getElementById('dailyRecModal');
+        modal.style.display = 'flex'; // 先变flex
+        // 强制重绘以触发动画
+        modal.offsetHeight; 
+        modal.classList.add('show');
+        
+        // 可选：弹窗时禁止背景滚动
+        // document.body.style.overflow = 'hidden'; 
+      }, 4000); // 4秒后弹出，错开初始的加载动画
+    }
+
+    // 关闭每日推荐弹窗
+    function closeDailyRec() {
+      const modal = document.getElementById('dailyRecModal');
+      const skipCheck = document.getElementById('dailyRecSkipCheck');
+      
+      // 如果勾选了“今日不再提醒”，存入本地存储
+      if (skipCheck.checked) {
+        const today = new Date().toLocaleDateString();
+        localStorage.setItem('bamby-daily-rec-skip', today);
+        showToast('设置成功，今日不再弹出此推荐', 2000);
+      }
+      
+      modal.classList.remove('show');
+      // 恢复背景滚动
+      // document.body.style.overflow = ''; 
+      
+      // 等待渐隐动画结束后彻底隐藏
+      setTimeout(() => {
+         modal.style.display = 'none';
+      }, 300);
+    }
+
+    // 点赞逻辑
+function triggerLike(element) {
+  const gif = element.querySelector('#likeGif');
+  element.classList.add('liked');
+  
+  if(gif) {
+    // 统一重置 GIF 播放
+    gif.src = gif.src; 
+    gif.classList.remove('show');
+    void gif.offsetWidth; 
+    gif.classList.add('show');
+  }
+  
+
+}
+
+function triggerCheer(element) {
+  const gif = element.querySelector('#cheerGif');
+  element.classList.add('cheered');
+  
+  if(gif) {
+    // 统一重置 GIF 播放
+    gif.src = gif.src;
+    gif.classList.remove('show');
+    void gif.offsetWidth; 
+    gif.classList.add('show');
+  }
+
+
+}
+
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', setRandomImage);
-
   </script>
   
   <script src="jump-game-integrated.js"></script>
