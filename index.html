@@ -3582,6 +3582,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  .member-filter {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding: 10px 5px 15px !important;
+    gap: 10px !important;
+    scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch;
+  }
+  .member-filter::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+}
+
 /* ========= 每日推荐弹窗核心容器 ========= */
     .daily-recommendation-modal {
       display: none;
@@ -4386,6 +4401,14 @@
         <!-- challenge -->
         <div class="sub-section" data-subtab="dance-challenge">
           <h3 class="section-title mb-4">🔥 challenge</h3>
+          <div class="member-filter" id="challenge-member-filter" style="margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+  <button class="filter-btn active" data-member="all">全部</button>
+  <button class="filter-btn" data-member="💙">💙 </button>
+  <button class="filter-btn" data-member="💜">💜 </button>
+  <button class="filter-btn" data-member="💗">💗 </button>
+  <button class="filter-btn" data-member="❤️">❤️ </button>
+  <button class="filter-btn" data-member="🖤">🖤 </button>
+</div>
           <div class="sort-controls" id="challenge-sort-controls">
             <button class="sort-btn active" data-sort="date-desc">最新在前</button>
             <button class="sort-btn" data-sort="date-asc">最旧在前</button>
@@ -9064,7 +9087,108 @@ const concertData = [
 
       // 初始化物料汇总彩蛋
       setTimeout(initMaterialEasterEgg, 1000); // 等待页面完全加载
+
+      initChallengeMemberFilter();
     });
+
+    // 初始化 Challenge 成员筛选
+function initChallengeMemberFilter() {
+  const container = document.getElementById('challenge-member-filter');
+  if (!container) return;
+  
+  const memberBtns = container.querySelectorAll('.filter-btn');
+  const allBtn = container.querySelector('[data-member="all"]');
+  const grid = document.getElementById('challenge-works-grid');
+  if (!grid) return;
+
+  // 移除旧监听（避免重复绑定）
+  memberBtns.forEach(btn => btn.removeEventListener('click', handleMemberFilter));
+  memberBtns.forEach(btn => btn.addEventListener('click', handleMemberFilter));
+
+  function handleMemberFilter(e) {
+  const btn = e.currentTarget;
+  const member = btn.getAttribute('data-member');
+
+  if (member === 'all') {
+    memberBtns.forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    renderChallengeGrid(danceChallengeData);
+  } else {
+    btn.classList.toggle('active');
+    allBtn.classList.remove('active');
+
+    const selectedMembers = [];
+    memberBtns.forEach(b => {
+      if (b !== allBtn && b.classList.contains('active')) {
+        selectedMembers.push(b.getAttribute('data-member'));
+      }
+    });
+
+    if (selectedMembers.length === 0) {
+  allBtn.classList.add('active');
+  renderChallengeGrid(danceChallengeData);
+} else {
+  // 辅助函数：移除字符串中的变体选择器 U+FE0F，并按字符拆分
+  const normalize = (str) => {
+    // 使用 Array.from 正确识别 Unicode 字符，然后过滤掉 U+FE0F
+    return Array.from(str).filter(ch => ch !== '\uFE0F');
+  };
+
+  // 将选中的多个成员按钮的字符串拼接起来，然后统一规范化
+  // 例如 ["💗", "❤️"] -> "💗❤️" -> ["💗", "❤"]
+  const combinedSelected = selectedMembers.join('');
+  const selectedNormalized = normalize(combinedSelected).sort();
+
+  const filtered = danceChallengeData.filter(item => {
+    const videoMembers = item.desc;
+    if (!videoMembers) return false;
+
+    // 将视频的 desc 也规范化并排序
+    const videoNormalized = normalize(videoMembers).sort();
+
+    // 长度必须相等，且每个元素相同
+    if (videoNormalized.length !== selectedNormalized.length) return false;
+    return videoNormalized.every((val, idx) => val === selectedNormalized[idx]);
+  });
+
+  renderChallengeGrid(filtered);
+}
+  }
+}
+
+  // 重新渲染网格（基于过滤后的数据）
+  function renderChallengeGrid(dataArray) {
+    grid.innerHTML = ''; // 清空
+
+    if (dataArray.length === 0) {
+  grid.innerHTML = `
+    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+      <i class="fas fa-heart" style="font-size: 3rem; color: var(--color-primary-light); margin-bottom: 20px; animation: pulse 2s infinite;"></i>
+      <i class="fas fa-heart" style="font-size: 2.5rem; color: var(--color-primary); margin: 0 5px 20px; animation: pulse 2s infinite 0.2s;"></i>
+      <i class="fas fa-heart" style="font-size: 3rem; color: var(--color-primary-dark); margin-bottom: 20px; animation: pulse 2s infinite 0.4s;"></i>
+      <h3 style="color: var(--color-gray-700);">没有找到这个特定组合的视频哦 ₍ᐢ.ˬ.ᐢ₎</h3>
+      <p style="color: var(--color-gray-500);">试试选择其他组合吧~</p>
+    </div>
+  `;
+  return;
+}
+
+    dataArray.forEach(item => {
+      grid.appendChild(createWorkCard(item));
+    });
+
+    // 保持当前排序状态（如果有激活的排序按钮）
+    const activeSortBtn = document.querySelector('#challenge-sort-controls .sort-btn.active');
+    if (activeSortBtn) {
+      const sortMethod = activeSortBtn.getAttribute('data-sort');
+      sortWorkCards(grid, sortMethod);
+    }
+  }
+
+  // 初始化时确保网格显示全部数据（如果已有数据，可选择性刷新）
+  // 这里为了统一，直接重新渲染一次
+  renderChallengeGrid(danceChallengeData);
+}
 
     function initApp() {
       // 隐藏加载动画
