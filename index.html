@@ -4087,7 +4087,7 @@
   <div class="daily-recommendation-modal" id="dailyRecModal">
     <div class="daily-rec-content">
       <span class="daily-rec-close" onclick="closeDailyRec()">&times;</span>
-      <h3 class="daily-rec-title"><i class="fas fa-heart"></i> 今日二创推荐</h3>
+      <h3 class="daily-rec-title"><i class="fas fa-heart"></i> 今日推荐</h3>
       <div class="daily-rec-image-wrapper">
         <a href="#" target="_blank" id="dailyRecLink">
           <img id="dailyRecImage" src="" alt="每日推荐">
@@ -12645,7 +12645,7 @@ function sortTmiData(data, sortMethod) {
   // 填充弹窗
   document.getElementById('dailyRecImage').src = selectedWork.image;
   document.getElementById('dailyRecImage').alt = selectedWork.title;
-  document.getElementById('dailyRecAuthor').innerHTML = `<i class="fas fa-paint-brush"></i> ${selectedWork.author}`;
+  document.getElementById('dailyRecAuthor').innerHTML = `作者：${selectedWork.author}`;
 
   const linkElement = document.getElementById('dailyRecLink');
   if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
