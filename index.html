@@ -5001,6 +5001,9 @@
         'https://s2.loli.net/2026/01/25/A5XuNMat8d6Kw7W.jpg',
         'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg'
       ],
+      'concept-set-0': [
+        'https://img.cdn1.vip/i/69a68a9bb344f_1772522139.webp'
+      ],
       // 官方照数据
       'photos-set-0': [
         'https://s2.loli.net/2026/01/27/LyTodn5UWYj2kr6.jpg',
@@ -6358,6 +6361,14 @@
           desc: "个人/团体概念照 - BAMBY",
           gallery: "concept-set-6",
           imageCount: 3
+        },
+        {
+          title: "Why?",
+          date: "2023-05-25",
+          image: "https://img.cdn1.vip/i/69a68a9bb344f_1772522139.webp",
+          desc: "个人概念照 - BAMBY",
+          gallery: "concept-set-0",
+          imageCount: 1
         },
         {
           title: "ASTERUM",
@@ -9590,7 +9601,7 @@ document.addEventListener('click', function(e) {
   const letterImage = e.target.closest('.letter-image');
   if (letterImage) {
     const galleryId = letterImage.getAttribute('data-gallery-id');
-    if (galleryId && window.imageGalleries && window.imageGalleries[galleryId]) {
+    if (galleryId && imageGalleries && imageGalleries[galleryId]) {
       openImageGallery(galleryId);
     } else {
       console.warn('未找到图库：', galleryId);
