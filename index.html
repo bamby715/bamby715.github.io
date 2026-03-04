@@ -3555,31 +3555,55 @@
   }
 }
 
-/* 针对手机端“魔法衣橱”分类标签的横向滑动优化 */
-@media (max-width: 768px) {
-  .style-buttons-container {
-    display: flex !important;       /* 强制使用弹性布局 */
-    flex-wrap: nowrap !important;   /* 核心：强制不换行，让多出的分类往右排 */
-    overflow-x: auto !important;    /* 核心：允许横向滚动 */
-    justify-content: flex-start !important; /* 对齐方式改为从左开始 */
-    padding: 10px 5px 15px !important; /* 留出底部空间防止阴影被裁切 */
-    gap: 10px !important;
-    
-    /* 隐藏手机端难看的滚动条 */
-    scrollbar-width: none;          /* Firefox */
-    -webkit-overflow-scrolling: touch; /* 增加 iOS 滑动流畅度 */
-  }
+.wardrobe-categories {
+  width: 100%;
+}
 
-  .style-buttons-container::-webkit-scrollbar {
-    display: none;                  /* Chrome/Safari */
-  }
+.category-group {
+  margin-bottom: 15px;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
 
-  .style-button {
-    flex-shrink: 0 !important;      /* 核心：防止按钮被挤压变窄 */
-    white-space: nowrap !important; /* 确保文字不换行 */
-    padding: 8px 16px !important;   /* 稍微减小一点内边距，让一行显示更多内容 */
-    font-size: 0.85rem !important;  /* 移动端字号微调 */
-  }
+.category-header {
+  padding: 15px 20px;
+  background: var(--color-primary-light);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  transition: background 0.2s;
+}
+
+.category-header:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.category-header .category-icon {
+  transition: transform 0.3s;
+}
+
+.category-header.open .category-icon {
+  transform: rotate(90deg);
+}
+
+.category-buttons {
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--color-gray-50);
+}
+
+.category-buttons .style-button {
+  flex: 0 0 auto;
+  margin: 0;
+  /* 保持原有按钮样式 */
 }
 
 @media (max-width: 768px) {
@@ -4695,7 +4719,24 @@
             <h3 class="style-selector-title">选择服装款式</h3>
             <p class="style-selector-subtitle">点击下方按钮切换不同服装，初次加载时间会比较久，请耐心等待~</p>
           </div>
-          <div class="style-buttons-container" id="style-buttons-container">
+          <div class="wardrobe-categories">
+  <!-- 专辑组 -->
+  <div class="category-group">
+    <div class="category-header" data-group="album">
+      <span class="category-title">专辑</span>
+      <i class="fas fa-chevron-right category-icon"></i>
+    </div>
+    <div class="category-buttons" id="category-album" style="display: none;"></div>
+  </div>
+  <!-- 服装类型组 -->
+  <div class="category-group">
+    <div class="category-header" data-group="type">
+      <span class="category-title">服装类型</span>
+      <i class="fas fa-chevron-right category-icon"></i>
+    </div>
+    <div class="category-buttons" id="category-type" style="display: none;"></div>
+  </div>
+</div>
             <!-- 服装款式按钮将通过JavaScript动态生成 -->
           </div>
         </div>
@@ -8903,6 +8944,7 @@ const concertData = [
     const wardrobeData = [
       {
         id: 'outfit-1',
+        group: 'album',
         title: '出道服',
         description: 'wait for you-伟大的出道服',
         colors: [
@@ -8916,6 +8958,7 @@ const concertData = [
       },
       {
         id: 'outfit-2',
+        group: 'album',
         title: 'wfy',
         description: 'wait for you-舞台服装',
         colors: [
@@ -8935,6 +8978,7 @@ const concertData = [
       },
       {
         id: 'outfit-3',
+        group: 'album',
         title: '六夏',
         description: '第六个夏天-校园服', 
         colors: [
@@ -8966,6 +9010,7 @@ const concertData = [
       },
       {
         id: 'outfit-4',
+        group: 'album',
         title: '噗诞',
         description: 'Merry PLLIstmas-小熊一只',
         colors: [
@@ -8979,6 +9024,7 @@ const concertData = [
       },
       {
         id: 'outfit-5',
+        group: 'album',
         title: 'w4l',
         description: 'WAY 4 LUV-探险家',
         colors: [
@@ -8998,6 +9044,7 @@ const concertData = [
       },
       {
         id: 'outfit-6',
+        group: 'album',
         title: 'putv',
         description: 'Pump Up The Volume!-pabo，我说的就是你呀~',
         colors: [
@@ -9017,6 +9064,7 @@ const concertData = [
       },
       {
         id: 'outfit-7',
+        group: 'album',
         title: 'dash',
         description: 'Dash-I gotta dash~',
         colors: [
@@ -9036,6 +9084,7 @@ const concertData = [
       },
       {
         id: 'outfit-8',
+        group: 'album',
         title: '捉迷藏',
         description: 'Hide and Seek-日系元气少年',
         colors: [
@@ -9055,6 +9104,7 @@ const concertData = [
       },
       {
         id: 'outfit-9',
+        group: 'album',
         title: 'bbuu!',
         description: 'BBUU!-也许你是我的礼物~',
         colors: [
@@ -9068,6 +9118,7 @@ const concertData = [
       },
       {
         id: 'outfit-10',
+        group: 'type',
         title: '背带裤',
         description: '早期邪恶背带裤+后期鹿比+黑色背带裤',
         colors: [
@@ -9093,6 +9144,7 @@ const concertData = [
       },
       {
         id: 'outfit-11',
+        group: 'type',
         title: '军装服',
         description: '演唱会舞台服装',
         colors: [
@@ -9127,9 +9179,36 @@ const concertData = [
             image: 'https://s2.loli.net/2026/01/29/gfmyzuoAMKE5LGY.png'
           },
         ]
-      },   
+      },
       {
         id: 'outfit-12',
+        group: 'type',
+        title: '西装',
+        description: '早期邪恶背带裤+后期鹿比+黑色背带裤',
+        colors: [
+          {
+            id: 'blue',
+            name: '蓝色',
+            colorCode: '#A7C7E7',
+            image: 'https://s2.loli.net/2026/01/29/HmrMRQVWL6Et8pG.png'
+          },
+          {
+            id: 'blue',
+            name: '蓝色',
+            colorCode: '#A7C7E7',
+            image: 'https://s2.loli.net/2026/01/29/OQhWA1zba7jXflS.png'
+          },
+          {
+            id: 'black',
+            name: '黑色',
+            colorCode: '#333333',
+            image: 'https://s2.loli.net/2026/01/29/AReMy5ECDmJtHih.png'
+          }
+        ]
+      },   
+      {
+        id: 'outfit-13',
+        group: 'type',
         title: '生日',
         description: '23+24(+演唱会)+25年',
         colors: [
@@ -9178,7 +9257,8 @@ const concertData = [
         ]
       },   
       {
-        id: 'outfit-13',
+        id: 'outfit-14',
+        group: 'type',
         title: '短裤',
         description: '小粉粉+小蓝蓝+小熊+小青蛙，短裤短裤我们喜欢你',
         colors: [
@@ -9209,7 +9289,8 @@ const concertData = [
         ]
       },
       {
-        id: 'outfit-14',
+        id: 'outfit-15',
+        group: 'type',
         title: '圣诞',
         description: '小鹿斑比+圣诞老人',
         colors: [
@@ -9228,7 +9309,8 @@ const concertData = [
         ]
       },
       {
-        id: 'outfit-15',
+        id: 'outfit-16',
+        group: 'type',
         title: '带帽卫衣',
         description: '休闲装',
         colors: [
@@ -9259,10 +9341,23 @@ const concertData = [
         ]
       },
       {
-        id: 'outfit-16',
+        id: 'outfit-17',
+        group: 'type',
         title: '外套',
-        description: '又名蔡代表与蔡实习的日常',
+        description: '演唱会+蔡代表+蔡实习',
         colors: [
+          {
+            id: 'blue',
+            name: '深蓝',
+            colorCode: '#182866',
+            image: 'https://img.cdn1.vip/i/69a84a66399df_1772636774.webp'
+          },
+          {
+            id: 'black',
+            name: '黑色',
+            colorCode: '#333333',
+            image: 'https://img.cdn1.vip/i/69a8519b34c84_1772638619.webp'
+          },
           {
             id: 'white',
             name: '白色',
@@ -9290,7 +9385,8 @@ const concertData = [
         ]
       },
       {
-        id: 'outfit-17',
+        id: 'outfit-18',
+        group: 'type',
         title: '衬衫',
         description: 'anan杂志',
         colors: [
@@ -9309,7 +9405,8 @@ const concertData = [
         ]
       },
       {
-        id: 'outfit-18',
+        id: 'outfit-19',
+        group: 'type',
         title: '圆领T恤',
         description: '五彩斑斓的白与黑',
         colors: [
@@ -10237,61 +10334,74 @@ function initChallengeMemberFilter() {
     }
 
     function generateWardrobeContent() {
-      const wardrobeContainer = document.getElementById('wardrobe-content');
-      const styleButtonsContainer = document.getElementById('style-buttons-container');
-      
-      if (!wardrobeContainer || !styleButtonsContainer || !wardrobeData) return;
-      
-      wardrobeContainer.innerHTML = '';
-      styleButtonsContainer.innerHTML = '';
-      
-      // 生成服装款式选择按钮
-      wardrobeData.forEach((outfit, index) => {
-        const styleButton = document.createElement('button');
-        styleButton.className = `style-button ${index === 0 ? 'active' : ''}`;
-        styleButton.setAttribute('data-outfit-id', outfit.id);
-        
-        // 添加图标
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-tshirt';
-        styleButton.appendChild(icon);
-        
-        // 添加文本
-        const text = document.createElement('span');
-        text.textContent = outfit.title;
-        styleButton.appendChild(text);
-        
-        // 添加颜色数量徽章
-        const badge = document.createElement('span');
-        badge.className = 'badge';
-        badge.textContent = `${outfit.colors.length}色`;
-        styleButton.appendChild(badge);
-        
-        styleButton.addEventListener('click', function() {
-          // 移除所有按钮的active类
-          document.querySelectorAll('.style-button').forEach(btn => {
-            btn.classList.remove('active');
-          });
-          
-          // 添加active类到当前按钮
-          this.classList.add('active');
-          
-          // 切换服装展示
-          switchOutfit(outfit.id);
-        });
-        
-        styleButtonsContainer.appendChild(styleButton);
-      });
-      
-      // 创建第一个服装的展示
-      if (wardrobeData.length > 0) {
-        const firstOutfit = wardrobeData[0];
-        const firstColor = firstOutfit.colors[0];
-        
-        // 生成主展示卡
-        wardrobeContainer.appendChild(createWardrobeItem(firstOutfit, firstColor));
-      }
+  const albumContainer = document.getElementById('category-album');
+  const typeContainer = document.getElementById('category-type');
+  if (!albumContainer || !typeContainer) return;
+
+  // 清空容器
+  albumContainer.innerHTML = '';
+  typeContainer.innerHTML = '';
+
+  // 遍历数据，生成按钮
+  wardrobeData.forEach((outfit, index) => {
+    const btn = document.createElement('button');
+    btn.className = `style-button ${index === 0 ? 'active' : ''}`;
+    btn.setAttribute('data-outfit-id', outfit.id);
+    btn.innerHTML = `<i class="fas fa-tshirt"></i><span>${outfit.title}</span><span class="badge">${outfit.colors.length}色</span>`;
+
+    btn.addEventListener('click', function() {
+      // 移除所有按钮的active类
+      document.querySelectorAll('.style-button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      switchOutfit(outfit.id);
+    });
+
+    // 根据分组放入对应容器
+    if (outfit.group === 'album') {
+      albumContainer.appendChild(btn);
+    } else if (outfit.group === 'type') {
+      typeContainer.appendChild(btn);
     }
+  });
+
+  // 默认展开专辑组，并选中第一个按钮
+  const albumHeader = document.querySelector('.category-header[data-group="album"]');
+  const albumButtons = document.getElementById('category-album');
+  if (albumHeader && albumButtons) {
+    albumHeader.classList.add('open');
+    albumButtons.style.display = 'flex';
+    // 确保第一个按钮高亮（已在生成时设置 index===0）
+  }
+
+  // 为每个分类标题添加点击事件
+  document.querySelectorAll('.category-header').forEach(header => {
+    header.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const group = this.getAttribute('data-group');
+      const buttonsDiv = document.getElementById(`category-${group}`);
+      const isOpen = this.classList.contains('open');
+
+      if (isOpen) {
+        // 收起
+        this.classList.remove('open');
+        buttonsDiv.style.display = 'none';
+      } else {
+        // 展开
+        this.classList.add('open');
+        buttonsDiv.style.display = 'flex';
+      }
+    });
+  });
+
+  // 生成第一个服装的展示（原有逻辑）
+  if (wardrobeData.length > 0) {
+    const firstOutfit = wardrobeData[0];
+    const firstColor = firstOutfit.colors[0];
+    const wardrobeContainer = document.getElementById('wardrobe-content');
+    wardrobeContainer.innerHTML = '';
+    wardrobeContainer.appendChild(createWardrobeItem(firstOutfit, firstColor));
+  }
+}
 
     // ========== 衣柜功能 ==========
     function switchOutfit(outfitId) {
