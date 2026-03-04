@@ -12645,7 +12645,7 @@ function sortTmiData(data, sortMethod) {
   // 填充弹窗
   document.getElementById('dailyRecImage').src = selectedWork.image;
   document.getElementById('dailyRecImage').alt = selectedWork.title;
-  document.getElementById('dailyRecAuthor').innerHTML = `作者：${selectedWork.author}`;
+  document.getElementById('dailyRecAuthor').innerHTML = selectedWork.author;
 
   const linkElement = document.getElementById('dailyRecLink');
   if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
