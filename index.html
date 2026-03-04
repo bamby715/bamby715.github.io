@@ -3886,6 +3886,116 @@
   background: var(--color-primary-dark);
 }
 
+/* ========= 斑比拾光专属样式 ========= */
+/*美食卡片图片区域 */
+.snack-image {
+  height: 160px;
+  overflow: hidden;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--color-gray-100);
+}
+.snack-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 手信卡片图片区域（可放大） */
+.letter-image {
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.letter-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* 歌单卡片（左右结构） */
+.song-card {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+}
+.song-cover {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.song-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.song-info {
+  flex: 1;
+}
+.song-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin-bottom: 4px;
+}
+.song-artist {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 8px;
+}
+.song-desc {
+  font-size: 0.9rem;
+  color: var(--color-gray-700);
+  margin-bottom: 8px;
+}
+
+/* 来源小字统一样式 */
+.tmi-source {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-gray-200);
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.source-link {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.source-link:hover {
+  text-decoration: underline;
+}
+.source-link i {
+  font-size: 0.9rem;
+}
+
+/* 纯文字卡片背景 */
+.quote-card {
+  background: linear-gradient(135deg, rgba(255, 240, 245, 0.8), rgba(255, 255, 255, 0.9));
+}
+.quote-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-gray-800);
+  padding: 8px 12px;
+  border-left: 4px solid var(--color-primary);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
 /* 漂浮的新年元素 */
 .floating-elements {
   position: absolute;
@@ -4019,6 +4129,7 @@
         <a href="#personal" class="nav-item active" data-tab="personal"><i class="fas fa-user"></i><span>个人信息</span></a>
         <a href="#anli" class="nav-item" data-tab="anli"><i class="fas fa-star"></i><span>安利向</span></a>
         <a href="#materials" class="nav-item" data-tab="materials"><i class="fas fa-images"></i><span>物料汇总</span></a>
+        <a href="#tmi" class="nav-item" data-tab="tmi"><i class="fas fa-clock"></i><span>斑比拾光</span></a>
         <a href="#wardrobe" class="nav-item" data-tab="wardrobe"><i class="fas fa-tshirt"></i><span>魔法衣橱</span></a>
         <a href="#schedule" class="nav-item" data-tab="schedule"><i class="fas fa-calendar-alt"></i><span>日程</span></a>
         <a href="#fanworks" class="nav-item" data-tab="fanworks"><i class="fas fa-palette"></i><span>二创汇总</span></a>
@@ -4463,6 +4574,37 @@
         </div>
       </section>
 
+      <!-- 斑比拾光部分 -->
+<section id="tmi" class="content-section">
+  <div class="section-header">
+    <h2 class="section-title">斑比拾光 · 直播碎片</h2>
+    <p class="section-subtitle">直播、wvs等提过的信息汇总</p>
+  </div>
+
+  <!-- 子导航分类 -->
+  <div class="sub-nav" id="tmi-cat-nav">
+    <button class="sub-nav-btn active" data-tmi-cat="all"><i class="fas fa-globe"></i>全部</button>
+    <button class="sub-nav-btn" data-tmi-cat="cover"><i class="fas fa-microphone"></i>直播翻唱</button>
+    <button class="sub-nav-btn" data-tmi-cat="dance-cover"><i class="fas fa-running"></i>直播翻跳</button>
+    <button class="sub-nav-btn" data-tmi-cat="song"><i class="fas fa-music"></i>推荐歌单</button>
+    <button class="sub-nav-btn" data-tmi-cat="snack"><i class="fas fa-utensils"></i>美食</button>
+    <button class="sub-nav-btn" data-tmi-cat="letter"><i class="fas fa-feather"></i>语录</button>
+    <button class="sub-nav-btn" data-tmi-cat="behind"><i class="fas fa-film"></i>幕后</button>
+  </div>
+
+  <!-- 排序控件 -->
+  <div class="sort-controls" id="tmi-sort-controls">
+    <button class="sort-btn active" data-sort="date-desc">最新在前</button>
+    <button class="sort-btn" data-sort="date-asc">最旧在前</button>
+    <button class="sort-btn" data-sort="title-asc">按标题排序</button>
+  </div>
+
+  <!-- 卡片网格 -->
+  <div class="works-grid" id="tmi-grid">
+    <!-- 动态生成 -->
+  </div>
+</section>
+
       <!-- 行程日程部分 -->
       <section id="schedule" class="content-section">
         <div class="section-header">
@@ -4619,26 +4761,26 @@
               <h3 class="work-title">链接存放处</h3>
               <div style="margin-top:1rem;">
                 <div class="info-item">
-                  <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">总入口</div>
+                  <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">表格汇总</div>
                   <div>
                     <a href="https://rmxa5bmg.jsjform.com/f/fuUF3W" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
                       意见收集箱
                     </a>
-                    <a href="https://rmxa5bmg.jsjform.com/f/Z2riLj" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                    <a href="https://rmxa5bmg.jsjform.com/f/Z2riLj" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
                       二创投稿
                     </a>
                   </div>
                 </div>
                 <div class="info-item">
-                  <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">斑比相关</div>
+                  <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">鹿站相关</div>
                   <div>
                     <a href="https://weibo.com/u/5143372154" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                      鹿站微博主页
+                      微博
                     </a>
-                    <a href="https://www.xiaohongshu.com/user/profile/6526bbec000000002a02aeec?xsec_token=ABI6GYSsegbXVGSicpk9VNa_NrOB-YqEcUexKdrM8L8KY%3D&xsec_source=pc_search" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                      鹿站小红书主页
+                    <a href="https://www.xiaohongshu.com/user/profile/6526bbec000000002a02aeec?xsec_token=ABI6GYSsegbXVGSicpk9VNa_NrOB-YqEcUexKdrM8L8KY%3D&xsec_source=pc_search" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
+                      小红书
                     </a>
-                    <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
+                    <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
                       PLAVE_Bamby超话
                     </a>
                   </div>
@@ -4647,13 +4789,22 @@
                   <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">PLAVE官方</div>
                   <div>
                     <a href="https://weibo.com/u/7825391749" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">
-                      微博主页
+                      微博
+                    </a>
+                    <a href="https://www.xiaohongshu.com/user/profile/60c45173000000000101cf86?xsec_token=ABzB2Q-aISF-rHDm36i5V7ODdMozpBlVWBhhVmhJsF_cc%3D&xsec_source=pc_search" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
+                      小红书
                     </a>
                     <a href="https://space.bilibili.com/3493141629896727?spm_id_from=333.337.0.0" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
-                      b站主页
+                      b站
                     </a>
                     <a href="https://www.youtube.com/@plave_official" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
-                      油管主页
+                      YouTube
+                    </a>
+                    <a href="https://www.instagram.com/plave_official/" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
+                      ins
+                    </a>
+                    <a href="https://x.com/plave_official" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">
+                      x
                     </a>
                   </div>
                 </div>
@@ -5193,6 +5344,9 @@
         'https://img.cdn1.vip/i/6992bc0f909df_1771224079.webp',
         'https://img.cdn1.vip/i/6992bc1168356_1771224081.webp'
       ],
+      'photos-set-51': [
+        'https://img.cdn1.vip/i/69a328778960c_1772300407.webp'
+      ],
       // 个人照数据
       'personal-set-1': [
         'https://img.cdn1.vip/i/6993ff0c8cd42_1771306764.webp',
@@ -5703,6 +5857,12 @@
         'https://img.cdn1.vip/i/698f5b19ca960_1771002649.webp',
         'https://img.cdn1.vip/i/698f5f42f2f58_1771003714.webp'
       ],
+      'magazine-set-9': [
+        'https://img.cdn1.vip/i/69a327561f853_1772300118.webp',
+        'https://img.cdn1.vip/i/69a3270e01e96_1772300046.webp',
+        'https://img.cdn1.vip/i/69a3271d008e4_1772300061.webp',
+        'https://img.cdn1.vip/i/69a32714d37bb_1772300052.webp'
+      ],
       
       // 咪姆照片
       'mimu-set-0': [
@@ -6210,6 +6370,14 @@
         
       ],
       photos: [
+        {
+          title: "Day of Asterum",
+          date: "2026-02-28",
+          image: "https://img.cdn1.vip/i/69a328778960c_1772300407.webp",
+          desc: "wvs官方照片",
+          gallery: "photos-set-51",
+          imageCount: 1
+        },
         {
           title: "Day of Asterum",
           date: "2026-02-16",
@@ -6887,6 +7055,14 @@
           desc: "封面",
           gallery: "magazine-set-5",
           imageCount: 2
+        },
+        {
+          title: "Weverse杂志",
+          date: "2024-10-21",
+          image: "https://img.cdn1.vip/i/69a327561f853_1772300118.webp",
+          desc: "虚拟专题/相关采访",
+          gallery: "magazine-set-9",
+          imageCount: 4
         },
         {
           title: "Weverse杂志",
@@ -8219,6 +8395,644 @@ const danceChallengeData = [
   }
   // 可以继续添加更多挑战...
 ];
+
+// ========== 斑比拾光数据 ==========
+const tmiData = [
+  // 直播翻唱数据
+  {
+    id: "cover008",
+    category: "cover",
+    title: "Flying Duck",
+    image: "https://img.cdn1.vip/i/69a2ed80ebf8a_1772285312.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV1PE4m1d7GB/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3321s",
+      youtube: "https://www.youtube.com/watch?v=BnXq40GANVI&t=3321s",
+      weibo: 'https://weibo.com/5143372154/OoaRjvCfa'
+    },
+    source: {
+      date: "2024-07-18",
+      title: "55:21-59:15",
+    }
+  },
+  {
+    id: "cover007",
+    category: "cover",
+    title: "Never Ending Story",
+    image: "https://img.cdn1.vip/i/69a2ef24ea2f3_1772285732.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV1PE4m1d7GB/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=6027s",
+      youtube: "https://www.youtube.com/watch?v=BnXq40GANVI&t=6027s",
+      weibo: 'https://weibo.com/5143372154/OokFVuF5E'
+    },
+    source: {
+      date: "2024-07-18",
+      title: "1:40:27-1:43:30",
+    }
+  },
+  {
+    id: "cover006",
+    category: "cover",
+    title: "方形的梦",
+    image: "https://img.cdn1.vip/i/69a2ba4dd1bad_1772272205.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV1dM4m1f7H9/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=1581s",
+      youtube: "https://www.youtube.com/watch?v=yWmaH6uRRwQ&t=1581s",
+      weibo: 'https://weibo.com/5143372154/OcsWQi2ke'
+    },
+    source: {
+      date: "2024-05-02",
+      title: "26:21-29:39",
+    }
+  },
+  {
+    id: "cover005",
+    category: "cover",
+    title: "银河系咖啡厅的爱情",
+  //  desc: "240424 五人直播",
+    image: "https://s2.loli.net/2026/02/07/QhpENbXK8JrkC2O.png", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV1Az421r7xe/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3246s",
+      youtube: "https://www.youtube.com/watch?v=Y-c-kG3Fhe0&t=3246s",
+      weibo: 'https://weibo.com/5143372154/Obfh7vHRE'
+    },
+    source: {
+      date: "2024-04-24",
+      title: "54:06-56:55",
+    }
+  },
+  {
+    id: "cover004",
+    category: "cover",
+    title: "L-O-V-E",
+    image: "https://img.cdn1.vip/i/69a2b1a5a477d_1772269989.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV1jS421K7PX/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3489s",
+      youtube: "https://www.youtube.com/watch?v=k70KP0Zvzn4&t=3489s",
+      weibo: 'https://weibo.com/5143372154/NBnzqzWcJ'
+    },
+    source: {
+      date: "2024-02-14",
+      title: "58:09-1:00:54",
+    }
+  },
+  {
+    id: "cover003",
+    category: "cover",
+    title: "大教堂时代Le Temps Des Cathedrales",
+    image: "https://img.cdn1.vip/i/69a29f0edb690_1772265230.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV14K4y1z76u/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2079s",
+      youtube: "https://www.youtube.com/watch?v=HY2EgIaC9ZE&t=2079s",
+      weibo: 'https://weibo.com/5143372154/NBnzqzWcJ'
+    },
+    source: {
+      date: "2024-01-11",
+      title: "34:29-38:00",
+    }
+  },
+  {
+  id: "cover002",
+  category: "cover",
+  title: "My House",
+  image: "https://img.cdn1.vip/i/69a7e9ff47169_1772612095.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1pL411d7na/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=4902s"
+  },
+  source: {
+    date: "2023-02-15",
+    title: "1:21:42-1:24:43"
+  }
+},
+{
+  id: "cover001",
+  category: "cover",
+  title: "应急室",
+  image: "https://img.cdn1.vip/i/69a7dcd6ef7dd_1772608726.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1E24y1E7iE/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2955s"
+  },
+  source: {
+    date: "2023-01-03",
+    title: "49:15-51:04"
+  }
+},
+  // 直播翻跳数据
+  {
+  id: "dancecover026",
+  category: "dance-cover",
+  title: "Sugar Rush Ride",
+  image: "https://img.cdn1.vip/i/69a826460f05d_1772627526.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1vM411u7rq/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3147s"
+  },
+  source: {
+    date: "2023-02-28",
+    title: "52:27-56:22 57:08-58:12"
+  }
+},
+{
+  id: "dancecover025",
+  category: "dance-cover",
+  title: "night dancer",
+  image: "https://img.cdn1.vip/i/69a8257208c9f_1772627314.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1vM411u7rq/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3020s"
+  },
+  source: {
+    date: "2023-02-28",
+    title: "50:32-51:32"
+  }
+},
+{
+  id: "dancecover024",
+  category: "dance-cover",
+  title: "나문희의 첫사랑",
+  image: "https://img.cdn1.vip/i/69a7f549266cb_1772614985.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1AY4y1Q7LK/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=4608s"
+  },
+  source: {
+    date: "2023-02-21",
+    title: "1:16:48-1:17:54"
+  }
+},
+{
+  id: "dancecover023",
+  category: "dance-cover",
+  title: "POPPY",
+  image: "https://img.cdn1.vip/i/69a7f3b8646b2_1772614584.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1AY4y1Q7LK/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=4466s"
+  },
+  source: {
+    date: "2023-02-21",
+    title: "1:14:26-1:14:56"
+  }
+},
+{
+  id: "dancecover022",
+  category: "dance-cover",
+  title: "VIBE",
+  image: "https://img.cdn1.vip/i/69a7f0e95c20d_1772613865.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1AY4y1Q7LK/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2523s"
+  },
+  source: {
+    date: "2023-02-21",
+    title: "42:03-42:54 43:23-44:00"
+  }
+},
+{
+  id: "dancecover021",
+  category: "dance-cover",
+  title: "Mommae",
+  image: "https://img.cdn1.vip/i/69a7f09e32b54_1772613790.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1AY4y1Q7LK/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2011s"
+  },
+  source: {
+    date: "2023-02-21",
+    title: "33:31-34:16"
+  }
+},
+{
+  id: "dancecover020",
+  category: "dance-cover",
+  title: "电臀舞",
+  image: "https://img.cdn1.vip/i/69a7ed462ad1e_1772612934.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1AY4y1Q7LK/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=1542s"
+  },
+  source: {
+    date: "2023-02-21",
+    title: "25:42-26:20 28:17-28:30"
+  }
+},
+{
+  id: "dancecover019",
+  category: "dance-cover",
+  title: "VIBE",
+  image: "https://img.cdn1.vip/i/69a7e7b8b84fd_1772611512.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1pL411d7na/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3105s"
+  },
+  source: {
+    date: "2023-02-15",
+    title: "51:45-52:07"
+  }
+},
+{
+  id: "dancecover018",
+  category: "dance-cover",
+  title: "VIBE",
+  image: "https://img.cdn1.vip/i/69a7e5dd34c9b_1772611037.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Vv4y1j7fu/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=6433s"
+  },
+  source: {
+    date: "2023-01-31",
+    title: "1:47:13-1:48:14 1:50:40-1:51:21 1:51:56-1:52:27"
+  }
+},
+{
+  id: "dancecover017",
+  category: "dance-cover",
+  title: "OMG",
+  image: "https://img.cdn1.vip/i/69a7e3f50e8d1_1772610549.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Vv4y1j7fu/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=6353s"
+  },
+  source: {
+    date: "2023-01-31",
+    title: "1:45:53-1:46:13"
+  }
+},
+{
+  id: "dancecover016",
+  category: "dance-cover",
+  title: "Tell me",
+  image: "https://img.cdn1.vip/i/69a7e39672977_1772610454.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Vv4y1j7fu/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=5979s"
+  },
+  source: {
+    date: "2023-01-31",
+    title: "1:39:39-1:40:03"
+  }
+},
+{
+  id: "dancecover015",
+  category: "dance-cover",
+  title: "Sorry Sorry",
+  image: "https://img.cdn1.vip/i/69a7dfc1c668c_1772609473.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1xL411r7jG/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2554s"
+  },
+  source: {
+    date: "2023-01-17",
+    title: "42:34-43:03"
+  }
+},
+{
+  id: "dancecover014",
+  category: "dance-cover",
+  title: "Bo Peep Bo Peep",
+  image: "https://img.cdn1.vip/i/69a7df2426c3a_1772609316.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1xL411r7jG/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2418s"
+  },
+  source: {
+    date: "2023-01-17",
+    title: "40:18-40:35"
+  }
+},
+{
+  id: "dancecover013",
+  category: "dance-cover",
+  title: "Ditto",
+  image: "https://img.cdn1.vip/i/69a7df27139e7_1772609319.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1xL411r7jG/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=1970s"
+  },
+  source: {
+    date: "2023-01-17",
+    title: "32:50-33:21"
+  }
+},
+{
+  id: "dancecover012",
+  category: "dance-cover",
+  title: "Ditto",
+  image: "https://img.cdn1.vip/i/69a7dc32ba002_1772608562.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1E24y1E7iE/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2648s"
+  },
+  source: {
+    date: "2023-01-03",
+    title: "44:08-45:20"
+  }
+},
+{
+  id: "dancecover011",
+  category: "dance-cover",
+  title: "被音乐攻击之这首歌很危险",
+  image: "https://img.cdn1.vip/i/69a7db1513795_1772608277.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1E24y1E7iE/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2465s"
+  },
+  source: {
+    date: "2023-01-03",
+    title: "41:05-41:29"
+  }
+},
+{
+  id: "dancecover010",
+  category: "dance-cover",
+  title: "被音乐攻击之这歌来得太突然",
+  image: "https://img.cdn1.vip/i/69a7da1fd7d64_1772608031.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1E24y1E7iE/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=1560s"
+  },
+  source: {
+    date: "2023-01-03",
+    title: "26:00-26:24"
+  }
+},
+{
+  id: "dancecover009",
+  category: "dance-cover",
+  title: "这么可爱对不起",
+  image: "https://img.cdn1.vip/i/69a7d80c6296c_1772607500.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1MX4y1Z7FP/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=4607s"
+  },
+  source: {
+    date: "2022-12-28",
+    title: "1:16:47-1:17:33"
+  }
+},
+{
+  id: "dancecover008",
+  category: "dance-cover",
+  title: "Sorry Sorry",
+  image: "https://img.cdn1.vip/i/69a7d7a3b41b2_1772607395.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1CX4y1o7HS/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3372s"
+  },
+  source: {
+    date: "2022-12-20",
+    title: "56:12-56:46"
+  }
+},
+{
+  id: "dancecover007",
+  category: "dance-cover",
+  title: "Growl(咆哮)",
+  image: "https://img.cdn1.vip/i/69a7d5952957e_1772606869.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1CX4y1o7HS/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2916s"
+  },
+  source: {
+    date: "2022-12-20",
+    title: "48:36-49:48"
+  }
+},
+{
+  id: "dancecover006",
+  category: "dance-cover",
+  title: "My House",
+  image: "https://img.cdn1.vip/i/69a7d45bba15a_1772606555.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1CX4y1o7HS/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2678s"
+  },
+  source: {
+    date: "2022-12-20",
+    title: "44:38-45:42"
+  }
+},
+{
+  id: "dancecover005",
+  category: "dance-cover",
+  title: "02摇",
+  image: "https://img.cdn1.vip/i/69a7d2b288648_1772606130.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Ts4y1p7XF/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=3230s"
+  },
+  source: {
+    date: "2022-10-20",
+    title: "53:50-54:22"
+  }
+},
+{
+  id: "dancecover004",
+  category: "dance-cover",
+  title: "Shut Down",
+  image: "https://img.cdn1.vip/i/69a7d216571c4_1772605974.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Ts4y1p7XF/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2790s"
+  },
+  source: {
+    date: "2022-10-20",
+    title: "46:30-47:08"
+  }
+},
+{
+  id: "dancecover003",
+  category: "dance-cover",
+  title: "Love Shot",
+  image: "https://img.cdn1.vip/i/69a7d1691c227_1772605801.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Ts4y1p7XF/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2712s"
+  },
+  source: {
+    date: "2022-10-20",
+    title: "45:12-45:43"
+  }
+},
+  {
+  id: "dancecover002",
+  category: "dance-cover",
+  title: "Hype boy",
+  image: "https://img.cdn1.vip/i/69a7d049ac863_1772605513.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Ts4y1p7XF/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2561s",
+  },
+  source: {
+    date: "2022-10-20",
+    title: "42:41-43:15"
+  }
+},
+  {
+  id: "dancecover001",
+  category: "dance-cover",
+  title: "Rush Hour",
+  image: "https://img.cdn1.vip/i/69a7d0031a3d4_1772605443.webp",
+  links: {
+    bilibili: "https://www.bilibili.com/video/BV1Ts4y1p7XF/?spm_id_from=333.1387.favlist.content.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=2474s",
+  },
+  source: {
+    date: "2022-10-20",
+    title: "41:14-41:51"
+  }
+},
+  // 推荐歌单数据
+  {
+    id: "song002",
+    category: "song",
+    title: "luther",
+    desc: "曲子本身就很柔和，很适合微风",
+    image: "https://img.cdn1.vip/i/69a2f8ddc9463_1772288221.webp", // 专辑封面
+    song: {
+      artist: "Kendrick Lamar / SZA",
+      link: "https://music.163.com/#/song?id=2649423776"
+    },
+    source: {
+      date: "2025-05-04",
+      title: "官方物料",
+  //    platform: "YouTube",
+  //    url: "https://youtu.be/xxx?t=1234"
+    }
+  },
+  {
+    id: "song001",
+    category: "song",
+    title: "A Dream Is A Wish Your Heart Makes",
+    desc: "跟今天的天气很配",
+    image: "https://img.cdn1.vip/i/69a2f4f6996ff_1772287222.webp", // 专辑封面
+    song: {
+      artist: "Lily James",
+      link: "https://music.163.com/#/song?id=30967294"
+    },
+    source: {
+      date: "2025-04-20",
+      title: "泡泡推荐",
+  //    platform: "YouTube",
+  //    url: "https://youtu.be/xxx?t=1234"
+    }
+  },
+  // 美食数据
+  {
+    id: "snack001",
+    category: "snack",
+    title: "[平壤面屋]",
+    desc: "香喷喷的荞麦面和肉汤展现不刺激，清淡的style。平冷入门者们也能轻易接受，所以推荐😊",
+    image: "https://img.cdn1.vip/i/69a2fa2f6e39f_1772288559.webp",
+    product: {
+      name: "平壤冷面",
+      brand: "[平壤面屋]",
+      note: "平冷入门者的平壤冷面"
+    },
+    source: {
+      date: "2024-04-19",
+      title: "Esquire Korea 采访",
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/OasMuiQPA"
+    }
+  },
+  // 语录数据（含多图）
+  {
+    id: "letter006",
+    category: "letter",
+    title: "噗哩一周年诞生日之诗",
+    content: "💗\n\n某天蝴蝶飞了过来\n\n它在我身边停留了一年之久\n\n方才意识到原来我是一朵花\n\n偶尔坐在我的花蕾上安心地休息吧\n\n无论何时我都会为你守着这个位置",
+    images: [
+      "https://img.cdn1.vip/i/69a68d007574b_1772522752.webp",
+    ],
+    source: {
+      date: "2024-06-18",
+      title: "噗哩一周年诞生日之诗",
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/OjHpQCcTL"
+    }
+  },
+  {
+    id: "letter005",
+    category: "letter",
+    title: "专辑thanks to",
+    content: "噗哩们好!我是斑比!\n\n多亏了大家的厚爱 我们的声音才能再次被世人听到\n\n我觉得能认识现在的plave成员们和vlast的家人们是莫大的幸运\n\n一直很感谢总是和好的人们在一起\n\n和噗哩们在一起的此刻瞬间真的非常幸福\n\n对于大家给予我们的一切 我完全没有认为这些是理所当然的 以后也会一直抱着感恩的心走下去的\n\n非常感谢填满我内心的噗哩们\n\n无论何时我们都会在同个位置一起度过所有瞬间\n\n以后我们也一起走下去吧\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;停留在噗哩们的季节里....\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ——斑比\n\n©baebaembe",
+    images: [
+      "https://img.cdn1.vip/i/69a677c71e5c4_1772517319.webp",
+    ],
+    source: {
+      date: "2023-08-24",
+      title: "专辑thanks to",
+      platform: "weibo",
+      url: "https://weibo.com/7562861850/Ng5w964H6"
+    }
+  },
+  {
+    id: "letter004",
+    category: "letter",
+    title: "生咖留言",
+    content: "Dear.PLLI♡\n\n能和噗哩们一起度过这个瞬间特别幸福\n\n我们一起走过的每一页篇章\n\n都值得祝贺♡\n\n(为我祝贺生日真的很感谢哦)\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-斑比-",
+    images: [
+      "https://img.cdn1.vip/i/69a671e0c34c9_1772515808.webp",
+    ],
+    source: {
+      date: "2023-07-15",
+      title: "生咖留言",
+    }
+  },
+  {
+    id: "letter003",
+    category: "letter",
+    title: "生日直播结束语",
+    content: "虽然现在不能一直幸福 但就像我刚刚说的那样 不幸福也没关系的 只要宽容的度过每一天不就是幸福的吗.\n\n会一直陪在大家身边的 我们哪儿都不会去的",
+    images: [
+      "https://img.cdn1.vip/i/69a671039e4ea_1772515587.webp",
+    ],
+    source: {
+      date: "2023-07-15",
+      title: "生日直播结束语",
+    }
+  },
+  {
+    id: "letter002",
+    category: "letter",
+    title: "生日直播后官咖",
+    content: "Dear.Plli💗\n\n一年只有一次的特别的日子🎂\n\n能够和大家一起觉得特别珍贵\n\n以后也要一直一起享受幸福的瞬间\n\n把每天都过成既平凡又特别的日子吧\n\n噗哩们给予我的爱我会一直珍藏在心里的\n\n也会怀着那些爱意成为更帅气的人的\n\n谢谢你们来到我的人生&nbsp;&nbsp;plli💓💗💖\n\n今天直播我太紧张了所以很抱歉哦😢",
+    images: [
+      "https://img.cdn1.vip/i/69a306b2704d5_1772291762.webp",
+    ],
+    source: {
+      date: "2023-07-15",
+      title: "生日直播后官咖",
+    }
+  },
+  {
+    id: "letter001",
+    category: "letter",
+    title: "出道100日的信",
+    content: "噗宝💓\n\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;斑比\n\n花粉飞来了\n\n在裂开的缝隙之间\n\n保持原样地落脚了\n\n我们许下四季都要在一起的约定\n\n100天过去\n\n我们变成了花",
+    images: [
+      "https://img.cdn1.vip/i/69a302fe22a00_1772290814.webp",
+  //    "https://example.com/letter2.jpg"
+    ],
+    source: {
+      date: "2023-06-19",
+      title: "出道100日的信",
+  //    platform: "YouTube",
+  //    url: "https://youtu.be/xxx?t=1234"
+    }
+  },
+  // 幕后TMI数据
+  {
+    id: "behind003",
+    category: "behind",
+    title: "《捉迷藏》编舞构思",
+    content: "intro部分的编舞有着仿佛被吸进某个地方的表演效果，是以《爱丽丝梦游仙境》中的主人公掉进其他世界的场景为灵感编排了舞蹈。",
+    source: {
+      date: "2025-06-17",
+      title: "UniversalMusicJapan特别舞台",
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/PwYFjjyQP"
+    }
+  },
+  {
+    id: "behind002",
+    category: "behind",
+    title: "《WAY 4 LUV》编舞构思",
+    content: "使用了一种我们团体特有的技术，通过消失再重新出现，来表现一种通过航行和冒险获得自由的感觉。像这样将魔法般的创意，或与歌曲歌词节奏相匹配的东西活用在演出上。",
+    source: {
+      date: "2024-10-21",
+      title: "wvs杂志虚拟专题",
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/OCzMnwPp2"
+    }
+  },
+  {
+    id: "behind001",
+    category: "behind",
+    title: "《Pretender》加词构思",
+    content: "Pretender这首歌本身要表达的意思就是“跨越不同的次元和世界线 如果能再次和你相见的话会怎样 但最后的结果是只有我在单恋是我无法实现的爱情” 然后我在最后加了韩语的歌词“假若能沉陷在满溢的回忆中活下去”<p>我想表达的意思是什么呢 就是如果溢出来的话就会消失的嘛 能在那种很充实的但没有溢出来的记忆中生活的话 也会很不错的吧",
+    source: {
+      date: "2024-07-18",
+      title: "直播",
+      platform: "weibo",
+      url: "https://weibo.com/7562861850/Oo9H9ypRD"
+    }
+  },
+];
     
     // 直拍数据
     const stageData = [
@@ -9104,7 +9918,22 @@ const concertData = [
       setTimeout(initMaterialEasterEgg, 1000); // 等待页面完全加载
 
       initChallengeMemberFilter();
+
+      initTmi();
     });
+
+    // 监听手写信图片点击
+document.addEventListener('click', function(e) {
+  const letterImage = e.target.closest('.letter-image');
+  if (letterImage) {
+    const galleryId = letterImage.getAttribute('data-gallery-id');
+    if (galleryId && window.imageGalleries && window.imageGalleries[galleryId]) {
+      openImageGallery(galleryId);
+    } else {
+      console.warn('未找到图库：', galleryId);
+    }
+  }
+});
 
     // 初始化 Challenge 成员筛选
 function initChallengeMemberFilter() {
@@ -11699,23 +12528,22 @@ function closeGameModal() {
   const gameContainer = document.getElementById('jump-game-container');
   if (gameContainer) gameContainer.remove();
 }
-    // ========== 公告栏配置 ==========
+  // ========== 公告栏配置 ==========
 const announcementConfig = {
   // 滚动显示的短文本（支持多条，用 | 分隔）
-  scrollText: '🦌祝bamline成员们新年快乐！💗 | 新增新年飘落 | 新增跳一跳彩蛋，可自行寻找，点击完整公告看具体位置🍑 ',
+  scrollText: '🦌三月到——三周年快乐！ | 新增拾光碎片区域，囊括直播及各平台信息汇总，缓慢更新中...',
   
   // 点击后显示的完整公告内容（支持 HTML）
   detailHTML: `
     <p>🍑 <strong>网站更新通知</strong> 🍑</p>
-    <p>感谢各位bamline的支持！最近我们新增了以下内容：</p>
+    <p>感谢各位bamline的支持！新增以下内容：</p>
     <ul>
-      <li>🦌 <strong>新年祝福开屏、飘落</strong> - 祝大家新年快乐~万事如意~</li>
-      <li>🦌 <strong>彩蛋游戏：跳一跳</strong> - 点击三次"174cm"即可触发</li>
-      <li>🦌 <strong>彩蛋游戏：翻翻乐</strong> - 点击三次"物料汇总"即可触发</li>
+      <li>🦌 <strong>斑比拾光</strong> - 计划包含所有直播和平台内容，内容过多缓慢更新中，如有需补充的内容可至其他-意见收集箱</li>
+      <li>🦌 <strong>彩蛋专区：跳一跳+翻翻乐</strong> - 点击三次"174cm"/"物料汇总"分别触发</li>
     </ul>
     <p>评论区可带图（微审核）欢迎大家留下比比美图💗</p>
     <p>如果有其他想法，欢迎在评论区/收集表留下足迹～</p>
-    <div class="announcement-date">公告日期：2026年2月19日</div>
+    <div class="announcement-date">公告日期：2026年3月1日</div>
   `,
   
   // 是否启用多条滚动
@@ -11819,60 +12647,360 @@ function setRandomImage() {
   };
 }
 
-// ========== 每日二创推荐功能 ==========
-    function initDailyRecommendation() {
-      // 1. 检查今日是否已经勾选“不再提醒”
-      const skipDate = localStorage.getItem('bamby-daily-rec-skip');
-      const today = new Date().toLocaleDateString();
-      
-      if (skipDate === today) {
-        return; // 今日已跳过，不弹出
-      }
+// ========== 斑比拾光功能 ==========
+function initTmi() {
+  // 渲染初始全部数据
+  renderTmiGrid(tmiData);
 
-      // 2. 从已有的二创数据中自动提取所有的“绘画”作品
-      const illustrations = fanworksData.filter(work => work.type === 'illustration');
-      if (illustrations.length === 0) return; // 如果没有绘画数据则退出
+  // 分类筛选
+  const catNav = document.getElementById('tmi-cat-nav');
+  if (catNav) {
+    const catBtns = catNav.querySelectorAll('.sub-nav-btn');
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const cat = this.getAttribute('data-tmi-cat');
+        catBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
 
-      // 3. 计算今天是今年的第几天，实现"每日一换"的算法
-      const now = new Date();
-      const start = new Date(now.getFullYear(), 0, 0);
-      const diff = now - start;
-      const oneDay = 1000 * 60 * 60 * 24;
-      const dayOfYear = Math.floor(diff / oneDay);
-      
-      // 取模运算，确保索引一直在绘画数组的范围内循环
-      const targetIndex = dayOfYear % illustrations.length;
-      const selectedWork = illustrations[targetIndex];
+        let filtered = [];
+        if (cat === 'all') {
+          filtered = tmiData;
+        } else {
+          filtered = tmiData.filter(item => item.category === cat);
+        }
+        renderTmiGrid(filtered);
+      });
+    });
+  }
 
-      // 4. 将数据填充到弹窗中
-      const imgElement = document.getElementById('dailyRecImage');
-      imgElement.src = selectedWork.image;
-      imgElement.alt = selectedWork.title;
-      
-      document.getElementById('dailyRecAuthor').innerHTML = `<i class="fas fa-paint-brush"></i> ${selectedWork.author || '匿名'}`;
-      
-      // 如果作品有链接，允许点击图片跳转
-      const linkElement = document.getElementById('dailyRecLink');
-      if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
-        linkElement.href = selectedWork.link;
-        linkElement.style.cursor = 'pointer';
-      } else {
-        linkElement.removeAttribute('href');
-        linkElement.style.cursor = 'default';
-      }
+  // 排序控件
+  const sortContainer = document.getElementById('tmi-sort-controls');
+  if (sortContainer) {
+    const sortBtns = sortContainer.querySelectorAll('.sort-btn');
+    sortBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        sortBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const sortMethod = this.getAttribute('data-sort');
+        // 获取当前网格，重新排序（当前显示的数据需要存储，简单起见我们重新从tmiData过滤当前分类）
+        // 这里简化：获取当前激活的分类
+        const activeCatBtn = document.querySelector('#tmi-cat-nav .sub-nav-btn.active');
+        const currentCat = activeCatBtn ? activeCatBtn.getAttribute('data-tmi-cat') : 'all';
+        let currentData = currentCat === 'all' ? tmiData : tmiData.filter(item => item.category === currentCat);
+        // 排序
+        currentData = sortTmiData(currentData, sortMethod);
+        renderTmiGrid(currentData);
+      });
+    });
+  }
+}
 
-      // 5. 延迟弹出（等待开屏的新年动画或欢迎语之后）
-      setTimeout(() => {
-        const modal = document.getElementById('dailyRecModal');
-        modal.style.display = 'flex'; // 先变flex
-        // 强制重绘以触发动画
-        modal.offsetHeight; 
-        modal.classList.add('show');
-        
-        // 可选：弹窗时禁止背景滚动
-        // document.body.style.overflow = 'hidden'; 
-      }, 4000); // 4秒后弹出，错开初始的加载动画
+// 渲染网格
+function renderTmiGrid(dataArray) {
+  const grid = document.getElementById('tmi-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  if (dataArray.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">🦌💗</div>
+        <h3 style="color: var(--color-gray-700);">₍ᐢ.ˬ.ᐢ₎ 这里还没有内容哦</h3>
+        <p style="color: var(--color-gray-500);">斑比正在努力营业中~</p>
+      </div>
+    `;
+    return;
+  }
+
+  dataArray.forEach(item => {
+    grid.appendChild(createTmiCard(item));
+  });
+}
+
+// 创建卡片（根据分类返回不同结构）
+function createTmiCard(item) {
+  const card = document.createElement('div');
+  card.className = 'work-card';
+  card.setAttribute('data-date', item.source.date);
+  card.setAttribute('data-title', item.title);
+  card.setAttribute('data-category', item.category);
+
+  let innerHTML = '';
+
+  switch (item.category) {
+    case 'cover':
+      innerHTML = createCoverCard(item);
+      break;
+    case 'dance-cover':
+      innerHTML = createCoverCard(item);
+      break;
+    case 'song':
+      innerHTML = createSongCard(item);
+      break;
+    case 'snack':
+      innerHTML = createSnackCard(item);
+      break;
+    case 'letter':
+      innerHTML = createLetterCard(item);
+      break;
+    case 'behind':
+      innerHTML = createBehindCard(item);
+      break;
+    default:
+      innerHTML = createGenericCard(item);
+  }
+
+  card.innerHTML = innerHTML;
+  return card;
+}
+
+// 直播翻唱卡片
+function createCoverCard(item) {
+  const linksHtml = [];
+  if (item.links?.bilibili) linksHtml.push(`<a href="${item.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>`);
+  if (item.links?.youtube) linksHtml.push(`<a href="${item.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>`);
+  if (item.links?.weibo) linksHtml.push(`<a href="${item.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>`);
+
+  return `
+    <div class="work-image-container">
+      <img src="${item.image}" alt="${item.title}" class="work-image">
+    </div>
+    <div class="work-content">
+      <h3 class="work-title">${item.title}</h3>
+      ${item.desc ? `<p class="work-desc">${item.desc}</p>` : ''}
+      <div class="channels-section">
+        <h4>观看渠道</h4>
+        <div class="channels-grid">
+          ${linksHtml.join('')}
+        </div>
+      </div>
+      ${createSourceHtml(item.source)}
+    </div>
+  `;
+}
+
+// 推荐歌单卡片（左右结构）
+function createSongCard(item) {
+  return `
+    <div class="song-card">
+      <div class="song-cover">
+        <img src="${item.image}" alt="${item.title}">
+      </div>
+      <div class="song-info">
+        <div class="song-title">${item.title}</div>
+        <div class="song-artist">${item.song?.artist || ''}</div>
+        ${item.desc ? `<div class="song-desc">${item.desc}</div>` : ''}
+        ${item.song?.link ? `<a href="${item.song.link}" target="_blank" class="source-link"><i class="fas fa-headphones"></i> 网易云</a>` : ''}
+        ${createSourceHtml(item.source)}
+      </div>
+    </div>
+  `;
+}
+
+// 美食卡片
+function createSnackCard(item) {
+  return `
+    <div class="snack-image">
+      <img src="${item.image}" alt="${item.title}">
+    </div>
+    <div class="work-content">
+      <h3 class="work-title">${item.title}</h3>
+      ${item.desc ? `<p class="work-desc">${item.desc}</p>` : ''}
+      ${createSourceHtml(item.source)}
+    </div>
+  `;
+}
+
+// 辅助函数：格式化 content 中的换行
+function formatContent(text) {
+  if (!text) return '';
+  // 将连续两个及以上换行视为段落分隔
+  const paragraphs = text.split(/\n\s*\n/);
+  if (paragraphs.length > 1) {
+    return paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  } else {
+    return text.replace(/\n/g, '<br>');
+  }
+}
+
+// 手信·金句卡片
+function createLetterCard(item) {
+  const hasImages = item.images && item.images.length > 0;
+  const galleryId = 'letter-' + item.id;
+  if (hasImages) {
+  imageGalleries[galleryId] = item.images;
+}
+
+  return `
+    ${hasImages ? `
+    <div class="letter-image" data-gallery-id="${galleryId}">
+      <img src="${item.images[0]}" alt="${item.title}">
+      ${item.images.length > 1 ? '<span style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">+' + (item.images.length-1) + '</span>' : ''}
+    </div>
+    ` : ''}
+    <div class="work-content">
+      <div class="quote-text">${formatContent(item.content) || item.title}</div>
+      ${createSourceHtml(item.source)}
+    </div>
+  `;
+}
+
+// 幕后TMI卡片（纯文字）
+function createBehindCard(item) {
+  return `
+    <div class="work-content quote-card">
+      <h3 class="work-title">${item.title}</h3>
+      <p class="work-desc">${item.content || item.desc}</p>
+      ${createSourceHtml(item.source)}
+    </div>
+  `;
+}
+
+// 通用卡片（备用）
+function createGenericCard(item) {
+  return `
+    <div class="work-content">
+      <h3 class="work-title">${item.title}</h3>
+      ${item.desc ? `<p class="work-desc">${item.desc}</p>` : ''}
+      ${createSourceHtml(item.source)}
+    </div>
+  `;
+}
+
+// 来源小字HTML
+function createSourceHtml(source) {
+  if (!source) return '';
+  const dateStr = source.date ? source.date.replace(/-/g, '.') : '';
+  const platformIcon = source.platform === 'YouTube' ? '<i class="fab fa-youtube" style="color:#FF0000;"></i>' : (source.platform === 'B站' ? '<i class="fab fa-bilibili" style="color:#FB7299;"></i>' : '');
+  const linkHtml = source.url ? `<a href="${source.url}" target="_blank" class="source-link">${platformIcon} 来源</a>` : '';
+  return `
+    <div class="tmi-source">
+      <span><i class="far fa-calendar-alt"></i> ${dateStr}</span>
+      ${source.title ? `<span>${source.title}</span>` : ''}
+      ${linkHtml}
+    </div>
+  `;
+}
+
+// 排序函数
+function sortTmiData(data, sortMethod) {
+  const sorted = [...data];
+  sorted.sort((a, b) => {
+    const dateA = a.source.date;
+    const dateB = b.source.date;
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    switch (sortMethod) {
+      case 'date-desc':
+        return new Date(dateB) - new Date(dateA);
+      case 'date-asc':
+        return new Date(dateA) - new Date(dateB);
+      case 'title-asc':
+        return titleA.localeCompare(titleB);
+      default:
+        return 0;
     }
+  });
+  return sorted;
+}
+
+// ========== 每日二创推荐功能 ==========
+  function initDailyRecommendation() {
+  // 检查今日是否已跳过
+  const skipDate = localStorage.getItem('bamby-daily-rec-skip');
+  const today = new Date().toLocaleDateString();
+  if (skipDate === today) return;
+
+  // 构建候选作品数组
+  let candidates = [];
+
+  // 1. 二创绘画（原有）
+  if (fanworksData && fanworksData.length) {
+    fanworksData.forEach(work => {
+      if (work.type === 'illustration') {
+        candidates.push({
+          image: work.image,
+          link: work.link,
+          author: work.author || '匿名',
+          title: work.title
+        });
+      }
+    });
+  }
+
+  // 2. 安利向翻唱（coversData）
+  if (coversData && coversData.length) {
+    coversData.forEach(item => {
+      candidates.push({
+        image: item.image,
+        link: item.links?.weibo || item.links?.bilibili || item.links?.youtube,
+        author: '官方翻唱',
+        title: item.title
+      });
+    });
+  }
+
+  // 3. 安利向翻跳（danceData）
+  if (danceData && danceData.length) {
+    danceData.forEach(item => {
+      candidates.push({
+        image: item.image,
+        link: item.links?.weibo || item.links?.bilibili || item.links?.youtube,
+        author: '官方翻跳',
+        title: item.title
+      });
+    });
+  }
+
+  // 4. 直播翻唱 / 翻跳（tmiData 中的 cover 和 dance-cover）
+  if (tmiData && tmiData.length) {
+    tmiData.forEach(item => {
+      if (item.category === 'cover' || item.category === 'dance-cover') {
+        candidates.push({
+          image: item.image,
+          link: item.links?.weibo || item.links?.bilibili || item.links?.youtube,
+          author: '直播片段',
+          title: item.title
+        });
+      }
+    });
+  }
+
+  // 如果没有候选作品，直接返回
+  if (candidates.length === 0) return;
+
+  // 根据天数选择（保证每日固定，也可以随机）
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  const targetIndex = dayOfYear % candidates.length;
+  const selectedWork = candidates[targetIndex];
+
+  // 填充弹窗
+  document.getElementById('dailyRecImage').src = selectedWork.image;
+  document.getElementById('dailyRecImage').alt = selectedWork.title;
+  document.getElementById('dailyRecAuthor').innerHTML = `<i class="fas fa-paint-brush"></i> ${selectedWork.author}`;
+
+  const linkElement = document.getElementById('dailyRecLink');
+  if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
+    linkElement.href = selectedWork.link;
+    linkElement.style.cursor = 'pointer';
+  } else {
+    linkElement.removeAttribute('href');
+    linkElement.style.cursor = 'default';
+  }
+
+  // 延迟弹出（与原逻辑一致）
+  setTimeout(() => {
+    const modal = document.getElementById('dailyRecModal');
+    modal.style.display = 'flex';
+    modal.offsetHeight; // 强制重绘
+    modal.classList.add('show');
+  }, 4000);
+}
 
     // 关闭每日推荐弹窗
     function closeDailyRec() {
@@ -11908,8 +13036,6 @@ function triggerLike(element) {
     void gif.offsetWidth; 
     gif.classList.add('show');
   }
-  
-
 }
 
 function triggerCheer(element) {
@@ -11923,8 +13049,6 @@ function triggerCheer(element) {
     void gif.offsetWidth; 
     gif.classList.add('show');
   }
-
-
 }
 
 // 页面加载完成后执行
