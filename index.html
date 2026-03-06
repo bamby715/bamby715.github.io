@@ -140,6 +140,27 @@
                   center/cover no-repeat;
     }
 
+    /* ===== 头部透明化（覆盖 .main-header 和 .glass-effect 的背景） ===== */
+.main-header.glass-effect {
+  background: transparent !important;  /* 完全透明，覆盖所有背景设置 */
+  /* 保留毛玻璃效果，避免文字模糊 */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.main-header.glass-effect::before {
+  background: transparent !important;  /* 移除渐变背景 */
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .main-header.glass-effect {
+  background: transparent !important;
+}
+
+[data-theme="dark"] .main-header.glass-effect::before {
+  background: transparent !important;
+}
+
     /* PC端标题居中 */
     .header-content {
       display: flex;
@@ -3621,6 +3642,62 @@
   }
 }
 
+/* ========= 皮肤切换卡片样式 ========= */
+.theme-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.theme-btn {
+  flex: 1 1 calc(50% - 12px);        /* 默认每行两个 */
+  min-width: 120px;
+  padding: 14px 8px;
+  background: var(--color-gray-100);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);    /* 使用已有的圆角变量 */
+  color: var(--color-gray-700);
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgba(255, 158, 189, 0.4);
+}
+
+/* 手机端小屏时每行一个，更容易点击 */
+@media (max-width: 480px) {
+  .theme-btn {
+    flex: 1 1 100%;
+    padding: 16px 8px;  /* 增大点击区域 */
+  }
+}
+
+/* 适配深色模式 */
+[data-theme="dark"] .theme-btn {
+  background: var(--color-gray-200);
+  color: var(--color-gray-800);
+}
+[data-theme="dark"] .theme-btn.active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary-dark);
+}
+
 /* ========= 每日推荐弹窗核心容器 ========= */
     .daily-recommendation-modal {
       display: none;
@@ -4865,6 +4942,17 @@
             </div>
           </div>
         </div>
+        <div class="work-card">
+  <div class="work-content">
+    <h3 class="work-title">
+      主题皮肤
+      <span style="font-size:0.8rem; color:var(--color-gray-500); margin-left:8px;">点击切换背景</span>
+    </h3>
+    <div class="theme-grid" id="theme-switcher-grid">
+      <!-- 主题按钮会通过 JavaScript 动态生成 -->
+    </div>
+  </div>
+</div>
       </section>
 
       <!-- HTMLCommentBox 本地化配置 (必须放在主脚本之前) -->
@@ -13077,6 +13165,77 @@ function sortTmiData(data, sortMethod) {
   });
   return sorted;
 }
+
+// ========== 皮肤切换功能 ==========
+const themes = [
+  { id: 'default', name: '纯色', background: '' },
+  { id: 'cherry', name: '条纹', background: 'https://img.cdn1.vip/i/69aa8b8916328_1772784521.webp' },
+  { id: 'ocean', name: '背影', background: 'https://img.cdn1.vip/i/69aa82f470b4b_1772782324.webp' },
+  { id: 'night', name: '星空', background: 'https://img.cdn1.vip/i/69aa91a357ae7_1772786083.webp' }
+  // 你可以继续添加更多主题，格式同上
+];
+
+function initThemeSwitcher() {
+  const container = document.getElementById('theme-switcher-grid');
+  if (!container) return;
+
+  // 从本地存储读取上次选择的主题，默认为 'default'
+  const savedThemeId = localStorage.getItem('bamby-bg-theme') || 'cherry';
+
+  // 清空容器（防止重复生成）
+  container.innerHTML = '';
+
+  themes.forEach(theme => {
+    const btn = document.createElement('div');
+    btn.className = 'theme-btn';
+    if (theme.id === savedThemeId) {
+      btn.classList.add('active');
+      // 立即应用该主题背景
+      applyThemeBackground(theme);
+    }
+    btn.textContent = theme.name;
+    btn.dataset.id = theme.id;
+    btn.dataset.background = theme.background || ''; // 确保有 background 属性
+
+    btn.addEventListener('click', function() {
+      // 移除所有按钮的 active 类
+      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      const bg = this.dataset.background;
+      applyThemeBackground({ id: this.dataset.id, background: bg });
+      localStorage.setItem('bamby-bg-theme', this.dataset.id);
+    });
+
+    container.appendChild(btn);
+  });
+}
+
+function applyThemeBackground(theme) {
+  if (theme.background && theme.background.trim() !== '') {
+    // 设置背景图，保留原有背景色作为后备
+    document.body.style.backgroundImage = `url('${theme.background}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundAttachment = 'fixed';
+    document.body.style.backgroundRepeat = 'no-repeat';
+  } else {
+    // 恢复默认背景（清除所有内联背景样式）
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundSize = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundAttachment = '';
+    document.body.style.backgroundRepeat = '';
+  }
+}
+
+// 在页面加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+  // ... 你的原有 DOMContentLoaded 代码 ...
+
+  // 初始化皮肤切换器
+  initThemeSwitcher();
+});
 
 // ========== 每日二创推荐功能 ==========
   function initDailyRecommendation() {
