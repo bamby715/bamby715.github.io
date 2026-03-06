@@ -70,6 +70,26 @@
       scroll-padding-top: 80px;
     }
 
+    /* 为 body 创建伪元素背景容器 */
+body::before {
+  content: '';
+  position: fixed;  /* 固定定位，兼容 iOS */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;  /* 继承 body 的背景设置 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  pointer-events: none;  /* 确保不干扰点击事件 */
+}
+
+body.has-bg-image::before {
+  background-image: var(--bg-image);
+}
+
     body {
       font-family: var(--font-body);
       background: var(--color-gray-50);
@@ -78,6 +98,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      background-image: none !important;
     }
 
     .container {
@@ -13212,20 +13233,17 @@ function initThemeSwitcher() {
 }
 
 function applyThemeBackground(theme) {
+  const body = document.body;
+  
   if (theme.background && theme.background.trim() !== '') {
-    // 设置背景图，保留原有背景色作为后备
-    document.body.style.backgroundImage = `url('${theme.background}')`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.backgroundAttachment = 'fixed';
-    document.body.style.backgroundRepeat = 'no-repeat';
+    // 设置伪元素的背景图（通过自定义属性传递）
+    body.style.setProperty('--bg-image', `url('${theme.background}')`);
+    // 添加一个类来触发伪元素显示
+    body.classList.add('has-bg-image');
   } else {
-    // 恢复默认背景（清除所有内联背景样式）
-    document.body.style.backgroundImage = '';
-    document.body.style.backgroundSize = '';
-    document.body.style.backgroundPosition = '';
-    document.body.style.backgroundAttachment = '';
-    document.body.style.backgroundRepeat = '';
+    // 恢复默认
+    body.classList.remove('has-bg-image');
+    body.style.removeProperty('--bg-image');
   }
 }
 
