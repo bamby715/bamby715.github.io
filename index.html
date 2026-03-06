@@ -4009,7 +4009,7 @@ body.has-bg-image::before {
 }
 
 /* ========= 斑比拾光专属样式 ========= */
-/*美食卡片图片区域 */
+/*物品卡片图片区域 */
 .snack-image {
   height: 160px;
   overflow: hidden;
@@ -4723,7 +4723,7 @@ body.has-bg-image::before {
     <button class="sub-nav-btn" data-tmi-cat="cover"><i class="fas fa-microphone"></i>直播翻唱</button>
     <button class="sub-nav-btn" data-tmi-cat="dance-cover"><i class="fas fa-running"></i>直播翻跳</button>
     <button class="sub-nav-btn" data-tmi-cat="song"><i class="fas fa-music"></i>推荐歌单</button>
-    <button class="sub-nav-btn" data-tmi-cat="snack"><i class="fas fa-utensils"></i>美食</button>
+    <button class="sub-nav-btn" data-tmi-cat="snack"><i class="fas fa-utensils"></i>推荐物品</button>
     <button class="sub-nav-btn" data-tmi-cat="letter"><i class="fas fa-feather"></i>语录</button>
     <button class="sub-nav-btn" data-tmi-cat="behind"><i class="fas fa-film"></i>幕后</button>
   </div>
@@ -7625,8 +7625,18 @@ body.has-bg-image::before {
     // challenge数据
 const danceChallengeData = [
   {
+    title: "PLLI！抱抱我 ❣",
+    date: "2026-03-06",
+    image: "https://img.cdn1.vip/i/69aacf9949d2e_1772801945.webp", 
+    desc: "💙💗",
+    links: {
+      weibo: "https://weibo.com/7825391749/QuQSydV6C",
+      bilibili: "https://www.bilibili.com/video/BV1vuPpzJE6r/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
     title: "☝️🔄🕺🕺",
-    date: "2026-02-27 ",
+    date: "2026-02-27",
     image: "https://img.cdn1.vip/i/69a1deb54e3ac_1772215989.webp", 
     desc: "💗🖤",
     links: {
@@ -8408,7 +8418,7 @@ const danceChallengeData = [
     title: "斑比的 BoomBoomBass Challenge 🎸",
     date: "2024-07-17",
     image: "https://s2.loli.net/2026/02/03/ObUd6IqvNAWZiSK.png", 
-    desc: "💙💜💗❤️🖤",
+    desc: "💗",
     links: {
       weibo: 'https://weibo.com/7825391749/OnYSbboba',
       bilibili: "https://www.bilibili.com/video/BV1d6421Z7V1/?spm_id_from=333.1387.upload.video_card.click"
@@ -8568,7 +8578,7 @@ const danceChallengeData = [
     title: "PLAVE《Why?》舞蹈翻跳挑战 | 斑比🩷 ❓ WhyChallenge",
     date: "2023-05-26",
     image: "https://s2.loli.net/2026/02/03/3eamUy5LljswGZI.png", 
-    desc: "💙💜💗❤️🖤",
+    desc: "💗",
     links: {
       weibo: 'https://weibo.com/7825391749/N2mTUjcRQ',
       bilibili: "https://www.bilibili.com/video/BV1ak4y1x7jA/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
@@ -9278,7 +9288,25 @@ const tmiData = [
   //    url: "https://youtu.be/xxx?t=1234"
     }
   },
-  // 美食数据
+  //物品数据
+  {
+    id: "snack001",
+    category: "snack",
+    title: "香水",
+    desc: "爱马仕Vétiver Tonka 馨香芳果",
+    image: "https://img.cdn1.vip/i/69aad69fef4dd_1772803743.webp",
+    product: {
+      name: "香水",
+      brand: "爱马仕Vétiver Tonka 馨香芳果",
+      note: "直播推荐"
+    },
+    source: {
+      date: "2025-12-22",
+      title: "直播",
+      platform: "weibo",
+      url: "https://weibo.com/7486683991/QjBYT8Pqr"
+    }
+  },
   {
     id: "snack001",
     category: "snack",
@@ -9357,6 +9385,8 @@ const tmiData = [
     source: {
       date: "2023-07-15",
       title: "生日直播结束语",
+      platform: "weibo",
+      url: "https://weibo.com/7562861850/Na2zWgzYB"
     }
   },
   {
@@ -9370,6 +9400,8 @@ const tmiData = [
     source: {
       date: "2023-07-15",
       title: "生日直播后官咖",
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/N9TbRiSlI"
     }
   },
   {
@@ -9384,8 +9416,8 @@ const tmiData = [
     source: {
       date: "2023-06-19",
       title: "出道100日的信",
-  //    platform: "YouTube",
-  //    url: "https://youtu.be/xxx?t=1234"
+      platform: "weibo",
+      url: "https://weibo.com/5143372154/OjHpQCcTL"
     }
   },
   // 幕后TMI数据
@@ -13080,7 +13112,7 @@ function createSongCard(item) {
   `;
 }
 
-// 美食卡片
+// 物品卡片
 function createSnackCard(item) {
   return `
     <div class="snack-image">
@@ -13192,7 +13224,7 @@ const themes = [
   { id: 'default', name: '纯色', background: '' },
   { id: 'cherry', name: '条纹', background: 'https://img.cdn1.vip/i/69aa8b8916328_1772784521.webp' },
   { id: 'ocean', name: '背影', background: 'https://img.cdn1.vip/i/69aa82f470b4b_1772782324.webp' },
-  { id: 'night', name: '星空', background: 'https://img.cdn1.vip/i/69aa91a357ae7_1772786083.webp' }
+  { id: 'peach', name: '桃子', background: 'https://img.cdn1.vip/i/69aacec083cd2_1772801728.webp' }
   // 你可以继续添加更多主题，格式同上
 ];
 
