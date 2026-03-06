@@ -604,6 +604,17 @@ body.has-bg-image::before {
       color: white !important;
     }
 
+    .channel-btn.instagram-link {
+     background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+     color: white;
+     border: none;
+    }
+    .channel-btn.instagram-link:hover {
+     opacity: 0.9;
+     transform: translateY(-2px);
+     box-shadow: var(--shadow-sm);
+    }
+
     /* ========= 图片查看器 ========= */
     .image-viewer-overlay {
       position: fixed;
@@ -7755,6 +7766,16 @@ const danceChallengeData = [
     }
   },
   {
+    title: "《Theater》challenge with BAMBY",
+    date: "2025-12-04",
+    image: "https://img.cdn1.vip/i/69aaeb4743610_1772809031.webp", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/5143372154/QgRX5ET1P',
+      ins: "https://www.instagram.com/reel/DR1rGGOD-Ko/?igsh=b3FwaTJhdHR3cHlt"
+    }
+  },
+  {
     title: "Just Dance 🤩🕺🎶",
     date: "2025-12-03",
     image: "https://s2.loli.net/2026/02/01/WOisKIVx5PMhoAf.jpg", 
@@ -7826,7 +7847,7 @@ const danceChallengeData = [
   },
   {
     title: "BBUU BBUU 🎺💙💗❤️",
-    date: "",
+    date: "2025-11-11",
     image: "https://s2.loli.net/2026/02/01/RMybHX153ZKgOGt.png", 
     desc: "💙💗❤️",
     links: {
@@ -7892,6 +7913,16 @@ const danceChallengeData = [
     links: {
       weibo: 'https://weibo.com/7825391749/Q4QNh7zzJ',
       bilibili: "https://www.bilibili.com/video/BV1E9pyzeEAq/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "THIS_IS_ME_I Challenge with BAMBY",
+    date: "2025-09-12",
+    image: "https://img.cdn1.vip/i/69aadfc10f75c_1772806081.webp", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/5143372154/Q4eN3FhFI',
+      youtube: "https://youtube.com/shorts/2ftVD6PBnEM?si=hoqn9Mo0tEakPw_N"
     }
   },
   {
@@ -8112,6 +8143,16 @@ const danceChallengeData = [
     links: {
       weibo: 'https://weibo.com/7825391749/PpvPy4GRv',
       bilibili: "https://www.bilibili.com/video/BV1WjGCzyEzK/?spm_id_from=333.1387.upload.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f"
+    }
+  },
+  {
+    title: "TWS Countdown舞蹈挑战 ✨ with BAMBY",
+    date: "2025-04-25",
+    image: "https://img.cdn1.vip/i/69aae7a552dc7_1772808101.webp", 
+    desc: "💗",
+    links: {
+      weibo: 'https://weibo.com/5143372154/PoTh4oiF3',
+      youtube: "https://youtube.com/shorts/TuiiiKyDSms?si=mf6mpxDuxqc79sVa"
     }
   },
   {
@@ -8565,6 +8606,15 @@ const danceChallengeData = [
     }
   },
   {
+    title: "✨Run to the end of the world💫 with bamby",
+    date: "2023-07-14",
+    image: "https://img.cdn1.vip/i/69aae685000ab_1772807813.webp", 
+    desc: "💗",
+    links: {
+      youtube: "https://youtube.com/shorts/MUIgstFWwro?si=EKB35xKDpLi3_cy4"
+    }
+  },
+  {
     title: "Make you go rec rec📹 | The Wind 《Why?》翻跳",
     date: "2023-06-26",
     image: "https://s2.loli.net/2026/02/03/SEY5qNtsBJzkQ1v.png", 
@@ -8572,6 +8622,15 @@ const danceChallengeData = [
     links: {
       weibo: 'https://weibo.com/7825391749/N75yJBJFk',
       bilibili: "https://www.bilibili.com/video/BV16W4y1D7bX/?spm_id_from=333.1387.upload.video_card.click"
+    }
+  },
+  {
+    title: "왜요 왜요 왜❓🤷",
+    date: "2023-06-26",
+    image: "https://img.cdn1.vip/i/69aae55c28c5a_1772807516.webp", 
+    desc: "💗",
+    links: {
+      youtube: 'https://youtube.com/shorts/0CR9hFtcoF0?si=UhgZjSMhzLwzszdL'
     }
   },
   {
@@ -11107,6 +11166,7 @@ function initChallengeMemberFilter() {
           ${data.links.weibo ? `<a href="${data.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>` : ''}
           ${data.links.bilibili ? `<a href="${data.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>` : ''}
           ${data.links.youtube ? `<a href="${data.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>` : ''}
+          ${data.links.ins ? `<a href="${data.links.ins}" target="_blank" class="channel-btn instagram-link"><i class="fab fa-instagram"></i>Instagram</a>` : ''}
         </div>
       </div>
     </div>
