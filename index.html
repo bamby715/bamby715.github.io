@@ -3964,6 +3964,32 @@ body.has-bg-image::before {
     }
     .daily-rec-skip input { accent-color: var(--color-primary); width: 15px; height: 15px; }
     
+
+    /* 其他页面链接样式简化 */
+.link-group {
+  margin-top: 1rem;
+}
+.link-group .info-item {
+  margin-bottom: 0;
+}
+.link-group .info-item + .info-item {
+  margin-top: 16px;
+}
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+.link-row a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link-row a:hover {
+  text-decoration: underline;
+}
+
     /* ========= 新年加载动画 ========= */
 .new-year-container {
   position: relative;
@@ -4995,39 +5021,40 @@ body.has-bg-image::before {
   <!-- 将三个卡片都放在 works-grid 内 -->
   <div class="works-grid">
     <!-- 链接存放处卡片 -->
-    <div class="work-card">
-      <div class="work-content">
-        <h3 class="work-title">链接存放处</h3>
-        <div style="margin-top:1rem;">
-          <div class="info-item">
-            <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">表格汇总</div>
-            <div>
-              <a href="https://rmxa5bmg.jsjform.com/f/fuUF3W" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">意见收集箱</a>
-              <a href="https://rmxa5bmg.jsjform.com/f/Z2riLj" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">二创投稿</a>
-            </div>
-          </div>
-          <div class="info-item">
-            <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">鹿站相关</div>
-            <div>
-              <a href="https://weibo.com/u/5143372154" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">微博</a>
-              <a href="https://www.xiaohongshu.com/user/profile/6526bbec000000002a02aeec" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">小红书</a>
-              <a href="http://t.cn/AXyOGz13" target="_blank" style="color: var(--color-primary-dark); text-decoration: none; margin-left:10px;">超话</a>
-            </div>
-          </div>
-          <div class="info-item">
-            <div style="font-weight:600;color:var(--color-gray-700);margin-bottom:4px;">PLAVE官方</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-              <a href="https://weibo.com/u/7825391749" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">微博</a>
-              <a href="https://www.xiaohongshu.com/user/profile/60c45173000000000101cf86" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">小红书</a>
-              <a href="https://space.bilibili.com/3493141629896727" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">B站</a>
-              <a href="https://www.youtube.com/@plave_official" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">YouTube</a>
-              <a href="https://www.instagram.com/plave_official/" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">Ins</a>
-              <a href="https://x.com/plave_official" target="_blank" style="color: var(--color-primary-dark); text-decoration: none;">X</a>
-            </div>
-          </div>
+    <!-- 链接存放处卡片简化版 -->
+<div class="work-card">
+  <div class="work-content">
+    <h3 class="work-title">链接存放处</h3>
+    <div class="link-group">
+      <div class="info-item">
+        <div class="link-label">表格汇总</div>
+        <div class="link-row">
+          <a href="https://rmxa5bmg.jsjform.com/f/fuUF3W" target="_blank">意见收集箱</a>
+          <a href="https://rmxa5bmg.jsjform.com/f/Z2riLj" target="_blank">二创投稿</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="link-label">鹿站相关</div>
+        <div class="link-row">
+          <a href="https://weibo.com/u/5143372154" target="_blank">微博</a>
+          <a href="https://www.xiaohongshu.com/user/profile/6526bbec000000002a02aeec" target="_blank">小红书</a>
+          <a href="http://t.cn/AXyOGz13" target="_blank">超话</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="link-label">PLAVE官方</div>
+        <div class="link-row">
+          <a href="https://weibo.com/u/7825391749" target="_blank">微博</a>
+          <a href="https://www.xiaohongshu.com/user/profile/60c45173000000000101cf86" target="_blank">小红书</a>
+          <a href="https://space.bilibili.com/3493141629896727" target="_blank">B站</a>
+          <a href="https://www.youtube.com/@plave_official" target="_blank">YouTube</a>
+          <a href="https://www.instagram.com/plave_official/" target="_blank">Ins</a>
+          <a href="https://x.com/plave_official" target="_blank">X</a>
         </div>
       </div>
     </div>
+  </div>
+</div>
     
     <!-- 祝福墙卡片 -->
     <div class="work-card">
