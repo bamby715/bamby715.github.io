@@ -13541,15 +13541,14 @@ function listenToBlessings() {
 }
 
 // 添加祝福到列表
+// 在 addBlessingToList 函数中修改
 function addBlessingToList(blessing) {
   const container = document.getElementById('blessMessages');
   if (!container) return;
   
-  // 移除加载提示
   const loadingMsg = container.querySelector('div[style*="text-align:center"]');
   if (loadingMsg) loadingMsg.remove();
   
-  // 格式化时间
   const time = blessing.timestamp ? new Date(blessing.timestamp).toLocaleTimeString('zh-CN', {
     hour: '2-digit', minute: '2-digit'
   }) : '刚刚';
@@ -13557,17 +13556,38 @@ function addBlessingToList(blessing) {
   const item = document.createElement('div');
   item.className = 'bless-message-item';
   item.setAttribute('data-id', blessing.id || Date.now());
+  item.setAttribute('data-key', blessing.key || ''); // 存储 Firebase 的 key
+  
   item.innerHTML = `
     <span>💬 ${blessing.text}</span>
-    <span class="bless-time">${time}</span>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span class="bless-time">${time}</span>
+      <button class="report-btn" onclick="reportBlessing('${blessing.key}')" title="举报">
+        <i class="fas fa-flag" style="color: #999; font-size: 0.8rem;"></i>
+      </button>
+    </div>
   `;
   
-  container.prepend(item); // 最新的在上面
+  container.prepend(item);
   
-  // 限制列表数量，避免无限增长
   while (container.children.length > 30) {
     container.removeChild(container.lastChild);
   }
+}
+
+// 举报函数
+function reportBlessing(key) {
+  if (!key) return;
+  
+  // 将举报记录到另一个节点
+  const reportRef = database.ref('reports').push();
+  reportRef.set({
+    blessingKey: key,
+    timestamp: firebase.database.ServerValue.TIMESTAMP,
+    userId: generateUserId()
+  }).then(() => {
+    showToast('已举报，管理员会尽快处理');
+  });
 }
 
 // 从列表移除（一般不用，但留接口）
