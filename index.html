@@ -3990,6 +3990,29 @@ body.has-bg-image::before {
   text-decoration: underline;
 }
 
+/* 添加到现有样式末尾 */
+.bless-list {
+  max-height: 250px;        /* 固定最大高度 */
+  overflow-y: auto;         /* 超出滚动 */
+  margin-bottom: 10px;
+}
+
+/* 美化滚动条（可选） */
+.bless-list::-webkit-scrollbar {
+  width: 6px;
+}
+.bless-list::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+  border-radius: 3px;
+}
+.bless-list::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: 3px;
+}
+.bless-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
     /* ========= 新年加载动画 ========= */
 .new-year-container {
   position: relative;
@@ -5021,7 +5044,6 @@ body.has-bg-image::before {
   <!-- 将三个卡片都放在 works-grid 内 -->
   <div class="works-grid">
     <!-- 链接存放处卡片 -->
-    <!-- 链接存放处卡片简化版 -->
 <div class="work-card">
   <div class="work-content">
     <h3 class="work-title">链接存放处</h3>
@@ -5055,6 +5077,18 @@ body.has-bg-image::before {
     </div>
   </div>
 </div>
+
+<!-- 主题皮肤卡片 -->
+    <div class="work-card">
+      <div class="work-content">
+        <h3 class="work-title">
+          主题皮肤
+          <span style="font-size:0.8rem; color:var(--color-gray-500); margin-left:8px;">点击切换背景</span>
+        </h3>
+        <div class="theme-grid" id="theme-switcher-grid"></div>
+      </div>
+    </div>
+  </div>
     
     <!-- 祝福墙卡片 -->
     <div class="work-card">
@@ -5085,17 +5119,7 @@ body.has-bg-image::before {
       </div>
     </div>
     
-    <!-- 主题皮肤卡片 -->
-    <div class="work-card">
-      <div class="work-content">
-        <h3 class="work-title">
-          主题皮肤
-          <span style="font-size:0.8rem; color:var(--color-gray-500); margin-left:8px;">点击切换背景</span>
-        </h3>
-        <div class="theme-grid" id="theme-switcher-grid"></div>
-      </div>
-    </div>
-  </div>
+    
 </section>
 
       <!-- HTMLCommentBox 本地化配置 (必须放在主脚本之前) -->
@@ -13522,7 +13546,7 @@ function addBlessingToList(blessing) {
   container.prepend(item); // 最新的在上面
   
   // 限制列表数量，避免无限增长
-  while (container.children.length > 50) {
+  while (container.children.length > 30) {
     container.removeChild(container.lastChild);
   }
 }
