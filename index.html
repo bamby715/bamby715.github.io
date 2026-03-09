@@ -13527,6 +13527,8 @@ function listenToBlessings() {
   // 只监听最新的20条（按时间倒序）
   blessingsRef.orderByChild('timestamp').limitToLast(20).on('child_added', (snapshot) => {
     const blessing = snapshot.val();
+    // 将 Firebase 的 key 添加到 blessing 对象中
+    blessing.key = snapshot.key;
     // 添加到列表
     addBlessingToList(blessing);
     // 添加到满屏滚动（排除自己刚发的，避免重复？但这里为了氛围，全部滚动）
@@ -13541,28 +13543,34 @@ function listenToBlessings() {
 }
 
 // 添加祝福到列表
-// 在 addBlessingToList 函数中修改
 function addBlessingToList(blessing) {
   const container = document.getElementById('blessMessages');
   if (!container) return;
   
+  // 移除加载提示
   const loadingMsg = container.querySelector('div[style*="text-align:center"]');
   if (loadingMsg) loadingMsg.remove();
   
+  // 格式化时间
   const time = blessing.timestamp ? new Date(blessing.timestamp).toLocaleTimeString('zh-CN', {
     hour: '2-digit', minute: '2-digit'
   }) : '刚刚';
   
   const item = document.createElement('div');
   item.className = 'bless-message-item';
-  item.setAttribute('data-id', blessing.id || Date.now());
-  item.setAttribute('data-key', blessing.key || ''); // 存储 Firebase 的 key
+  
+  // 关键修复：存储 Firebase 的 key（如果有）
+  // 注意：blessing 对象可能来自 snapshot.val()，不包含 key
+  // 我们需要从 snapshot 中获取 key，但在回调中可能没有直接传递
+  // 临时方案：使用当前时间戳作为临时 ID
+  const tempId = 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+  item.setAttribute('data-id', blessing.key || tempId);
   
   item.innerHTML = `
     <span>💬 ${blessing.text}</span>
     <div style="display: flex; align-items: center; gap: 8px;">
       <span class="bless-time">${time}</span>
-      <button class="report-btn" onclick="reportBlessing('${blessing.key}')" title="举报">
+      <button class="report-btn" onclick="reportBlessing(this)" data-key="${blessing.key || ''}" title="举报">
         <i class="fas fa-flag" style="color: #999; font-size: 0.8rem;"></i>
       </button>
     </div>
@@ -13570,23 +13578,60 @@ function addBlessingToList(blessing) {
   
   container.prepend(item);
   
+  // 限制列表数量
   while (container.children.length > 30) {
     container.removeChild(container.lastChild);
   }
 }
 
 // 举报函数
-function reportBlessing(key) {
-  if (!key) return;
+// 举报函数
+function reportBlessing(btn) {
+  // 从按钮的 data-key 属性获取被举报的弹幕 key
+  const key = btn.getAttribute('data-key');
   
-  // 将举报记录到另一个节点
+  if (!key || key === 'undefined' || key === '') {
+    showToast('举报失败：无法获取弹幕信息');
+    return;
+  }
+  
+  if (!database) {
+    showToast('数据库连接中，请稍后');
+    return;
+  }
+  
+  // 防刷：检查上次举报时间
+  const lastReport = localStorage.getItem('lastReportTime');
+  const now = Date.now();
+  if (lastReport && now - parseInt(lastReport) < 30000) { // 30秒内只能举报一次
+    showToast('请稍等30秒再举报');
+    return;
+  }
+  
+  // 禁用按钮防止重复点击
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+  
+  // 提交举报
   const reportRef = database.ref('reports').push();
   reportRef.set({
     blessingKey: key,
     timestamp: firebase.database.ServerValue.TIMESTAMP,
     userId: generateUserId()
   }).then(() => {
-    showToast('已举报，管理员会尽快处理');
+    localStorage.setItem('lastReportTime', now.toString());
+    showToast('举报已提交，管理员会尽快处理');
+    
+    // 恢复按钮
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-flag"></i>';
+  }).catch(error => {
+    console.error('举报失败:', error);
+    showToast('举报失败，请稍后重试');
+    
+    // 恢复按钮
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-flag"></i>';
   });
 }
 
