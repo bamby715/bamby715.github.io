@@ -3674,6 +3674,80 @@ body.has-bg-image::before {
   }
 }
 
+/* 祝福表单样式 */
+.bless-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--color-white);
+  color: var(--color-gray-800);
+  transition: all 0.2s;
+}
+.bless-form input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.3);
+}
+
+/* 祝福列表样式 */
+.bless-list {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-gray-200);
+  padding-top: 15px;
+}
+.bless-list-header {
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#blessMessages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bless-message-item {
+  padding: 10px 12px;
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+  font-size: 0.95rem;
+  color: var(--color-gray-800);
+  word-break: break-word;
+  animation: fadeIn 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bless-message-item .bless-time {
+  font-size: 0.7rem;
+  color: var(--color-gray-500);
+  white-space: nowrap;
+  margin-left: 10px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 发送按钮禁用状态 */
+#sendBlessBtn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .bless-message-item {
+  background: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+
 /* ========= 皮肤切换卡片样式 ========= */
 .theme-grid {
   display: flex;
@@ -4974,6 +5048,43 @@ body.has-bg-image::before {
             </div>
           </div>
         </div>
+        <!-- 祝福墙卡片 -->
+<div class="work-card">
+  <div class="work-content">
+    <h3 class="work-title">
+      💌 粉丝祝福墙
+      <span style="font-size:0.8rem; color:var(--color-gray-500); margin-left:8px;">实时共享</span>
+    </h3>
+    
+    <!-- 祝福输入区 -->
+    <div class="bless-form">
+      <input type="text" id="blessInput" placeholder="写下对BAMBY的祝福..." maxlength="30">
+      <button id="sendBlessBtn" class="channel-btn weibo" style="width:100%; margin-top:10px;">
+        <i class="fas fa-paper-plane"></i> 发送祝福
+      </button>
+    </div>
+    
+    <!-- 实时祝福列表 -->
+    <div class="bless-list" id="blessList">
+      <div class="bless-list-header">
+        <i class="fas fa-heart" style="color: var(--color-primary);"></i>
+        最新祝福
+      </div>
+      <div id="blessMessages">
+        <!-- 动态加载中... -->
+        <div style="text-align:center; padding:20px; color:var(--color-gray-400);">
+          <i class="fas fa-spinner fa-spin"></i> 加载中...
+        </div>
+      </div>
+    </div>
+    
+    <p class="bless-note" style="font-size:0.8rem; color:var(--color-gray-500); margin-top:10px;">
+       你的祝福会实时出现在所有bamline的屏幕上
+    </p>
+  </div>
+</div>
+
+
         <div class="work-card">
   <div class="work-content">
     <h3 class="work-title">
@@ -13279,6 +13390,249 @@ function sortTmiData(data, sortMethod) {
   return sorted;
 }
 
+// ========== Firebase 初始化 ==========
+// 1. 引入 Firebase SDK（建议放在 <head> 底部，但这里动态加载也可以）
+(function loadFirebaseSDK() {
+  const scripts = [
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js',
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js'
+  ];
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    document.head.appendChild(script);
+  });
+})();
+
+// 2. Firebase 配置（⚠️ 替换为你自己的配置！）
+const firebaseConfig = {
+  apiKey: "AIzaSyAqRn0A9i7i16OwD-bYMSZEtKNsdw7gPac",
+  authDomain: "bamby-blessings.firebaseapp.com",
+  databaseURL: "https://bamby-blessings-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "bamby-blessings",
+  storageBucket: "bamby-blessings.firebasestorage.app",
+  messagingSenderId: "417263643068",
+  appId: "1:417263643068:web:a48535804f3e1de628a3b9",
+  measurementId: "G-YGZ688EGJY"
+};
+
+// 3. 初始化 Firebase（延迟执行，确保 SDK 加载完成）
+let database = null;
+function initFirebase() {
+  if (typeof firebase !== 'undefined' && !database) {
+    firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    console.log('Firebase 初始化成功');
+    
+    // 开始监听祝福
+    listenToBlessings();
+  } else {
+    setTimeout(initFirebase, 200);
+  }
+}
+setTimeout(initFirebase, 500);
+
+// ========== 祝福功能核心逻辑 ==========
+const BLESSINGS_REF = 'bamby-blessings'; // 数据库节点名称
+
+// 发送祝福
+function sendBlessing(text) {
+  if (!database) {
+    showToast('数据库连接中，请稍后');
+    return Promise.reject();
+  }
+  
+  // 防刷屏：检查上次发送时间
+  const lastSend = localStorage.getItem('lastBlessTime');
+  const now = Date.now();
+  if (lastSend && now - parseInt(lastSend) < 10000) { // 10秒内只能发一次
+    showToast('请稍等10秒再发送');
+    return Promise.reject();
+  }
+  
+  const blessing = {
+    text: text,
+    timestamp: firebase.database.ServerValue.TIMESTAMP,
+    // 可选：添加简单的用户标识（用于区分不同用户）
+    userId: generateUserId()
+  };
+  
+  return database.ref(BLESSINGS_REF).push(blessing).then(() => {
+    localStorage.setItem('lastBlessTime', now.toString());
+    // 同时添加到满屏滚动
+    addScrollingBlessing(text);
+  });
+}
+
+// 生成简单的匿名用户ID（基于日期和随机数）
+function generateUserId() {
+  let id = localStorage.getItem('blessUserId');
+  if (!id) {
+    id = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+    localStorage.setItem('blessUserId', id);
+  }
+  return id;
+}
+
+// 监听实时祝福（显示在列表和滚动）
+function listenToBlessings() {
+  if (!database) return;
+  
+  const blessingsRef = database.ref(BLESSINGS_REF);
+  
+  // 只监听最新的20条（按时间倒序）
+  blessingsRef.orderByChild('timestamp').limitToLast(20).on('child_added', (snapshot) => {
+    const blessing = snapshot.val();
+    // 添加到列表
+    addBlessingToList(blessing);
+    // 添加到满屏滚动（排除自己刚发的，避免重复？但这里为了氛围，全部滚动）
+    addScrollingBlessing(blessing.text);
+  });
+  
+  // 监听删除（可选，一般不用）
+  blessingsRef.on('child_removed', (snapshot) => {
+    const id = snapshot.key;
+    removeBlessingFromList(id);
+  });
+}
+
+// 添加祝福到列表
+function addBlessingToList(blessing) {
+  const container = document.getElementById('blessMessages');
+  if (!container) return;
+  
+  // 移除加载提示
+  const loadingMsg = container.querySelector('div[style*="text-align:center"]');
+  if (loadingMsg) loadingMsg.remove();
+  
+  // 格式化时间
+  const time = blessing.timestamp ? new Date(blessing.timestamp).toLocaleTimeString('zh-CN', {
+    hour: '2-digit', minute: '2-digit'
+  }) : '刚刚';
+  
+  const item = document.createElement('div');
+  item.className = 'bless-message-item';
+  item.setAttribute('data-id', blessing.id || Date.now());
+  item.innerHTML = `
+    <span>💬 ${blessing.text}</span>
+    <span class="bless-time">${time}</span>
+  `;
+  
+  container.prepend(item); // 最新的在上面
+  
+  // 限制列表数量，避免无限增长
+  while (container.children.length > 50) {
+    container.removeChild(container.lastChild);
+  }
+}
+
+// 从列表移除（一般不用，但留接口）
+function removeBlessingFromList(id) {
+  const container = document.getElementById('blessMessages');
+  if (!container) return;
+  const items = container.querySelectorAll('.bless-message-item');
+  items.forEach(item => {
+    if (item.getAttribute('data-id') === id) {
+      item.remove();
+    }
+  });
+}
+
+// 满屏滚动祝福
+function addScrollingBlessing(text) {
+  const container = document.getElementById('blessScrollingContainer');
+  if (!container) return;
+  
+  const bless = document.createElement('div');
+  bless.className = 'bless-scroll-item';
+  bless.textContent = '💗 ' + text;
+  
+  // 随机垂直位置
+  const top = Math.random() * 80 + 10;
+  bless.style.top = top + '%';
+  
+  // 随机动画时长（8~15秒）
+  const duration = Math.random() * 7 + 8;
+  bless.style.animationDuration = duration + 's';
+  
+  // 随机颜色
+  const colors = ['#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#FFA07A', '#DDA0DD'];
+  bless.style.color = colors[Math.floor(Math.random() * colors.length)];
+  
+  container.appendChild(bless);
+  
+  // 动画结束后移除
+  setTimeout(() => {
+    if (bless.parentNode) bless.remove();
+  }, duration * 1000);
+}
+
+// ========== 绑定发送按钮 ==========
+document.addEventListener('DOMContentLoaded', function() {
+  // 等待祝福卡片出现
+  setTimeout(() => {
+    const sendBtn = document.getElementById('sendBlessBtn');
+    const blessInput = document.getElementById('blessInput');
+    
+    if (sendBtn && blessInput) {
+      sendBtn.addEventListener('click', function() {
+        const text = blessInput.value.trim();
+        if (!text) {
+          showToast('请输入祝福语');
+          return;
+        }
+        if (text.length > 30) {
+          showToast('祝福语不能超过30字');
+          return;
+        }
+        
+        // 禁用按钮，防止重复发送
+        sendBtn.classList.add('disabled');
+        sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 发送中';
+        
+        sendBlessing(text).then(() => {
+          blessInput.value = '';
+          showToast('祝福已发送 ✨');
+        }).catch(err => {
+          console.error('发送失败:', err);
+          showToast('发送失败，请稍后重试');
+        }).finally(() => {
+          sendBtn.classList.remove('disabled');
+          sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 发送祝福';
+        });
+      });
+      
+      // 回车发送
+      blessInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendBtn.click();
+      });
+    }
+  }, 1000);
+});
+
+// 添加满屏滚动元素的样式
+const scrollStyle = document.createElement('style');
+scrollStyle.textContent = `
+  .bless-scroll-item {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: scrollLeft linear forwards;
+    z-index: 10000;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px rgba(255,215,0,0.5));
+    opacity: 0.9;
+  }
+  @keyframes scrollLeft {
+    from { transform: translateX(100vw); opacity: 0.8; }
+    to { transform: translateX(-500px); opacity: 0; }
+  }
+`;
+document.head.appendChild(scrollStyle);
+
 // ========== 皮肤切换功能 ==========
 const themes = [
   { id: 'default', name: '纯色', background: '' },
@@ -13498,5 +13852,9 @@ document.addEventListener('DOMContentLoaded', setRandomImage);
   </script>
   
   <script src="jump-game-integrated.js"></script>
+
+  <!-- 满屏祝福滚动容器 -->
+<div id="blessScrollingContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; overflow:hidden;"></div>
+
 </body>
 </html>
