@@ -4252,6 +4252,233 @@ body.has-bg-image::before {
   background: rgba(255, 255, 255, 0.7);
 }
 
+/* ========= 侧边栏样式 ========= */
+.drawer-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  width: 44px;
+  height: 44px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s;
+}
+.drawer-toggle:hover {
+  transform: scale(1.1);
+  background: var(--color-primary-dark);
+}
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1001;
+  display: none;
+}
+.drawer-overlay.active {
+  display: block;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100%;
+  background: var(--color-white);
+  box-shadow: var(--shadow-xl);
+  z-index: 1002;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.drawer.open {
+  left: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+.drawer-header h3 {
+  margin: 0;
+  color: var(--color-gray-900);
+}
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-gray-600);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drawer-close:hover {
+  background: var(--color-gray-100);
+}
+
+.drawer-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.drawer-footer {
+  padding: 15px 20px;
+  border-top: 1px solid var(--color-gray-200);
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+  text-align: center;
+}
+
+.drawer-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: var(--color-white);
+  color: var(--color-gray-800);
+}
+.drawer-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 194, 214, 0.3);
+}
+
+.drawer-btn {
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+.drawer-btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+.drawer-btn-primary:hover {
+  background: var(--color-primary-dark);
+}
+.drawer-btn-secondary {
+  background: var(--color-gray-200);
+  color: var(--color-gray-700);
+}
+.drawer-btn-secondary:hover {
+  background: var(--color-gray-300);
+}
+.drawer-btn-block {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.drawer-btn-small {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.drawer-user-info {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.drawer-avatar-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+.drawer-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-light);
+}
+.avatar-upload-label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: all 0.2s;
+}
+.avatar-upload-label:hover {
+  transform: scale(1.1);
+  background: var(--color-primary-dark);
+}
+.drawer-user-details {
+  flex: 1;
+}
+
+.drawer-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  padding: 15px 0;
+  border-top: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+.stat-item {
+  text-align: center;
+}
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+}
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.drawer-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-gray-200);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .drawer {
+    width: 280px;
+    left: -280px;
+  }
+}
+
 /* 漂浮的新年元素 */
 .floating-elements {
   position: absolute;
@@ -4370,6 +4597,99 @@ body.has-bg-image::before {
       </div>
     </div>
   </div>
+
+  <!-- 侧边栏触发按钮 -->
+<div class="drawer-toggle" id="drawerToggle">
+  <i class="fas fa-bars"></i>
+</div>
+
+<!-- 侧边栏遮罩层 -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+<!-- 侧边栏内容 -->
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h3><i class="fas fa-heart" style="color: var(--color-primary);"></i> 用户中心</h3>
+    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+  </div>
+  
+  <div class="drawer-body">
+    <!-- 未登录状态 -->
+    <div id="drawerNotLoggedIn">
+      <div class="drawer-form">
+        <input type="email" id="drawerEmail" placeholder="邮箱" class="drawer-input">
+        <input type="password" id="drawerPassword" placeholder="密码" class="drawer-input">
+        <button id="drawerLoginBtn" class="drawer-btn drawer-btn-primary">登录</button>
+        <button id="drawerRegisterBtn" class="drawer-btn drawer-btn-secondary">注册新账号</button>
+      </div>
+      <p style="font-size:0.8rem; color:var(--color-gray-500); margin-top:15px; text-align:center;">
+        ✨ 登录后可签到、设置头像、跨设备同步
+      </p>
+    </div>
+    
+    <!-- 已登录状态 -->
+    <div id="drawerLoggedIn" style="display: none;">
+      <!-- 头像和昵称区域 -->
+      <div class="drawer-user-info">
+        <div class="drawer-avatar-container">
+          <img src="https://via.placeholder.com/80" alt="头像" class="drawer-avatar" id="drawerAvatar">
+          <label for="avatarUpload" class="avatar-upload-label" title="上传头像">
+            <i class="fas fa-camera"></i>
+          </label>
+          <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+        </div>
+        <div class="drawer-user-details">
+          <input type="text" id="drawerNickname" placeholder="昵称" class="drawer-input" value="">
+          <button id="drawerSaveProfileBtn" class="drawer-btn drawer-btn-small">保存资料</button>
+        </div>
+      </div>
+      
+      <!-- 签到统计 -->
+      <div class="drawer-stats">
+        <div class="stat-item">
+          <span class="stat-label">连续签到</span>
+          <span class="stat-value" id="drawerStreak">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">总签到</span>
+          <span class="stat-value" id="drawerTotal">0</span>
+        </div>
+      </div>
+      
+      <!-- 签到按钮 -->
+      <button id="drawerSigninBtn" class="drawer-btn drawer-btn-primary drawer-btn-block">
+        <i class="fas fa-calendar-check"></i> 今日签到
+      </button>
+      
+      <!-- 登出按钮 -->
+      <button id="drawerLogoutBtn" class="drawer-btn drawer-btn-secondary drawer-btn-block">
+        <i class="fas fa-sign-out-alt"></i> 登出
+      </button>
+
+      <!-- 自定义背景区域 -->
+<div class="drawer-section">
+  <h4 style="margin: 15px 0 10px; font-size:1rem; color:var(--color-gray-700);">
+    <i class="fas fa-image"></i> 自定义背景
+  </h4>
+  <div class="drawer-bg-preview">
+    <img id="customBgPreview" src="" alt="背景预览" style="width:100%; height:80px; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--color-gray-300); margin-bottom:8px; display:none;">
+  </div>
+  <button id="uploadCustomBgBtn" class="drawer-btn drawer-btn-small" style="width:100%; margin-bottom:5px;">
+    <i class="fas fa-upload"></i> 上传背景图
+  </button>
+  <button id="clearCustomBgBtn" class="drawer-btn drawer-btn-small" style="width:100%;">
+    <i class="fas fa-undo"></i> 恢复默认主题
+  </button>
+  <input type="file" id="customBgUpload" accept="image/*" style="display: none;">
+  <p style="font-size:0.7rem; color:var(--color-gray-500); margin-top:8px;">建议图片宽度 ≥ 1280px</p>
+</div>
+    </div>
+  </div>
+  
+  <div class="drawer-footer">
+    <p>💬 弹幕功能无需登录，签到需登录</p>
+  </div>
+</div>
 
   <div class="container">
     <!-- HEADER 区域 -->
@@ -13434,11 +13754,12 @@ function sortTmiData(data, sortMethod) {
 }
 
 // ========== Firebase 初始化 ==========
-// 1. 引入 Firebase SDK（建议放在 <head> 底部，但这里动态加载也可以）
+// 1. 引入 Firebase SDK
 (function loadFirebaseSDK() {
   const scripts = [
     'https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js',
-    'https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js'
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js',
+    'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js'
   ];
   scripts.forEach(src => {
     const script = document.createElement('script');
@@ -13448,7 +13769,7 @@ function sortTmiData(data, sortMethod) {
   });
 })();
 
-// 2. Firebase 配置（⚠️ 替换为你自己的配置！）
+// 2. Firebase 配置（请确认是你的配置）
 const firebaseConfig = {
   apiKey: "AIzaSyAqRn0A9i7i16OwD-bYMSZEtKNsdw7gPac",
   authDomain: "bamby-blessings.firebaseapp.com",
@@ -13460,182 +13781,433 @@ const firebaseConfig = {
   measurementId: "G-YGZ688EGJY"
 };
 
-// 3. 初始化 Firebase（延迟执行，确保 SDK 加载完成）
+// 3. 全局变量
 let database = null;
-function initFirebase() {
-  if (typeof firebase !== 'undefined' && !database) {
-    firebase.initializeApp(firebaseConfig);
-    database = firebase.database();
-    console.log('Firebase 初始化成功');
-    
-    // 开始监听祝福
-    listenToBlessings();
+let auth = null;
+let currentUser = null;
+const BLESSINGS_REF = 'bamby-blessings';  // 弹幕节点
+
+// ========== 侧边栏控制 ==========
+const drawerToggle = document.getElementById('drawerToggle');
+const drawerClose = document.getElementById('drawerClose');
+const drawerOverlay = document.getElementById('drawerOverlay');
+const drawer = document.getElementById('drawer');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  drawerOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  drawerOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+drawerToggle?.addEventListener('click', openDrawer);
+drawerClose?.addEventListener('click', closeDrawer);
+drawerOverlay?.addEventListener('click', closeDrawer);
+
+// ========== 更新侧边栏UI ==========
+function updateDrawerUI(user) {
+  const notLoggedInDiv = document.getElementById('drawerNotLoggedIn');
+  const loggedInDiv = document.getElementById('drawerLoggedIn');
+  if (!notLoggedInDiv || !loggedInDiv) return;
+  if (user) {
+    notLoggedInDiv.style.display = 'none';
+    loggedInDiv.style.display = 'block';
   } else {
-    setTimeout(initFirebase, 200);
+    notLoggedInDiv.style.display = 'block';
+    loggedInDiv.style.display = 'none';
   }
 }
-setTimeout(initFirebase, 500);
+
+// ========== 登录/注册 ==========
+document.getElementById('drawerLoginBtn')?.addEventListener('click', () => {
+  const email = document.getElementById('drawerEmail').value;
+  const password = document.getElementById('drawerPassword').value;
+  if (!email || !password) {
+    showToast('请输入邮箱和密码');
+    return;
+  }
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      showToast('登录成功');
+      closeDrawer();
+    })
+    .catch(error => showToast('登录失败：' + error.message));
+});
+
+document.getElementById('drawerRegisterBtn')?.addEventListener('click', () => {
+  const email = document.getElementById('drawerEmail').value;
+  const password = document.getElementById('drawerPassword').value;
+  if (!email || !password) {
+    showToast('请输入邮箱和密码');
+    return;
+  }
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      showToast('注册成功，已自动登录');
+      closeDrawer();
+    })
+    .catch(error => showToast('注册失败：' + error.message));
+});
+
+document.getElementById('drawerLogoutBtn')?.addEventListener('click', () => {
+  auth.signOut().then(() => {
+    showToast('已登出');
+    closeDrawer();
+  });
+});
+
+// ========== Cloudinary 头像上传 ==========
+const CLOUDINARY_CLOUD_NAME = 'dzihltbvb';       // 你的 cloud name
+const CLOUDINARY_UPLOAD_PRESET = 'bamby_avatar'; // 你的 unsigned preset
+
+document.getElementById('avatarUpload')?.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('图片不能超过2MB');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    document.getElementById('drawerAvatar').src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  showToast('上传中...');
+
+  fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.secure_url) {
+      document.getElementById('drawerAvatar').src = data.secure_url;
+      showToast('头像上传成功，记得保存');
+    } else {
+      throw new Error('上传失败');
+    }
+  })
+  .catch(error => {
+    console.error('上传失败', error);
+    showToast('头像上传失败');
+    if (currentUser) loadUserProfile(currentUser.uid);
+  });
+});
+
+// ========== 保存用户资料 ==========
+document.getElementById('drawerSaveProfileBtn')?.addEventListener('click', () => {
+  if (!currentUser) return;
+  const nickname = document.getElementById('drawerNickname').value.trim() || '匿名用户';
+  const avatarUrl = document.getElementById('drawerAvatar').src;
+  if (avatarUrl.includes('placeholder')) {
+    database.ref(`users/${currentUser.uid}/profile`).update({
+      nickname: nickname,
+      updatedAt: firebase.database.ServerValue.TIMESTAMP
+    }).then(() => showToast('资料已保存'))
+      .catch(() => showToast('保存失败'));
+  } else {
+    database.ref(`users/${currentUser.uid}/profile`).update({
+      nickname: nickname,
+      avatar: avatarUrl,
+      updatedAt: firebase.database.ServerValue.TIMESTAMP
+    }).then(() => showToast('资料已保存'))
+      .catch(() => showToast('保存失败'));
+  }
+});
+
+// ========== 加载用户资料 ==========
+function loadUserProfile(uid) {
+  database.ref(`users/${uid}`).once('value', snapshot => {
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+      const profile = userData.profile || {};
+      const settings = userData.settings || {};
+      
+      document.getElementById('drawerNickname').value = profile.nickname || '';
+      if (profile.avatar) {
+        document.getElementById('drawerAvatar').src = profile.avatar;
+      } else {
+        document.getElementById('drawerAvatar').src = 'https://via.placeholder.com/80?text=User';
+      }
+      
+      // 加载自定义背景
+      if (settings.customBackground) {
+        applyCustomBackground(settings.customBackground);
+        document.getElementById('customBgPreview').src = settings.customBackground;
+        document.getElementById('customBgPreview').style.display = 'block';
+      } else {
+        // 无自定义背景，应用主题皮肤
+        const savedThemeId = localStorage.getItem('bamby-bg-theme') || 'cherry';
+        const theme = themes.find(t => t.id === savedThemeId);
+        if (theme) applyThemeBackground(theme);
+        document.getElementById('customBgPreview').style.display = 'none';
+      }
+    } else {
+      // 新用户，无数据
+      document.getElementById('drawerNickname').value = '';
+      document.getElementById('drawerAvatar').src = 'https://via.placeholder.com/80?text=User';
+      document.getElementById('customBgPreview').style.display = 'none';
+      // 应用默认主题
+      const savedThemeId = localStorage.getItem('bamby-bg-theme') || 'cherry';
+      const theme = themes.find(t => t.id === savedThemeId);
+      if (theme) applyThemeBackground(theme);
+    }
+  });
+}
+
+// 上传自定义背景
+document.getElementById('uploadCustomBgBtn')?.addEventListener('click', () => {
+  document.getElementById('customBgUpload').click();
+});
+
+document.getElementById('customBgUpload')?.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {  // 背景图可稍大，5MB
+    showToast('图片不能超过5MB');
+    return;
+  }
+  
+  // 本地预览
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    document.getElementById('customBgPreview').src = event.target.result;
+    document.getElementById('customBgPreview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+  
+  // 上传到 Cloudinary
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  
+  showToast('上传中...');
+  
+  fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  // 上传成功后
+.then(data => {
+  if (data.secure_url) {
+    const bgUrl = data.secure_url;
+    document.getElementById('customBgPreview').src = bgUrl;
+    
+    // 保存到 Firebase
+    database.ref(`users/${currentUser.uid}/settings`).update({
+      customBackground: bgUrl
+    }).then(() => {
+      applyCustomBackground(bgUrl);  // 应用自定义背景
+      // 移除所有主题按钮的高亮
+      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+      showToast('背景图已应用');
+    }).catch(err => {
+      showToast('保存失败');
+    });
+  } else {
+    throw new Error('上传失败');
+  }
+})
+  .catch(error => {
+    console.error('上传失败', error);
+    showToast('背景图上传失败');
+    // 重新加载用户设置
+    if (currentUser) loadUserProfile(currentUser.uid);
+  });
+});
+
+document.getElementById('clearCustomBgBtn')?.addEventListener('click', () => {
+  if (!currentUser) return;
+  
+  database.ref(`users/${currentUser.uid}/settings`).update({
+    customBackground: null
+  }).then(() => {
+    // 恢复主题皮肤
+    const savedThemeId = localStorage.getItem('bamby-bg-theme') || 'cherry';
+    const theme = themes.find(t => t.id === savedThemeId);
+    if (theme) applyThemeBackground(theme);
+    
+    // 高亮对应的主题按钮
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      if (btn.dataset.id === savedThemeId) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    
+    document.getElementById('customBgPreview').style.display = 'none';
+    showToast('已恢复默认主题');
+  }).catch(err => {
+    showToast('操作失败');
+  });
+});
+
+// ========== 签到功能 ==========
+function getTodayString() {
+  return new Date().toISOString().split('T')[0];
+}
+function getYesterdayString(today) {
+  const d = new Date(today);
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split('T')[0];
+}
+document.getElementById('drawerSigninBtn')?.addEventListener('click', () => {
+  if (!currentUser) {
+    showToast('请先登录');
+    return;
+  }
+  const uid = currentUser.uid;
+  const today = getTodayString();
+  const yesterday = getYesterdayString(today);
+  database.ref(`signins/${today}/${uid}`).once('value', snapshot => {
+    if (snapshot.exists()) {
+      showToast('今天已经签过啦');
+      return;
+    }
+    database.ref(`userStreaks/${uid}`).once('value', snapshot => {
+      let streak = 1, total = 1;
+      if (snapshot.exists()) {
+        const last = snapshot.val();
+        if (last.lastSignin === yesterday) streak = last.streak + 1;
+        else streak = 1;
+        total = last.total + 1;
+      }
+      const updates = {};
+      updates[`signins/${today}/${uid}`] = {
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        streak: streak
+      };
+      updates[`userStreaks/${uid}`] = {
+        lastSignin: today,
+        streak: streak,
+        total: total
+      };
+      database.ref().update(updates).then(() => {
+        showToast(`签到成功！连续${streak}天`);
+        loadUserStreak(uid);
+      }).catch(() => showToast('签到失败'));
+    });
+  });
+});
+function loadUserStreak(uid) {
+  database.ref(`userStreaks/${uid}`).once('value', snapshot => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      document.getElementById('drawerStreak').textContent = data.streak || 0;
+      document.getElementById('drawerTotal').textContent = data.total || 0;
+    } else {
+      document.getElementById('drawerStreak').textContent = '0';
+      document.getElementById('drawerTotal').textContent = '0';
+    }
+  });
+}
+
+// 应用自定义背景
+function applyCustomBackground(bgUrl) {
+  document.body.style.setProperty('--bg-image', `url('${bgUrl}')`);
+  document.body.classList.add('has-bg-image');
+  // 可选：取消主题按钮的高亮（通过移除 localStorage 的标记？但保留主题选择以便恢复）
+}
+
+// 修改原来的 applyThemeBackground，使其在无自定义背景时生效
+function applyThemeBackground(theme) {
+  // 如果当前用户有自定义背景，则不覆盖？但这里我们设计为：点击主题按钮时强制应用主题，并清除自定义背景
+  // 为了简单，我们可以在点击主题按钮时自动清除自定义背景（如果用户登录）
+  if (currentUser) {
+    database.ref(`users/${currentUser.uid}/settings/customBackground`).set(null).catch(() => {});
+  }
+  
+  if (theme.background && theme.background.trim() !== '') {
+    document.body.style.setProperty('--bg-image', `url('${theme.background}')`);
+    document.body.classList.add('has-bg-image');
+  } else {
+    document.body.classList.remove('has-bg-image');
+    document.body.style.removeProperty('--bg-image');
+  }
+}
 
 // ========== 祝福功能核心逻辑 ==========
-const BLESSINGS_REF = 'bamby-blessings'; // 数据库节点名称
-
-// 发送祝福
+function generateUserId() {
+  let id = localStorage.getItem('blessAnonymousId');
+  if (!id) {
+    id = 'anon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+    localStorage.setItem('blessAnonymousId', id);
+  }
+  return id;
+}
 function sendBlessing(text) {
   if (!database) {
     showToast('数据库连接中，请稍后');
     return Promise.reject();
   }
-  
-  // 防刷屏：检查上次发送时间
   const lastSend = localStorage.getItem('lastBlessTime');
   const now = Date.now();
-  if (lastSend && now - parseInt(lastSend) < 10000) { // 10秒内只能发一次
+  if (lastSend && now - parseInt(lastSend) < 10000) {
     showToast('请稍等10秒再发送');
     return Promise.reject();
   }
-  
   const blessing = {
     text: text,
     timestamp: firebase.database.ServerValue.TIMESTAMP,
-    // 可选：添加简单的用户标识（用于区分不同用户）
-    userId: generateUserId()
+    anonymousId: generateUserId()
   };
-  
+  if (currentUser) {
+    blessing.uid = currentUser.uid;
+  }
   return database.ref(BLESSINGS_REF).push(blessing).then(() => {
     localStorage.setItem('lastBlessTime', now.toString());
-    // 同时添加到满屏滚动
     addScrollingBlessing(text);
   });
 }
-
-// 生成简单的匿名用户ID（基于日期和随机数）
-function generateUserId() {
-  let id = localStorage.getItem('blessUserId');
-  if (!id) {
-    id = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-    localStorage.setItem('blessUserId', id);
-  }
-  return id;
-}
-
-// 监听实时祝福（显示在列表和滚动）
-function listenToBlessings() {
-  if (!database) return;
-  
-  const blessingsRef = database.ref(BLESSINGS_REF);
-  
-  // 只监听最新的20条（按时间倒序）
-  blessingsRef.orderByChild('timestamp').limitToLast(20).on('child_added', (snapshot) => {
-    const blessing = snapshot.val();
-    // 将 Firebase 的 key 添加到 blessing 对象中
-    blessing.key = snapshot.key;
-    // 添加到列表
-    addBlessingToList(blessing);
-    // 添加到满屏滚动（排除自己刚发的，避免重复？但这里为了氛围，全部滚动）
-    addScrollingBlessing(blessing.text);
-  });
-  
-  // 监听删除（可选，一般不用）
-  blessingsRef.on('child_removed', (snapshot) => {
-    const id = snapshot.key;
-    removeBlessingFromList(id);
-  });
-}
-
-// 添加祝福到列表
-function addBlessingToList(blessing) {
-  const container = document.getElementById('blessMessages');
-  if (!container) return;
-  
-  // 移除加载提示
-  const loadingMsg = container.querySelector('div[style*="text-align:center"]');
-  if (loadingMsg) loadingMsg.remove();
-  
-  // 格式化时间
-  const time = blessing.timestamp ? new Date(blessing.timestamp).toLocaleTimeString('zh-CN', {
-    hour: '2-digit', minute: '2-digit'
-  }) : '刚刚';
-  
-  const item = document.createElement('div');
-  item.className = 'bless-message-item';
-  
-  // 关键修复：存储 Firebase 的 key（如果有）
-  // 注意：blessing 对象可能来自 snapshot.val()，不包含 key
-  // 我们需要从 snapshot 中获取 key，但在回调中可能没有直接传递
-  // 临时方案：使用当前时间戳作为临时 ID
-  const tempId = 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-  item.setAttribute('data-id', blessing.key || tempId);
-  
-  item.innerHTML = `
-    <span>💬 ${blessing.text}</span>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <span class="bless-time">${time}</span>
-      <button class="report-btn" onclick="reportBlessing(this)" data-key="${blessing.key || ''}" title="举报">
-        <i class="fas fa-flag" style="color: #999; font-size: 0.8rem;"></i>
-      </button>
-    </div>
-  `;
-  
-  container.prepend(item);
-  
-  // 限制列表数量
-  while (container.children.length > 30) {
-    container.removeChild(container.lastChild);
-  }
-}
-
-// 举报函数
-// 举报函数
 function reportBlessing(btn) {
-  // 从按钮的 data-key 属性获取被举报的弹幕 key
   const key = btn.getAttribute('data-key');
-  
   if (!key || key === 'undefined' || key === '') {
     showToast('举报失败：无法获取弹幕信息');
     return;
   }
-  
   if (!database) {
     showToast('数据库连接中，请稍后');
     return;
   }
-  
-  // 防刷：检查上次举报时间
   const lastReport = localStorage.getItem('lastReportTime');
   const now = Date.now();
-  if (lastReport && now - parseInt(lastReport) < 30000) { // 30秒内只能举报一次
+  if (lastReport && now - parseInt(lastReport) < 30000) {
     showToast('请稍等30秒再举报');
     return;
   }
-  
-  // 禁用按钮防止重复点击
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-  
-  // 提交举报
-  const reportRef = database.ref('reports').push();
-  reportRef.set({
+  const report = {
     blessingKey: key,
     timestamp: firebase.database.ServerValue.TIMESTAMP,
-    userId: generateUserId()
-  }).then(() => {
+    anonymousId: generateUserId()
+  };
+  if (currentUser) {
+    report.uid = currentUser.uid;
+  }
+  database.ref('reports').push(report).then(() => {
     localStorage.setItem('lastReportTime', now.toString());
     showToast('举报已提交，管理员会尽快处理');
-    
-    // 恢复按钮
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-flag"></i>';
   }).catch(error => {
     console.error('举报失败:', error);
     showToast('举报失败，请稍后重试');
-    
-    // 恢复按钮
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-flag"></i>';
   });
 }
-
-// 从列表移除（一般不用，但留接口）
 function removeBlessingFromList(id) {
   const container = document.getElementById('blessMessages');
   if (!container) return;
@@ -13646,43 +14218,72 @@ function removeBlessingFromList(id) {
     }
   });
 }
-
-// 满屏滚动祝福
 function addScrollingBlessing(text) {
   const container = document.getElementById('blessScrollingContainer');
   if (!container) return;
-  
   const bless = document.createElement('div');
   bless.className = 'bless-scroll-item';
   bless.textContent = '💗 ' + text;
-  
-  // 随机垂直位置
   const top = Math.random() * 80 + 10;
   bless.style.top = top + '%';
-  
-  // 随机动画时长（8~15秒）
   const duration = Math.random() * 7 + 8;
   bless.style.animationDuration = duration + 's';
-  
-  // 随机颜色
   const colors = ['#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#FFA07A', '#DDA0DD'];
   bless.style.color = colors[Math.floor(Math.random() * colors.length)];
-  
   container.appendChild(bless);
-  
-  // 动画结束后移除
   setTimeout(() => {
     if (bless.parentNode) bless.remove();
   }, duration * 1000);
 }
 
+// ========== 监听祝福 ==========
+function listenToBlessings() {
+  if (!database) return;
+  const blessingsRef = database.ref(BLESSINGS_REF);
+  blessingsRef.orderByChild('timestamp').limitToLast(20).on('child_added', (snapshot) => {
+    const blessing = snapshot.val();
+    blessing.key = snapshot.key;
+    addBlessingToList(blessing);
+    addScrollingBlessing(blessing.text);
+  });
+  blessingsRef.on('child_removed', (snapshot) => {
+    removeBlessingFromList(snapshot.key);
+  });
+}
+
+// ========== 添加祝福到列表 ==========
+function addBlessingToList(blessing) {
+  const container = document.getElementById('blessMessages');
+  if (!container) return;
+  const loadingMsg = container.querySelector('div[style*="text-align:center"]');
+  if (loadingMsg) loadingMsg.remove();
+  const time = blessing.timestamp ? new Date(blessing.timestamp).toLocaleTimeString('zh-CN', {
+    hour: '2-digit', minute: '2-digit'
+  }) : '刚刚';
+  const item = document.createElement('div');
+  item.className = 'bless-message-item';
+  const tempId = 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+  item.setAttribute('data-id', blessing.key || tempId);
+  item.innerHTML = `
+    <span>💬 ${blessing.text}</span>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span class="bless-time">${time}</span>
+      <button class="report-btn" onclick="reportBlessing(this)" data-key="${blessing.key || ''}" title="举报">
+        <i class="fas fa-flag" style="color: #999; font-size: 0.8rem;"></i>
+      </button>
+    </div>
+  `;
+  container.prepend(item);
+  while (container.children.length > 30) {
+    container.removeChild(container.lastChild);
+  }
+}
+
 // ========== 绑定发送按钮 ==========
 document.addEventListener('DOMContentLoaded', function() {
-  // 等待祝福卡片出现
   setTimeout(() => {
     const sendBtn = document.getElementById('sendBlessBtn');
     const blessInput = document.getElementById('blessInput');
-    
     if (sendBtn && blessInput) {
       sendBtn.addEventListener('click', function() {
         const text = blessInput.value.trim();
@@ -13694,11 +14295,8 @@ document.addEventListener('DOMContentLoaded', function() {
           showToast('祝福语不能超过30字');
           return;
         }
-        
-        // 禁用按钮，防止重复发送
         sendBtn.classList.add('disabled');
         sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 发送中';
-        
         sendBlessing(text).then(() => {
           blessInput.value = '';
           showToast('祝福已送达~');
@@ -13710,8 +14308,6 @@ document.addEventListener('DOMContentLoaded', function() {
           sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 发送祝福';
         });
       });
-      
-      // 回车发送
       blessInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') sendBtn.click();
       });
@@ -13741,85 +14337,93 @@ scrollStyle.textContent = `
 `;
 document.head.appendChild(scrollStyle);
 
+// ========== 初始化 Firebase ==========
+function initFirebase() {
+  if (typeof firebase !== 'undefined' && !database) {
+    firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    auth = firebase.auth();
+    console.log('Firebase 初始化成功');
+    
+    auth.onAuthStateChanged(user => {
+      currentUser = user;
+      updateDrawerUI(user);
+      if (user) {
+        loadUserProfile(user.uid);
+        loadUserStreak(user.uid);
+      }
+    });
+    
+    listenToBlessings();
+  } else {
+    setTimeout(initFirebase, 200);
+  }
+}
+setTimeout(initFirebase, 500);
+
 // ========== 皮肤切换功能 ==========
 const themes = [
   { id: 'default', name: '纯色', background: '' },
   { id: 'cherry', name: '条纹', background: 'https://img.cdn1.vip/i/69aa8b8916328_1772784521.webp' },
   { id: 'ocean', name: '背影', background: 'https://img.cdn1.vip/i/69aa82f470b4b_1772782324.webp' },
   { id: 'peach', name: '桃子', background: 'https://img.cdn1.vip/i/69aacec083cd2_1772801728.webp' }
-  // 你可以继续添加更多主题，格式同上
 ];
 
 function initThemeSwitcher() {
   const container = document.getElementById('theme-switcher-grid');
   if (!container) return;
-
-  // 从本地存储读取上次选择的主题，默认为 'default'
   const savedThemeId = localStorage.getItem('bamby-bg-theme') || 'cherry';
-
-  // 清空容器（防止重复生成）
   container.innerHTML = '';
-
   themes.forEach(theme => {
     const btn = document.createElement('div');
     btn.className = 'theme-btn';
     if (theme.id === savedThemeId) {
       btn.classList.add('active');
-      // 立即应用该主题背景
       applyThemeBackground(theme);
     }
     btn.textContent = theme.name;
     btn.dataset.id = theme.id;
-    btn.dataset.background = theme.background || ''; // 确保有 background 属性
-
+    btn.dataset.background = theme.background || '';
     btn.addEventListener('click', function() {
-      // 移除所有按钮的 active 类
-      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-
-      const bg = this.dataset.background;
-      applyThemeBackground({ id: this.dataset.id, background: bg });
-      localStorage.setItem('bamby-bg-theme', this.dataset.id);
+  // 如果用户已登录，清除数据库中的自定义背景
+  if (currentUser) {
+    database.ref(`users/${currentUser.uid}/settings/customBackground`).set(null).catch(err => {
+      console.warn('清除自定义背景失败', err);
     });
-
+    // 隐藏预览图
+    document.getElementById('customBgPreview').style.display = 'none';
+  }
+  
+  // 移除所有按钮的 active 类
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  this.classList.add('active');
+  
+  // 应用主题
+  const bg = this.dataset.background;
+  applyThemeBackground({ id: this.dataset.id, background: bg });
+  localStorage.setItem('bamby-bg-theme', this.dataset.id);
+});
     container.appendChild(btn);
   });
 }
 
 function applyThemeBackground(theme) {
   const body = document.body;
-  
   if (theme.background && theme.background.trim() !== '') {
-    // 设置伪元素的背景图（通过自定义属性传递）
     body.style.setProperty('--bg-image', `url('${theme.background}')`);
-    // 添加一个类来触发伪元素显示
     body.classList.add('has-bg-image');
   } else {
-    // 恢复默认
     body.classList.remove('has-bg-image');
     body.style.removeProperty('--bg-image');
   }
 }
 
-// 在页面加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-  // ... 你的原有 DOMContentLoaded 代码 ...
-
-  // 初始化皮肤切换器
-  initThemeSwitcher();
-});
-
 // ========== 每日二创推荐功能 ==========
-  function initDailyRecommendation() {
-  // 检查今日是否已跳过
+function initDailyRecommendation() {
   const skipDate = localStorage.getItem('bamby-daily-rec-skip');
   const today = new Date().toLocaleDateString();
   if (skipDate === today) return;
-
-  // 构建候选作品数组
   let candidates = [];
-
-  // 1. 二创绘画（原有）
   if (fanworksData && fanworksData.length) {
     fanworksData.forEach(work => {
       if (work.type === 'illustration') {
@@ -13832,8 +14436,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  // 2. 安利向翻唱（coversData）
   if (coversData && coversData.length) {
     coversData.forEach(item => {
       candidates.push({
@@ -13844,8 +14446,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-
-  // 3. 安利向翻跳（danceData）
   if (danceData && danceData.length) {
     danceData.forEach(item => {
       candidates.push({
@@ -13856,8 +14456,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-
-  // 4. 直播翻唱 / 翻跳（tmiData 中的 cover 和 dance-cover）
   if (tmiData && tmiData.length) {
     tmiData.forEach(item => {
       if (item.category === 'cover' || item.category === 'dance-cover') {
@@ -13870,11 +14468,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  // 如果没有候选作品，直接返回
   if (candidates.length === 0) return;
-
-  // 根据天数选择（保证每日固定，也可以随机）
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
   const diff = now - start;
@@ -13882,12 +14476,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const dayOfYear = Math.floor(diff / oneDay);
   const targetIndex = dayOfYear % candidates.length;
   const selectedWork = candidates[targetIndex];
-
-  // 填充弹窗
   document.getElementById('dailyRecImage').src = selectedWork.image;
   document.getElementById('dailyRecImage').alt = selectedWork.title;
   document.getElementById('dailyRecAuthor').innerHTML = selectedWork.author;
-
   const linkElement = document.getElementById('dailyRecLink');
   if (selectedWork.link && selectedWork.link !== 'null' && selectedWork.link !== '') {
     linkElement.href = selectedWork.link;
@@ -13896,48 +14487,35 @@ document.addEventListener('DOMContentLoaded', function() {
     linkElement.removeAttribute('href');
     linkElement.style.cursor = 'default';
   }
-
-  // 延迟弹出（与原逻辑一致）
   setTimeout(() => {
     const modal = document.getElementById('dailyRecModal');
     modal.style.display = 'flex';
-    modal.offsetHeight; // 强制重绘
+    modal.offsetHeight;
     modal.classList.add('show');
   }, 4000);
 }
 
-    // 关闭每日推荐弹窗
-    function closeDailyRec() {
-      const modal = document.getElementById('dailyRecModal');
-      const skipCheck = document.getElementById('dailyRecSkipCheck');
-      
-      // 如果勾选了“今日不再提醒”，存入本地存储
-      if (skipCheck.checked) {
-        const today = new Date().toLocaleDateString();
-        localStorage.setItem('bamby-daily-rec-skip', today);
-        showToast('设置成功，今日不再弹出此推荐', 2000);
-      }
-      
-      modal.classList.remove('show');
-      // 恢复背景滚动
-      // document.body.style.overflow = ''; 
-      
-      // 等待渐隐动画结束后彻底隐藏
-      setTimeout(() => {
-         modal.style.display = 'none';
-      }, 300);
-    }
+function closeDailyRec() {
+  const modal = document.getElementById('dailyRecModal');
+  const skipCheck = document.getElementById('dailyRecSkipCheck');
+  if (skipCheck.checked) {
+    const today = new Date().toLocaleDateString();
+    localStorage.setItem('bamby-daily-rec-skip', today);
+    showToast('设置成功，今日不再弹出此推荐', 2000);
+  }
+  modal.classList.remove('show');
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300);
+}
 
-    // 点赞逻辑
 function triggerLike(element) {
   const gif = element.querySelector('#likeGif');
   element.classList.add('liked');
-  
   if(gif) {
-    // 统一重置 GIF 播放
-    gif.src = gif.src; 
+    gif.src = gif.src;
     gif.classList.remove('show');
-    void gif.offsetWidth; 
+    void gif.offsetWidth;
     gif.classList.add('show');
   }
 }
@@ -13945,18 +14523,22 @@ function triggerLike(element) {
 function triggerCheer(element) {
   const gif = element.querySelector('#cheerGif');
   element.classList.add('cheered');
-  
   if(gif) {
-    // 统一重置 GIF 播放
     gif.src = gif.src;
     gif.classList.remove('show');
-    void gif.offsetWidth; 
+    void gif.offsetWidth;
     gif.classList.add('show');
   }
 }
 
 // 页面加载完成后执行
-document.addEventListener('DOMContentLoaded', setRandomImage);
+document.addEventListener('DOMContentLoaded', function() {
+  // 初始化皮肤切换器
+  initThemeSwitcher();
+  // 其他初始化（如有需要可添加）
+  // 注意：setRandomImage 可能不存在，如果报错可删除
+
+});
   </script>
   
   <script src="jump-game-integrated.js"></script>
