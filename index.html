@@ -4673,6 +4673,9 @@ body.has-bg-image::before {
         <input type="password" id="drawerPassword" placeholder="密码" class="drawer-input">
         <button id="drawerLoginBtn" class="drawer-btn drawer-btn-primary">登录</button>
         <button id="drawerRegisterBtn" class="drawer-btn drawer-btn-secondary">注册新账号</button>
+        <button id="drawerGoogleLoginBtn" class="drawer-btn drawer-btn-primary" style="margin-top: 8px;">
+  <i class="fab fa-google"></i> 使用 Google 登录
+</button>
       </div>
       <p style="font-size:0.8rem; color:var(--color-gray-500); margin-top:15px; text-align:center;">
         ✨ 登录后可签到、设置头像、跨设备同步
@@ -13997,6 +14000,20 @@ document.getElementById('drawerLogoutBtn')?.addEventListener('click', () => {
     showToast('已登出');
     closeDrawer();
   });
+});
+
+// Google 登录
+document.getElementById('drawerGoogleLoginBtn')?.addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(() => {
+      showToast('登录成功');
+      closeDrawer();
+    })
+    .catch(error => {
+      console.error('Google 登录失败', error);
+      showToast('Google 登录失败：' + error.message);
+    });
 });
 
 // ========== Cloudinary 头像上传 ==========
