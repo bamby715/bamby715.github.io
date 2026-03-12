@@ -4479,6 +4479,58 @@ body.has-bg-image::before {
   }
 }
 
+/* 徽章样式 */
+.badges-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 5px;
+}
+.badge-item {
+  position: relative;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.badge-item:hover {
+  transform: scale(1.1);
+}
+.badge-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary-light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.badge-number {
+  font-size: 0.55rem;
+  color: gold;
+  text-shadow: 0 0 2px #000;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.badge-tooltip {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  display: none;
+  pointer-events: none;
+  z-index: 10;
+}
+.badge-item:hover .badge-tooltip {
+  display: block;
+}
+
 /* 漂浮的新年元素 */
 .floating-elements {
   position: absolute;
@@ -4666,6 +4718,14 @@ body.has-bg-image::before {
         <i class="fas fa-sign-out-alt"></i> 登出
       </button>
 
+      <!-- 徽章区域 -->
+<div class="drawer-section" id="badgesSection" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--color-gray-200);">
+  <h4 style="margin-bottom: 10px; font-size:1rem; color:var(--color-gray-700);">
+    <i class="fas fa-medal"></i> 我的徽章
+  </h4>
+  <div class="badges-grid" id="badgesContainer"></div>
+</div>
+
       <!-- 自定义背景区域 -->
 <div class="drawer-section">
   <h4 style="margin: 15px 0 10px; font-size:1rem; color:var(--color-gray-700);">
@@ -4683,8 +4743,10 @@ body.has-bg-image::before {
   <input type="file" id="customBgUpload" accept="image/*" style="display: none;">
   <p style="font-size:0.7rem; color:var(--color-gray-500); margin-top:8px;">建议图片宽度 ≥ 1280px</p>
 </div>
+
     </div>
   </div>
+  
   
   <div class="drawer-footer">
     <p>💬 弹幕功能无需登录，签到需登录</p>
@@ -14226,7 +14288,7 @@ function addScrollingBlessing(text) {
   bless.textContent = '💗 ' + text;
   const top = Math.random() * 80 + 10;
   bless.style.top = top + '%';
-  const duration = Math.random() * 7 + 8;
+  const duration = Math.random() * 8 + 12;
   bless.style.animationDuration = duration + 's';
   const colors = ['#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#FFA07A', '#DDA0DD'];
   bless.style.color = colors[Math.floor(Math.random() * colors.length)];
@@ -14346,13 +14408,15 @@ function initFirebase() {
     console.log('Firebase 初始化成功');
     
     auth.onAuthStateChanged(user => {
-      currentUser = user;
-      updateDrawerUI(user);
-      if (user) {
-        loadUserProfile(user.uid);
-        loadUserStreak(user.uid);
-      }
-    });
+  currentUser = user;
+  updateDrawerUI(user);
+  if (user) {
+    loadUserProfile(user.uid);
+    loadUserStreak(user.uid);
+    checkAndAwardBadges(user.uid);   // 新增
+    loadUserBadges(user.uid);         // 新增
+  }
+});
     
     listenToBlessings();
   } else {
@@ -14416,6 +14480,129 @@ function applyThemeBackground(theme) {
     body.classList.remove('has-bg-image');
     body.style.removeProperty('--bg-image');
   }
+}
+
+// ========== 徽章系统 ==========
+
+// 徽章配置（请替换为你的实际图片URL）
+const BADGES = {
+  'badge_3rd_anniversary': {
+    id: 'badge_3rd_anniversary',
+    name: '三周年纪念',
+    icon: 'https://img.cdn1.vip/i/69b27716a41ac_1773303574.webp', // 徽章图片
+    description: '在2026年3月12日登录获取',
+    condition: function() {
+      const today = new Date();
+      return today.getFullYear() === 2026 && today.getMonth() === 2 && today.getDate() === 12;
+    }
+  }
+  // 以后可继续添加更多徽章
+};
+
+// 获取下一个徽章编号（原子递增）
+function getNextBadgeNumber() {
+  const counterRef = database.ref('counters/badge_counter');
+  return counterRef.transaction(current => {
+    return (current || 0) + 1;
+  }).then(result => {
+    if (result.committed) {
+      return result.snapshot.val();
+    } else {
+      throw new Error('获取编号失败，请重试');
+    }
+  });
+}
+
+// 检查并颁发徽章
+function checkAndAwardBadges(uid) {
+  database.ref(`users/${uid}/badges`).once('value', snapshot => {
+    const ownedBadges = snapshot.val() || {};
+    
+    Object.values(BADGES).forEach(badge => {
+      if (!ownedBadges[badge.id]) {
+        if (badge.condition()) {
+          getNextBadgeNumber().then(number => {
+            database.ref(`users/${uid}/badges/${badge.id}`).set({
+              id: badge.id,
+              name: badge.name,
+              icon: badge.icon,
+              description: badge.description,
+              obtainedAt: firebase.database.ServerValue.TIMESTAMP,
+              number: number
+            }).then(() => {
+              showToast(`🎉 恭喜获得徽章：${badge.name}`);
+              loadUserBadges(uid); // 刷新显示
+            }).catch(err => {
+              console.error('颁发徽章失败', err);
+            });
+          }).catch(err => {
+            console.error('获取编号失败', err);
+          });
+        }
+      }
+    });
+  });
+}
+
+// 加载并显示用户徽章
+function loadUserBadges(uid) {
+  database.ref(`users/${uid}/badges`).once('value', snapshot => {
+    const badges = snapshot.val() || {};
+    const container = document.getElementById('badgesContainer');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    const badgeList = Object.values(badges);
+    if (badgeList.length === 0) {
+      container.innerHTML = '<p style="color: var(--color-gray-500); font-size:0.8rem;">暂无徽章</p>';
+      return;
+    }
+    
+    badgeList.forEach(badge => {
+      const badgeDiv = document.createElement('div');
+      badgeDiv.className = 'badge-item';
+      
+      const img = document.createElement('img');
+      img.src = badge.icon;
+      img.alt = badge.name;
+      
+      const tooltip = document.createElement('span');
+      tooltip.className = 'badge-tooltip';
+      tooltip.textContent = `${badge.name} - ${badge.description}`;
+      
+      const numberSpan = document.createElement('div');
+      numberSpan.className = 'badge-number';
+      numberSpan.textContent = `no.${badge.number}`;
+      
+      badgeDiv.appendChild(img);
+      badgeDiv.appendChild(tooltip);
+      badgeDiv.appendChild(numberSpan);
+      
+      // 点击放大图片
+      badgeDiv.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageGalleryForBadge(badge.icon);
+      });
+      
+      container.appendChild(badgeDiv);
+    });
+  });
+}
+
+// 打开图片查看器（单张）
+function openImageGalleryForBadge(imageUrl) {
+  // 直接设置全局变量 currentGallery（在代码开头已定义）
+  currentGallery = [imageUrl];
+  currentImageIndex = 0;
+  
+  // 调用原有的图片查看器更新函数
+  if (typeof updateImageViewer === 'function') {
+    updateImageViewer();
+  }
+  
+  // 显示查看器
+  document.getElementById('imageViewer').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 // ========== 每日二创推荐功能 ==========
