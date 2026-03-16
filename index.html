@@ -13466,32 +13466,68 @@ function openJumpGame() {
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
 
-  // 创建重启按钮
-  const restartBtn = document.createElement('button');
-  restartBtn.textContent = '重新开始';
-  restartBtn.className = 'game-restart-btn';
-  restartBtn.style.cssText = `
+  // 创建结束画面覆盖层
+  const gameOverScreen = document.createElement('div');
+  gameOverScreen.id = 'jump-game-overlay';
+  gameOverScreen.style.cssText = `
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 500;
-    z-index: 10;
-    box-shadow: var(--shadow-md);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    background-image: url('https://img.cdn1.vip/i/6993ff0c8cd42_1771306764.webp'); /* 请替换为您喜欢的背景图 */
+    background-size: cover;
+    background-position: center;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    color: white;
+    font-family: 'Noto Sans SC', sans-serif;
   `;
+  gameOverScreen.innerHTML = `
+    <div style="font-size: 48px; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);" id="game-over-score">得分: 0</div>
+    <button class="game-restart-btn" style="padding: 14px 40px; font-size: 20px; background: #ff9ebd; border: none; border-radius: 50px; color: white; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">重新开始</button>
+  `;
+  gameContainer.appendChild(gameOverScreen);
+
+  // 结束画面上的重启按钮
+  const restartOverlayBtn = gameOverScreen.querySelector('.game-restart-btn');
+  restartOverlayBtn.addEventListener('click', () => {
+    if (window.jumpGameInstance) {
+      window.jumpGameInstance.restart();
+    }
+    gameOverScreen.style.display = 'none';
+    restartBtn.style.display = 'none'; // 同时隐藏右下角按钮（如果存在）
+  });
+
+  // 修改原有的重启按钮点击事件，使其也隐藏结束画面
   restartBtn.onclick = () => {
     if (window.jumpGameInstance) {
       window.jumpGameInstance.restart();
+    }
+    restartBtn.style.display = 'none';
+    if (gameOverScreen) gameOverScreen.style.display = 'none';
+  };
+
+  // 定义回调对象
+  const callbacks = {
+    onScoreUpdate: (score) => {
+      submitGameScore(score);
+    },
+    onGameOver: (score) => {
+      // 显示结束画面
+      const gameOverScreen = document.getElementById('jump-game-overlay');
+      if (gameOverScreen) {
+        document.getElementById('game-over-score').textContent = `得分: ${score}`;
+        gameOverScreen.style.display = 'flex';
+      }
+      // 隐藏右下角重启按钮（可选）
       restartBtn.style.display = 'none';
     }
   };
-  gameContainer.appendChild(restartBtn);
 
   // 定义回调对象，同时包含分数更新和游戏结束
   const callbacks = {
@@ -13560,7 +13596,11 @@ function submitGameScore(score) {
     avatar: avatar,
     score: score,
     timestamp: firebase.database.ServerValue.TIMESTAMP
-  }).catch(err => console.error('记录得分失败', err));
+  }).catch(err => console.error('记录得分失败', err))
+  .then(() => {
+      // 提交成功后刷新排行榜
+      loadGameRanking();   // <-- 新增这一行
+    });
   
   // 更新用户游戏统计（最高分、总次数）
   const userStatsRef = database.ref(`userGameStats/${uid}`);
@@ -13625,6 +13665,12 @@ function awardBadgeIfNotOwned(uid, badgeId) {
 }
 
 function loadGameRanking() {
+  if (!database) {
+    console.log('数据库未初始化，稍后重试');
+    setTimeout(loadGameRanking, 1000); // 1秒后重试
+    return;
+  }
+  
   const rankingRef = database.ref('gameScores');
   rankingRef.orderByChild('score').limitToLast(10).once('value', snapshot => {
     const scores = [];
@@ -14660,6 +14706,8 @@ function initFirebase() {
     database = firebase.database();
     auth = firebase.auth();
     console.log('Firebase 初始化成功');
+
+    loadGameRanking(); 
     
     auth.onAuthStateChanged(user => {
   currentUser = user;
