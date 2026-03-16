@@ -568,6 +568,7 @@
     }
     
     checkLanding() {
+      console.log('checkLanding - this.callbacks:', this.callbacks);  // 日志
       if (!this.jumper || !this.scene) return;
       
       const type = this.getJumpState();
