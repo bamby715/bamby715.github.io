@@ -13595,10 +13595,10 @@ function submitGameScore(score) {
   }
   
   const uid = currentUser.uid;
-  const nickname = document.getElementById('drawerNickname').value || '匿名用户';
+  const nickname = document.getElementById('drawerNickname').value.trim() || '匿名用户';
   const avatar = document.getElementById('drawerAvatar').src || '';
   
-  // 记录本次得分
+  // 1. 写入历史得分（可选，若规则允许则保留，否则忽略错误）
   const scoreRef = database.ref('gameScores').push();
   scoreRef.set({
     uid: uid,
@@ -13606,13 +13606,28 @@ function submitGameScore(score) {
     avatar: avatar,
     score: score,
     timestamp: firebase.database.ServerValue.TIMESTAMP
-  }).catch(err => console.error('记录得分失败', err))
-    .then(() => {
-      // 提交成功后刷新排行榜
-      loadGameRanking();
-    });
+  }).catch(err => console.warn('历史得分写入失败（可能规则限制）', err));
   
-  // 更新用户游戏统计（最高分、总次数）
+  // 2. 更新最高分（原子操作，确保只保留最高分）
+  const highScoreRef = database.ref(`gameHighScores/${uid}`);
+  highScoreRef.transaction(current => {
+    if (!current || score > (current.highScore || 0)) {
+      return {
+        uid: uid,
+        nickname: nickname,
+        avatar: avatar,
+        highScore: score,
+        updatedAt: firebase.database.ServerValue.TIMESTAMP
+      };
+    } else {
+      return current; // 不是新高，不变
+    }
+  }).then(() => {
+    // 提交成功后刷新排行榜
+    loadGameRanking();
+  }).catch(err => console.error('更新最高分失败', err));
+  
+  // 3. 更新用户游戏统计（不变）
   const userStatsRef = database.ref(`userGameStats/${uid}`);
   userStatsRef.transaction(current => {
     if (current) {
@@ -13630,7 +13645,7 @@ function submitGameScore(score) {
     }
   }).catch(err => console.error('更新游戏统计失败', err));
   
-  // 检查并颁发游戏徽章
+  // 4. 检查并颁发游戏徽章（不变）
   checkGameBadges(uid, score);
 }
 
@@ -13686,33 +13701,17 @@ function loadGameRanking() {
   
   container.innerHTML = '<p style="text-align:center; color:var(--color-gray-400);"><i class="fas fa-spinner fa-spin"></i> 加载中...</p>';
   
-  // 获取最近100条分数记录，确保覆盖足够多的高分
-  const rankingRef = database.ref('gameScores');
-  rankingRef.orderByChild('score').limitToLast(100).once('value', snapshot => {
-    const allScores = [];
+  // 从 gameHighScores 读取所有记录
+  const highScoresRef = database.ref('gameHighScores');
+  highScoresRef.orderByChild('highScore').limitToLast(10).once('value', snapshot => {
+    const scores = [];
     snapshot.forEach(child => {
-      allScores.push(child.val());
+      scores.push(child.val());
     });
+    // Firebase 返回升序，需要反转
+    scores.reverse();
     
-    // 按分数降序排序
-    allScores.sort((a, b) => b.score - a.score);
-    
-    // 去重：保留每个用户最高分的一条记录
-    const userBestMap = new Map(); // key: uid
-    for (const record of allScores) {
-      const uid = record.uid;
-      if (!userBestMap.has(uid) || record.score > userBestMap.get(uid).score) {
-        userBestMap.set(uid, record);
-      }
-    }
-    
-    // 转为数组并按分数降序
-    const bestScores = Array.from(userBestMap.values()).sort((a, b) => b.score - a.score);
-    
-    // 取前10
-    const top10 = bestScores.slice(0, 10);
-    
-    displayRanking(top10);
+    displayRanking(scores);
   }).catch(err => {
     console.error('加载排行榜失败', err);
     container.innerHTML = '<p style="text-align:center; color:red;">加载失败，请刷新重试</p>';
@@ -13730,9 +13729,11 @@ function displayRanking(scores) {
   
   let html = '<ol style="list-style:decimal; padding-left:20px;">';
   scores.forEach((item, index) => {
+    // 注意：gameHighScores 中使用 highScore 字段
+    const score = item.highScore;
     html += `<li style="margin-bottom:8px; display:flex; align-items:center;">
       <img src="${item.avatar || 'https://via.placeholder.com/30'}" style="width:30px; height:30px; border-radius:50%; margin-right:10px; object-fit:cover;">
-      <span><strong>${item.nickname || '匿名用户'}</strong>：${item.score || 0}分</span>
+      <span><strong>${item.nickname || '匿名用户'}</strong>：${score}分</span>
     </li>`;
   });
   html += '</ol>';
