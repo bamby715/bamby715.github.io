@@ -13686,16 +13686,33 @@ function loadGameRanking() {
   
   container.innerHTML = '<p style="text-align:center; color:var(--color-gray-400);"><i class="fas fa-spinner fa-spin"></i> 加载中...</p>';
   
+  // 获取最近100条分数记录，确保覆盖足够多的高分
   const rankingRef = database.ref('gameScores');
-  rankingRef.orderByChild('score').limitToLast(10).once('value', snapshot => {
-    const scores = [];
+  rankingRef.orderByChild('score').limitToLast(100).once('value', snapshot => {
+    const allScores = [];
     snapshot.forEach(child => {
-      scores.push(child.val());
+      allScores.push(child.val());
     });
-    // Firebase 返回的是升序，需要反转
-    scores.reverse();
     
-    displayRanking(scores);
+    // 按分数降序排序
+    allScores.sort((a, b) => b.score - a.score);
+    
+    // 去重：保留每个用户最高分的一条记录
+    const userBestMap = new Map(); // key: uid
+    for (const record of allScores) {
+      const uid = record.uid;
+      if (!userBestMap.has(uid) || record.score > userBestMap.get(uid).score) {
+        userBestMap.set(uid, record);
+      }
+    }
+    
+    // 转为数组并按分数降序
+    const bestScores = Array.from(userBestMap.values()).sort((a, b) => b.score - a.score);
+    
+    // 取前10
+    const top10 = bestScores.slice(0, 10);
+    
+    displayRanking(top10);
   }).catch(err => {
     console.error('加载排行榜失败', err);
     container.innerHTML = '<p style="text-align:center; color:red;">加载失败，请刷新重试</p>';
