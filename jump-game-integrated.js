@@ -7,13 +7,14 @@
   console.log('开始加载跳一跳游戏...');
   
   class JumpGame {
-    constructor(container) {
-      console.log('游戏构造函数被调用，容器:', container);
-      
-      if (!container) {
-        console.error('容器不存在！');
-        return;
-      }
+  constructor(container, callbacks = {}) {
+    console.log('游戏构造函数被调用，容器:', container);
+    this.callbacks = callbacks; // 保存回调对象
+    
+    if (!container) {
+      console.error('容器不存在！');
+      return;
+    }
       
       this.container = container;
       this.scene = null;
@@ -924,22 +925,22 @@
     }
   }
   
-  window.initJumpGame = function(container) {
-    console.log('initJumpGame 被调用，容器:', container);
-    try {
-      if (window.jumpGameInstance) {
-        window.jumpGameInstance.stop();
-        window.jumpGameInstance = null;
-      }
-      
-      const game = new JumpGame(container);
-      window.jumpGameInstance = game;
-      return game;
-    } catch (error) {
-      console.error('创建游戏实例失败:', error);
-      return null;
+  window.initJumpGame = function(container, callbacks) {
+  console.log('initJumpGame 被调用，容器:', container);
+  try {
+    if (window.jumpGameInstance) {
+      window.jumpGameInstance.stop();
+      window.jumpGameInstance = null;
     }
-  };
+    
+    const game = new JumpGame(container, callbacks); // 传递回调对象
+    window.jumpGameInstance = game;
+    return game;
+  } catch (error) {
+    console.error('创建游戏实例失败:', error);
+    return null;
+  }
+};
   
   console.log('跳一跳游戏代码加载完成');
 })();
