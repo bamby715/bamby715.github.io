@@ -13466,6 +13466,27 @@ function openJumpGame() {
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
 
+  // 创建重启按钮（原有）
+  const restartBtn = document.createElement('button');
+  restartBtn.textContent = '重新开始';
+  restartBtn.className = 'game-restart-btn';
+  restartBtn.style.cssText = `
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+    display: none;
+  `;
+  gameContainer.appendChild(restartBtn);
+
   // 创建结束画面覆盖层
   const gameOverScreen = document.createElement('div');
   gameOverScreen.id = 'jump-game-overlay';
@@ -13476,7 +13497,7 @@ function openJumpGame() {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.7);
-    background-image: url('https://img.cdn1.vip/i/6993ff0c8cd42_1771306764.webp'); /* 请替换为您喜欢的背景图 */
+    background-image: url('https://img.cdn1.vip/i/6993ff0c8cd42_1771306764.webp');
     background-size: cover;
     background-position: center;
     display: none;
@@ -13489,21 +13510,21 @@ function openJumpGame() {
   `;
   gameOverScreen.innerHTML = `
     <div style="font-size: 48px; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);" id="game-over-score">得分: 0</div>
-    <button class="game-restart-btn" style="padding: 14px 40px; font-size: 20px; background: #ff9ebd; border: none; border-radius: 50px; color: white; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">重新开始</button>
+    <button class="game-restart-overlay-btn" style="padding: 14px 40px; font-size: 20px; background: #ff9ebd; border: none; border-radius: 50px; color: white; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">重新开始</button>
   `;
   gameContainer.appendChild(gameOverScreen);
 
   // 结束画面上的重启按钮
-  const restartOverlayBtn = gameOverScreen.querySelector('.game-restart-btn');
+  const restartOverlayBtn = gameOverScreen.querySelector('.game-restart-overlay-btn');
   restartOverlayBtn.addEventListener('click', () => {
     if (window.jumpGameInstance) {
       window.jumpGameInstance.restart();
     }
     gameOverScreen.style.display = 'none';
-    restartBtn.style.display = 'none'; // 同时隐藏右下角按钮（如果存在）
+    restartBtn.style.display = 'none';
   });
 
-  // 修改原有的重启按钮点击事件，使其也隐藏结束画面
+  // 修改原有的重启按钮点击事件
   restartBtn.onclick = () => {
     if (window.jumpGameInstance) {
       window.jumpGameInstance.restart();
@@ -13512,7 +13533,7 @@ function openJumpGame() {
     if (gameOverScreen) gameOverScreen.style.display = 'none';
   };
 
-  // 定义回调对象
+  // 定义回调对象（只定义一次）
   const callbacks = {
     onScoreUpdate: (score) => {
       submitGameScore(score);
@@ -13524,18 +13545,7 @@ function openJumpGame() {
         document.getElementById('game-over-score').textContent = `得分: ${score}`;
         gameOverScreen.style.display = 'flex';
       }
-      // 隐藏右下角重启按钮（可选）
-      restartBtn.style.display = 'none';
-    }
-  };
-
-  // 定义回调对象，同时包含分数更新和游戏结束
-  const callbacks = {
-    onScoreUpdate: (score) => {
-      submitGameScore(score);
-    },
-    onGameOver: (score) => {
-      // 游戏结束时显示重启按钮
+      // 显示重启按钮
       restartBtn.style.display = 'block';
     }
   };
@@ -13556,7 +13566,7 @@ function openJumpGame() {
   }, 100);
 }
 
-// 关闭模态框时清理游戏（可选）
+// 关闭模态框时清理游戏
 function closeGameModal() {
   const modal = document.getElementById('gameModal');
   if (modal) modal.style.display = 'none';
@@ -13597,9 +13607,9 @@ function submitGameScore(score) {
     score: score,
     timestamp: firebase.database.ServerValue.TIMESTAMP
   }).catch(err => console.error('记录得分失败', err))
-  .then(() => {
+    .then(() => {
       // 提交成功后刷新排行榜
-      loadGameRanking();   // <-- 新增这一行
+      loadGameRanking();
     });
   
   // 更新用户游戏统计（最高分、总次数）
@@ -13667,9 +13677,14 @@ function awardBadgeIfNotOwned(uid, badgeId) {
 function loadGameRanking() {
   if (!database) {
     console.log('数据库未初始化，稍后重试');
-    setTimeout(loadGameRanking, 1000); // 1秒后重试
+    setTimeout(loadGameRanking, 1000);
     return;
   }
+  
+  const container = document.getElementById('gameRankingList');
+  if (!container) return;
+  
+  container.innerHTML = '<p style="text-align:center; color:var(--color-gray-400);"><i class="fas fa-spinner fa-spin"></i> 加载中...</p>';
   
   const rankingRef = database.ref('gameScores');
   rankingRef.orderByChild('score').limitToLast(10).once('value', snapshot => {
@@ -13683,7 +13698,7 @@ function loadGameRanking() {
     displayRanking(scores);
   }).catch(err => {
     console.error('加载排行榜失败', err);
-    document.getElementById('gameRankingList').innerHTML = '<p style="color:red;">加载失败</p>';
+    container.innerHTML = '<p style="text-align:center; color:red;">加载失败，请刷新重试</p>';
   });
 }
 
@@ -13699,12 +13714,40 @@ function displayRanking(scores) {
   let html = '<ol style="list-style:decimal; padding-left:20px;">';
   scores.forEach((item, index) => {
     html += `<li style="margin-bottom:8px; display:flex; align-items:center;">
-      <img src="${item.avatar || 'https://via.placeholder.com/30'}" style="width:30px; height:30px; border-radius:50%; margin-right:10px;">
-      <span><strong>${item.nickname}</strong>：${item.score}分</span>
+      <img src="${item.avatar || 'https://via.placeholder.com/30'}" style="width:30px; height:30px; border-radius:50%; margin-right:10px; object-fit:cover;">
+      <span><strong>${item.nickname || '匿名用户'}</strong>：${item.score || 0}分</span>
     </li>`;
   });
   html += '</ol>';
   container.innerHTML = html;
+}
+
+// 在 initFirebase 中添加加载排行榜
+function initFirebase() {
+  if (typeof firebase !== 'undefined' && !database) {
+    firebase.initializeApp(firebaseConfig);
+    database = firebase.database();
+    auth = firebase.auth();
+    console.log('Firebase 初始化成功');
+    
+    // 加载排行榜
+    loadGameRanking();
+    
+    auth.onAuthStateChanged(user => {
+      currentUser = user;
+      updateDrawerUI(user);
+      if (user) {
+        loadUserProfile(user.uid);
+        loadUserStreak(user.uid);
+        checkAndAwardBadges(user.uid);
+        loadUserBadges(user.uid);
+      }
+    });
+    
+    listenToBlessings();
+  } else {
+    setTimeout(initFirebase, 200);
+  }
 }
   // ========== 公告栏配置 ==========
 const announcementConfig = {
