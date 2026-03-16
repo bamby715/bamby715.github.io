@@ -599,15 +599,24 @@
         }
         
         this.score += addScore;
-        this.updateScore();
-        
-        this.showScoreLabel(text, jumperPos);
+    this.updateScore();
+    
+    // 调用回调
+    if (this.callbacks.onScoreUpdate) {
+      this.callbacks.onScoreUpdate(this.score);
+    }
+    
+    this.showScoreLabel(text, jumperPos);
         
         this.resetJumper();
         this.createCube();
       } else {
         this.isGameOver = true;
-        this.failAnimation(type);
+    // 游戏结束时也回调（可传递最终分数）
+    if (this.callbacks.onScoreUpdate) {
+      this.callbacks.onScoreUpdate(this.score);
+    }
+    this.failAnimation(type);
       }
     }
     
