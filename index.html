@@ -13436,7 +13436,6 @@ document.getElementById('height-trigger')?.addEventListener('click', function(e)
 });
 
 function openJumpGame() {
-  // 检查 THREE 是否存在
   if (typeof THREE === 'undefined') {
     console.error('THREE 未加载');
     showToast('游戏加载失败，请刷新页面重试', 3000);
@@ -13446,14 +13445,11 @@ function openJumpGame() {
   const modal = document.getElementById('gameModal');
   const iframe = document.getElementById('gameIframe');
   
-  // 隐藏 iframe
   if (iframe) iframe.style.display = 'none';
   
-  // **重要：移除旧的游戏容器（如果存在）**
   const oldContainer = document.getElementById('jump-game-container');
   if (oldContainer) oldContainer.remove();
   
-  // 创建新容器
   const gameContainer = document.createElement('div');
   gameContainer.id = 'jump-game-container';
   gameContainer.style.width = '100%';
@@ -13470,45 +13466,44 @@ function openJumpGame() {
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
 
-  // 在创建游戏容器后，添加按钮
-const restartBtn = document.createElement('button');
-restartBtn.textContent = '再来一局';
-restartBtn.className = 'game-restart-btn';
-restartBtn.style.cssText = `
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: 500;
-  z-index: 10;
-  box-shadow: var(--shadow-md);
-  display: none; /* 初始隐藏 */
-`;
-restartBtn.onclick = () => {
-  if (window.jumpGameInstance) {
-    window.jumpGameInstance.restart();
-    restartBtn.style.display = 'none'; // 重启后隐藏
-  }
-};
-gameContainer.appendChild(restartBtn);
+  // 创建重启按钮
+  const restartBtn = document.createElement('button');
+  restartBtn.textContent = '重新开始';
+  restartBtn.className = 'game-restart-btn';
+  restartBtn.style.cssText = `
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+    display: none;
+  `;
+  restartBtn.onclick = () => {
+    if (window.jumpGameInstance) {
+      window.jumpGameInstance.restart();
+      restartBtn.style.display = 'none';
+    }
+  };
+  gameContainer.appendChild(restartBtn);
 
-// 在创建游戏实例时，传入回调
-const callbacks = {
-  onScoreUpdate: (score) => {
-    submitGameScore(score);
-  },
-  onGameOver: (score) => {
-    // 游戏结束时显示按钮
-    restartBtn.style.display = 'block';
-  }
-};
+  // 定义回调对象，同时包含分数更新和游戏结束
+  const callbacks = {
+    onScoreUpdate: (score) => {
+      submitGameScore(score);
+    },
+    onGameOver: (score) => {
+      // 游戏结束时显示重启按钮
+      restartBtn.style.display = 'block';
+    }
+  };
   
-  // 给一点时间让模态框渲染
   setTimeout(() => {
     try {
       if (window.jumpGameInstance) {
@@ -13516,14 +13511,7 @@ const callbacks = {
         window.jumpGameInstance = null;
       }
       
-      // 定义回调
-      const callbacks = {
-        onScoreUpdate: (score) => {
-          submitGameScore(score); // 提交分数到 Firebase
-        }
-      };
-      
-      // 初始化新游戏
+      // 初始化新游戏，传入完整的 callbacks
       window.jumpGameInstance = initJumpGame(gameContainer, callbacks);
     } catch (error) {
       console.error('游戏初始化失败:', error);
