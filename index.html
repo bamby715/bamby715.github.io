@@ -13599,19 +13599,10 @@ function submitGameScore(score) {
   const avatar = document.getElementById('drawerAvatar').src || '';
   
   // 1. 写入历史得分（可选，若规则允许则保留，否则忽略错误）
-  const scoreRef = database.ref('gameScores').push();
-  scoreRef.set({
-    uid: uid,
-    nickname: nickname,
-    avatar: avatar,
-    score: score,
-    timestamp: firebase.database.ServerValue.TIMESTAMP
-  }).catch(err => console.warn('历史得分写入失败（可能规则限制）', err));
-  
-  // 2. 更新最高分（原子操作，确保只保留最高分）
   const highScoreRef = database.ref(`gameHighScores/${uid}`);
   highScoreRef.transaction(current => {
     if (!current || score > (current.highScore || 0)) {
+      console.log('更新最高分', uid, '新分数:', score, '旧分数:', current?.highScore);
       return {
         uid: uid,
         nickname: nickname,
@@ -13620,12 +13611,16 @@ function submitGameScore(score) {
         updatedAt: firebase.database.ServerValue.TIMESTAMP
       };
     } else {
-      return current; // 不是新高，不变
+      console.log('分数未超越，不更新');
+      return current;
     }
   }).then(() => {
-    // 提交成功后刷新排行榜
-    loadGameRanking();
-  }).catch(err => console.error('更新最高分失败', err));
+    console.log('最高分更新成功，刷新排行榜');
+    loadGameRanking(); // 立即刷新
+  }).catch(err => {
+    console.error('更新最高分事务失败', err);
+    showToast('更新排行榜失败，请重试');
+  });
   
   // 3. 更新用户游戏统计（不变）
   const userStatsRef = database.ref(`userGameStats/${uid}`);
