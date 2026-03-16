@@ -708,9 +708,9 @@
           self.render();
           requestAnimationFrame(continueFalling);
         } else {
-          setTimeout(() => {
-            self.restart();
-          }, 1000);
+          if (self.callbacks && self.callbacks.onGameOver) {
+        self.callbacks.onGameOver(self.score);
+      }
         }
       }
       
