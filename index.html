@@ -13469,6 +13469,44 @@ function openJumpGame() {
   
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
+
+  // 在创建游戏容器后，添加按钮
+const restartBtn = document.createElement('button');
+restartBtn.textContent = '再来一局';
+restartBtn.className = 'game-restart-btn';
+restartBtn.style.cssText = `
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+  display: none; /* 初始隐藏 */
+`;
+restartBtn.onclick = () => {
+  if (window.jumpGameInstance) {
+    window.jumpGameInstance.restart();
+    restartBtn.style.display = 'none'; // 重启后隐藏
+  }
+};
+gameContainer.appendChild(restartBtn);
+
+// 在创建游戏实例时，传入回调
+const callbacks = {
+  onScoreUpdate: (score) => {
+    submitGameScore(score);
+  },
+  onGameOver: (score) => {
+    // 游戏结束时显示按钮
+    restartBtn.style.display = 'block';
+  }
+};
   
   // 给一点时间让模态框渲染
   setTimeout(() => {
