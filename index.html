@@ -10950,11 +10950,6 @@ const tmiData = [
       // 初始化物料汇总彩蛋
       setTimeout(initMaterialEasterEgg, 1000); // 等待页面完全加载
 
-      // 新增访客记录
-      recordVisitTotal();
-      recordUniqueVisit();
-      displayTotalVisits();
-
       initChallengeMemberFilter();
 
       initTmi();
@@ -13834,10 +13829,14 @@ function initFirebase() {
     });
     
     listenToBlessings();
+    recordVisitTotal();
+    recordUniqueVisit();
+    displayTotalVisits();
   } else {
     setTimeout(initFirebase, 200);
   }
 }
+setTimeout(initFirebase, 500);
   // ========== 公告栏配置 ==========
 const announcementConfig = {
   // 滚动显示的短文本（支持多条，用 | 分隔）
