@@ -10608,20 +10608,32 @@ const tmiData = [
     const scheduleData = {
       upcoming: [
         {
-          date: "2026-03-12",
-          title: "💙💜💗❤️🖤 3周年直播",
+          date: "2026-03-20",
+          title: "💗 单人直播",
           type: "live",
           time: "19:00 (CST)",
-          platform: "YouTube & B站 & 线下同步",
-          important: true,
+          platform: "YouTube & B站同步",
+          important: false,
           //预告链接
           preview: {
             bilibili: "https://live.bilibili.com/27433801?broadcast_type=0&is_room_feed=1&spm_id_from=333.1387.to_liveroom.0.click&live_from=86002", 
-            youtube: null,
+            youtube: "https://www.youtube.com/watch?v=vddblA-wJjk",
          }
         },
       ],
       past: [
+        {
+          date: "2026-03-12",
+          title: "💙💜💗❤️🖤 3周年直播",
+          type: "live",
+          time: "19:00 (CST)",
+          platform: "YouTube & B站同步",
+          //回放链接
+          replay: {
+            bilibili: "https://www.bilibili.com/video/BV17uwYzVEF7/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f", 
+            youtube: "https://www.youtube.com/watch?v=NJGnK5DC2-c"
+         }
+        },
         {
           date: "2026-02-26",
           title: "💙💜💗❤️🖤 五人直播",
@@ -10630,7 +10642,7 @@ const tmiData = [
           platform: "YouTube & B站同步",
           //回放链接
           replay: {
-            bilibili: null, 
+            bilibili: "https://www.bilibili.com/video/BV1wyPPzCEHG/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f", 
             youtube: "https://www.youtube.com/live/FGrQvtg1lgs"
          }
         },
@@ -12694,6 +12706,8 @@ function initCommentBox() {
     //日程月度视图
     function checkDayHasEvent(day) {
       const events = {
+        '2026-3-20': '💗 (19:00 CST)',
+        '2026-3-12': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-26': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-13': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-2': '💙💜💗❤️🖤 (19:00 CST)',
@@ -12714,6 +12728,8 @@ function initCommentBox() {
     
     function showDayEvents(day) {
       const events = {
+        '2026-3-20': '💗 (19:00 CST)',
+        '2026-3-12': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-26': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-13': '💙💜💗❤️🖤 (19:00 CST)',
         '2026-2-2': '💙💜💗❤️🖤 (19:00 CST)',
