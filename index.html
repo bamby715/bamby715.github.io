@@ -14917,9 +14917,13 @@ function applyThemeBackground(theme) {
 
 // ========== 获取客户端IP ==========
 function getClientIP() {
+  console.log('正在获取IP...');
   return fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
-    .then(data => data.ip)
+    .then(data => {
+      console.log('获取IP成功:', data.ip);
+      return data.ip;
+    })
     .catch(err => {
       console.warn('获取IP失败', err);
       return null;
@@ -14928,28 +14932,34 @@ function getClientIP() {
 
 // 1. 记录总访问量（每次页面加载+1，不去重）
 function recordVisitTotal() {
+  console.log('recordVisitTotal 被调用');
   const totalRef = database.ref('visits_total');
   totalRef.transaction(current => {
     return (current || 0) + 1;
+  }).then(() => {
+    console.log('总访问数已更新');
   }).catch(err => console.warn('记录总访问失败', err));
 }
 
 // 2. 记录独立访客（按IP去重，仅当天）
 function recordUniqueVisit() {
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  console.log('recordUniqueVisit 被调用');
+  const today = new Date().toISOString().split('T')[0];
   getClientIP().then(ip => {
+    console.log('recordUniqueVisit 获取到IP:', ip);
     if (!ip) return;
-    const ipKey = ip.replace(/\./g, ','); // Firebase key不能有.
+    const ipKey = ip.replace(/\./g, ',');
     const uniqueRef = database.ref(`visits_unique/${today}/${ipKey}`);
     uniqueRef.once('value', snapshot => {
       if (!snapshot.exists()) {
+        console.log('新独立访客，写入数据');
         uniqueRef.set({
           timestamp: firebase.database.ServerValue.TIMESTAMP,
           userAgent: navigator.userAgent,
           ip: ip
         }).catch(err => console.warn('记录独立访客失败', err));
       } else {
-        // 可选：更新最后访问时间
+        console.log('今日已存在此IP，更新最后访问时间');
         uniqueRef.update({
           lastSeen: firebase.database.ServerValue.TIMESTAMP
         }).catch(err => console.warn('更新独立访客失败', err));
@@ -14959,9 +14969,11 @@ function recordUniqueVisit() {
 }
 
 function displayTotalVisits() {
+  console.log('displayTotalVisits 被调用');
   const totalRef = database.ref('visits_total');
   totalRef.on('value', snapshot => {
     const count = snapshot.val() || 0;
+    console.log('visits_total 更新为:', count);
     const el = document.getElementById('totalVisits');
     if (el) el.textContent = count;
   }, err => {
