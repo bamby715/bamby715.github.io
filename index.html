@@ -4506,7 +4506,6 @@ body.has-bg-image::before {
 .badge-number {
   font-size: 0.55rem;
   color: gold;
-  text-shadow: 0 0 2px #000;
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -5512,17 +5511,16 @@ body.has-bg-image::before {
   </div>
 </div>
 
-<div class="work-card">
+   <div class="work-card">
   <div class="work-content">
     <h3 class="work-title">📊 网站统计</h3>
     <p style="font-size: 1.5rem; text-align: center; margin: 10px 0;">
       总访问次数: <span id="totalVisits">加载中...</span>
     </p>
   </div>
-</div>
+</div> 
 
-    
-</div>
+  </div> 
 </section>
 
       <!-- HTMLCommentBox 本地化配置 (必须放在主脚本之前) -->
@@ -6234,21 +6232,21 @@ body.has-bg-image::before {
         'https://s2.loli.net/2026/02/05/hFbKweXkfTA52zd.jpg'
       ],
       'personal-set-10': [
-    'https://i.ibb.co/0jzjg036/IMG-6146.jpg',
-    'https://i.ibb.co/1fN7tVKn/IMG-6147.jpg',
-    'https://i.ibb.co/zVMJpR1K/IMG-6148.jpg',
-    'https://i.ibb.co/jvcbpMzB/IMG-6998.jpg',
-    'https://i.ibb.co/W4swnzVB/IMG-6150.jpg',
-    'https://i.ibb.co/YBSMpnPc/IMG-6151.jpg',
-    'https://i.ibb.co/nqGnVCjn/IMG-6152.jpg',
-    'https://i.ibb.co/nsXwb2Wt/IMG-6153.jpg',
-    'https://i.ibb.co/x0NzQJ3/IMG-6154.jpg',
-    'https://i.ibb.co/zTX85X6c/IMG-6155.jpg',
-    'https://i.ibb.co/vCqmkfw0/IMG-6156.jpg',
-    'https://i.ibb.co/gbDHgZ5q/IMG-6157.jpg',
-    'https://i.ibb.co/60pm3H4f/IMG-6159.jpg',
-    'https://i.ibb.co/CKHgZVhT/IMG-6158.jpg'
-],
+        'https://i.ibb.co/0jzjg036/IMG-6146.jpg',
+        'https://i.ibb.co/1fN7tVKn/IMG-6147.jpg',
+        'https://i.ibb.co/zVMJpR1K/IMG-6148.jpg',
+        'https://i.ibb.co/jvcbpMzB/IMG-6998.jpg',
+        'https://i.ibb.co/W4swnzVB/IMG-6150.jpg',
+        'https://i.ibb.co/YBSMpnPc/IMG-6151.jpg',
+        'https://i.ibb.co/nqGnVCjn/IMG-6152.jpg',
+        'https://i.ibb.co/nsXwb2Wt/IMG-6153.jpg',
+        'https://i.ibb.co/x0NzQJ3/IMG-6154.jpg',
+        'https://i.ibb.co/zTX85X6c/IMG-6155.jpg',
+        'https://i.ibb.co/vCqmkfw0/IMG-6156.jpg',
+        'https://i.ibb.co/gbDHgZ5q/IMG-6157.jpg',
+        'https://i.ibb.co/60pm3H4f/IMG-6159.jpg',
+        'https://i.ibb.co/CKHgZVhT/IMG-6158.jpg'
+      ],
       'personal-set-11': [
         'https://s2.loli.net/2026/02/05/xhHw8Cg9MkPWBEc.png',
         'https://s2.loli.net/2026/02/05/pV5g2nUXSrwtvHC.png',
@@ -6529,8 +6527,8 @@ body.has-bg-image::before {
         'https://i.ibb.co/WWjGfrC4/IMG-8081.jpg'
        ],
       'personal-set-28': [
-        'https://img.cdn1.vip/i/69bd600f4cd4d_1774018575.webp',
-        'https://img.cdn1.vip/i/69bd60058ceee_1774018565.webp',
+        'https://img.cdn1.vip/i/69b27ce3c733c_1773305059.webp',
+        'https://img.cdn1.vip/i/69b27cd7b41f2_1773305047.webp',
         'https://img.cdn1.vip/i/69bd601083b03_1774018576.webp',
         'https://img.cdn1.vip/i/69bd6015b22c7_1774018581.webp',
         'https://img.cdn1.vip/i/69b27ce3c733c_1773305059.webp',
@@ -7554,7 +7552,7 @@ body.has-bg-image::before {
         {
           title: "26年3月汇总",
           date: "2026-03",
-          image: "https://img.cdn1.vip/i/69bd600f4cd4d_1774018575.webp",
+          image: "https://img.cdn1.vip/i/69b27ce3c733c_1773305059.webp",
           desc: "26年3月直播等汇总照片",
           gallery: "personal-set-28",
           imageCount: 6
@@ -10739,21 +10737,21 @@ const tmiData = [
     // 日程数据
     const scheduleData = {
       upcoming: [
-        
-      ],
-      past: [
         {
           date: "2026-03-20",
           title: "💗 单人直播",
           type: "live",
           time: "19:00 (CST)",
           platform: "YouTube & B站同步",
-          //回放链接
-          replay: {
-            bilibili: null, 
-            youtube: "https://www.youtube.com/watch?v=vddblA-wJjk"
+          important: false,
+          //预告链接
+          preview: {
+            bilibili: "https://live.bilibili.com/27433801?broadcast_type=0&is_room_feed=1&spm_id_from=333.1387.to_liveroom.0.click&live_from=86002", 
+            youtube: "https://www.youtube.com/watch?v=vddblA-wJjk",
          }
         },
+      ],
+      past: [
         {
           date: "2026-03-12",
           title: "💙💜💗❤️🖤 3周年直播",
@@ -11139,8 +11137,7 @@ function initChallengeMemberFilter() {
     }
   }
 
-  // 初始化时确保网格显示全部数据（如果已有数据，可选择性刷新）
-  // 这里为了统一，直接重新渲染一次
+  // 初始化
   renderChallengeGrid(danceChallengeData);
 }
 
@@ -13881,7 +13878,7 @@ setTimeout(initFirebase, 500);
   // ========== 公告栏配置 ==========
 const announcementConfig = {
   // 滚动显示的短文本（支持多条，用 | 分隔）
-  scrollText: '🦌燥候回归',
+  scrollText: '🦌回归期斑挺！',
   
   // 点击后显示的完整公告内容（支持 HTML）
   detailHTML: `
@@ -14907,6 +14904,7 @@ function initFirebase() {
   }
 }
 setTimeout(initFirebase, 500);
+
 // ========== 皮肤切换功能 ==========
 const themes = [
   { id: 'default', name: '纯色', background: '' },
@@ -15296,7 +15294,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <!-- 满屏祝福滚动容器 -->
 <div id="blessScrollingContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; overflow:hidden;"></div>
-
 
 </body>
 </html>
