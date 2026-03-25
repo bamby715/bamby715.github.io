@@ -13,6 +13,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.simple-icons.org/v14/simple-icons.min.css">
   <style>
     :root {
       --color-primary-light: #FFE8F0;
@@ -569,51 +570,56 @@ body.has-bg-image::before {
       gap: 8px;
     }
     
-    .channel-btn {
-      padding: 12px 20px;
-      border: none;
-      border-radius: var(--radius-md);
-      color: var(--color-white);
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all var(--transition-normal);
-      backdrop-filter: blur(10px);
-    }
-    
-    .channel-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
-      opacity: 0.9;
-    }
-    
-    .channel-btn.weibo {
-      background: var(--color-gray-800);
-    }
-    
-    .channel-btn.bilibili {
-      background: var(--color-gray-700);
-    }
+    /* 基础按钮样式（保持不变） */
+.channel-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+}
+.channel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  opacity: 0.9;
+}
 
-    .channel-btn.youtube-link {
-      background: #FF0000 !important;
-      color: white !important;
-    }
+/* 各平台按钮配色 */
+.channel-btn.weibo {
+  background: #E6162D; /* 微博红 */
+}
+.channel-btn.bilibili {
+  background: #FB7299; /* B站粉 */
+}
+/* 确保 FontAwesome 的 bilibili 图标正常显示 */
+.fa-bilibili:before {
+  content: "\e66e";
+  font-family: "Font Awesome 6 Brands";
+}
+.channel-btn.youtube-link {
+  background: #FF0000 !important; /* YouTube红 */
+}
+.channel-btn.instagram-link {
+  background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+}
+.channel-btn.xiaohongshu-link {
+  background: #FE2C55; /* 小红书红 */
+}
 
-    .channel-btn.instagram-link {
-     background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
-     color: white;
-     border: none;
-    }
-    .channel-btn.instagram-link:hover {
-     opacity: 0.9;
-     transform: translateY(-2px);
-     box-shadow: var(--shadow-sm);
-    }
+/* 确保图标颜色为白色，且大小合适 */
+.channel-btn i,
+.channel-btn .si {
+  color: white;
+  font-size: 1rem;
+}
 
     /* ========= 图片查看器 ========= */
     .image-viewer-overlay {
@@ -5647,6 +5653,11 @@ body.has-bg-image::before {
     // 图片库数据
     const imageGalleries = {
       // 回归照数据
+      'concept-set-10': [
+        'https://img.cdn1.vip/i/69c3c4df4b744_1774437599.webp',
+        'https://img.cdn1.vip/i/69c3c4e9e765f_1774437609.webp',
+        'https://img.cdn1.vip/i/69c3c4f056a0f_1774437616.webp'
+      ],
       'concept-set-9': [
         'https://s2.loli.net/2026/02/07/jTwQFVvqL8loUeM.png',
         'https://s2.loli.net/2026/02/07/qjBJP4WsUrae5H1.png',
@@ -5711,7 +5722,8 @@ body.has-bg-image::before {
         'https://s2.loli.net/2026/01/25/wfq86iubnxVagFJ.jpg'
       ],
       'concept-set-0': [
-        'https://img.cdn1.vip/i/69a68a9bb344f_1772522139.webp'
+        'https://img.cdn1.vip/i/69a68a9bb344f_1772522139.webp',
+        'https://img.cdn1.vip/i/69c3d25f1e96d_1774441055.webp'
       ],
       // 官方照数据
       'photos-set-0': [
@@ -6527,6 +6539,23 @@ body.has-bg-image::before {
         'https://i.ibb.co/WWjGfrC4/IMG-8081.jpg'
        ],
       'personal-set-28': [
+        'https://img.cdn1.vip/i/69c1467e6b546_1774274174.webp',
+        'https://img.cdn1.vip/i/69c3d2a13b368_1774441121.webp',
+        'https://img.cdn1.vip/i/69c3d2a9cef62_1774441129.webp',
+        'https://img.cdn1.vip/i/69bd60058ceee_1774018565.webp',
+        'https://img.cdn1.vip/i/69bd600f4cd4d_1774018575.webp',
+        'https://img.cdn1.vip/i/69bd601083b03_1774018576.webp',
+        'https://img.cdn1.vip/i/69bd6015b22c7_1774018581.webp',
+        'https://img.cdn1.vip/i/69c3c4b9684a8_1774437561.webp',
+        'https://img.cdn1.vip/i/69c3c4b71e74e_1774437559.webp',
+        'https://img.cdn1.vip/i/69c3c4b1bc074_1774437553.webp',
+        'https://img.cdn1.vip/i/69c3c4aceada0_1774437548.webp',
+        'https://img.cdn1.vip/i/69c3c4aa49d10_1774437546.webp',
+        'https://img.cdn1.vip/i/69c146f5a4262_1774274293.webp',
+        'https://img.cdn1.vip/i/69c146f22397b_1774274290.webp',
+        'https://img.cdn1.vip/i/69c146e12ae35_1774274273.webp',
+        'https://img.cdn1.vip/i/69c146df94746_1774274271.webp',
+        'https://img.cdn1.vip/i/69c3c4bc4e606_1774437564.webp',
         'https://img.cdn1.vip/i/69b27ce3c733c_1773305059.webp',
         'https://img.cdn1.vip/i/69b27cd7b41f2_1773305047.webp',
         'https://img.cdn1.vip/i/69bd601083b03_1774018576.webp',
@@ -6827,6 +6856,12 @@ body.has-bg-image::before {
         'https://img.cdn1.vip/i/69a869ba14be4_1772644794.webp',
         'https://img.cdn1.vip/i/69a869cb2f9b1_1772644811.webp'
       ],
+      'mimu-set-43': [
+        'https://img.cdn1.vip/i/69c3e49fccede_1774445727.webp',
+        'https://img.cdn1.vip/i/69c3e48fccfe3_1774445711.webp',
+        'https://img.cdn1.vip/i/69c3e493668cd_1774445715.webp',
+        'https://img.cdn1.vip/i/69c3e497a6bee_1774445719.webp'
+      ],
     };
 
     // 翻唱作品数据
@@ -7030,6 +7065,14 @@ body.has-bg-image::before {
     // 物料数据
     const materialsData = {
       concept: [
+        {
+          title: "Caligo Pt.2",
+          date: "2026-03-23",
+          image: "https://img.cdn1.vip/i/69c3c4df4b744_1774437599.webp",
+          desc: "个人/团体概念照 - BAMBY",
+          gallery: "concept-set-10",
+          imageCount: 3
+        },
         {
           title: "PLBBUU",
           date: "2025-11-10",
@@ -7552,10 +7595,10 @@ body.has-bg-image::before {
         {
           title: "26年3月汇总",
           date: "2026-03",
-          image: "https://img.cdn1.vip/i/69b27ce3c733c_1773305059.webp",
+          image: "https://img.cdn1.vip/i/69c1467e6b546_1774274174.webp",
           desc: "26年3月直播等汇总照片",
           gallery: "personal-set-28",
-          imageCount: 6
+          imageCount: 23
         },
         {
           title: "26年2月汇总",
@@ -7855,6 +7898,14 @@ body.has-bg-image::before {
           image: "https://img.cdn1.vip/i/699000e36c874_1771045091.webp",
           desc: "宝宝起源介绍 cr:salinepool",
           gallery: "mimu-set-39",
+          imageCount: 4
+        },
+        {
+          title: "4月壁纸",
+          date: "2026-03-25",
+          image: "https://img.cdn1.vip/i/69c3e49fccede_1774445727.webp",
+          desc: "咪木壁纸",
+          gallery: "mimu-set-43",
           imageCount: 4
         },
         {
@@ -9439,6 +9490,36 @@ const concertData = [
 const tmiData = [
   // 直播翻唱数据
   {
+    id: "cover058",
+    category: "cover",
+    title: "今日日记",
+    image: "https://img.cdn1.vip/i/69c3d49d74e50_1774441629.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV129QmBGEJR/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=5582s",
+      youtube: "https://www.youtube.com/watch?v=vddblA-wJjk&t=5582s",
+      xiaohongshu: 'https://www.xiaohongshu.com/discovery/item/69bd5903000000001b022c96?source=webshare&xhsshare=pc_web&xsec_token=ABEhcPteWqhhJvKZDTeF6cC3yGIQZ879Cs_moDZ4gjW-8=&xsec_source=pc_share'
+    },
+    source: {
+      date: "2026-03-20",
+      title: "1:33:02-1：34:38",
+    }
+  },
+  {
+    id: "cover057",
+    category: "cover",
+    title: "0+0",
+    image: "https://img.cdn1.vip/i/69c3dafdbd43b_1774443261.webp", 
+    links: {
+      bilibili: "https://www.bilibili.com/video/BV129QmBGEJR/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f&t=5793s",
+      youtube: "https://www.youtube.com/watch?v=vddblA-wJjk&t=5793s",
+      xiaohongshu: 'https://www.xiaohongshu.com/discovery/item/69be19150000000023015ea6?source=webshare&xhsshare=pc_web&xsec_token=ABNcwPFYTVu4Ti36ts0VWMZB9U3VuarztLW_-v3sysipc=&xsec_source=pc_share'
+    },
+    source: {
+      date: "2026-03-20",
+      title: "1:36:33-1：39:38",
+    }
+  },
+  {
     id: "cover008",
     category: "cover",
     title: "Flying Duck",
@@ -10737,21 +10818,33 @@ const tmiData = [
     // 日程数据
     const scheduleData = {
       upcoming: [
+        
+      ],
+      past: [
         {
           date: "2026-03-20",
           title: "💗 单人直播",
           type: "live",
           time: "19:00 (CST)",
           platform: "YouTube & B站同步",
-          important: false,
-          //预告链接
-          preview: {
-            bilibili: "https://live.bilibili.com/27433801?broadcast_type=0&is_room_feed=1&spm_id_from=333.1387.to_liveroom.0.click&live_from=86002", 
-            youtube: "https://www.youtube.com/watch?v=vddblA-wJjk",
+          //回放链接
+          replay: {
+            bilibili: 'https://www.bilibili.com/video/BV129QmBGEJR/?spm_id_from=333.1387.homepage.video_card.click', 
+            youtube: "https://www.youtube.com/watch?v=vddblA-wJjk"
          }
         },
-      ],
-      past: [
+        {
+          date: "2026-03-12",
+          title: "💙💜💗❤️🖤 3周年直播",
+          type: "live",
+          time: "19:00 (CST)",
+          platform: "YouTube & B站同步",
+          //回放链接
+          replay: {
+            bilibili: "https://www.bilibili.com/video/BV17uwYzVEF7/?spm_id_from=333.1387.homepage.video_card.click&vd_source=e230dc6164ce954968003ee48cac6c1f", 
+            youtube: "https://www.youtube.com/watch?v=NJGnK5DC2-c"
+         }
+        },
         {
           date: "2026-03-12",
           title: "💙💜💗❤️🖤 3周年直播",
@@ -11911,9 +12004,10 @@ function initChallengeMemberFilter() {
         <h4>观看渠道</h4>
         <div class="channels-grid">
           ${data.links.weibo ? `<a href="${data.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>` : ''}
-          ${data.links.bilibili ? `<a href="${data.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>` : ''}
-          ${data.links.youtube ? `<a href="${data.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>` : ''}
-          ${data.links.ins ? `<a href="${data.links.ins}" target="_blank" class="channel-btn instagram-link"><i class="fab fa-instagram"></i>Instagram</a>` : ''}
+${data.links.bilibili ? `<a href="${data.links.bilibili}" target="_blank" class="channel-btn bilibili"><i class="fab fa-bilibili"></i> B站</a>` : ''}
+${data.links.youtube ? `<a href="${data.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i> YouTube</a>` : ''}
+${data.links.ins ? `<a href="${data.links.ins}" target="_blank" class="channel-btn instagram-link"><i class="fab fa-instagram"></i> Instagram</a>` : ''}
+${data.links.xiaohongshu ? `<a href="${data.links.xiaohongshu}" target="_blank" class="channel-btn xiaohongshu-link">小红书</a>` : ''}
         </div>
       </div>
     </div>
@@ -14122,9 +14216,11 @@ function createTmiCard(item) {
 // 直播翻唱卡片
 function createCoverCard(item) {
   const linksHtml = [];
-  if (item.links?.bilibili) linksHtml.push(`<a href="${item.links.bilibili}" target="_blank" class="channel-btn bilibili"><span style="font-weight: bold;">B</span>站</a>`);
-  if (item.links?.youtube) linksHtml.push(`<a href="${item.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i>YouTube</a>`);
-  if (item.links?.weibo) linksHtml.push(`<a href="${item.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i>微博</a>`);
+if (item.links?.bilibili) linksHtml.push(`<a href="${item.links.bilibili}" target="_blank" class="channel-btn bilibili"><i class="fab fa-bilibili"></i> B站</a>`);
+if (item.links?.youtube) linksHtml.push(`<a href="${item.links.youtube}" target="_blank" class="channel-btn youtube-link"><i class="fab fa-youtube"></i> YouTube</a>`);
+if (item.links?.weibo) linksHtml.push(`<a href="${item.links.weibo}" target="_blank" class="channel-btn weibo"><i class="fab fa-weibo"></i> 微博</a>`);
+if (item.links?.ins) linksHtml.push(`<a href="${item.links.ins}" target="_blank" class="channel-btn instagram-link"><i class="fab fa-instagram"></i> Instagram</a>`);
+if (item.links?.xiaohongshu) linksHtml.push(`<a href="${item.links.xiaohongshu}" target="_blank" class="channel-btn xiaohongshu-link">小红书</a>`);
 
   return `
     <div class="work-image-container">
