@@ -599,11 +599,6 @@ body.has-bg-image::before {
 .channel-btn.bilibili {
   background: #FB7299; /* B站粉 */
 }
-/* 确保 FontAwesome 的 bilibili 图标正常显示 */
-.fa-bilibili:before {
-  content: "\e66e";
-  font-family: "Font Awesome 6 Brands";
-}
 .channel-btn.youtube-link {
   background: #FF0000 !important; /* YouTube红 */
 }
@@ -619,6 +614,36 @@ body.has-bg-image::before {
 .channel-btn .si {
   color: white;
   font-size: 1rem;
+}
+
+/* 通用功能按钮样式（非渠道链接） */
+.func-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+  background: var(--color-primary);        /* 使用主题粉色 */
+  color: white;
+}
+.func-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  opacity: 0.9;
+}
+.func-btn.secondary {
+  background: var(--color-gray-200);
+  color: var(--color-gray-700);
+}
+.func-btn.secondary:hover {
+  background: var(--color-gray-300);
 }
 
     /* ========= 图片查看器 ========= */
@@ -5224,10 +5249,9 @@ body.has-bg-image::before {
               <div class="work-content">
                 <h3 class="work-title">幕后花絮合集</h3>
                 <p class="work-desc">录制现场、排练、采访等幕后内容</p>
-                <button class="channel-btn weibo" style="width: 100%;" onclick="showToast('功能开发中')">
-                  <i class="fas fa-spinner"></i>
-                  查看花絮（开发中）
-                </button>
+                <button class="func-btn" style="width: 100%;" onclick="showToast('功能开发中')">
+  <i class="fas fa-spinner"></i> 查看花絮（开发中）
+</button>
               </div>
             </div>
           </div>
@@ -5303,10 +5327,9 @@ body.has-bg-image::before {
             <p style="color: var(--color-gray-500); margin-bottom: 10px; font-size: 0.9rem;">
               <i class="fas fa-info-circle"></i> 日程可能临时调整，请以官方通知为准
             </p>
-            <a href="https://plavecalendar.com/" target="_blank" class="channel-btn weibo" style="display: inline-block; max-width: 300px;">
-              <i class="fas fa-external-link-alt"></i>
-              查看官方完整日程
-            </a>
+            <a href="https://plavecalendar.com/" target="_blank" class="func-btn secondary" style="display: inline-block; max-width: 300px;">
+  <i class="fas fa-external-link-alt"></i> 查看官方完整日程
+</a>
           </div>
         </div>
 
@@ -5485,12 +5508,15 @@ body.has-bg-image::before {
         <h3 class="work-title">
           💌 粉丝祝福墙
           <span style="font-size:0.8rem; color:var(--color-gray-500); margin-left:8px;">实时共享</span>
+          <button id="reviewBlessBtn" class="func-btn" style="flex: 1;">
+    <i class="fas fa-history"></i> 回顾弹幕
+  </button>
         </h3>
         <div class="bless-form">
           <input type="text" id="blessInput" placeholder="写下对BAMBY的祝福..." maxlength="30">
-          <button id="sendBlessBtn" class="channel-btn weibo" style="width:100%; margin-top:10px;">
-            <i class="fas fa-paper-plane"></i> 发送祝福
-          </button>
+          <button id="sendBlessBtn" class="func-btn" style="width:100%; margin-top:10px;">
+  <i class="fas fa-paper-plane"></i> 发送祝福
+</button>
         </div>
         <div class="bless-list">
           <div class="bless-list-header">
@@ -11071,7 +11097,7 @@ const tmiData = [
       },
       {
         id: 'fanwork-7',
-        title: '黑军装​​​',
+        title: '黑西装',
         type: 'illustration',
         author: '@一般路过随贰摆',
         date: '2024-11-03',
@@ -11954,10 +11980,9 @@ function initChallengeMemberFilter() {
             ${data.imageCount ? `<span class="work-type">${data.imageCount}张</span>` : ''}
           </div>
           <p class="work-desc">${data.desc}</p>
-          <button class="channel-btn bilibili" style="width: 100%;" onclick="openImageGallery('${data.gallery}')">
-            <i class="fas fa-images"></i>
-            查看图片集 (${data.imageCount}张)
-          </button>
+          <button class="func-btn" style="width: 100%;" onclick="openImageGallery('${data.gallery}')">
+  <i class="fas fa-images"></i> 查看图片集 (${data.imageCount}张)
+</button>
         </div>
       `;
       
@@ -13980,12 +14005,12 @@ const announcementConfig = {
     <p>感谢各位bamline的支持！更新以下内容：</p>
     <ul>
       <li>🦌 <strong>彩蛋专区：跳一跳+翻翻乐</strong> - 点击三次"174cm"/"物料汇总"分别触发</li>
-      <li>🦌 <strong>用户系统</strong> - 登录可游玩跳一跳获得徽章，挑战前十成绩将计入榜单（其他区域）</li>
+      <li>🦌 <strong>用户系统</strong> - 登录即可挑战跳一跳前十，成绩将计入榜单（其他区域）</li>
       <li>🦌 <strong>斑比拾光</strong> - 计划包含所有直播和平台内容，内容过多缓慢更新中，如有需补充的内容可至其他-意见收集箱</li>
     </ul>
     <p>评论区可带图（微审核）欢迎大家留下比比美图💗</p>
     <p>如果有其他想法，欢迎在评论区/收集表留下足迹～</p>
-    <div class="announcement-date">公告日期：2026年3月20日</div>
+    <div class="announcement-date">公告日期：2026年3月25日</div>
   `,
   
   // 是否启用多条滚动
@@ -14870,10 +14895,69 @@ function listenToBlessings() {
     const blessing = snapshot.val();
     blessing.key = snapshot.key;
     addBlessingToList(blessing);
-    addScrollingBlessing(blessing.text);
   });
   blessingsRef.on('child_removed', (snapshot) => {
     removeBlessingFromList(snapshot.key);
+  });
+}
+
+// 回顾弹幕：获取所有祝福并依次飘屏
+function reviewBlessings() {
+  if (!database) {
+    showToast('数据库连接中，请稍后再试');
+    return;
+  }
+  
+  // 禁用按钮，避免重复点击
+  const reviewBtn = document.getElementById('reviewBlessBtn');
+  if (reviewBtn) {
+    reviewBtn.disabled = true;
+    reviewBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 加载中...';
+  }
+  
+  const blessingsRef = database.ref(BLESSINGS_REF);
+  // 获取所有祝福（按时间升序，让最早的先飘）
+  blessingsRef.orderByChild('timestamp').once('value', (snapshot) => {
+    const blessings = [];
+    snapshot.forEach(child => {
+      blessings.push(child.val());
+    });
+    
+    if (blessings.length === 0) {
+      showToast('暂无祝福，快去写一条吧~');
+      if (reviewBtn) {
+        reviewBtn.disabled = false;
+        reviewBtn.innerHTML = '<i class="fas fa-history"></i> 回顾弹幕';
+      }
+      return;
+    }
+    
+    showToast(`共 ${blessings.length} 条祝福即将飘过~`);
+    
+    let index = 0;
+    // 递归飘屏，每条间隔 1.2 秒（可根据需要调整）
+    function playNext() {
+      if (index >= blessings.length) {
+        showToast('弹幕回顾完毕');
+        if (reviewBtn) {
+          reviewBtn.disabled = false;
+          reviewBtn.innerHTML = '<i class="fas fa-history"></i> 回顾弹幕';
+        }
+        return;
+      }
+      const blessing = blessings[index];
+      addScrollingBlessing(blessing.text);
+      index++;
+      setTimeout(playNext, 800);  // 间隔1.2秒
+    }
+    playNext();
+  }).catch(err => {
+    console.error('获取祝福失败', err);
+    showToast('获取祝福失败，请重试');
+    if (reviewBtn) {
+      reviewBtn.disabled = false;
+      reviewBtn.innerHTML = '<i class="fas fa-history"></i> 回顾弹幕';
+    }
   });
 }
 
@@ -14938,6 +15022,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') sendBtn.click();
       });
     }
+    const reviewBtn = document.getElementById('reviewBlessBtn');
+if (reviewBtn) {
+  reviewBtn.addEventListener('click', reviewBlessings);
+}
   }, 1000);
 });
 
