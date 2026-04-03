@@ -15246,16 +15246,6 @@ const BADGES = {
       return today.getFullYear() === 2026 && today.getMonth() === 2 && today.getDate() === 12;
     }
   },
-  'badge_first_game': {
-    id: 'badge_first_game',
-    name: '初入江湖',
-    icon: 'https://img.cdn1.vip/i/69b27716a41ac_1773303574.webp', // 替换为实际图片URL
-    description: '第一次玩跳一跳游戏',
-    condition: function(uid) {
-      // 这个条件需要在游戏提交分数时检查，不能直接用简单的日期判断，所以我们将徽章颁发逻辑放在 checkGameBadges 中
-      return false; // 不用这里的条件
-    }
-  }
   // 以后可继续添加更多徽章
 };
 
