@@ -103,6 +103,11 @@
       border-radius: var(--radius-md);
       margin-bottom: 20px;
       border: 1px solid var(--color-gray-200);
+      transition: 0.2s;
+    }
+    .task-card.completed {
+      opacity: 0.85;
+      border-left: 4px solid #4CAF50;
     }
     .task-header {
       padding: 16px;
@@ -123,6 +128,13 @@
       border-radius: 50px;
       font-size: 0.7rem;
       color: var(--color-primary-dark);
+    }
+    .completed-badge {
+      background: #4CAF50;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
     }
     .indicators-area { padding: 16px; }
     .total-progress {
@@ -204,13 +216,21 @@
       box-shadow: var(--shadow-md);
     }
     .poster-banner img { width: 100%; display: block; }
+    .celebrate {
+      animation: celebrate 0.6s ease;
+    }
+    @keyframes celebrate {
+      0% { transform: scale(1); background: #FFD700; }
+      50% { transform: scale(1.02); background: #FFC107; }
+      100% { transform: scale(1); background: transparent; }
+    }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="page-header">
     <a href="https://bamby715.github.io" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-    <div class="page-title">大屏任务中心</div>
+    <div class="page-title">🍓 大屏任务中心</div>
   </div>
 
   <!-- 大屏海报，点击跳转小红书 -->
@@ -218,8 +238,10 @@
     <img src="https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp" alt="小红书大屏应援">
   </div>
 
-  <div id="dataTaskContainer"></div>
+  <!-- 容器顺序：进行中任务 → 换票互助 → 已完成任务 -->
+  <div id="activeTasksContainer"></div>
   <div id="exchangeContainer"></div>
+  <div id="completedTasksContainer"></div>
   <div id="adminTip" style="text-align:center; margin-top:20px; font-size:0.7rem; color:var(--color-gray-500);"></div>
 </div>
 
@@ -237,7 +259,7 @@
     appId: "1:417263643068:web:a48535804f3e1de628a3b9"
   };
   let database, auth, currentUser, isAdmin = false;
-  const ADMIN_EMAIL = ["2314078129@qq.com", "sandy13830@gmail.com"];
+  const ADMIN_EMAILS = ["2314078129@qq.com", "sandy13830@gmail.com"];
 
   // 任务数据
   const DEFAULT_DATA_TASK = {
@@ -262,7 +284,7 @@
     auth = firebase.auth();
     auth.onAuthStateChanged(user => {
       currentUser = user;
-      isAdmin = user && user.email === ADMIN_EMAIL;
+      isAdmin = user && ADMIN_EMAILS.includes(user.email);
       document.getElementById('adminTip').innerHTML = isAdmin ? '🔐 管理员模式 · 可更新数据' : '👀 游客模式 · 数据由管理员更新';
       loadDataTask();
       loadExchangeTasks();
@@ -285,33 +307,34 @@
 
   function renderDataTask(task) {
     const totalCurrent = task.likes + task.collects;
-    const percent = Math.min(100, Math.floor((totalCurrent / task.targetTotal) * 100));
-    let html = `
-      <div class="section-card">
-        <div class="section-title"><i class="fas fa-chart-line"></i> 📊 当前大屏冲刺任务</div>
-        <div class="task-card">
-          <div class="task-header">
-            <div class="task-title">
-              <span>${task.title} <i class="fab fa-xiaohongshu" style="color:#FE2C55;"></i></span>
-              <span class="deadline-badge"><i class="far fa-clock"></i> 截止 4/17</span>
-            </div>
-            <div class="task-desc">${task.description} &nbsp; <a href="${task.postUrl}" target="_blank" style="color:var(--color-primary-dark);">🔗 直达原帖</a></div>
+    const target = task.targetTotal;
+    const isCompleted = totalCurrent >= target;
+    
+    // 构建任务卡片HTML
+    const cardHtml = `
+      <div class="task-card ${isCompleted ? 'completed' : ''}" id="dataTaskCard">
+        <div class="task-header">
+          <div class="task-title">
+            <span>${task.title} <i class="fab fa-xiaohongshu" style="color:#FE2C55;"></i></span>
+            <span>
+              ${isCompleted ? '<span class="completed-badge"><i class="fas fa-check-circle"></i> 任务达成</span>' : `<span class="deadline-badge"><i class="far fa-clock"></i> 截止 4/27</span>`}
+            </span>
           </div>
-          <div class="indicators-area">
-            <div class="total-progress">
-              <div class="progress-label">
-                <span>总进度 (点赞+收藏)</span>
-                <span>${totalCurrent} / ${task.targetTotal}</span>
-              </div>
-              <div class="progress-bar-bg"><div class="progress-fill" style="width: ${percent}%;"></div></div>
-              <div class="detail-stats">
-                <span>👍 点赞: ${task.likes}</span>
-                <span>⭐ 收藏: ${task.collects}</span>
-              </div>
+          <div class="task-desc">${task.description} &nbsp; <a href="${task.postUrl}" target="_blank" style="color:var(--color-primary-dark);">🔗 直达原帖</a></div>
+        </div>
+        <div class="indicators-area">
+          <div class="total-progress">
+            <div class="progress-label">
+              <span>总进度 (点赞+收藏)</span>
+              <span>${totalCurrent} / ${target}</span>
             </div>
-    `;
-    if (isAdmin) {
-      html += `
+            <div class="progress-bar-bg"><div class="progress-fill" style="width: ${Math.min(100, (totalCurrent/target)*100)}%;"></div></div>
+            <div class="detail-stats">
+              <span>👍 点赞: ${task.likes}</span>
+              <span>⭐ 收藏: ${task.collects}</span>
+            </div>
+          </div>
+    ` + (isAdmin ? `
         <div class="admin-control">
           <input type="number" id="newLikes" placeholder="点赞数" value="${task.likes}" class="admin-input" style="flex:1;">
           <button class="admin-btn" onclick="updateLikes()">更新点赞</button>
@@ -324,10 +347,41 @@
           <button class="admin-btn" onclick="addToCollects(5)">+5</button>
           <button class="admin-btn" onclick="addToCollects(10)">+10</button>
         </div>
-      `;
+    ` : '') + `
+        </div>
+      </div>
+    `;
+
+    const activeContainer = document.getElementById('activeTasksContainer');
+    const completedContainer = document.getElementById('completedTasksContainer');
+    
+    if (isCompleted) {
+      // 已完成：显示在 completedTasksContainer
+      if (completedContainer.innerHTML.trim() === '') {
+        completedContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-trophy"></i> 已完成 · 历史任务</div><div id="completedTasksInner"></div></div>`;
+      }
+      const inner = document.getElementById('completedTasksInner');
+      if (inner) inner.innerHTML = cardHtml;
+      // 清空进行中区域
+      activeContainer.innerHTML = '';
+      // 庆祝特效
+      if (!window._lastCompletedState) {
+        const cardEl = document.querySelector('#completedTasksInner .task-card');
+        if (cardEl) cardEl.classList.add('celebrate');
+        setTimeout(() => { if(cardEl) cardEl.classList.remove('celebrate'); }, 1000);
+      }
+      window._lastCompletedState = true;
+    } else {
+      // 未完成：显示在 activeTasksContainer
+      if (activeContainer.innerHTML.trim() === '') {
+        activeContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-chart-line"></i> 📊 当前大屏冲刺任务</div><div id="activeTasksInner"></div></div>`;
+      }
+      const inner = document.getElementById('activeTasksInner');
+      if (inner) inner.innerHTML = cardHtml;
+      // 清空已完成区域
+      completedContainer.innerHTML = '';
+      window._lastCompletedState = false;
     }
-    html += `</div></div></div>`;
-    document.getElementById('dataTaskContainer').innerHTML = html;
   }
 
   // 管理员更新函数
@@ -396,7 +450,7 @@
           </div>
           <div class="indicators-area">
             <div class="exchange-condition"><i class="fas fa-clipboard-list"></i> ${t.condition}</div>
-            <div class="qr-code"><img src="${t.qr}" alt="二维码"><br>${t.link ? `<a href="${t.link}" target="_blank" style="color:var(--color-primary-dark);">📱 点击接龙/表单</a>` : ''}</div>
+            <div class="qr-code"><img src="${t.qr}" alt="二维码"><br>${t.link ? `<a href="${t.link}" target="_blank" style="color:var(--color-primary-dark);">📱 接龙表单</a>` : ''}</div>
           </div>
         </div>
       `;
