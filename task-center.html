@@ -239,12 +239,12 @@
   let database, auth, currentUser, isAdmin = false;
   const ADMIN_EMAIL = "2314078129@qq.com";
 
-  // 默认任务数据 (点赞60，收藏94，总目标160)
+  // 任务数据
   const DEFAULT_DATA_TASK = {
     id: "xiaohongshu_birthday",
-    title: "🍠 小红书 · 斑比生日大屏冲刺",
-    description: "两周内达成点赞+收藏共计160！🔥 点击上方海报直达原帖助力",
-    deadline: "2026-07-15T23:59:59+08:00",
+    title: "🍠 小红书 · 杭州五福天虹购物中心",
+    description: "时间：2周内，数据：点赞+收藏共计160，图片若不跳转点击后方链接",
+    deadline: "2026-04-27T23:59:59+08:00",
     isUrgent: true,
     postUrl: "http://xhslink.com/o/TktfJepvYg",
     likes: 60,
@@ -253,8 +253,7 @@
   };
 
   const DEFAULT_EXCHANGE = [
-    { id: "exchange1", title: "🎫 换票互助群", desc: "和其他粉丝交换票根/积分，让斑比大屏更持久", condition: "任意平台助力截图，扫码进群接龙", qr: "https://img.cdn1.vip/i/69b7d77004026_1773655920.webp", link: "https://forms.gle/example" },
-    { id: "exchange2", title: "💝 周边应援换票", desc: "凭官方周边购买记录兑换额外票数", condition: "持斑比/PLAVE任意周边，群内登记", qr: "https://s2.loli.net/2026/02/04/yGAfJciW98KC7Ok.gif" }
+    { id: "exchange1", title: "🎫 换票", desc: "微信扫码或点击下方链接跳转", condition: "30关注收藏点赞", qr: "https://img.cdn1.vip/i/69d12a67411e1_1775315559.webp", link: "https://s.qun100.com/link/afbymXGajTb" },
   ];
 
   function initFirebase() {
@@ -294,14 +293,14 @@
           <div class="task-header">
             <div class="task-title">
               <span>${task.title} <i class="fab fa-xiaohongshu" style="color:#FE2C55;"></i></span>
-              <span class="deadline-badge"><i class="far fa-clock"></i> 截止 7/15 🔥紧急</span>
+              <span class="deadline-badge"><i class="far fa-clock"></i> 截止 4/17</span>
             </div>
             <div class="task-desc">${task.description} &nbsp; <a href="${task.postUrl}" target="_blank" style="color:var(--color-primary-dark);">🔗 直达原帖</a></div>
           </div>
           <div class="indicators-area">
             <div class="total-progress">
               <div class="progress-label">
-                <span>❤️ 总互动进度 (点赞+收藏)</span>
+                <span>总进度 (点赞+收藏)</span>
                 <span>${totalCurrent} / ${task.targetTotal}</span>
               </div>
               <div class="progress-bar-bg"><div class="progress-fill" style="width: ${percent}%;"></div></div>
