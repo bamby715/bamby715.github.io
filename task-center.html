@@ -104,10 +104,19 @@
       margin-bottom: 20px;
       border: 1px solid var(--color-gray-200);
       transition: 0.2s;
+      overflow: hidden;
     }
     .task-card.completed {
       opacity: 0.85;
       border-left: 4px solid #4CAF50;
+    }
+    .task-image {
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .task-image:hover {
+      transform: scale(1.01);
     }
     .task-header {
       padding: 16px;
@@ -208,14 +217,6 @@
       font-size: 0.85rem;
       z-index: 1000;
     }
-    .poster-banner {
-      margin-bottom: 20px;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: var(--shadow-md);
-    }
-    .poster-banner img { width: 100%; display: block; }
     .celebrate {
       animation: celebrate 0.6s ease;
     }
@@ -231,11 +232,6 @@
   <div class="page-header">
     <a href="https://bamby715.github.io" class="back-btn"><i class="fas fa-arrow-left"></i></a>
     <div class="page-title">🍓 大屏任务中心</div>
-  </div>
-
-  <!-- 大屏海报，点击跳转小红书 -->
-  <div class="poster-banner" onclick="window.open('http://xhslink.com/o/TktfJepvYg', '_blank')">
-    <img src="https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp" alt="小红书大屏应援">
   </div>
 
   <!-- 容器顺序：进行中任务 → 换票互助 → 已完成任务 -->
@@ -265,13 +261,14 @@
   const DEFAULT_DATA_TASK = {
     id: "xiaohongshu_birthday",
     title: "🍠 小红书 · 杭州五福天虹购物中心",
-    description: "时间：2周内，数据：点赞+收藏共计160，图片若不跳转点击后方链接",
+    description: "时间：2周内，数据：点赞+收藏共计160，点击图片直达原帖助力",
     deadline: "2026-04-27T23:59:59+08:00",
     isUrgent: true,
     postUrl: "http://xhslink.com/o/TktfJepvYg",
     likes: 60,
     collects: 94,
-    targetTotal: 160
+    targetTotal: 160,
+    imageUrl: "https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp"
   };
 
   const DEFAULT_EXCHANGE = [
@@ -301,7 +298,6 @@
         renderDataTask(task);
       }
     });
-    // 实时监听
     ref.on('value', snap => { if(snap.exists()) renderDataTask(snap.val()); });
   }
 
@@ -310,9 +306,14 @@
     const target = task.targetTotal;
     const isCompleted = totalCurrent >= target;
     
-    // 构建任务卡片HTML
+    // 图片区域（仅未完成任务时显示）
+    const imageHtml = !isCompleted ? `
+      <img src="${task.imageUrl}" alt="任务海报" class="task-image" onclick="window.open('${task.postUrl}', '_blank')">
+    ` : '';
+
     const cardHtml = `
       <div class="task-card ${isCompleted ? 'completed' : ''}" id="dataTaskCard">
+        ${imageHtml}
         <div class="task-header">
           <div class="task-title">
             <span>${task.title} <i class="fab fa-xiaohongshu" style="color:#FE2C55;"></i></span>
@@ -356,15 +357,12 @@
     const completedContainer = document.getElementById('completedTasksContainer');
     
     if (isCompleted) {
-      // 已完成：显示在 completedTasksContainer
       if (completedContainer.innerHTML.trim() === '') {
-        completedContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-trophy"></i> 已完成 · 历史任务</div><div id="completedTasksInner"></div></div>`;
+        completedContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-trophy"></i>已完成 · 历史任务</div><div id="completedTasksInner"></div></div>`;
       }
       const inner = document.getElementById('completedTasksInner');
       if (inner) inner.innerHTML = cardHtml;
-      // 清空进行中区域
       activeContainer.innerHTML = '';
-      // 庆祝特效
       if (!window._lastCompletedState) {
         const cardEl = document.querySelector('#completedTasksInner .task-card');
         if (cardEl) cardEl.classList.add('celebrate');
@@ -372,19 +370,17 @@
       }
       window._lastCompletedState = true;
     } else {
-      // 未完成：显示在 activeTasksContainer
       if (activeContainer.innerHTML.trim() === '') {
         activeContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-chart-line"></i> 📊 当前大屏冲刺任务</div><div id="activeTasksInner"></div></div>`;
       }
       const inner = document.getElementById('activeTasksInner');
       if (inner) inner.innerHTML = cardHtml;
-      // 清空已完成区域
       completedContainer.innerHTML = '';
       window._lastCompletedState = false;
     }
   }
 
-  // 管理员更新函数
+  // 管理员更新函数（保持不变）
   window.updateLikes = function() {
     if(!isAdmin) return showToast("无权限");
     const val = parseInt(document.getElementById('newLikes').value);
@@ -440,7 +436,7 @@
   }
 
   function renderExchange(tasks) {
-    let html = `<div class="section-card"><div class="section-title"><i class="fas fa-ticket-alt"></i> 换票互助 · 集结令</div>`;
+    let html = `<div class="section-card"><div class="section-title"><i class="fas fa-ticket-alt"></i> 换票</div>`;
     tasks.forEach(t => {
       html += `
         <div class="task-card exchange-card">
