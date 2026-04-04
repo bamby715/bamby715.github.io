@@ -202,6 +202,9 @@
       cursor: pointer;
       font-size: 0.75rem;
     }
+    .admin-btn.complete {
+      background: #4CAF50;
+    }
     .exchange-card { border-left: 6px solid #FF9EBD; }
     .qr-code { text-align: center; margin: 16px 0 8px; }
     .qr-code img { max-width: 160px; border-radius: 12px; background: white; padding: 6px; }
@@ -257,7 +260,7 @@
   let database, auth, currentUser, isAdmin = false;
   const ADMIN_EMAILS = ["2314078129@qq.com", "sandy13830@gmail.com"];
 
-  // 任务数据
+  // 数据任务（小红书）
   const DEFAULT_DATA_TASK = {
     id: "xiaohongshu_birthday",
     title: "🍠 小红书 · 杭州五福天虹购物中心",
@@ -265,14 +268,23 @@
     deadline: "2026-04-27T23:59:59+08:00",
     isUrgent: true,
     postUrl: "http://xhslink.com/o/TktfJepvYg",
-    likes: 60,
-    collects: 94,
+    likes: 63,
+    collects: 103,
     targetTotal: 160,
     imageUrl: "https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp"
   };
 
+  // 换票任务（增加 completed 字段）
   const DEFAULT_EXCHANGE = [
-    { id: "exchange1", title: "🎫 换票", desc: "微信扫码或点击下方链接跳转", condition: "30关注收藏点赞", qr: "https://img.cdn1.vip/i/69d12a67411e1_1775315559.webp", link: "https://s.qun100.com/link/afbymXGajTb" },
+    { 
+      id: "exchange1", 
+      title: "🎫 换票", 
+      desc: "微信扫码或点击下方链接跳转", 
+      condition: "30关注收藏点赞", 
+      qr: "https://img.cdn1.vip/i/69d12a67411e1_1775315559.webp", 
+      link: "https://s.qun100.com/link/afbymXGajTb",
+      completed: false   // 是否已完成
+    },
   ];
 
   function initFirebase() {
@@ -306,7 +318,6 @@
     const target = task.targetTotal;
     const isCompleted = totalCurrent >= target;
     
-    // 图片区域（仅未完成任务时显示）
     const imageHtml = !isCompleted ? `
       <img src="${task.imageUrl}" alt="任务海报" class="task-image" onclick="window.open('${task.postUrl}', '_blank')">
     ` : '';
@@ -358,7 +369,7 @@
     
     if (isCompleted) {
       if (completedContainer.innerHTML.trim() === '') {
-        completedContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-trophy"></i>已完成 · 历史任务</div><div id="completedTasksInner"></div></div>`;
+        completedContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-trophy"></i>已完成·历史任务</div><div id="completedTasksInner"></div></div>`;
       }
       const inner = document.getElementById('completedTasksInner');
       if (inner) inner.innerHTML = cardHtml;
@@ -371,7 +382,7 @@
       window._lastCompletedState = true;
     } else {
       if (activeContainer.innerHTML.trim() === '') {
-        activeContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-chart-line"></i> 📊 当前大屏冲刺任务</div><div id="activeTasksInner"></div></div>`;
+        activeContainer.innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-chart-line"></i> 当前大屏冲刺任务</div><div id="activeTasksInner"></div></div>`;
       }
       const inner = document.getElementById('activeTasksInner');
       if (inner) inner.innerHTML = cardHtml;
@@ -380,7 +391,7 @@
     }
   }
 
-  // 管理员更新函数（保持不变）
+  // 管理员更新函数（数据任务）
   window.updateLikes = function() {
     if(!isAdmin) return showToast("无权限");
     const val = parseInt(document.getElementById('newLikes').value);
@@ -422,11 +433,28 @@
     });
   };
 
+  // 换票任务：标记完成（管理员）
+  window.completeExchangeTask = function(taskId) {
+    if(!isAdmin) return showToast("无权限");
+    const ref = database.ref('bamby_tasks/exchange');
+    ref.once('value', snap => {
+      let tasks = snap.val();
+      if (!tasks) return;
+      const index = tasks.findIndex(t => t.id === taskId);
+      if (index !== -1 && !tasks[index].completed) {
+        tasks[index].completed = true;
+        ref.set(tasks).then(() => {
+          showToast("换票任务已完成，已从页面移除");
+        }).catch(err => showToast("操作失败"));
+      }
+    });
+  };
+
   function loadExchangeTasks() {
     const ref = database.ref('bamby_tasks/exchange');
     ref.once('value', snap => {
       let tasks = snap.val();
-      if(!tasks || tasks.length===0) {
+      if (!tasks || tasks.length === 0) {
         ref.set(DEFAULT_EXCHANGE).then(() => renderExchange(DEFAULT_EXCHANGE));
       } else {
         renderExchange(tasks);
@@ -436,8 +464,14 @@
   }
 
   function renderExchange(tasks) {
+    // 只显示未完成的任务（completed !== true）
+    const activeTasks = tasks.filter(t => !t.completed);
+    if (activeTasks.length === 0) {
+      document.getElementById('exchangeContainer').innerHTML = `<div class="section-card"><div class="section-title"><i class="fas fa-ticket-alt"></i> 换票</div><div style="text-align:center; padding:20px; color:var(--color-gray-500);">暂无进行中的换票活动</div></div>`;
+      return;
+    }
     let html = `<div class="section-card"><div class="section-title"><i class="fas fa-ticket-alt"></i> 换票</div>`;
-    tasks.forEach(t => {
+    activeTasks.forEach(t => {
       html += `
         <div class="task-card exchange-card">
           <div class="task-header">
@@ -447,9 +481,11 @@
           <div class="indicators-area">
             <div class="exchange-condition"><i class="fas fa-clipboard-list"></i> ${t.condition}</div>
             <div class="qr-code"><img src="${t.qr}" alt="二维码"><br>${t.link ? `<a href="${t.link}" target="_blank" style="color:var(--color-primary-dark);">📱 接龙表单</a>` : ''}</div>
-          </div>
-        </div>
       `;
+      if (isAdmin) {
+        html += `<div style="margin-top:12px; text-align:right;"><button class="admin-btn complete" onclick="completeExchangeTask('${t.id}')"><i class="fas fa-check-circle"></i> 标记完成</button></div>`;
+      }
+      html += `</div></div>`;
     });
     html += `</div>`;
     document.getElementById('exchangeContainer').innerHTML = html;
