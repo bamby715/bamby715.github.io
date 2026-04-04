@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>斑比大屏任务中心 | 蔡丰玖·BAMBY</title>
-  <!-- 复用原网站风格 & Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ========= 原网站核心风格变量 (保持统一) ========= */
     :root {
       --color-primary-light: #FFE8F0;
       --color-primary: #FFC2D6;
@@ -17,7 +15,6 @@
       --color-gray-100: #F5F5F5;
       --color-gray-200: #EEEEEE;
       --color-gray-300: #E0E0E0;
-      --color-gray-400: #BDBDBD;
       --color-gray-500: #9E9E9E;
       --color-gray-600: #757575;
       --color-gray-700: #616161;
@@ -26,7 +23,6 @@
       --color-white: #FFFFFF;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
       --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
       --radius-md: 10px;
       --radius-lg: 14px;
       --font-heading: 'Fredoka', 'ZCOOL KuaiLe', cursive;
@@ -44,36 +40,14 @@
       --color-gray-900: #C6C6C6;
       --color-white: #121212;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: var(--font-body);
       background: var(--color-gray-50);
       color: var(--color-gray-800);
-      line-height: 1.5;
       padding: 20px 16px 60px;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: inherit;
-      background-size: cover;
-      background-position: center;
-      z-index: -2;
-      opacity: 0.6;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    /* 头部导航 & 返回 */
+    .container { max-width: 600px; margin: 0 auto; }
     .page-header {
       display: flex;
       align-items: center;
@@ -96,12 +70,6 @@
       color: white;
       font-size: 1.2rem;
       text-decoration: none;
-      transition: 0.2s;
-      box-shadow: var(--shadow-sm);
-    }
-    .back-btn:hover {
-      transform: scale(1.05);
-      background: var(--color-primary-dark);
     }
     .page-title {
       font-family: var(--font-heading);
@@ -112,12 +80,6 @@
       color: transparent;
       font-weight: 600;
     }
-    .sub-info {
-      font-size: 0.75rem;
-      color: var(--color-gray-500);
-      margin-left: auto;
-    }
-    /* 任务分组 */
     .section-card {
       background: rgba(255,255,255,0.85);
       backdrop-filter: blur(12px);
@@ -125,7 +87,6 @@
       border: 1px solid rgba(255,194,214,0.4);
       padding: 18px 16px;
       margin-bottom: 24px;
-      box-shadow: var(--shadow-md);
     }
     .section-title {
       font-size: 1.3rem;
@@ -134,7 +95,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--color-gray-900);
       border-left: 4px solid var(--color-primary);
       padding-left: 12px;
     }
@@ -142,9 +102,6 @@
       background: var(--color-white);
       border-radius: var(--radius-md);
       margin-bottom: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: 0.2s;
       border: 1px solid var(--color-gray-200);
     }
     .task-header {
@@ -157,7 +114,6 @@
       font-size: 1.2rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
       gap: 8px;
     }
@@ -167,40 +123,22 @@
       border-radius: 50px;
       font-size: 0.7rem;
       color: var(--color-primary-dark);
-      font-weight: 500;
     }
-    .task-desc {
-      font-size: 0.85rem;
-      color: var(--color-gray-600);
-      margin-top: 8px;
-    }
-    .indicators-area {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .indicator-item {
+    .indicators-area { padding: 16px; }
+    .total-progress {
       background: var(--color-gray-50);
       border-radius: var(--radius-md);
       padding: 12px;
+      margin-bottom: 20px;
     }
-    .indicator-label {
+    .progress-label {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 6px;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    .progress-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
     .progress-bar-bg {
-      flex: 1;
-      height: 12px;
+      height: 14px;
       background: var(--color-gray-300);
       border-radius: 20px;
       overflow: hidden;
@@ -210,22 +148,21 @@
       background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
       width: 0%;
       border-radius: 20px;
-      transition: width 0.3s ease;
+      transition: width 0.3s;
     }
-    .indicator-stats {
-      font-size: 0.8rem;
-      color: var(--color-gray-700);
-      min-width: 85px;
-      text-align: right;
+    .detail-stats {
+      display: flex;
+      gap: 20px;
+      margin: 15px 0 8px;
+      font-size: 0.9rem;
     }
     .admin-control {
-      margin-top: 12px;
+      margin-top: 15px;
       display: flex;
       gap: 8px;
-      align-items: center;
       flex-wrap: wrap;
       border-top: 1px dashed var(--color-gray-200);
-      padding-top: 10px;
+      padding-top: 12px;
     }
     .admin-input {
       flex: 1;
@@ -241,42 +178,12 @@
       padding: 6px 14px;
       border-radius: 30px;
       color: white;
-      font-weight: 500;
       cursor: pointer;
       font-size: 0.75rem;
-      transition: 0.2s;
     }
-    .admin-btn:hover {
-      background: var(--color-primary-dark);
-      transform: scale(0.96);
-    }
-    .exchange-card {
-      background: rgba(255,245,245,0.9);
-      border-left: 6px solid #FF9EBD;
-    }
-    .qr-code {
-      margin: 16px 0 8px;
-      text-align: center;
-    }
-    .qr-code img {
-      max-width: 180px;
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm);
-      background: white;
-      padding: 8px;
-    }
-    .exchange-condition {
-      font-size: 0.85rem;
-      background: var(--color-gray-100);
-      padding: 8px 12px;
-      border-radius: var(--radius-md);
-      margin-top: 8px;
-    }
-    .empty-tip {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--color-gray-500);
-    }
+    .exchange-card { border-left: 6px solid #FF9EBD; }
+    .qr-code { text-align: center; margin: 16px 0 8px; }
+    .qr-code img { max-width: 160px; border-radius: 12px; background: white; padding: 6px; }
     .toast-msg {
       position: fixed;
       bottom: 30px;
@@ -288,64 +195,38 @@
       border-radius: 40px;
       font-size: 0.85rem;
       z-index: 1000;
-      pointer-events: none;
-      backdrop-filter: blur(8px);
     }
     .poster-banner {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-md);
-      transition: 0.2s;
       cursor: pointer;
+      box-shadow: var(--shadow-md);
     }
-    .poster-banner img {
-      width: 100%;
-      display: block;
-    }
-    .admin-badge {
-      background: var(--color-primary-dark);
-      color: white;
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 30px;
-      margin-left: 8px;
-    }
-    @media (max-width: 500px) {
-      .indicator-stats { min-width: 70px; font-size: 0.7rem; }
-      .task-title { font-size: 1rem; }
-    }
+    .poster-banner img { width: 100%; display: block; }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- 头部：返回主页 + 标题 -->
   <div class="page-header">
     <a href="https://bamby715.github.io" class="back-btn"><i class="fas fa-arrow-left"></i></a>
     <div class="page-title">🎯 大屏任务中心</div>
-    <div class="sub-info"><i class="fas fa-chart-line"></i> 实时冲刺</div>
   </div>
 
-  <!-- 小红书专属应援海报 (大屏视觉) -->
+  <!-- 大屏海报，点击跳转小红书 -->
   <div class="poster-banner" onclick="window.open('http://xhslink.com/o/TktfJepvYg', '_blank')">
-    <img src="https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp" alt="斑比小红书大屏应援">
+    <img src="https://img.cdn1.vip/i/69d123217b7b4_1775313697.webp" alt="小红书大屏应援">
   </div>
 
-  <!-- 动态任务容器: 数据任务 & 换票任务 -->
-  <div id="dataTasksContainer"></div>
-  <div id="exchangeTasksContainer"></div>
-
-  <!-- 管理员提示 -->
-  <div id="adminGlobalTip" style="text-align:center; margin-top: 20px; font-size:0.7rem; color:var(--color-gray-500);"></div>
+  <div id="dataTaskContainer"></div>
+  <div id="exchangeContainer"></div>
+  <div id="adminTip" style="text-align:center; margin-top:20px; font-size:0.7rem; color:var(--color-gray-500);"></div>
 </div>
 
-<!-- Firebase SDK + 原配置 -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
 <script>
-  // -----------------------------  Firebase 配置 (与原站一致)  -----------------------------
   const firebaseConfig = {
     apiKey: "AIzaSyAqRn0A9i7i16OwD-bYMSZEtKNsdw7gPac",
     authDomain: "bamby-blessings.firebaseapp.com",
@@ -355,262 +236,185 @@
     messagingSenderId: "417263643068",
     appId: "1:417263643068:web:a48535804f3e1de628a3b9"
   };
+  let database, auth, currentUser, isAdmin = false;
+  const ADMIN_EMAIL = "2314078129@qq.com";
 
-  let database, auth;
-  let currentUser = null;
-  let isAdmin = false;
-  // 管理员邮箱白名单 (请替换为实际管理员邮箱，支持多个)
-  const ADMIN_EMAILS = ["admin@bamby.com", "bamline@example.com"];  // 部署时改为实际邮箱
-
-  // 默认任务配置 (重点：小红书帖子，点赞+收藏，目标分别为80/80，总计160，当前60赞94藏)
-  const DEFAULT_TASKS = {
-    dataTasks: [
-      {
-        id: "xiaohongshu_birthday_bigscreen",
-        title: "🍠 小红书 · 斑比生日大屏冲刺",
-        platform: "xiaohongshu",
-        description: "目标：两周内点赞+收藏共计160！现已开启大屏应援，🔥 需要每一位bamline助力！点击上方海报直达原帖❤️",
-        deadline: "2026-07-15T23:59:59+08:00",
-        isUrgent: true,
-        postUrl: "http://xhslink.com/o/TktfJepvYg",
-        indicators: [
-          { name: "👍 点赞数", target: 80, current: 60, key: "likes" },
-          { name: "⭐ 收藏数", target: 80, current: 94, key: "collects" }
-        ]
-      }
-    ],
-    exchangeTasks: [
-      {
-        id: "exchange_wechat_group",
-        title: "🎫 换票互助 · 大屏额外票仓",
-        description: "和其他粉丝交换票根/积分，让斑比大屏曝光更持久！",
-        condition: "任意平台助力截图+私信管理员，扫码进入接龙群即可参与换票",
-        qrCodeUrl: "https://img.cdn1.vip/i/69b7d77004026_1773655920.webp",
-        link: "https://forms.gle/example"
-      },
-      {
-        id: "exchange_merch",
-        title: "💝 周边应援换票",
-        description: "凭官方周边购买记录可兑换额外大屏票数",
-        condition: "持斑比/PLAVE任意周边，群内登记接龙",
-        qrCodeUrl: "https://s2.loli.net/2026/02/04/yGAfJciW98KC7Ok.gif"
-      }
-    ]
+  // 默认任务数据 (点赞60，收藏94，总目标160)
+  const DEFAULT_DATA_TASK = {
+    id: "xiaohongshu_birthday",
+    title: "🍠 小红书 · 斑比生日大屏冲刺",
+    description: "两周内达成点赞+收藏共计160！🔥 点击上方海报直达原帖助力",
+    deadline: "2026-07-15T23:59:59+08:00",
+    isUrgent: true,
+    postUrl: "http://xhslink.com/o/TktfJepvYg",
+    likes: 60,
+    collects: 94,
+    targetTotal: 160
   };
 
+  const DEFAULT_EXCHANGE = [
+    { id: "exchange1", title: "🎫 换票互助群", desc: "和其他粉丝交换票根/积分，让斑比大屏更持久", condition: "任意平台助力截图，扫码进群接龙", qr: "https://img.cdn1.vip/i/69b7d77004026_1773655920.webp", link: "https://forms.gle/example" },
+    { id: "exchange2", title: "💝 周边应援换票", desc: "凭官方周边购买记录兑换额外票数", condition: "持斑比/PLAVE任意周边，群内登记", qr: "https://s2.loli.net/2026/02/04/yGAfJciW98KC7Ok.gif" }
+  ];
+
   function initFirebase() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     database = firebase.database();
     auth = firebase.auth();
-    
     auth.onAuthStateChanged(user => {
       currentUser = user;
-      if (user && user.email && ADMIN_EMAILS.includes(user.email)) {
-        isAdmin = true;
-        document.getElementById('adminGlobalTip').innerHTML = '<i class="fas fa-lock-open"></i> 管理员模式已启用 · 可手动更新点赞/收藏数据';
-      } else {
-        isAdmin = false;
-        document.getElementById('adminGlobalTip').innerHTML = '<i class="fas fa-eye"></i> 仅查看模式 · 数据由管理员更新，感谢助力❤️';
-      }
-      loadAllTasks();
+      isAdmin = user && user.email === ADMIN_EMAIL;
+      document.getElementById('adminTip').innerHTML = isAdmin ? '🔐 管理员模式 · 可更新数据' : '👀 游客模式 · 数据由管理员更新';
+      loadDataTask();
+      loadExchangeTasks();
     });
   }
 
-  function loadAllTasks() {
-    if (!database) return;
-    // 数据任务
-    database.ref('bamby_tasks/dataTasks').once('value', snapshot => {
-      let dataTasks = snapshot.val();
-      if (!dataTasks || dataTasks.length === 0) {
-        database.ref('bamby_tasks/dataTasks').set(DEFAULT_TASKS.dataTasks).then(() => {
-          renderDataTasks(DEFAULT_TASKS.dataTasks);
-        });
+  function loadDataTask() {
+    const ref = database.ref('bamby_tasks/main');
+    ref.once('value', snap => {
+      let task = snap.val();
+      if (!task) {
+        ref.set(DEFAULT_DATA_TASK).then(() => renderDataTask(DEFAULT_DATA_TASK));
       } else {
-        renderDataTasks(dataTasks);
+        renderDataTask(task);
       }
     });
-    database.ref('bamby_tasks/exchangeTasks').once('value', snapshot => {
-      let exchangeTasks = snapshot.val();
-      if (!exchangeTasks || exchangeTasks.length === 0) {
-        database.ref('bamby_tasks/exchangeTasks').set(DEFAULT_TASKS.exchangeTasks).then(() => {
-          renderExchangeTasks(DEFAULT_TASKS.exchangeTasks);
-        });
-      } else {
-        renderExchangeTasks(exchangeTasks);
-      }
-    });
-    // 实时监听进度变化
-    database.ref('bamby_tasks/dataTasks').on('value', snap => {
-      if (snap.exists()) renderDataTasks(snap.val());
-    });
+    // 实时监听
+    ref.on('value', snap => { if(snap.exists()) renderDataTask(snap.val()); });
   }
 
-  // 渲染数据任务（单任务突出显示，带紧急标识）
-  function renderDataTasks(tasks) {
-    if (!tasks || tasks.length === 0) {
-      document.getElementById('dataTasksContainer').innerHTML = `<div class="section-card"><div class="empty-tip">✨ 暂无数据任务，请等待管理员配置 ✨</div></div>`;
-      return;
-    }
-    // 紧急优先+截止时间排序
-    const sorted = [...tasks].sort((a,b) => {
-      if (a.isUrgent && !b.isUrgent) return -1;
-      if (!a.isUrgent && b.isUrgent) return 1;
-      return new Date(a.deadline) - new Date(b.deadline);
-    });
-    
-    let html = `<div class="section-card"><div class="section-title"><i class="fas fa-chart-simple"></i> 📊 当前大屏冲刺任务</div>`;
-    sorted.forEach(task => {
-      const deadlineDate = new Date(task.deadline);
-      const isExpired = deadlineDate < new Date();
-      const deadlineStr = !isNaN(deadlineDate) ? `截止：${deadlineDate.getMonth()+1}/${deadlineDate.getDate()}` : '待定';
-      // 计算总互动进度 (可选展示)
-      let totalCurrent = 0, totalTarget = 0;
-      task.indicators.forEach(ind => { totalCurrent += ind.current; totalTarget += ind.target; });
-      const totalPercent = Math.min(100, Math.floor((totalCurrent / totalTarget) * 100));
-      
-      html += `
-        <div class="task-card" data-task-id="${task.id}">
+  function renderDataTask(task) {
+    const totalCurrent = task.likes + task.collects;
+    const percent = Math.min(100, Math.floor((totalCurrent / task.targetTotal) * 100));
+    let html = `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-chart-line"></i> 📊 当前大屏冲刺任务</div>
+        <div class="task-card">
           <div class="task-header">
             <div class="task-title">
               <span>${task.title} <i class="fab fa-xiaohongshu" style="color:#FE2C55;"></i></span>
-              <span class="deadline-badge"><i class="far fa-clock"></i> ${deadlineStr} 🔥紧急</span>
+              <span class="deadline-badge"><i class="far fa-clock"></i> 截止 7/15 🔥紧急</span>
             </div>
-            <div class="task-desc">${task.description || ''} &nbsp; <a href="${task.postUrl}" target="_blank" style="color:var(--color-primary-dark);">🔗 直达原帖</a></div>
-            <div class="task-desc" style="margin-top:5px;"><i class="fas fa-chart-line"></i> 总互动进度: ${totalCurrent} / ${totalTarget} (${totalPercent}%)</div>
+            <div class="task-desc">${task.description} &nbsp; <a href="${task.postUrl}" target="_blank" style="color:var(--color-primary-dark);">🔗 直达原帖</a></div>
           </div>
-          <div class="indicators-area" id="indicators-${task.id}">
-      `;
-      task.indicators.forEach((ind, idx) => {
-        const percent = Math.min(100, Math.floor((ind.current / ind.target) * 100));
-        html += `
-          <div class="indicator-item">
-            <div class="indicator-label">
-              <span><i class="fas fa-heart" style="color: var(--color-primary);"></i> ${ind.name}</span>
-              <span>${ind.current} / ${ind.target}</span>
-            </div>
-            <div class="progress-wrapper">
+          <div class="indicators-area">
+            <div class="total-progress">
+              <div class="progress-label">
+                <span>❤️ 总互动进度 (点赞+收藏)</span>
+                <span>${totalCurrent} / ${task.targetTotal}</span>
+              </div>
               <div class="progress-bar-bg"><div class="progress-fill" style="width: ${percent}%;"></div></div>
-              <div class="indicator-stats">${percent}%</div>
+              <div class="detail-stats">
+                <span>👍 点赞: ${task.likes}</span>
+                <span>⭐ 收藏: ${task.collects}</span>
+              </div>
             </div>
-        `;
-        if (isAdmin) {
-          html += `
-            <div class="admin-control" data-task="${task.id}" data-indkey="${ind.key}">
-              <input type="number" class="admin-input" id="input-${task.id}-${ind.key}" placeholder="新数值" value="${ind.current}" step="1" min="0">
-              <button class="admin-btn" onclick="updateIndicator('${task.id}', '${ind.key}', this)">更新</button>
-              <button class="admin-btn" style="background:#BDBDBD;" onclick="addIncrement('${task.id}', '${ind.key}', 5)">+5</button>
-              <button class="admin-btn" style="background:#BDBDBD;" onclick="addIncrement('${task.id}', '${ind.key}', 10)">+10</button>
-            </div>
-          `;
-        }
-        html += `</div>`;
-      });
-      html += `</div></div>`;
-    });
-    html += `</div>`;
-    document.getElementById('dataTasksContainer').innerHTML = html;
+    `;
+    if (isAdmin) {
+      html += `
+        <div class="admin-control">
+          <input type="number" id="newLikes" placeholder="点赞数" value="${task.likes}" class="admin-input" style="flex:1;">
+          <button class="admin-btn" onclick="updateLikes()">更新点赞</button>
+          <button class="admin-btn" onclick="addToLikes(5)">+5</button>
+          <button class="admin-btn" onclick="addToLikes(10)">+10</button>
+        </div>
+        <div class="admin-control">
+          <input type="number" id="newCollects" placeholder="收藏数" value="${task.collects}" class="admin-input">
+          <button class="admin-btn" onclick="updateCollects()">更新收藏</button>
+          <button class="admin-btn" onclick="addToCollects(5)">+5</button>
+          <button class="admin-btn" onclick="addToCollects(10)">+10</button>
+        </div>
+      `;
+    }
+    html += `</div></div></div>`;
+    document.getElementById('dataTaskContainer').innerHTML = html;
   }
 
-  // 换票任务渲染
-  function renderExchangeTasks(tasks) {
-    if (!tasks || tasks.length === 0) {
-      document.getElementById('exchangeTasksContainer').innerHTML = `<div class="section-card"><div class="empty-tip">🎁 暂无换票活动，请关注后续~</div></div>`;
-      return;
-    }
+  // 管理员更新函数
+  window.updateLikes = function() {
+    if(!isAdmin) return showToast("无权限");
+    const val = parseInt(document.getElementById('newLikes').value);
+    if(isNaN(val)) return;
+    const ref = database.ref('bamby_tasks/main');
+    ref.once('value', snap => {
+      let task = snap.val();
+      task.likes = val;
+      ref.set(task).then(() => showToast("点赞数已更新"));
+    });
+  };
+  window.updateCollects = function() {
+    if(!isAdmin) return;
+    const val = parseInt(document.getElementById('newCollects').value);
+    if(isNaN(val)) return;
+    const ref = database.ref('bamby_tasks/main');
+    ref.once('value', snap => {
+      let task = snap.val();
+      task.collects = val;
+      ref.set(task).then(() => showToast("收藏数已更新"));
+    });
+  };
+  window.addToLikes = function(inc) {
+    if(!isAdmin) return;
+    const ref = database.ref('bamby_tasks/main');
+    ref.once('value', snap => {
+      let task = snap.val();
+      task.likes += inc;
+      ref.set(task).then(() => showToast(`点赞 +${inc}`));
+    });
+  };
+  window.addToCollects = function(inc) {
+    if(!isAdmin) return;
+    const ref = database.ref('bamby_tasks/main');
+    ref.once('value', snap => {
+      let task = snap.val();
+      task.collects += inc;
+      ref.set(task).then(() => showToast(`收藏 +${inc}`));
+    });
+  };
+
+  function loadExchangeTasks() {
+    const ref = database.ref('bamby_tasks/exchange');
+    ref.once('value', snap => {
+      let tasks = snap.val();
+      if(!tasks || tasks.length===0) {
+        ref.set(DEFAULT_EXCHANGE).then(() => renderExchange(DEFAULT_EXCHANGE));
+      } else {
+        renderExchange(tasks);
+      }
+    });
+    ref.on('value', snap => { if(snap.exists()) renderExchange(snap.val()); });
+  }
+
+  function renderExchange(tasks) {
     let html = `<div class="section-card"><div class="section-title"><i class="fas fa-ticket-alt"></i> 换票互助 · 集结令</div>`;
-    tasks.forEach(task => {
+    tasks.forEach(t => {
       html += `
         <div class="task-card exchange-card">
           <div class="task-header">
-            <div class="task-title">${task.title}</div>
-            <div class="task-desc">${task.description || ''}</div>
+            <div class="task-title">${t.title}</div>
+            <div class="task-desc">${t.desc}</div>
           </div>
-          <div class="indicators-area" style="padding-top: 0;">
-            <div class="exchange-condition"><i class="fas fa-clipboard-list"></i> 参与条件：${task.condition || '联系管理员'}</div>
-            <div class="qr-code">
-              <img src="${task.qrCodeUrl}" alt="换票二维码" onerror="this.src='https://via.placeholder.com/150?text=QR+Code'">
-              ${task.link ? `<div style="margin-top:6px;"><a href="${task.link}" target="_blank" style="color:var(--color-primary-dark);">📱 点击跳转接龙/表单</a></div>` : ''}
-            </div>
-            <div style="font-size:0.7rem; text-align:center; color:var(--color-gray-500);">扫码或点击链接参与换票，助力大屏!</div>
+          <div class="indicators-area">
+            <div class="exchange-condition"><i class="fas fa-clipboard-list"></i> ${t.condition}</div>
+            <div class="qr-code"><img src="${t.qr}" alt="二维码"><br>${t.link ? `<a href="${t.link}" target="_blank" style="color:var(--color-primary-dark);">📱 点击接龙/表单</a>` : ''}</div>
           </div>
         </div>
       `;
     });
     html += `</div>`;
-    document.getElementById('exchangeTasksContainer').innerHTML = html;
+    document.getElementById('exchangeContainer').innerHTML = html;
   }
 
-  // ---------- 数据更新函数 (管理员) ----------
-  window.updateIndicator = function(taskId, indicatorKey, btnElement) {
-    if (!isAdmin) {
-      showToast("无权限，请使用管理员账号登录");
-      return;
-    }
-    const inputId = `input-${taskId}-${indicatorKey}`;
-    const inputEl = document.getElementById(inputId);
-    if (!inputEl) return;
-    let newValue = parseInt(inputEl.value, 10);
-    if (isNaN(newValue) || newValue < 0) newValue = 0;
-    
-    const taskRef = database.ref(`bamby_tasks/dataTasks`);
-    taskRef.once('value', snapshot => {
-      const tasks = snapshot.val() || [];
-      const taskIndex = tasks.findIndex(t => t.id === taskId);
-      if (taskIndex === -1) return;
-      const indIndex = tasks[taskIndex].indicators.findIndex(ind => ind.key === indicatorKey);
-      if (indIndex === -1) return;
-      tasks[taskIndex].indicators[indIndex].current = newValue;
-      taskRef.set(tasks).then(() => {
-        showToast(`✅ ${tasks[taskIndex].indicators[indIndex].name} 更新为 ${newValue}`);
-        inputEl.value = newValue;
-      }).catch(err => showToast("更新失败"));
-    });
-  };
-
-  window.addIncrement = function(taskId, indicatorKey, increment = 10) {
-    if (!isAdmin) {
-      showToast("仅管理员可操作");
-      return;
-    }
-    const taskRef = database.ref(`bamby_tasks/dataTasks`);
-    taskRef.once('value', snapshot => {
-      const tasks = snapshot.val() || [];
-      const taskIndex = tasks.findIndex(t => t.id === taskId);
-      if (taskIndex === -1) return;
-      const indIndex = tasks[taskIndex].indicators.findIndex(ind => ind.key === indicatorKey);
-      if (indIndex === -1) return;
-      const oldVal = tasks[taskIndex].indicators[indIndex].current;
-      const newVal = oldVal + increment;
-      tasks[taskIndex].indicators[indIndex].current = newVal;
-      taskRef.set(tasks).then(() => {
-        showToast(`✨ ${tasks[taskIndex].indicators[indIndex].name} +${increment} (现${newVal})`);
-        const inputId = `input-${taskId}-${indicatorKey}`;
-        const inputEl = document.getElementById(inputId);
-        if (inputEl) inputEl.value = newVal;
-      }).catch(err => showToast("增加失败"));
-    });
-  };
-
   function showToast(msg) {
-    let toast = document.querySelector('.toast-msg');
-    if (toast) toast.remove();
-    const div = document.createElement('div');
+    let t = document.querySelector('.toast-msg');
+    if(t) t.remove();
+    let div = document.createElement('div');
     div.className = 'toast-msg';
     div.innerText = msg;
     document.body.appendChild(div);
-    setTimeout(() => { div.style.opacity = '0'; setTimeout(() => div.remove(), 500); }, 2000);
+    setTimeout(() => div.remove(), 2000);
   }
-
-  // 同步原网站深色模式主题
-  function syncTheme() {
-    const savedTheme = localStorage.getItem('bamby-theme');
-    if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-    else document.documentElement.setAttribute('data-theme', 'light');
-  }
-  syncTheme();
-  window.addEventListener('storage', (e) => { if (e.key === 'bamby-theme') syncTheme(); });
 
   initFirebase();
 </script>
